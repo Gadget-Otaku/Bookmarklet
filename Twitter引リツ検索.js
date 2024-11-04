@@ -1,0 +1,1 @@
+javascript:(function() {    var url = window.location.href;    if (!url.endsWith('/quotes')) {        window.location.href = url + '/quotes';    }})();
