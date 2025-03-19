@@ -7,10 +7,8 @@ javascript:(function(){
     alert('コメントボタンが見つかりませんでした');
   }
 
-
   var existingBox = document.getElementById('yt-comment-filter-box');
   if(existingBox) existingBox.remove();
-
 
   var box = document.createElement('div');
   box.id = 'yt-comment-filter-box';
@@ -19,35 +17,33 @@ javascript:(function(){
   box.style.left = '100px';
   box.style.background = 'rgba(255,255,255,0.9)';
   box.style.border = '1px solid #ccc';
-  box.style.padding = '5px';
+  box.style.padding = '7px';
   box.style.zIndex = 9999;
-  box.style.borderRadius = '5px';
-
+  box.style.borderRadius = '7px';
 
   var input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'キーワード';
-  input.style.marginRight = '5px';
+  input.style.marginRight = '7px';
   box.appendChild(input);
-
 
   var btnSearch = document.createElement('button');
   btnSearch.innerText = '検索';
-  btnSearch.style.marginRight = '5px';
+  btnSearch.style.marginRight = '7px';
   box.appendChild(btnSearch);
-
 
   var btnClose = document.createElement('button');
   btnClose.innerText = '☒';
+
+  btnClose.style.fontSize = '24px';
+  btnClose.style.padding = '10px 15px';
   box.appendChild(btnClose);
 
   document.body.appendChild(box);
 
-
   btnClose.addEventListener('click', function(){
     box.remove();
   });
-
 
   btnSearch.addEventListener('click', function(){
     var keyword = input.value.trim();
