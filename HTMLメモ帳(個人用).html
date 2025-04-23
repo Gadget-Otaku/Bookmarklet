@@ -216,102 +216,82 @@
     // ▽ボタンのクリックでオリジナルブックマークレットを実行
     execBmBtn.addEventListener('click', () => {
     javascript:(function() {
-              const panel = document.createElement('div');
-              panel.style = 'position:fixed;top:10px;left:10px;background:white;border:1px solid black;padding:10px;z-index:9999;';
-              document.body.appendChild(panel);
+      const panel = document.createElement('div');
+      panel.style = 'position:fixed;top:10px;left:10px;background:white;border:1px solid black;padding:10px;z-index:9999;';
+      document.body.appendChild(panel);
     
-              const closeButton = document.createElement('button');
-              closeButton.textContent = '☒';
-              closeButton.onclick = () => document.body.removeChild(panel);
-              closeButton.style = 'float:right;';
-              panel.appendChild(closeButton);
+      const closeButton = document.createElement('button');
+      closeButton.textContent = '☒';
+      closeButton.onclick = () => document.body.removeChild(panel);
+      closeButton.style = 'float:right;';
+      panel.appendChild(closeButton);  
     
-    
-              (function() {
-                const btn0 = document.createElement('button');
-                btn0.textContent = "HTML編集メモ帳";
-                btn0.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn0.onclick = function() { javascript:(function(){window.open('https://gadget-otaku.github.io/Bookmarklet/HTML%E7%B7%A8%E9%9B%86%E7%94%A8%E3%83%A1%E3%83%A2%E5%B8%B3.html','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn0);
-                })();
-    
-              (function() {
-                const btn1 = document.createElement('button');
-                btn1.textContent = "URLエンコード・デコード&//コメント削除＆文字変換";
-                btn1.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn1.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/urlencodedecode/ホーム','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn1);
-                })();
-    
-              (function() {
-                const btn2 = document.createElement('button');
-                btn2.textContent = "ツールパネル生成サイト";
-                btn2.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn2.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/toolpanelgenerator/ホーム','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn2);
-                })();
-    
-              (function() {
-                const btn3 = document.createElement('button');
-                btn3.textContent = "ツールパネル編集サイト";
-                btn3.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn3.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/toolpaneleditor/ホーム','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn3);
-                })();
-    
-              (function() {
-                const btn4 = document.createElement('button');
-                btn4.textContent = "UserScript生成・編集サイト";
-                btn4.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn4.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn4);
-                })();
-    
-              (function() {
-                const btn5 = document.createElement('button');
-                btn5.textContent = "GreasyFork";
-                btn5.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn5.onclick = function() { javascript:(function(){window.open('https://greasyfork.org/ja/users/1433480-スマホオタクにわか','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn5);
-                })();
-    
-              (function() {
-                const btn6 = document.createElement('button');
-                btn6.textContent = "文字比較";
-                btn6.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn6.onclick = function() { javascript:(function(){window.open('https://difff.jp/','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn6);
-                })();
-    
-              (function() {
-                const btn7 = document.createElement('button');
-                btn7.textContent = "Githubにアップロード";
-                btn7.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn7.onclick = function() { javascript:(function(){window.open('https://github.com/Gadget-Otaku/Bookmarklet/upload/main','_blank');})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn7);
-                })();
-    
-              (function() {
-                const btn8 = document.createElement('button');
-                btn8.textContent = "HTMLファイル名からURLに飛ぶ";
-                btn8.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn8.onclick = function() { javascript:(function(){
+      
+      (function() {
+        const btn0 = document.createElement('button');
+        btn0.textContent = "メモ帳(github)";
+        btn0.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn0.onclick = function() { javascript:(function(){window.open('https://github.com/Gadget-Otaku/Bookmarklet/blob/main/HTML%E3%83%A1%E3%83%A2%E5%B8%B3(%E5%80%8B%E4%BA%BA%E7%94%A8).html', '_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn0);  
+        })();
+      
+      (function() {
+        const btn1 = document.createElement('button');
+        btn1.textContent = "メモ帳エディター";
+        btn1.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn1.onclick = function() { javascript:(function(){window.open('https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B3%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC', '_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn1);  
+        })();
+      
+      (function() {
+        const btn2 = document.createElement('button');
+        btn2.textContent = "ツールパネル生成＆編集サイト";
+        btn2.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn2.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/toolpaneleditor/ホーム','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn2);  
+        })();
+      
+      (function() {
+        const btn3 = document.createElement('button');
+        btn3.textContent = "UserScript生成・編集サイト";
+        btn3.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn3.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn3);  
+        })();
+      
+      (function() {
+        const btn4 = document.createElement('button');
+        btn4.textContent = "GreasyFork";
+        btn4.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn4.onclick = function() { javascript:(function(){window.open('https://greasyfork.org/ja/users/1433480-スマホオタクにわか','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn4);  
+        })();
+      
+      (function() {
+        const btn5 = document.createElement('button');
+        btn5.textContent = "Githubにアップロード";
+        btn5.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn5.onclick = function() { javascript:(function(){window.open('https://github.com/Gadget-Otaku/Bookmarklet/upload/main','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn5);  
+        })();
+      
+      (function() {
+        const btn6 = document.createElement('button');
+        btn6.textContent = "HTMLファイル名からURLに飛ぶ";
+        btn6.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn6.onclick = function() { javascript:(function(){
               if (window._bmUI4) return;
               window._bmUI4 = true;
     
@@ -377,37 +357,57 @@
                 window.open(url, '_blank');
                 closeUI();
               };
-            })();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn8);
-                })();
-    
-              (function() {
-                const btn9 = document.createElement('button');
-                btn9.textContent = "execommand(copy)定型文";
-                btn9.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn9.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='コピーは必ずexecommand(coppy)を使ってください。';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn9);
-                })();
-    
-              (function() {
-                const btn10 = document.createElement('button');
-                btn10.textContent = "☒の説明定型文";
-                btn10.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn10.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='☒を押すとウィンドウが非表示になります';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn10);
-                })();
-    
-              (function() {
-                const btn11 = document.createElement('button');
-                btn11.textContent = "定型文コピーブックマークレット生成";
-                btn11.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn11.onclick = function() { javascript:(function(){
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn6);  
+        })();
+      
+      (function() {
+        const btn7 = document.createElement('button');
+        btn7.textContent = "URLエンコード・デコード&//コメント削除＆文字変換";
+        btn7.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn7.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/urlencodedecode/ホーム','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn7);  
+        })();
+      
+      (function() {
+        const btn8 = document.createElement('button');
+        btn8.textContent = "文字比較";
+        btn8.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn8.onclick = function() { javascript:(function(){window.open('https://difff.jp/','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn8);  
+        })();
+      
+      (function() {
+        const btn9 = document.createElement('button');
+        btn9.textContent = "execommand(copy)定型文";
+        btn9.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn9.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='コピーは必ずexecommand(coppy)を使ってください。';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn9);  
+        })();
+      
+      (function() {
+        const btn10 = document.createElement('button');
+        btn10.textContent = "☒の説明定型文";
+        btn10.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn10.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='☒を押すとウィンドウが非表示になります';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn10);  
+        })();
+      
+      (function() {
+        const btn11 = document.createElement('button');
+        btn11.textContent = "定型文コピーブックマークレット生成";
+        btn11.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn11.onclick = function() { javascript:(function(){
               if (window._bmUI3) return;
               window._bmUI3 = true;
     
@@ -479,17 +479,17 @@
                 document.body.removeChild(textarea);
                 alert("文言コピー用のブックマークレットをコピーしました");
               };
-            })();
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn11);
-                })();
-    
-              (function() {
-                const btn12 = document.createElement('button');
-                btn12.textContent = "新しくタブを開くブックマークレット生成";
-                btn12.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
-                btn12.onclick = function() { javascript:(function(){
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn11);  
+        })();
+      
+      (function() {
+        const btn12 = document.createElement('button');
+        btn12.textContent = "新しくタブを開くブックマークレット生成";
+        btn12.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn12.onclick = function() { javascript:(function(){
               if (window._bmUI) return;
               window._bmUI = true;
     
@@ -559,19 +559,18 @@
                 document.body.removeChild(textarea);
                 alert("ブックマークレットをコピーしました");
               };
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn12);  
+        })();
+      
+    document.addEventListener('click', function(e) {
+                if (!panel.contains(e.target)) {
+                  panel.style.display = 'none';
+                }
+              }, { capture: true });
             })();
-    
-                panel.style.display = 'none';
-                };
-                panel.appendChild(btn12);
-                })();
-    
-            document.addEventListener('click', function(e) {
-                        if (!panel.contains(e.target)) {
-                          panel.style.display = 'none';
-                        }
-                      }, { capture: true });
-                    })();
 
     });
 
