@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳エディター</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; font-family: monospace; }
+    button { padding: 6px 12px; margin-right: 8px; font-size: 14px; }
+    pre { background: #f8f8f8; padding: 10px; white-space: pre-wrap; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>メモ帳エディター</h1>
+  <p>メモ帳のHTMLを入力してください:</p>
+  <textarea id="original" rows="10" placeholder="ここにメモ帳のHTMLを貼り付け"></textarea>
+  <button id="edit">編集</button>
+
+  <div id="stage2" style="display:none; margin-top:20px;">
+    <p>抽出されたブックマークレット:</p>
+    <textarea id="extracted" rows="5" readonly></textarea>
+    <p>新しいブックマークレットを入力してください:</p>
+    <textarea id="newBm" rows="5" placeholder="ここに新しいブックマークレットのコードを入力"></textarea>
+    <button id="regenerate">再生成</button>
+  </div>
+
+  <div id="result" style="display:none; margin-top:20px;">
+    <p>再生成されたメモ帳のHTML:</p>
+    <pre><code id="generated"></code></pre>
+    <button id="copyCode">コピー</button>
+  </div>
+
+  <script>
+    // 編集ボタンでブックマークレットコードを正確に抽出
+    document.getElementById('edit').addEventListener('click', () => {
+      const original = document.getElementById('original').value;
+      // execBmBtn の click ハンドラ内のコードを中身ごと抽出
+      const regex = /execBmBtn\.addEventListener\(\s*['"]click['"]\s*,\s*\(\)\s*=>\s*\{\n([\s\S]*?)\n\s*}\);/;
+      const match = original.match(regex);
+      if (match) {
+        document.getElementById('extracted').value = match[1];
+        document.getElementById('stage2').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+      } else {
+        alert('ブックマークレットが見つかりませんでした。\n改行含めて正しいHTMLを貼り付けてください。');
+      }
+    });
+
+    // 再生成ボタンで抽出したハンドラを新しいコードに置換
+    document.getElementById('regenerate').addEventListener('click', () => {
+      const html = document.getElementById('original').value;
+      const newBm = document.getElementById('newBm').value.replace(/\r/g, '');
+      // ハンドラ全体を3グループでキャプチャ
+      const regexFull = /(execBmBtn\.addEventListener\(\s*['"]click['"]\s*,\s*\(\)\s*=>\s*\{\n)([\s\S]*?)(\n\s*}\);)/;
+      if (!regexFull.test(html)) {
+        alert('元のHTMLに該当するexecBmBtnハンドラが見つかりません。');
+        return;
+      }
+      // グループ1（開始行）と3（閉じ行）はそのままに、グループ2を新コードに置換
+      const replaced = html.replace(regexFull, (_, p1, p2, p3) => {
+        // インデントを合わせるため、コードの各行に先頭4スペースを付与
+        const indented = newBm.split('\n').map(line => '    ' + line).join('\n');
+        return p1 + indented + p3;
+      });
+      document.getElementById('generated').textContent = replaced;
+      document.getElementById('result').style.display = 'block';
+    });
+
+    // コピー機能
+    document.getElementById('copyCode').addEventListener('click', () => {
+      const code = document.getElementById('generated').textContent;
+      const ta = document.createElement('textarea');
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('コピーしました');
+    });
+  </script>
+</body>
+</html>
+
