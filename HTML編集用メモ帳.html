@@ -8,7 +8,11 @@
     html, body { height: 100%; margin: 0; padding: 18px; box-sizing: border-box; }
     body { display: flex; flex-direction: column; font-family: sans-serif; }
     .controls { flex: 0 0 auto; margin-bottom: 10px; }
-    .controls button, .controls input { margin-right: 5px; padding: 5px 10px; }
+    .controls button, .controls input {
+  margin-right: 5px;
+  padding: 8px 8px;   /* 上下 8px、左右 16px に拡大 */
+  font-size: 12px;     /* フォントサイズを 14px に */
+}
     #memo {
       flex: 1 1 auto;
       width: 100%;
@@ -36,6 +40,8 @@
     <button id="add-prefix-suffix">追加</button>
     <button id="exec-js">JavaScriptを実行</button>
     <button id="exec-html">HTMLを実行</button>
+    <!-- ここに▽ボタンを追加 -->
+    <button id="exec-bm">▽</button>
     <button id="open-url">＋</button>
     <button id="download-btn">🖥️</button>
 
@@ -64,15 +70,15 @@
     const countSpan = document.getElementById('count');
     const execJsBtn = document.getElementById('exec-js');
     const execHtmlBtn = document.getElementById('exec-html');
+    const execBmBtn = document.getElementById('exec-bm');       // 追加した▽ボタン
     const openUrlBtn = document.getElementById('open-url');
 
     let rawText = memo.innerText;
     let matches = [];
     let currentIndex = 0;
-    let history = [memo.innerText];  // 初期状態を履歴に追加
+    let history = [memo.innerText];
     let currentStep = 0;
 
-    // 履歴管理付き入力処理
     memo.addEventListener('input', () => {
       const newText = memo.innerText;
       if (newText !== history[currentStep]) {
@@ -84,25 +90,20 @@
       countSpan.innerText = '0/0';
     });
 
+    memo.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = e.clipboardData.getData('text/plain');
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(text));
+      rawText = memo.innerText;
+      history = history.slice(0, currentStep + 1);
+      history.push(rawText);
+      currentStep++;
+    });
 
-memo.addEventListener('paste', (e) => {
-  e.preventDefault();
-  const text = e.clipboardData.getData('text/plain');
-  const selection = window.getSelection();
-  if (!selection.rangeCount) return;
-
-  const range = selection.getRangeAt(0);
-  range.deleteContents();
-  range.insertNode(document.createTextNode(text));
-
-  // 履歴更新
-  rawText = memo.innerText;
-  history = history.slice(0, currentStep + 1);
-  history.push(rawText);
-  currentStep++;
-});
-
-    // アンドゥ処理
     undoBtn.addEventListener('click', () => {
       if (currentStep > 0) {
         currentStep--;
@@ -113,7 +114,6 @@ memo.addEventListener('paste', (e) => {
       }
     });
 
-    // リドゥ処理
     redoBtn.addEventListener('click', () => {
       if (currentStep < history.length - 1) {
         currentStep++;
@@ -124,7 +124,6 @@ memo.addEventListener('paste', (e) => {
       }
     });
 
-    // 以下既存の機能（変更なし）
     function clearHighlights() {
       memo.innerText = rawText;
       matches = [];
@@ -214,9 +213,16 @@ memo.addEventListener('paste', (e) => {
       w.document.close();
     });
 
+    // ▽ボタンのクリックでオリジナルブックマークレットを実行
+    execBmBtn.addEventListener('click', () => {
+    
+
+    });
+
     openUrlBtn.addEventListener('click', () => {
       window.open(location.href, '_blank');
     });
+
 
 
 const prefixInput = document.getElementById('prefix');
