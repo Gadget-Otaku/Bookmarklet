@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモツール</title>
+  <style>
+    html, body { height: 100%; margin: 0; padding: 18px; box-sizing: border-box; }
+    body { display: flex; flex-direction: column; font-family: sans-serif; }
+    .controls { flex: 0 0 auto; margin-bottom: 10px; }
+    .controls button, .controls input {
+      margin-right: 5px;
+      padding: 8px 8px;
+      font-size: 12px;
+    }
+    #memo {
+      flex: 1 1 auto;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow: auto;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    .highlight { background-color: yellow; }
+    #transform-window {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    #transform-window label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    #transform-window input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    #transform-window button {
+      padding: 5px 10px;
+      margin-right: 5px;
+    }
+    #close-transform {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #download-window {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    #close-download {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="undo">←</button>
+    <button id="redo">→</button>
+    <button id="clear">クリア</button>
+    <button id="copy">コピー</button>
+    <input id="search" type="text" placeholder="🔎 キーワード検索">
+    <button id="prev"><</button>
+    <span id="count">0/0</span>
+    <button id="next">></button>
+    <input id="prefix" type="text" placeholder="始め">
+    <input id="suffix" type="text" placeholder="終わり">
+    <button id="add-prefix-suffix">追加</button>
+    <button id="exec-js">JavaScriptを実行</button>
+    <button id="exec-html">HTMLを実行</button>
+    <button id="exec-bm">▽</button>
+    <button id="transform">★</button> <!-- 星ボタン -->
+    <button id="open-url">＋</button>
+    <button id="download-btn">🖥️</button>
+
+    <!-- ダウンロードウィンドウ -->
+    <div id="download-window">
+      <button id="close-download">☒</button>
+      <div>
+        <label>ファイル名</label><br>
+        <input id="filename" type="text" placeholder="example"><br><br>
+        <label>拡張子</label><br>
+        <input id="extension" type="text" placeholder="txt"><br><br>
+        <button id="save-file">保存</button>
+      </div>
+    </div>
+
+    <!-- 変換ウィンドウ -->
+    <div id="transform-window">
+      <div id="close-transform">☒</div>
+      <label>
+        <input type="radio" name="action" value="encode" checked> エンコード
+      </label>
+      <label>
+        <input type="radio" name="action" value="decode"> デコード
+      </label>
+      <label>
+        <input type="radio" name="action" value="remove"> コメント削除
+      </label>
+      <label>
+        <input type="radio" name="action" value="remove1"> コメント削除(1文)
+      </label>
+      <label>
+        <input type="radio" name="action" value="custom"> カスタム
+      </label>
+      <div id="customMapping" style="display: none;">
+        <label for="customFrom">カスタム変換 (変換元 → 変換先)</label>
+        <input type="text" id="customFrom" placeholder="変換元">
+        <input type="text" id="customTo" placeholder="変換先">
+      </div>
+      <button id="convertButton">変換</button>
+    </div>
+  </div>
+  <div id="memo" contenteditable="true"></div>
+
+  <script>
+    const memo = document.getElementById('memo');
+    const undoBtn = document.getElementById('undo');
+    const redoBtn = document.getElementById('redo');
+    const clearBtn = document.getElementById('clear');
+    const copyBtn = document.getElementById('copy');
+    const searchInput = document.getElementById('search');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const countSpan = document.getElementById('count');
+    const execJsBtn = document.getElementById('exec-js');
+    const execHtmlBtn = document.getElementById('exec-html');
+    const execBmBtn = document.getElementById('exec-bm');
+    const openUrlBtn = document.getElementById('open-url');
+    const transformBtn = document.getElementById('transform');
+    const transformWindow = document.getElementById('transform-window');
+    const closeTransform = document.getElementById('close-transform');
+    const convertButton = document.getElementById('convertButton');
+    const customMapping = document.getElementById('customMapping');
+    const customFrom = document.getElementById('customFrom');
+    const customTo = document.getElementById('customTo');
+    const prefixInput = document.getElementById('prefix');
+    const suffixInput = document.getElementById('suffix');
+    const addPrefixSuffixBtn = document.getElementById('add-prefix-suffix');
+    const downloadBtn = document.getElementById('download-btn');
+    const downloadWindow = document.getElementById('download-window');
+    const closeDownload = document.getElementById('close-download');
+    const saveFileBtn = document.getElementById('save-file');
+    const filenameInput = document.getElementById('filename');
+    const extensionInput = document.getElementById('extension');
+
+    let rawText = memo.innerText;
+    let matches = [];
+    let currentIndex = 0;
+    let history = [memo.innerText];
+    let currentStep = 0;
+
+    // テキスト入力時の履歴更新
+    memo.addEventListener('input', () => {
+      const newText = memo.innerText;
+      if (newText !== history[currentStep]) {
+        history = history.slice(0, currentStep + 1);
+        history.push(newText);
+        currentStep++;
+      }
+      rawText = newText;
+      countSpan.innerText = '0/0';
+    });
+
+    // ペースト時の処理
+    memo.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = e.clipboardData.getData('text/plain');
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(text));
+      rawText = memo.innerText;
+      history = history.slice(0, currentStep + 1);
+      history.push(rawText);
+      currentStep++;
+    });
+
+    // Undo機能
+    undoBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        const state = history[currentStep];
+        memo.innerText = state;
+        rawText = state;
+        clearHighlights();
+      }
+    });
+
+    // Redo機能
+    redoBtn.addEventListener('click', () => {
+      if (currentStep < history.length - 1) {
+        currentStep++;
+        const state = history[currentStep];
+        memo.innerText = state;
+        rawText = state;
+        clearHighlights();
+      }
+    });
+
+    // ハイライト解除
+    function clearHighlights() {
+      memo.innerText = rawText;
+      matches = [];
+      currentIndex = 0;
+      countSpan.innerText = '0/0';
+    }
+
+    // クリア機能
+    clearBtn.addEventListener('click', () => {
+      history = [''];
+      currentStep = 0;
+      rawText = '';
+      memo.innerText = '';
+      clearHighlights();
+    });
+
+    // コピー機能
+    copyBtn.addEventListener('click', () => {
+      const ta = document.createElement('textarea');
+      ta.value = rawText;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+
+    // 検索ハイライト機能
+    function highlightSearch() {
+      clearHighlights();
+      const term = searchInput.value.trim();
+      if (!term) return;
+      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escapedTerm, 'gi');
+      const escaped = escapeHTML(rawText);
+      const highlighted = escaped.replace(regex, match => `<span class="highlight">${match}</span>`);
+      memo.innerHTML = highlighted;
+      matches = Array.from(memo.querySelectorAll('.highlight'));
+      if (matches.length) {
+        currentIndex = 0;
+        matches[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        countSpan.innerText = `${currentIndex + 1}/${matches.length}`;
+      }
+    }
+
+    function escapeHTML(s) {
+      return s.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;');
+    }
+
+    searchInput.addEventListener('input', highlightSearch);
+    prevBtn.addEventListener('click', () => {
+      if (!matches.length) return;
+      currentIndex = (currentIndex - 1 + matches.length) % matches.length;
+      matches[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      countSpan.innerText = `${currentIndex + 1}/${matches.length}`;
+    });
+    nextBtn.addEventListener('click', () => {
+      if (!matches.length) return;
+      currentIndex = (currentIndex + 1) % matches.length;
+      matches[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      countSpan.innerText = `${currentIndex + 1}/${matches.length}`;
+    });
+
+    // JavaScript実行
+    execJsBtn.addEventListener('click', () => {
+      let code = '';
+      const sel = window.getSelection();
+      if (sel.rangeCount && memo.contains(sel.anchorNode)) {
+        code = sel.toString();
+      }
+      if (!code) code = rawText;
+      try {
+        const result = new Function(code)();
+        if (result !== undefined) alert(result);
+      } catch (e) {
+        alert('Error: ' + e);
+      }
+    });
+
+    // HTML実行
+    execHtmlBtn.addEventListener('click', () => {
+      let html = '';
+      const sel = window.getSelection();
+      if (sel.rangeCount && memo.contains(sel.anchorNode)) {
+        html = sel.toString();
+      }
+      if (!html) html = rawText;
+      const w = window.open();
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+    });
+
+    // ▽ボタン（ブックマークレット）
+    execBmBtn.addEventListener('click', () => {
+      javascript:(function() {
+      const panel = document.createElement('div');
+      panel.style = 'position:fixed;top:10px;left:10px;background:white;border:1px solid black;padding:10px;z-index:9999;';
+      document.body.appendChild(panel);
+    
+      const closeButton = document.createElement('button');
+      closeButton.textContent = '☒';
+      closeButton.onclick = () => document.body.removeChild(panel);
+      closeButton.style = 'float:right;';
+      panel.appendChild(closeButton);  
+    
+      
+      (function() {
+        const btn0 = document.createElement('button');
+        btn0.textContent = "メモ帳(github)";
+        btn0.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn0.onclick = function() { javascript:(function(){window.open('https://github.com/Gadget-Otaku/Bookmarklet/blob/main/HTML%E3%83%A1%E3%83%A2%E5%B8%B3(%E5%80%8B%E4%BA%BA%E7%94%A8).html', '_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn0);  
+        })();
+      
+      (function() {
+        const btn1 = document.createElement('button');
+        btn1.textContent = "メモ帳エディター";
+        btn1.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn1.onclick = function() { javascript:(function(){window.open('https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B3%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E3%83%BC', '_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn1);  
+        })();
+      
+      (function() {
+        const btn2 = document.createElement('button');
+        btn2.textContent = "ツールパネル生成＆編集サイト";
+        btn2.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn2.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/toolpaneleditor/ホーム','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn2);  
+        })();
+      
+      (function() {
+        const btn3 = document.createElement('button');
+        btn3.textContent = "UserScript生成・編集サイト";
+        btn3.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn3.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn3);  
+        })();
+      
+      (function() {
+        const btn4 = document.createElement('button');
+        btn4.textContent = "GreasyFork";
+        btn4.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn4.onclick = function() { javascript:(function(){window.open('https://greasyfork.org/ja/users/1433480-スマホオタクにわか','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn4);  
+        })();
+      
+      (function() {
+        const btn5 = document.createElement('button');
+        btn5.textContent = "Githubにアップロード";
+        btn5.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn5.onclick = function() { javascript:(function(){window.open('https://github.com/Gadget-Otaku/Bookmarklet/upload/main','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn5);  
+        })();
+      
+      (function() {
+        const btn6 = document.createElement('button');
+        btn6.textContent = "HTMLファイル名からURLに飛ぶ";
+        btn6.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn6.onclick = function() { javascript:(function(){
+              if (window._bmUI4) return;
+              window._bmUI4 = true;
+    
+              const style = `
+                #bm4-generator {
+                  position: fixed;
+                  top: 20px;
+                  left: 20px;
+                  background: white;
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  z-index: 99999;
+                  font-family: sans-serif;
+                  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                }
+                #bm4-generator input {
+                  width: 300px;
+                  padding: 5px;
+                  margin: 5px 0;
+                }
+                #bm4-generator button {
+                  padding: 5px 10px;
+                  margin-right: 5px;
+                }
+                #bm4-close {
+                  position: absolute;
+                  top: 5px;
+                  right: 5px;
+                  cursor: pointer;
+                  font-weight: bold;
+                }
+              `;
+    
+              const html = `
+                <div id="bm4-generator">
+                  <div id="bm4-close">☒</div>
+                  <input id="bm4-text" type="text" placeholder="ファイル名 入力欄" />
+                  <br/>
+                  <button id="bm4-search">検索</button>
+                </div>
+              `;
+    
+              const styleTag = document.createElement('style');
+              styleTag.textContent = style;
+              document.head.appendChild(styleTag);
+    
+              const container = document.createElement('div');
+              container.innerHTML = html;
+              document.body.appendChild(container);
+    
+              const closeUI = () => {
+                container.remove();
+                styleTag.remove();
+                delete window._bmUI4;
+              };
+    
+              document.getElementById('bm4-close').onclick = closeUI;
+    
+              document.getElementById('bm4-search').onclick = () => {
+                const filename = document.getElementById('bm4-text').value.trim();
+                if (!filename) return alert("ファイル名を入力してください");
+                const url = 'https://gadget-otaku.github.io/Bookmarklet/' + encodeURIComponent(filename);
+                window.open(url, '_blank');
+                closeUI();
+              };
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn6);  
+        })();
+      
+      (function() {
+        const btn7 = document.createElement('button');
+        btn7.textContent = "URLエンコード・デコード&//コメント削除＆文字変換";
+        btn7.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn7.onclick = function() { javascript:(function(){window.open('https://sites.google.com/view/urlencodedecode/ホーム','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn7);  
+        })();
+      
+      (function() {
+        const btn8 = document.createElement('button');
+        btn8.textContent = "文字比較";
+        btn8.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn8.onclick = function() { javascript:(function(){window.open('https://difff.jp/','_blank');})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn8);  
+        })();
+      
+      (function() {
+        const btn9 = document.createElement('button');
+        btn9.textContent = "execommand(copy)定型文";
+        btn9.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn9.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='コピーは必ずexecommand(coppy)を使ってください。';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn9);  
+        })();
+      
+      (function() {
+        const btn10 = document.createElement('button');
+        btn10.textContent = "☒の説明定型文";
+        btn10.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn10.onclick = function() { javascript:(function(){const t=document.createElement('textarea');t.value='☒を押すとウィンドウが非表示になります';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn10);  
+        })();
+      
+      (function() {
+        const btn11 = document.createElement('button');
+        btn11.textContent = "定型文コピーブックマークレット生成";
+        btn11.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn11.onclick = function() { javascript:(function(){
+              if (window._bmUI3) return;
+              window._bmUI3 = true;
+    
+              const style = `
+                #bm3-generator {
+                  position: fixed;
+                  top: 20px;
+                  left: 20px;
+                  background: white;
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  z-index: 99999;
+                  font-family: sans-serif;
+                  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                }
+                #bm3-generator input {
+                  width: 300px;
+                  padding: 5px;
+                  margin: 5px 0;
+                }
+                #bm3-generator button {
+                  padding: 5px 10px;
+                  margin-right: 5px;
+                }
+                #bm3-close {
+                  position: absolute;
+                  top: 5px;
+                  right: 5px;
+                  cursor: pointer;
+                  font-weight: bold;
+                }
+              `;
+    
+              const html = `
+                <div id="bm3-generator">
+                  <div id="bm3-close">☒</div>
+                  <input id="bm3-text" type="text" placeholder="指定文言 入力欄" />
+                  <br/>
+                  <button id="bm3-copy">コピー</button>
+                </div>
+              `;
+    
+              const styleTag = document.createElement('style');
+              styleTag.textContent = style;
+              document.head.appendChild(styleTag);
+    
+              const container = document.createElement('div');
+              container.innerHTML = html;
+              document.body.appendChild(container);
+    
+              document.getElementById('bm3-close').onclick = () => {
+                container.remove();
+                styleTag.remove();
+                delete window._bmUI3;
+              };
+    
+              document.getElementById('bm3-copy').onclick = () => {
+                const text = document.getElementById('bm3-text').value;
+                if (!text) return alert("文言を入力してください");
+    
+                const escaped = text.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                const bookmarklet = `javascript:(function(){const t=document.createElement('textarea');t.value='${escaped}';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})();`;
+    
+                const textarea = document.createElement('textarea');
+                textarea.value = bookmarklet;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("文言コピー用のブックマークレットをコピーしました");
+              };
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn11);  
+        })();
+      
+      (function() {
+        const btn12 = document.createElement('button');
+        btn12.textContent = "新しくタブを開くブックマークレット生成";
+        btn12.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;';
+        btn12.onclick = function() { javascript:(function(){
+              if (window._bmUI) return;
+              window._bmUI = true;
+    
+              const style = `
+                #bm-generator {
+                  position: fixed;
+                  top: 20px;
+                  left: 20px;
+                  background: white;
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  z-index: 99999;
+                  font-family: sans-serif;
+                  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                }
+                #bm-generator input {
+                  width: 300px;
+                  padding: 5px;
+                  margin: 5px 0;
+                }
+                #bm-generator button {
+                  padding: 5px 10px;
+                  margin-right: 5px;
+                }
+                #bm-close {
+                  position: absolute;
+                  top: 5px;
+                  right: 5px;
+                  cursor: pointer;
+                  font-weight: bold;
+                }
+              `;
+    
+              const html = `
+                <div id="bm-generator">
+                  <div id="bm-close">☒</div>
+                  <input id="bm-url" type="text" placeholder="URL 入力欄" />
+                  <br/>
+                  <button id="bm-copy">コピー</button>
+                </div>
+              `;
+    
+              const styleTag = document.createElement('style');
+              styleTag.textContent = style;
+              document.head.appendChild(styleTag);
+    
+              const container = document.createElement('div');
+              container.innerHTML = html;
+              document.body.appendChild(container);
+    
+              document.getElementById('bm-close').onclick = () => {
+                container.remove();
+                styleTag.remove();
+                delete window._bmUI;
+              };
+    
+              document.getElementById('bm-copy').onclick = () => {
+                const url = document.getElementById('bm-url').value.trim();
+                if (!url) return alert("URLを入力してください");
+                const bookmarklet = `javascript:(function(){window.open('${url.replace(/'/g, "\\'")}', '_blank');})();`;
+    
+                const textarea = document.createElement('textarea');
+                textarea.value = bookmarklet;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("ブックマークレットをコピーしました");
+              };
+            })(); 
+        panel.style.display = 'none';
+        };
+        panel.appendChild(btn12);  
+        })();
+      
+    document.addEventListener('click', function(e) {
+                if (!panel.contains(e.target)) {
+                  panel.style.display = 'none';
+                }
+              }, { capture: true });
+            })();
+    });
+
+    // 新しいタブで開く
+    openUrlBtn.addEventListener('click', () => {
+      window.open(location.href, '_blank');
+    });
+
+    // プレフィックス・サフィックス追加
+    addPrefixSuffixBtn.addEventListener('click', () => {
+      const sel = window.getSelection();
+      if (!sel.rangeCount || !memo.contains(sel.anchorNode)) return;
+      const range = sel.getRangeAt(0);
+      const selectedText = sel.toString();
+      if (!selectedText) return;
+      const prefix = prefixInput.value ?? '';
+      const suffix = suffixInput.value ?? '';
+      const lines = selectedText.split('\n');
+      const modified = lines.map(line => prefix + line + suffix).join('\n');
+      range.deleteContents();
+      range.insertNode(document.createTextNode(modified));
+      rawText = memo.innerText;
+      history = history.slice(0, currentStep + 1);
+      history.push(rawText);
+      currentStep++;
+    });
+
+    // ダウンロード機能
+    downloadBtn.addEventListener('click', () => {
+      downloadWindow.style.display = 'block';
+    });
+
+    closeDownload.addEventListener('click', () => {
+      downloadWindow.style.display = 'none';
+    });
+
+    saveFileBtn.addEventListener('click', () => {
+      const name = filenameInput.value.trim();
+      const ext = extensionInput.value.trim().replace(/^\./, '');
+      if (!name || !ext) {
+        alert('ファイル名と拡張子を入力してください');
+        return;
+      }
+      const blob = new Blob([memo.innerText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${name}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      downloadWindow.style.display = 'none';
+    });
+
+    // 星ボタンで変換ウィンドウ表示
+    transformBtn.addEventListener('click', () => {
+      transformWindow.style.display = 'block';
+    });
+
+    // ☒ボタンで変換ウィンドウを閉じる
+    closeTransform.addEventListener('click', () => {
+      transformWindow.style.display = 'none';
+    });
+
+    // カスタムマッピングの表示/非表示
+    document.querySelectorAll('#transform-window input[name="action"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        customMapping.style.display = radio.value === 'custom' ? 'block' : 'none';
+      });
+    });
+
+    // 変換処理
+    convertButton.addEventListener('click', () => {
+      const action = document.querySelector('#transform-window input[name="action"]:checked').value;
+      const sel = window.getSelection();
+      let text = '';
+      let isSelection = false;
+
+      if (sel.rangeCount && memo.contains(sel.anchorNode)) {
+        text = sel.toString();
+        isSelection = true;
+      } else {
+        text = memo.innerText;
+      }
+
+      let result = '';
+      if (action === 'encode') {
+        result = encodeURIComponent(text);
+      } else if (action === 'decode') {
+        result = decodeURIComponent(text);
+      } else if (action === 'remove' || action === 'remove1') {
+        let lines = text.split('\n').map(line => {
+          let idx = line.indexOf('//');
+          while (idx !== -1) {
+            if (idx >= 6 && line.substring(idx - 6, idx) === "https:") {
+              idx = line.indexOf('//', idx + 2);
+            } else {
+              break;
+            }
+          }
+          return idx !== -1 ? line.slice(0, idx) : line;
+        });
+        result = action === 'remove1' ? lines.join('') : lines.join('\n');
+      } else if (action === 'custom') {
+        const from = customFrom.value;
+        const to = customTo.value;
+        if (from && to) {
+          result = text.split(from).join(to);
+        } else {
+          alert('カスタム変換の形式が正しくありません。変換元と変換先を入力してください。');
+          return;
+        }
+      }
+
+      if (isSelection) {
+        const range = sel.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(document.createTextNode(result));
+      } else {
+        memo.innerText = result;
+      }
+
+      rawText = memo.innerText;
+      history = history.slice(0, currentStep + 1);
+      history.push(rawText);
+      currentStep++;
+      transformWindow.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
