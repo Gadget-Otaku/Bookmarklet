@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1ボタン用ツールパネル編集サイト<br><small>(ブックマークレット/UserScript対応)</small></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    .section-title {
+      border-bottom: 2px solid #4a90e2;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .code-window {
+      background-color: #ffffff;
+      color: #000000;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: monospace;
+      min-height: 150px;
+      overflow: auto;
+    }
+    .btn {
+      margin-top: 10px;
+      margin-right: 5px;
+    }
+    .panel {
+      margin-top: 30px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+    }
+    .instructions {
+      background-color: #e9f7fe;
+      border-left: 4px solid #17a2b8;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .instructions h4 {
+      color: #17a2b8;
+      margin-top: 0;
+    }
+    .script-type {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center">1ボタン用ツールパネル編集サイト<br><small>(ブックマークレット/UserScript対応)</small></h1>
+  
+  <div class="instructions">
+    <h4>使い方</h4>
+    <ol>
+      <li>ブックマークレットまたはUserScriptコードを入力欄に貼り付けてください</li>
+      <li>編集したいボタン名を入力（デフォルト: ショートカットパネル）</li>
+      <li>「編集開始」ボタンを押すと、該当ボタンのスクリプトが表示されます</li>
+      <li>スクリプトを編集後、「再生成」ボタンで新しいコードを作成</li>
+      <li>UserScriptの場合、メタデータは保持されます</li>
+    </ol>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="bookmarklet-input">コード入力</label>
+        <textarea id="bookmarklet-input" class="form-control" rows="5" placeholder="ブックマークレットまたはUserScriptコードを貼り付けてください"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="button-name">ボタン名</label>
+        <input type="text" id="button-name" class="form-control" value="ショートカットパネル">
+      </div>
+      
+      <button id="edit-button" class="btn btn-primary">編集開始</button>
+    </div>
+  </div>
+  
+  <div id="editor-section" style="display: none;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="script-type">
+          <strong>スクリプトタイプ:</strong> <span id="script-type-indicator">ブックマークレット</span>
+        </div>
+        
+        <h3 class="section-title">修正前のスクリプト</h3>
+        <div class="form-group">
+          <textarea id="before-script" class="form-control code-window" readonly></textarea>
+          <button id="copy-before" class="btn btn-info">JSコピー</button>
+        </div>
+        
+        <h3 class="section-title">修正後のスクリプト</h3>
+        <div class="form-group">
+          <textarea id="after-script" class="form-control code-window"></textarea>
+          <button id="copy-after" class="btn btn-info">JSコピー</button>
+        </div>
+        
+        <button id="regenerate-button" class="btn btn-success">再生成</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="output-section" style="display: none; margin-top: 30px;">
+    <div class="panel panel-success">
+      <div class="panel-body">
+        <h3 class="section-title">生成されたコード</h3>
+        <div id="bookmarklet-section">
+          <a id="bookmarklet-link" class="btn btn-success" href="#">ドラッグしてブックマークに登録</a>
+          <small>（ブックマークツールバーにドラッグ＆ドロップ）</small>
+        </div>
+        <button id="copy-final" class="btn btn-info">コードをコピー</button>
+        <div id="generated-code" class="code-window"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    let originalCode = '';
+    let extractedScript = '';
+    let extractedItems = [];
+    let targetButtonName = '';
+    let isUserScript = false;
+    let userScriptHeader = '';
+    let userScriptFooter = '';
+    
+    // UserScriptかどうかを判定
+    function isUserScriptCode(code) {
+      return code.trim().startsWith('// ==UserScript==');
+    }
+    
+    // UserScriptからスクリプト部分を抽出
+    function extractScriptFromUserScript(code) {
+      const startMarker = "button.addEventListener('click', () => {";
+      const endMarker = "});\n\n    document.body.appendChild(button);\n})();";
+      
+      const startIndex = code.indexOf(startMarker);
+      const endIndex = code.indexOf(endMarker, startIndex);
+      
+      if (startIndex === -1 || endIndex === -1) {
+        return null;
+      }
+      
+      userScriptHeader = code.substring(0, startIndex + startMarker.length);
+      userScriptFooter = code.substring(endIndex);
+      
+      const scriptContent = code.substring(
+        startIndex + startMarker.length, 
+        endIndex
+      );
+      
+      return scriptContent.trim();
+    }
+    
+    // UserScriptを再生成
+    function generateUserScript(scriptContent) {
+      return userScriptHeader + "\n" + scriptContent + "\n" + userScriptFooter;
+    }
+    
+    // ブックマークレットからデータを抽出
+    function extractDataFromBookmarklet(code) {
+      if (code.startsWith('javascript:')) {
+        code = code.substring(11);
+      }
+      
+      const items = [];
+      let startIndex = code.indexOf('createItem(');
+      
+      while (startIndex !== -1) {
+        let braceCount = 0;
+        let inString = false;
+        let escape = false;
+        let itemStart = code.indexOf('{', startIndex);
+        let itemEnd = -1;
+        
+        if (itemStart === -1) break;
+        
+        for (let i = itemStart; i < code.length; i++) {
+          const char = code[i];
+          
+          if (inString) {
+            if (escape) {
+              escape = false;
+            } else if (char === '\\') {
+              escape = true;
+            } else if (char === '"') {
+              inString = false;
+            }
+          } else {
+            if (char === '"') {
+              inString = true;
+            } else if (char === '{') {
+              braceCount++;
+            } else if (char === '}') {
+              braceCount--;
+              if (braceCount === 0) {
+                itemEnd = i;
+                break;
+              }
+            }
+          }
+        }
+        
+        if (itemEnd === -1) break;
+        
+        const itemStr = code.substring(itemStart, itemEnd + 1);
+        try {
+          const item = JSON.parse(itemStr.replace(/\n/g, ' '));
+          items.push(item);
+        } catch (e) {
+          console.error('JSON解析エラー:', e);
+        }
+        
+        startIndex = code.indexOf('createItem(', itemEnd);
+      }
+      
+      return items;
+    }
+    
+    // アイテムからスクリプトを検索
+    function findScriptByName(items, name) {
+      for (const item of items) {
+        if (item.name === name) {
+          return item.script;
+        }
+        if (item.children && item.children.length > 0) {
+          const found = findScriptByName(item.children, name);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+    
+    // スクリプトを更新
+    function updateScriptByName(items, name, newScript) {
+      for (const item of items) {
+        if (item.name === name) {
+          item.script = newScript;
+          return true;
+        }
+        if (item.children && item.children.length > 0) {
+          if (updateScriptByName(item.children, name, newScript)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    
+    // ブックマークレットを再生成
+    function generateBookmarklet(items) {
+      return `
+        javascript:(function() {
+          const panel = document.createElement('div');
+          panel.style = 'position:fixed;top:10px;left:10px;background:white;border:1px solid black;padding:10px;z-index:9999;box-shadow:0 0 10px rgba(0,0,0,0.3);font-family:Arial, sans-serif;';
+          document.body.appendChild(panel);
+          const closeButton = document.createElement('button');
+          closeButton.textContent = '☒';
+          closeButton.onclick = () => document.body.removeChild(panel);
+          closeButton.style = 'float:right;background:transparent;border:none;font-size:16px;cursor:pointer;';
+          panel.appendChild(closeButton);
+
+          function createItem(data, container) {
+            if (data.children && data.children.length > 0) {
+              const folder = document.createElement('div');
+              const folderBtn = document.createElement('button');
+              folderBtn.textContent = '▽ ' + data.name;
+              folderBtn.style = 'display:block;margin:5px 0;background:#ADD8E6;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+              const childContainer = document.createElement('div');
+              childContainer.style.display = 'none';
+              folder.appendChild(folderBtn);
+              folder.appendChild(childContainer);
+              folderBtn.onclick = function() {
+                childContainer.style.display = childContainer.style.display === 'none' ? 'block' : 'none';
+                folderBtn.textContent = (childContainer.style.display === 'none' ? '▽ ' : '△ ') + data.name;
+              };
+              data.children.forEach(child => createItem(child, childContainer));
+              container.appendChild(folder);
+            } else {
+              const btn = document.createElement('button');
+              btn.textContent = data.name;
+              btn.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+              btn.onclick = function() {
+                try {
+                  eval(data.script);
+                } catch(e) {
+                  console.error('スクリプト実行エラー:', e);
+                }
+                panel.style.display = 'none';
+              };
+              container.appendChild(btn);
+            }
+          }
+
+          ${items.map(item => `createItem(${JSON.stringify(item)}, panel);`).join('')}
+
+          document.addEventListener('click', function(e) {
+            if (!panel.contains(e.target)) {
+              panel.style.display = 'none';
+            }
+          }, { capture: true });
+        })();
+      `.trim().replace(/\n\s+/g, '');
+    }
+
+    // 編集開始ボタン
+    $('#edit-button').on('click', function() {
+      originalCode = $('#bookmarklet-input').val().trim();
+      targetButtonName = $('#button-name').val().trim() || 'ショートカットパネル';
+      
+      if (!originalCode) {
+        alert('コードを入力してください');
+        return;
+      }
+      
+      try {
+        // UserScriptかどうかを判定
+        isUserScript = isUserScriptCode(originalCode);
+        $('#script-type-indicator').text(isUserScript ? 'UserScript' : 'ブックマークレット');
+        
+        if (isUserScript) {
+          // UserScriptからスクリプトを抽出
+          extractedScript = extractScriptFromUserScript(originalCode);
+          
+          if (!extractedScript) {
+            alert('UserScriptからスクリプトを抽出できませんでした');
+            return;
+          }
+        } else {
+          // ブックマークレットからデータを抽出
+          extractedItems = extractDataFromBookmarklet(originalCode);
+          
+          if (extractedItems.length === 0) {
+            alert('ブックマークレットからデータを抽出できませんでした');
+            return;
+          }
+          
+          // スクリプトを検索
+          extractedScript = findScriptByName(extractedItems, targetButtonName);
+        }
+        
+        if (!extractedScript) {
+          alert(`"${targetButtonName}"という名前のボタンが見つかりませんでした`);
+          return;
+        }
+        
+        // 修正前のスクリプトを表示（背景黒、文字白）
+        $('#before-script').val(extractedScript);
+        
+        // 修正後のスクリプトは空欄で表示
+        $('#after-script').val('');
+        $('#editor-section').show();
+        
+      } catch (e) {
+        console.error(e);
+        alert('データの抽出中にエラーが発生しました: ' + e.message);
+      }
+    });
+    
+    // 再生成ボタン
+    $('#regenerate-button').on('click', function() {
+      const newScript = $('#after-script').val().trim();
+      
+      if (!newScript) {
+        alert('修正後のスクリプトを入力してください');
+        return;
+      }
+      
+      try {
+        let generatedCode = '';
+        let displayName = targetButtonName;
+        
+        if (isUserScript) {
+          // UserScriptを再生成
+          generatedCode = generateUserScript(newScript);
+          displayName += ' (UserScript)';
+          $('#bookmarklet-section').hide();
+        } else {
+          // スクリプトを更新
+          const updated = updateScriptByName(extractedItems, targetButtonName, newScript);
+          
+          if (!updated) {
+            alert(`"${targetButtonName}"という名前のボタンの更新に失敗しました`);
+            return;
+          }
+          
+          // 新しいブックマークレットを生成
+          generatedCode = generateBookmarklet(extractedItems);
+          displayName += ' (更新版)';
+          $('#bookmarklet-section').show();
+        }
+        
+        // 結果を表示
+        $('#bookmarklet-link').text(displayName);
+        $('#bookmarklet-link').attr('href', isUserScript ? '#' : generatedCode);
+        $('#generated-code').text(generatedCode);
+        $('#output-section').show();
+        
+      } catch (e) {
+        console.error(e);
+        alert('再生成中にエラーが発生しました: ' + e.message);
+      }
+    });
+    
+    // コピーボタン
+    $('#copy-before').on('click', function() {
+      copyToClipboard($('#before-script').val());
+      alert('修正前のスクリプトをコピーしました！');
+    });
+    
+    $('#copy-after').on('click', function() {
+      copyToClipboard($('#after-script').val());
+      alert('修正後のスクリプトをコピーしました！');
+    });
+    
+    $('#copy-final').on('click', function() {
+      copyToClipboard($('#generated-code').text());
+      alert('新しいコードをコピーしました！');
+    });
+    
+    // クリップボードにコピーする関数
+    function copyToClipboard(text) {
+      const tempTextarea = document.createElement('textarea');
+      tempTextarea.value = text;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextarea);
+    }
+  });
+</script>
+</body>
+</html>
