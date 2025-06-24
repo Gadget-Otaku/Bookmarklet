@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>2ページ読み込み</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    section {
+      min-height: 100vh;
+      padding: 2em;
+      box-sizing: border-box;
+    }
+    .page {
+      border-bottom: 2px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <!-- 読み込まれる場所 -->
+  <section id="page1" class="page"></section>
+  <section id="page2" class="page"></section>
+
+  <script>
+    // HTMLファイルを読み込んで挿入する関数
+    function loadHTML(targetId, url) {
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error(`Failed to load ${url}`);
+          return res.text();
+        })
+        .then(html => {
+          document.getElementById(targetId).innerHTML = html;
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById(targetId).innerText = `読み込み失敗: ${url}`;
+        });
+    }
+
+    // それぞれ読み込む
+    loadHTML("page1", "Googleホームページカスタムショートカットキー配置UserScript生成・編集ツール JavaScript・親階層移動対応.html");
+    loadHTML("page2", "1ボタン用ツールパネル編集サイト.html");
+  </script>
+</body>
+</html>
 
