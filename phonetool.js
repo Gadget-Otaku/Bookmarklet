@@ -6,6 +6,8 @@
 // @author       your_name
 // @match       http*://*/*
 // @grant        none
+// @downloadURL  https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.js
+// @updateURL    https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.js
 // ==/UserScript==
 
 (function() {
