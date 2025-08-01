@@ -2,6 +2,13 @@ javascript:
 
 (function() {
     'use strict';
+    const metadata = {
+  "name": "pc_base_shortcutpanel",
+  "source": "",
+  "downloadURL": "",
+  "updateURL": ""
+};
+
     const config = {
         scale: 80,
         gridCols: 5,
@@ -214,6 +221,8 @@ javascript:
         --icon-size: 40px;
         --folder-size: 40px;
         --border-radius: 12px;
+        --panel-padding: 20px;
+        --item-gap: 15px;
       }
       .panel-style {
         background: rgba(255, 255, 255, 0.2);
@@ -221,23 +230,38 @@ javascript:
         border-radius: var(--border-radius);
         border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 1px rgba(255,255,255,0.4);
-        padding: 20px; position: fixed;
+        padding: var(--panel-padding); position: fixed;
       }
       .custom-shortcuts-container {
         transform: scale(${config.scale / 100});
-        transform-origin: top left; display: grid;
+        transform-origin: top left; 
+        display: grid;
         grid-template-columns: repeat(${config.gridCols}, var(--item-size));
-        grid-template-rows: repeat(${config.gridRows}, var(--item-size));
-        gap: 15px; z-index: 9999; pointer-events: auto; cursor: move;
+        grid-auto-rows: var(--item-size);
+        gap: var(--item-gap); 
+        z-index: 9999; 
+        pointer-events: auto; 
+        cursor: move;
+        max-height: calc(var(--item-size) * ${config.gridRows} + var(--item-gap) * (${config.gridRows} - 1) + var(--panel-padding) * 2);
+        overflow-y: auto;
+        padding-right: 5px; /* Space for scrollbar */
       }
+      .custom-shortcuts-container::-webkit-scrollbar { width: 8px; }
+      .custom-shortcuts-container::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.4); border-radius: 4px; }
+      .custom-shortcuts-container::-webkit-scrollbar-track { background-color: rgba(255,255,255,0.1); }
       .panel-controls {
         position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; cursor: default;
       }
       .control-button {
         width: 16px; height: 16px; border-radius: 50%; display: flex;
         align-items: center; justify-content: center; font-family: sans-serif;
-        font-size: 12px; line-height: 16px; cursor: pointer; transition: color 0.2s;
+        font-size: 12px; line-height: 16px; cursor: pointer; transition: all 0.2s;
         user-select: none; background-color: rgba(0, 0, 0, 0.7);
+      }
+      .new-tab-btn.active {
+        background-color: rgba(255, 255, 255, 0.6) !important;
+        color: #1a73e8 !important;
+        font-weight: bold;
       }
       .settings-button {
         width: 16px; height: 16px;
@@ -302,9 +326,11 @@ javascript:
     `;
 
     let isDarkMode = false;
+    let newTabMode = false;
     const container = document.createElement('div');
     const controls = document.createElement('div');
     const settingsBtn = document.createElement('div');
+    const newTabBtn = document.createElement('div');
     const toggleModeBtn = document.createElement('div');
 
     function applyTheme(isDark) {
@@ -318,6 +344,16 @@ javascript:
         const link = document.createElement('a');
         link.href = item.url;
         link.className = "custom-shortcut";
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (newTabMode) {
+                window.open(link.href, '_blank');
+            } else {
+                window.location.href = link.href;
+            }
+        });
+
         const img = document.createElement('img');
         try {
             img.src = item.icon || `https://www.google.com/s2/favicons?sz=64&domain_url=${new URL(item.url).hostname}`;
@@ -375,65 +411,34 @@ javascript:
     container.className = "custom-shortcuts-container panel-style";
     controls.className = 'panel-controls';
     settingsBtn.className = 'settings-button';
+    settingsBtn.title = 'ヘルプページを開く';
+    newTabBtn.className = 'control-button new-tab-btn';
+    newTabBtn.textContent = '+';
+    newTabBtn.title = '新しいタブで開く (トグル)';
     toggleModeBtn.className = 'control-button toggle-mode-btn';
     const closeBtn = document.createElement('div');
     closeBtn.className = 'control-button close-btn';
     closeBtn.textContent = '✕';
+    
     controls.appendChild(settingsBtn);
+    controls.appendChild(newTabBtn);
     controls.appendChild(toggleModeBtn);
     controls.appendChild(closeBtn);
     container.appendChild(controls);
 
+    settingsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.open('https://sites.google.com/view/homepage-custom-shortcut/%E3%83%9B%E3%83%BC%E3%83%A0', '_blank');
+    });
+    newTabBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        newTabMode = !newTabMode;
+        newTabBtn.classList.toggle('active', newTabMode);
+    });
     toggleModeBtn.addEventListener('click', (e) => { e.stopPropagation(); applyTheme(!isDarkMode); });
     closeBtn.addEventListener('click', (e) => { e.stopPropagation(); container.style.display = 'none'; });
 
-    // 設定ボタンのクリックイベント
-    settingsBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        // JSON.stringifyの結果からキーのダブルクオートを削除
-        const configString = JSON.stringify(config, null, 4).replace(/"([^"]+)":/g, '$1:');
-
-        // 設定データを文字列として生成
-        const textToCopy =
-`const config = ${configString};
-
-const items = ${JSON.stringify(items, null, 4)};
-
-const urlRules = ${JSON.stringify(urlRules, null, 4)};`;
-
-        // クリップボードへのコピー処理
-        const textarea = document.createElement('textarea');
-        textarea.value = textToCopy;
-        textarea.style.position = 'fixed';
-        textarea.style.top = '-9999px';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-
-        let copySuccess = false;
-        try {
-            copySuccess = document.execCommand('copy');
-        } catch (err) {
-            console.error('設定のコピーに失敗しました。', err);
-            copySuccess = false;
-        } finally {
-            document.body.removeChild(textarea);
-        }
-
-        // 結果を通知し、ページを開くか確認
-        if (copySuccess) {
-            if (confirm('設定をクリップボードにコピーしました。\n\nOKを押すと、設定方法を説明したページを新しいタブで開きます。')) {
-                window.open('https://sites.google.com/view/homepage-custom-shortcut/%E3%83%9B%E3%83%BC%E3%83%A0', '_blank');
-            }
-        } else {
-            if (confirm('設定のコピーに失敗しました。\nお使いのブラウザや拡張機能の設定により、コピー機能がブロックされた可能性があります。\n\nOKを押すと、設定方法を説明したページを新しいタブで開きます。手動で設定をコピー＆ペーストしてください。')) {
-                window.open('https://sites.google.com/view/homepage-custom-shortcut/%E3%83%9B%E3%83%BC%E3%83%A0', '_blank');
-            }
-        }
-    });
-
-    items.slice(0, config.gridCols * config.gridRows).forEach(item => {
+    items.forEach(item => {
         container.appendChild(item.isFolder ? createFolder(item) : createShortcut(item));
     });
     
@@ -467,7 +472,6 @@ const urlRules = ${JSON.stringify(urlRules, null, 4)};`;
     }
 
     // --- Initialization ---
-    // 既存のパネルがあれば削除
     const existingPanel = document.querySelector('.custom-shortcuts-container');
     if (existingPanel) {
         existingPanel.remove();
