@@ -1,0 +1,114 @@
+github_update.bat
+
+
+@echo off
+
+cd /d "C:\Users\tomo0\Desktop\GitHub\Bookmarklet" || (
+    echo クローン先フォルダが見つかりません。
+    pause
+    exit /b
+)
+
+git add .
+git commit -m "Update from Tomo's PC %date% %time%"
+git push origin main
+
+echo GitHubに変更をプッシュしました。
+
+pause
+
+
+
+
+pc_update.bat
+
+
+@echo off
+cd /d "C:\Users\tomo0\Desktop\GitHub\Bookmarklet" || (
+    echo クローン先フォルダが見つかりません。
+    pause
+    exit /b
+)
+
+git stash push -m "Auto-stash before pulling"
+git pull origin main
+git stash pop || echo "スタッシュは空、または既に適用されています。"
+
+echo PC側のフォルダをGitHubの最新版に更新しました。
+pause
+
+
+
+
+all_update.bat
+
+
+@echo off
+:: --- 設定 ---
+:: Gitリポジトリのローカルフォルダパス
+set "repo_dir=C:\Users\tomo0\Desktop\GitHub\Bookmarklet"
+
+:: 更新用ファイルが入っているフォルダパス
+set "update_dir=C:\Users\tomo0\Desktop\GitHub\Update_Folder"
+
+:: --- 処理開始 ---
+echo.
+echo =================================================================
+echo                 GitHub 同期プロセスを開始します
+echo =================================================================
+echo.
+
+:: Gitリポジトリのフォルダへ移動
+cd /d "%repo_dir%" || (
+    echo [エラー] Gitリポジトリのフォルダが見つかりません。
+    echo Path: %repo_dir%
+    pause
+    exit /b
+)
+
+:: 1. GitHubから最新版をプル
+echo [1/4] GitHubから最新版を取得しています...
+git stash push -m "Auto-stash before pulling" > nul
+git pull origin main
+git stash pop > nul 2>&1 || echo "    > ローカルでの変更は無かったため、スタッシュは適用されませんでした。"
+echo ...完了
+echo.
+
+:: 2. 更新用フォルダからファイルをコピー
+echo [2/4] 更新用ファイルをリポジトリにコピーしています...
+if not exist "%update_dir%\" (
+    echo [警告] 更新用フォルダが見つかりません。コピーはスキップします。
+    echo Path: %update_dir%
+) else (
+    xcopy "%update_dir%\*" "%repo_dir%\" /E /Y /I
+    echo ...完了
+)
+echo.
+
+:: 3. GitHubへ変更をプッシュ
+echo [3/4] GitHubに変更内容をアップロードしています...
+git add .
+git commit -m "Automatic update from PC %date% %time%"
+git push origin main
+echo ...完了
+echo.
+
+:: 4. 更新用フォルダの中身を削除
+echo [4/4] 更新用フォルダをクリーンアップしています...
+if exist "%update_dir%\" (
+    del /S /Q "%update_dir%\* > nul"
+    for /d %%i in ("%update_dir%\*") do rmdir /s /q "%%i"
+    echo ...完了
+) else (
+    echo "    > 更新用フォルダは存在しないため、スキップしました。"
+)
+echo.
+
+echo =================================================================
+echo                      全ての処理が正常に完了しました
+echo =================================================================
+echo.
+pause
+
+
+
