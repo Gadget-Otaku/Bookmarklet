@@ -152,6 +152,16 @@ javascript:
                 name: "UserScript",
                 url: "https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0",
                 icon: "https://img.icons8.com/color/512/google-sites--v2.png"
+            },
+            {
+                name: "X詳細検索",
+                url: "https://sites.google.com/view/x-advanced-panel-generator/%E3%83%9B%E3%83%BC%E3%83%A0",
+                icon: "https://img.icons8.com/color/512/google-sites--v2.png"
+            },
+            {
+                name: "カスタム検索ブックマークレット生成・編集サイト2.0",
+                url: "https://sites.google.com/view/custome-search2/%E3%83%9B%E3%83%BC%E3%83%A0",
+                icon: "https://img.icons8.com/color/512/google-sites--v2.png"
             }
         ]
         },
