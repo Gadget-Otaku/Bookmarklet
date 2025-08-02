@@ -111,7 +111,7 @@ javascript:
         },
         {
             name: "Github",
-            url: "https://github.com",
+            url: "https://github.com/Gadget-Otaku/Bookmarklet",
             icon: "https://cdn-icons-png.freepik.com/256/733/733609.png"
         },
         {
