@@ -161,6 +161,13 @@
               "imageUrl": "https://cdn4.momon-ga.com/galleries/3294213/1.webp",
               "priority": 4,
               "autoSelect": false
+            },
+            {
+              "name": "田口もにゃ太",
+              "url": "taguchi%20monyata",
+              "imageUrl": "https://cdn4.momon-ga.com/galleries/3403330/1.webp",
+              "priority": 4,
+              "autoSelect": false
             }
           ],
           "subGenres": []
@@ -437,6 +444,13 @@
               "name": "ふくもとまひろ",
               "url": "cartoonist/fukumoto-mahiro/",
               "imageUrl": "https://cdn4.momon-ga.com/galleries/3294213/1.webp",
+              "priority": 1,
+              "autoSelect": false
+            },
+            {
+              "name": "田口もにゃ太",
+              "url": "https://momon-ga.com/cartoonist/%E7%94%B0%E5%8F%A3%E3%82%82%E3%81%AB%E3%82%83%E5%A4%AA/",
+              "imageUrl": "https://cdn4.momon-ga.com/galleries/3403330/1.webp",
               "priority": 1,
               "autoSelect": false
             }
