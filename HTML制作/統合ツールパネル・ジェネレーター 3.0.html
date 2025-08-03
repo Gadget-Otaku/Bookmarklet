@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>統合ツールパネル・ジェネレーター 3.0</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+     body { padding-top: 20px; }
+     .panel { margin-top: 20px; }
+     .code-window { background-color: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; font-family: monospace; min-height: 150px; overflow: auto; }
+     .btn { margin-top: 5px; margin-right: 5px; }
+     .button-row td { vertical-align: middle !important; }
+     .section-title { border-bottom: 2px solid #4a90e2; padding-bottom: 10px; margin-bottom: 20px; }
+     .instructions { background-color: #e9f7fe; border-left: 4px solid #17a2b8; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+     .instructions h4 { color: #17a2b8; margin-top: 0; }
+     .nav-tabs { margin-bottom: 20px; }
+     .github-import-section { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+     .userscript-settings-box { border: 1px solid #4a90e2; padding: 15px; margin-top: 20px; border-radius: 5px; background-color: #f8f9fa; overflow: auto; }
+     .input-row { display: flex; gap: 10px; align-items: center; margin-bottom: 5px;}
+     .input-row label { margin-bottom: 0; font-weight: normal; white-space: nowrap; }
+     .input-row input[type="number"] { width: 80px; }
+     .radio-group label { margin-right: 15px; font-weight:normal; }
+     .radio-group input { width: auto; margin-right: 5px; }
+     .section-box { border: 1px solid #ccc; padding: 10px; margin-top: 5px; background-color: #fff; }
+     .keyboard-group { border: 1px dashed #aaa; padding: 10px; margin-bottom: 10px; position: relative; background-color: #fdfdfd; }
+     .keyboard-group .delete-key-btn { position: absolute; top: 5px; right: 5px; background-color: #d9534f; color:white; border: none; padding: 2px 6px; font-size: 12px; border-radius: 3px; }
+     .url-input { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+     .url-input select { width: auto; }
+     .url-input input { flex-grow: 1; }
+     .url-input .delete-url-btn { background-color: #d9534f; color:white; border: none; padding: 2px 6px; font-size: 12px; border-radius: 3px; }
+     .auto-expand-rule, .github-link-rule { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+     .auto-expand-rule input, .github-link-rule input { flex-grow: 1; }
+     .auto-expand-instructions { margin: 5px 0 15px 0; padding: 10px; background-color: #f0f8ff; font-size: 12px;}
+     .auto-expand-instructions p { margin:0; }
+     .position-group { display: flex; gap: 20px; align-items: center; }
+     .position-group .pos-select-group { display: flex; gap: 10px; align-items: center; }
+     .position-group .pos-select-group label { font-weight: normal; margin: 0;}
+     .position-group .pos-select-group input[type=number] { width: 80px; }
+     .small-instructions { font-size: 12px; color: #666; background-color: #f7f7f7; padding: 5px 8px; border-radius: 4px; margin-top: 5px; }
+     /* Collapsible styles */
+     .name-control-wrapper { display: flex; align-items: center; }
+     .toggle-icon { font-family: monospace; width: 1em; text-align: center; margin-right: 4px; color: #337ab7; flex-shrink: 0; cursor: pointer; }
+     .parent-row.collapsed .toggle-icon::before { content: '▶'; }
+     .parent-row.expanded .toggle-icon::before { content: '▼'; }
+     .folder-icon { margin-right: 4px; flex-shrink: 0; }
+     tr:not([data-is-folder="true"]) .folder-icon { display: none; }
+     .button-name { flex-grow: 1; }
+     .btn-rule-up, .btn-rule-down, .btn-rule-add, .btn-rule-del, .btn-link-update { margin-top:0 !important; }
+   </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="text-center">統合ツールパネル・ジェネレーター 3.0</h1>
+
+  <ul class="nav nav-tabs" role="tablist">
+     <li role="presentation" class="active"><a href="#generate-mode" aria-controls="generate-mode" role="tab" data-toggle="tab">生成モード</a></li>
+     <li role="presentation"><a href="#edit-mode" aria-controls="edit-mode" role="tab" data-toggle="tab">編集モード</a></li>
+     <li role="presentation"><a href="#single-edit-mode" aria-controls="single-edit-mode" role="tab" data-toggle="tab">1ボタン編集モード</a></li>
+   </ul>
+
+  <div class="tab-content">
+     <div role="tabpanel" class="tab-pane active" id="generate-mode">
+         <div class="instructions">
+             <h4>使い方</h4>
+             <p>子階層を持つアイテムは、クリックで展開・収納できる親階層として生成されます。<br>「フォルダ化」ボタンを押したアイテムは、クリックで階層移動するフォルダとして生成されます。</p>
+         </div>
+         <div class="form-group">
+             <label>生成モード</label>
+             <div class="radio-group">
+                 <label><input type="radio" name="gen-mode" value="javascript" checked> JavaScript生成モード</label>
+                 <label><input type="radio" name="gen-mode" value="userscript"> UserScript生成モード</label>
+             </div>
+         </div>
+         <div id="gen-javascript-settings">
+            <div class="form-group">
+                <label for="gen-bookmarklet-name">ブックマークレット名</label>
+                <input id="gen-bookmarklet-name" type="text" class="form-control" placeholder="例: マイツールパネル">
+            </div>
+         </div>
+         <div id="gen-userscript-settings-container" style="display: none;">
+             <div class="userscript-settings-box" style="margin-top:5px;">
+                 <h4 class="section-title">UserScript設定</h4>
+                 <div class="form-group"> <label for="us-gen-name">UserScript名</label> <input type="text" id="us-gen-name" class="form-control"> </div>
+                 <div class="form-group"> <label for="us-gen-version">バージョン</label> <input type="text" id="us-gen-version" value="1.0.0" class="form-control"> </div>
+                 <div class="form-group" id="us-gen-url-container">
+                    <label>起動するサイトのURL</label>
+                    <div class="small-instructions"><code>@match</code>, <code>@include</code>の値をそのまま入力してください (例: <code>https://www.google.com/*</code>)。<br>「@match 全サイト」を選択すると、全サイトでツールパネルを起動できるようになります。</div>
+                 </div>
+                 <button id="us-gen-add-url" class="btn btn-sm btn-default">URL追加</button>
+                 <div class="form-group" style="margin-top: 15px;">
+                     <label>更新する際のURL（任意）</label>
+                     <div class="small-instructions">スクリプトの更新を確認するためのURLを指定します。GitHubなどで公開する場合に設定します。</div>
+                     <input type="text" id="us-gen-downloadURL" class="form-control" placeholder="@downloadURL">
+                     <input type="text" id="us-gen-updateURL" class="form-control" placeholder="@updateURL" style="margin-top:5px;">
+                 </div>
+                 <hr>
+                 <div class="form-group">
+                     <label>トリガーモード</label>
+                     <div class="radio-group">
+                         <label><input type="radio" name="us-gen-mode" value="button" checked> ボタン</label>
+                         <label><input type="radio" name="us-gen-mode" value="keyboard"> キーボード</label>
+                     </div>
+                 </div>
+                 <div id="us-gen-button-section">
+                     <div class="form-group"> <label>表示方法</label>
+                         <div class="radio-group">
+                             <label><input type="radio" name="us-gen-displayMode" value="fixed" checked> 固定表示</label>
+                             <label><input type="radio" name="us-gen-displayMode" value="transparent"> 透明化</label>
+                         </div>
+                     </div>
+                     <div id="us-gen-cursor-area" style="display:none;" class="section-box">
+                          <label>カーソル域 (マウスがこのエリアに入るとボタン表示)</label>
+                          <div class="input-row"><label>左上:</label><label>上から</label><input type="number" id="us-gen-cursorTop" placeholder="px"><label>左から</label><input type="number" id="us-gen-cursorLeft" placeholder="px"></div>
+                          <div class="input-row"><label>右下:</label><label>上から</label><input type="number" id="us-gen-cursorBottom" placeholder="px"><label>左から</label><input type="number" id="us-gen-cursorRight" placeholder="px"></div>
+                     </div>
+                     <div class="section-box">
+                         <label>表示域 (ボタンが表示される場所と大きさ)</label>
+                         <div class="input-row"><label>左上:</label><label>上から</label><input type="number" id="us-gen-displayTop" placeholder="px"><label>左から</label><input type="number" id="us-gen-displayLeft" placeholder="px"></div>
+                         <div class="input-row"><label>右下:</label><label>上から</label><input type="number" id="us-gen-displayBottom" placeholder="px"><label>左から</label><input type="number" id="us-gen-displayRight" placeholder="px"></div>
+                     </div>
+                     <div class="form-group" style="margin-top:10px;"> <label>表示内容</label>
+                         <div class="radio-group">
+                             <label><input type="radio" name="us-gen-contentType" value="default" checked> デフォルト</label>
+                             <label><input type="radio" name="us-gen-contentType" value="custom"> カスタム</label>
+                         </div>
+                     </div>
+                     <div id="us-gen-custom-content" style="display:none;" class="section-box">
+                         <div class="form-group"><label>背景色</label><input type="text" id="us-gen-bgColor" class="form-control" placeholder="例: #000000, black"></div>
+                         <div class="form-group"><label>四隅半径(px)</label><input type="number" id="us-gen-borderRadius" class="form-control"></div>
+                         <div class="form-group"><label>文字表示</label><input type="text" id="us-gen-buttonText" class="form-control"></div>
+                         <div class="form-group"><label>文字色</label><input type="text" id="us-gen-textColor" class="form-control" placeholder="例: #ffffff, white"></div>
+                         <div class="form-group"><label>文字大きさ(px)</label><input type="number" id="us-gen-fontSize" class="form-control"></div>
+                         <div class="form-group"><label>透明度 (0-100)</label><input type="number" id="us-gen-opacity" class="form-control" min="0" max="100"></div>
+                     </div>
+                 </div>
+                 <div id="us-gen-keyboard-section" style="display:none;">
+                     <div id="us-gen-keyboard-container"></div>
+                     <button id="us-gen-add-key" class="btn btn-sm btn-default">ショートカット追加</button>
+                 </div>
+             </div>
+         </div>
+         <div class="userscript-settings-box" style="padding: 10px; margin-top: 20px; margin-bottom: 20px; background-color: #f8f9fa;">
+             <label>ツールパネルの表示位置</label>
+             <div class="position-group">
+                <div class="pos-select-group">
+                    <label><input type="checkbox" name="gen-y-pos" value="top" checked> 上から</label>
+                    <label><input type="checkbox" name="gen-y-pos" value="bottom"> 下から</label>
+                    <input id="gen-panel-y" type="number" class="form-control" value="10">
+                    <label>px</label>
+                </div>
+                <div class="pos-select-group">
+                    <label><input type="checkbox" name="gen-x-pos" value="left" checked> 左から</label>
+                    <label><input type="checkbox" name="gen-x-pos" value="right"> 右から</label>
+                    <input id="gen-panel-x" type="number" class="form-control" value="10">
+                    <label>px</label>
+                </div>
+             </div>
+         </div>
+         <div class="userscript-settings-box">
+            <label>自動フォルダ展開ルール</label>
+            <div class="auto-expand-instructions">
+                <p>特定のサイトでツールパネルを開いた際に、指定したフォルダを自動で展開します。<br>
+                - <strong>URL:</strong> フォルダを自動で開きたいサイトのURLを入力します。前方一致で判定されます。(例: <code>https://www.google.com/</code>)<br>
+                - <strong>展開フォルダ名:</strong> 自動で開きたいフォルダ (📁マークのもの) の名前を正確に入力してください。<br>
+                - <strong>注意:</strong> この機能は「フォルダ化」されたアイテムにのみ適用され、親階層 (▽マーク) には適用されません。ユーザーが入力するのは<code>/</code>までで、<code>*</code>は入りません。
+                </p>
+            </div>
+            <div id="gen-auto-expand-rules-list"></div>
+         </div>
+         <div class="userscript-settings-box" style="margin-top: 20px;">
+             <label>ボタン・Github URL紐づけルール</label>
+             <div class="auto-expand-instructions">
+                 <p>ボタン名とGitHubのJSファイルURLを紐付け、個別に、または一括でスクリプト内容を更新します。<br>
+                 - <strong>ボタン名:</strong> 更新対象のボタンの名前を正確に入力してください。<br>
+                 - <strong>GitHub URL:</strong> JSファイルのURL (RawまたはリポジトリURL) を入力します。<br>
+                 - <strong>更新:</strong> 対応するボタンのスクリプトをGitHubの内容で上書きします。<br>
+                 - <strong>注意:</strong> この操作は元に戻せません。フォルダ化されたボタンや親階層は対象外です。
+                 </p>
+             </div>
+             <div id="gen-github-link-rules-list"></div>
+             <button id="gen-update-all-links-button" class="btn btn-warning btn-sm" style="margin-top:10px;">全て更新</button>
+         </div>
+         <table class="table table-bordered" style="margin-top: 20px;">
+             <thead> <tr> <th>ボタン名 / 階層</th> <th>実行するJavaScript</th> <th>操作</th> </tr> </thead>
+             <tbody id="gen-buttons-container"></tbody>
+         </table>
+         <button id="gen-generate-button" class="btn btn-success">生成</button>
+         <div id="gen-output-section" style="display: none;">
+             <h3 class="section-title" id="gen-output-title">生成されたブックマークレット</h3>
+             <a id="gen-bookmarklet-link" class="btn btn-success" href="#">ドラッグしてブックマークに登録</a>
+             <small id="gen-bookmarklet-help">（これをブックマークツールバーにドラッグ＆ドロップしてください）</small>
+             <button id="gen-copy-button" class="btn btn-info">コードをコピー</button>
+             <button id="gen-test-button" class="btn btn-warning">JSテスト</button>
+             <button id="gen-save-button" class="btn btn-primary">JS保存</button>
+             <div id="gen-generated-code" class="code-window"></div>
+         </div>
+     </div>
+     <div role="tabpanel" class="tab-pane" id="edit-mode">
+         <div class="instructions">
+             <h4>使い方</h4>
+             <ol>
+               <li>作成済みのブックマークレット/UserScriptのコードを下の入力欄に貼り付けるか、GitHub URLからインポートします。</li>
+               <li>「編集開始」ボタンを押すと、内容が下の表に展開されます。<b>（互換UserScriptの場合、追加の設定フォームが表示されます）</b></li>
+               <li>ボタン名やJavaScript、追加設定を自由に編集し、「再生成」ボタンで新しいコードを作成します。</li>
+             </ol>
+         </div>
+         <div class="form-group">
+             <label for="edit-bookmarklet-input">ブックマークレット/UserScriptコード</label>
+             <textarea id="edit-bookmarklet-input" class="form-control" rows="5" placeholder="ここにコードを貼り付け"></textarea>
+         </div>
+         <div class="github-import-section">
+             <input type="text" id="edit-github-url" class="form-control" placeholder="GitHubのJSファイルURLを入力">
+             <button id="edit-import-button" class="btn btn-info">インポート</button>
+         </div>
+         <button id="edit-start-button" class="btn btn-primary" style="margin-top: 10px;">編集開始</button>
+
+         <div id="edit-editor-section" style="display: none; margin-top: 20px;">
+             <div id="edit-userscript-settings-container" style="display: none;">
+                 <div class="userscript-settings-box">
+                     <h4 class="section-title">UserScript設定</h4>
+                     <div class="form-group"> <label>UserScript名</label> <input type="text" id="us-edit-name" class="form-control"> </div>
+                     <div class="form-group"> <label>バージョン (再生成時に自動インクリメント)</label> <input type="text" id="us-edit-version" class="form-control" readonly> </div>
+                      <div class="form-group" id="us-edit-url-container">
+                        <label>起動するサイトのURL</label>
+                        <div class="small-instructions"><code>@match</code>, <code>@include</code>の値をそのまま入力してください (例: <code>https://www.google.com/*</code>)。<br>「@match 全サイト」を選択すると、全サイトでツールパネルを起動できるようになります。</div>
+                      </div>
+                     <button id="us-edit-add-url" class="btn btn-sm btn-default">URL追加</button>
+                     <div class="form-group" style="margin-top: 15px;">
+                         <label>更新する際のURL（任意）</label>
+                         <div class="small-instructions">スクリプトの更新を確認するためのURLを指定します。GitHubなどで公開する場合に設定します。</div>
+                         <input type="text" id="us-edit-downloadURL" class="form-control" placeholder="@downloadURL">
+                         <input type="text" id="us-edit-updateURL" class="form-control" placeholder="@updateURL" style="margin-top:5px;">
+                     </div>
+                     <hr>
+                     <div class="form-group">
+                         <label>トリガーモード</label>
+                         <div class="radio-group" id="us-edit-mode-group">
+                             <label><input type="radio" name="us-edit-mode" value="button" checked> ボタン</label>
+                             <label><input type="radio" name="us-edit-mode" value="keyboard"> キーボード</label>
+                         </div>
+                     </div>
+                     <div id="us-edit-button-section">
+                         <div class="form-group"> <label>表示方法</label>
+                             <div class="radio-group">
+                                 <label><input type="radio" name="us-edit-displayMode" value="fixed" checked> 固定表示</label>
+                                 <label><input type="radio" name="us-edit-displayMode" value="transparent"> 透明化</label>
+                             </div>
+                         </div>
+                         <div id="us-edit-cursor-area" style="display:none;" class="section-box">
+                              <label>カーソル域 (マウスがこのエリアに入るとボタン表示)</label>
+                              <div class="input-row"><label>左上:</label><label>上から</label><input type="number" id="us-edit-cursorTop" placeholder="px"><label>左から</label><input type="number" id="us-edit-cursorLeft" placeholder="px"></div>
+                              <div class="input-row"><label>右下:</label><label>上から</label><input type="number" id="us-edit-cursorBottom" placeholder="px"><label>左から</label><input type="number" id="us-edit-cursorRight" placeholder="px"></div>
+                         </div>
+                         <div class="section-box">
+                             <label>表示域 (ボタンが表示される場所と大きさ)</label>
+                             <div class="input-row"><label>左上:</label><label>上から</label><input type="number" id="us-edit-displayTop" placeholder="px"><label>左から</label><input type="number" id="us-edit-displayLeft" placeholder="px"></div>
+                             <div class="input-row"><label>右下:</label><label>上から</label><input type="number" id="us-edit-displayBottom" placeholder="px"><label>左から</label><input type="number" id="us-edit-displayRight" placeholder="px"></div>
+                         </div>
+                         <div class="form-group" style="margin-top:10px;"> <label>表示内容</label>
+                             <div class="radio-group">
+                                 <label><input type="radio" name="us-edit-contentType" value="default" checked> デフォルト</label>
+                                 <label><input type="radio" name="us-edit-contentType" value="custom"> カスタム</label>
+                             </div>
+                         </div>
+                         <div id="us-edit-custom-content" style="display:none;" class="section-box">
+                             <div class="form-group"><label>背景色</label><input type="text" id="us-edit-bgColor" class="form-control" placeholder="例: #000000, black"></div>
+                             <div class="form-group"><label>四隅半径(px)</label><input type="number" id="us-edit-borderRadius" class="form-control"></div>
+                             <div class="form-group"><label>文字表示</label><input type="text" id="us-edit-buttonText" class="form-control"></div>
+                             <div class="form-group"><label>文字色</label><input type="text" id="us-edit-textColor" class="form-control" placeholder="例: #ffffff, white"></div>
+                             <div class="form-group"><label>文字大きさ(px)</label><input type="number" id="us-edit-fontSize" class="form-control"></div>
+                             <div class="form-group"><label>透明度 (0-100)</label><input type="number" id="us-edit-opacity" class="form-control" min="0" max="100"></div>
+                         </div>
+                     </div>
+                     <div id="us-edit-keyboard-section" style="display:none;">
+                         <div id="us-edit-keyboard-container"></div>
+                         <button id="us-edit-add-key" class="btn btn-sm btn-default">ショートカット追加</button>
+                     </div>
+                 </div>
+             </div>
+
+             <h4 class="section-title" style="margin-top: 30px;">ツールパネル内容編集</h4>
+              <div class="userscript-settings-box" style="padding: 10px; margin-top: 0; margin-bottom: 20px; background-color: #f8f9fa;">
+                 <label>ツールパネルの表示位置</label>
+                 <div class="position-group">
+                    <div class="pos-select-group">
+                        <label><input type="checkbox" name="edit-y-pos" value="top" checked> 上から</label>
+                        <label><input type="checkbox" name="edit-y-pos" value="bottom"> 下から</label>
+                        <input id="edit-panel-y" type="number" class="form-control" value="10">
+                        <label>px</label>
+                    </div>
+                    <div class="pos-select-group">
+                        <label><input type="checkbox" name="edit-x-pos" value="left" checked> 左から</label>
+                        <label><input type="checkbox" name="edit-x-pos" value="right"> 右から</label>
+                        <input id="edit-panel-x" type="number" class="form-control" value="10">
+                        <label>px</label>
+                    </div>
+                 </div>
+              </div>
+              <div class="userscript-settings-box">
+                  <label>自動フォルダ展開ルール</label>
+                  <div class="auto-expand-instructions">
+                     <p>特定のサイトでツールパネルを開いた際に、指定したフォルダを自動で展開します。<br>
+                     - <strong>URL:</strong> フォルダを自動で開きたいサイトのURLを入力します。前方一致で判定されます。(例: <code>https://www.google.com/</code>)<br>
+                     - <strong>展開フォルダ名:</strong> 自動で開きたいフォルダ (📁マークのもの) の名前を正確に入力してください。<br>
+                     - <strong>注意:</strong> この機能は「フォルダ化」されたアイテムにのみ適用され、親階層 (▽マーク) には適用されません。ユーザーが入力するのは<code>/</code>までで、<code>*</code>は入りません。
+                     </p>
+                  </div>
+                  <div id="edit-auto-expand-rules-list"></div>
+              </div>
+              <div class="userscript-settings-box" style="margin-top: 20px;">
+                  <label>ボタン・Github URL紐づけルール</label>
+                  <div class="auto-expand-instructions">
+                       <p>ボタン名とGitHubのJSファイルURLを紐付け、個別に、または一括でスクリプト内容を更新します。</p>
+                  </div>
+                  <div id="edit-github-link-rules-list"></div>
+                  <button id="edit-update-all-links-button" class="btn btn-warning btn-sm" style="margin-top:10px;">全て更新</button>
+              </div>
+
+             <p style="margin-top: 20px;">※上記UserScript設定が有効な場合、ここで編集したツールパネルがトリガー（ボタンやキー）によって実行されます。</p>
+             <table class="table table-bordered">
+                 <thead> <tr> <th>ボタン名 / 階層</th> <th>実行するJavaScript</th> <th>操作</th> </tr> </thead>
+                 <tbody id="edit-buttons-container"></tbody>
+             </table>
+             <button id="edit-regenerate-button" class="btn btn-success">再生成</button>
+             <button id="edit-generate-js-button" class="btn btn-primary" style="display: none;">JavaScript生成</button>
+             <div id="edit-output-section" style="display: none; margin-top: 20px;">
+                 <h3 id="edit-generated-title" class="section-title">生成されたコード</h3>
+                 <a id="edit-bookmarklet-link" class="btn btn-success" href="#">ドラッグしてブックマークに登録</a>
+                 <small id="edit-bookmarklet-link-help">（ブックマークツールバーにドラッグ＆ドロップしてください）</small>
+                 <button id="edit-copy-button" class="btn btn-info">コードをコピー</button>
+                 <button id="edit-test-button" class="btn btn-warning">JSテスト</button>
+                 <button id="edit-save-button" class="btn btn-primary">JS保存</button>
+                 <div id="edit-generated-code" class="code-window"></div>
+             </div>
+         </div>
+     </div>
+     <div role="tabpanel" class="tab-pane" id="single-edit-mode">
+         <div class="instructions">
+             <h4>使い方</h4>
+             <ol>
+               <li>ブックマークレットまたはUserScriptのコードを入力欄に貼り付けてください。</li>
+               <li>編集したいボタンの名前を正確に入力します。</li>
+               <li>「編集開始」ボタンを押すと、該当ボタンのスクリプトが表示されます。</li>
+               <li>スクリプトを編集後、「再生成」ボタンで新しいブックマークレット/UserScriptを作成します。</li>
+             </ol>
+         </div>
+         <div class="panel panel-default">
+             <div class="panel-body">
+               <div class="form-group">
+                 <label for="single-bookmarklet-input">ブックマークレット/UserScriptコード</label>
+                 <textarea id="single-bookmarklet-input" class="form-control" rows="5" placeholder="javascript:(function() { ... })(); や // ==UserScript== ... で始まるコード"></textarea>
+               </div>
+               <div class="github-import-section">
+                   <input type="text" id="single-github-url" class="form-control" placeholder="GitHubのJSファイルURLを入力">
+                   <button id="single-import-button" class="btn btn-info">インポート</button>
+               </div>
+               <div class="form-group" style="margin-top: 15px;">
+                 <label for="single-button-name">編集対象のボタン名</label>
+                 <input type="text" id="single-button-name" class="form-control" placeholder="ツールパネル内のボタン名">
+               </div>
+                <div class="userscript-settings-box" style="margin-top: 15px;">
+                  <label>自動フォルダ展開ルール（コード全体に適用）</label>
+                  <div id="single-auto-expand-rules-list"></div>
+               </div>
+                <div class="userscript-settings-box" style="margin-top: 20px;">
+                  <label>ボタン・Github URL紐づけルール（コード全体に適用）</label>
+                  <div id="single-github-link-rules-list"></div>
+                  <button id="single-update-all-links-button" class="btn btn-warning btn-sm" style="margin-top:10px;">全て更新</button>
+                </div>
+               <button id="single-edit-start-button" class="btn btn-primary">編集開始</button>
+             </div>
+         </div>
+         <div id="single-editor-section" style="display: none;">
+             <div class="panel panel-default">
+               <div class="panel-body">
+                 <h3 class="section-title">スクリプト編集欄（"<strong><span id="single-editing-button-name"></span></strong>"）</h3>
+                 <div class="form-group">
+                   <textarea id="single-after-script" class="form-control" rows="8"></textarea>
+                 </div>
+                 <button id="single-regenerate-button" class="btn btn-success">再生成</button>
+                 <button id="single-generate-js-button" class="btn btn-primary" style="display: none;">JavaScript生成</button>
+               </div>
+             </div>
+         </div>
+         <div id="single-output-section" style="display: none; margin-top: 30px;">
+             <div class="panel panel-success">
+               <div class="panel-body">
+                 <h3 id="single-generated-title" class="section-title">生成されたコード</h3>
+                 <a id="single-bookmarklet-link" class="btn btn-success" href="#">ドラッグしてブックマークに登録</a>
+                 <small id="single-bookmarklet-link-help">（ブックマークツールバーにドラッグ＆ドロップ）</small>
+                 <button id="single-copy-final" class="btn btn-info">コードをコピー</button>
+                 <button id="single-test-button" class="btn btn-warning">JSテスト</button>
+                 <button id="single-save-button" class="btn btn-primary">JS保存</button>
+                 <div id="single-generated-code" class="code-window"></div>
+               </div>
+             </div>
+         </div>
+     </div>
+   </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+     // =======================================================
+     //                 グローバル変数
+     // =======================================================
+     let parsedUserScriptConfig = null;
+     let singleEditState = {};
+
+     // =======================================================
+     //                 基本ユーティリティ
+     // =======================================================
+     function copyToClipboard(text, message = 'コピーしました！') {
+         navigator.clipboard.writeText(text).then(() => { if (message) alert(message); })
+         .catch(err => { console.error('クリップボードへのコピーに失敗しました: ', err); alert('コピーに失敗しました。'); });
+     }
+
+     function saveCodeAsFile(code, filename) {
+         let codeToSave = code;
+         const isBookmarklet = code.startsWith('javascript:');
+         if (isBookmarklet) {
+             try { codeToSave = `// Bookmarklet: ${filename}\n\n` + decodeURIComponent(code.substring(11)); }
+             catch (e) { console.warn("Save decode failed, using raw string.", e); codeToSave = `// Bookmarklet: ${filename}\n\n` + code.substring(11); }
+         } else if (code.startsWith('// ==UserScript==')) {
+             const nameMatch = code.match(/\/\/\s*@name\s+(.*)/);
+             if (nameMatch && nameMatch[1]) { filename = nameMatch[1].trim(); }
+         }
+         const blob = new Blob([codeToSave], { type: 'application/javascript;charset=utf-8' });
+         const url = URL.createObjectURL(blob);
+         const a = document.createElement('a');
+         a.href = url;
+         a.download = filename.replace(/[/\\?%*:|"<>]/g, '-') + '.js';
+         document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+     }
+
+     function testGeneratedCode(code) {
+        try {
+            if (code.startsWith('javascript:')) {
+                let scriptToRun;
+                const rawScript = code.substring(11);
+                try {
+                    scriptToRun = decodeURIComponent(rawScript);
+                } catch (e) {
+                    console.warn("decodeURIComponent failed, using raw script for testing. Error:", e);
+                    scriptToRun = rawScript;
+                }
+                eval(scriptToRun);
+            } else if (code.startsWith('// ==UserScript==')) {
+                const bodyMatch = code.match(/\/\/\s*==\/UserScript==\s*([\s\S]*)/);
+                if (bodyMatch && bodyMatch[1]) {
+                    eval(bodyMatch[1]);
+                } else {
+                    throw new Error('UserScriptの実行可能な部分が見つかりません。');
+                }
+            } else {
+                eval(code);
+            }
+        } catch (e) {
+            console.error("Test execution failed:", e);
+            alert("テスト実行中にエラーが発生しました: " + e.message);
+        }
+    }
+
+     function incrementVersion(versionStr) {
+         if (!versionStr) return '1.0.1';
+         const parts = versionStr.split('.');
+         if (parts.length < 3) {
+             while(parts.length < 2) parts.push('0');
+             parts.push('1');
+             return parts.join('.');
+         }
+         const lastPart = parseInt(parts[parts.length - 1], 10);
+         if (isNaN(lastPart)) {
+             parts.push('1');
+             return parts.join('.');
+         }
+         parts[parts.length - 1]++;
+         return parts.join('.');
+     }
+
+     async function handleGitHubImport(urlInputId, codeTextareaId) {
+         const url = $(`#${urlInputId}`).val().trim();
+         if (!url) { alert('GitHub URLを入力してください。'); return; }
+         const rawUrl = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+         try {
+             const response = await fetch(rawUrl);
+             if (!response.ok) throw new Error(`ネットワークエラー: ${response.statusText}`);
+             const code = await response.text();
+             $(`#${codeTextareaId}`).val(code);
+             alert('インポートに成功しました。「編集開始」ボタンを押してください。');
+         } catch (error) {
+             console.error('GitHubからのインポートに失敗しました:', error);
+             alert(`インポートに失敗しました: ${error.message}`);
+         }
+     }
+
+     function findMatchingBrace(str, pos, openChar = '{', closeChar = '}') {
+         let depth = 1;
+         let inString = null;
+         let isEscaped = false;
+         for (let i = pos + 1; i < str.length; i++) {
+             const char = str[i];
+             if (inString) {
+                 if (isEscaped) { isEscaped = false; }
+                 else if (char === '\\') { isEscaped = true; }
+                 else if (char === inString) { inString = null; }
+             } else {
+                 if (char === '"' || char === "'" || char === '`') { inString = char; }
+                 else if (char === openChar) { depth++; }
+                 else if (char === closeChar) { depth--; }
+             }
+             if (depth === 0) return i;
+         }
+         return -1;
+     }
+
+     // =======================================================
+     //                 パーサー＆ジェネレーター
+     // =======================================================
+     function extractDataAndSettingsFromCode(code) {
+         let processCode = code;
+         if (processCode.startsWith('javascript:')) {
+             try { processCode = decodeURIComponent(processCode.substring(11)); }
+             catch (e) { processCode = processCode.substring(11); }
+         }
+
+         let position = { yProp: 'top', yVal: '10', xProp: 'left', xVal: '10' };
+         const yPosMatch = processCode.match(/(top|bottom):\s*([\d.-]+)px;/);
+         const xPosMatch = processCode.match(/(left|right):\s*([\d.-]+)px;/);
+         if(yPosMatch) { position.yProp = yPosMatch[1]; position.yVal = yPosMatch[2]; }
+         if(xPosMatch) { position.xProp = xPosMatch[1]; position.xVal = xPosMatch[2]; }
+
+         let items = [], autoExpandRules = [], githubLinkRules = [];
+
+         const extractJsonArray = (code, regex) => {
+             const match = code.match(regex);
+             if (match) {
+                 const startIndex = code.indexOf('[', match.index + match[0].length);
+                 if (startIndex !== -1) {
+                     const endIndex = findMatchingBrace(code, startIndex, '[', ']');
+                     if(endIndex !== -1) {
+                         const jsonString = code.substring(startIndex, endIndex + 1);
+                         try { return eval(`(${jsonString})`); } catch (e) { console.warn("JSON parse failed for", regex, e); }
+                     }
+                 }
+             }
+             return [];
+         };
+
+         items = extractJsonArray(processCode, /const\s+initialData\s*=\s*|const\s+items\s*=\s*/);
+         autoExpandRules = extractJsonArray(processCode, /const\s+autoExpandRules\s*=\s*/);
+         githubLinkRules = extractJsonArray(processCode, /const\s+githubLinkRules\s*=\s*/);
+
+         if (items.length === 0) {
+             console.warn("Falling back to regex-based extraction for older format.");
+             const createItemRegex = /createItem\s*\(([\s\S]*?)\)/g;
+             let match;
+             while ((match = createItemRegex.exec(processCode)) !== null) {
+                 let potentialObjectStr = match[1];
+                 if(!potentialObjectStr.trim().startsWith('{')) continue;
+                 let openBraces = 0;
+                 let itemStartIndex = potentialObjectStr.indexOf('{');
+                 if(itemStartIndex === -1) continue;
+                 let inString = false; let escape = false;
+                 for(let i = itemStartIndex; i < potentialObjectStr.length; i++) {
+                     const char = potentialObjectStr[i];
+                     if(inString) {
+                         if(escape) escape = false; else if(char === '\\') escape = true; else if(char === '"' || char === "'") inString = false;
+                     } else {
+                         if(char === '"' || char === "'") inString = true; else if(char === '{') openBraces++; else if(char === '}') openBraces--;
+                     }
+                     if(openBraces === 0) {
+                         const itemStr = potentialObjectStr.substring(itemStartIndex, i + 1);
+                         try { items.push(eval('(' + itemStr + ')')); }
+                         catch (e) { console.error('オブジェクト解析エラー:', e, '文字列:', itemStr); }
+                         break;
+                     }
+                 }
+             }
+         }
+         return { items, position, autoExpandRules, githubLinkRules };
+     }
+
+     function generateToolPanelBookmarklet(items, options = {}, autoExpandRules = [], githubLinkRules = []) {
+         const pos = options.position || { yProp: 'top', yVal: '10', xProp: 'left', xVal: '10' };
+         const dataStr = JSON.stringify(items);
+         const rulesStr = JSON.stringify(autoExpandRules);
+         const githubRulesStr = JSON.stringify(githubLinkRules);
+
+         const funcStr = `(function() {
+    const panelId = 'tool-panel-nav-' + Date.now();
+    if (document.getElementById(panelId)) return;
+    const panel = document.createElement('div');
+    panel.id = panelId;
+    panel.style = 'position:fixed;${pos.yProp}:${pos.yVal}px;${pos.xProp}:${pos.xVal}px;background:white;border:1px solid black;padding:10px;z-index:2147483647;box-shadow:0 0 10px rgba(0,0,0,0.3);font-family:Arial,sans-serif;min-width:200px;max-height:90vh;display:flex;flex-direction:column;';
+    const header = document.createElement('div');
+    header.style = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0;';
+    const settingsButton = document.createElement('button');
+    settingsButton.textContent = '⚙️';
+    settingsButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;';
+    settingsButton.onclick = () => window.open("https://sites.google.com/view/toolpaneleditor/%E3%83%9B%E3%83%BC%E3%83%A0", "_blank");
+    header.appendChild(settingsButton);
+    const searchContainer = document.createElement('div');
+    searchContainer.style = 'flex-grow:1;display:flex;align-items:center;margin:0 5px;';
+    searchContainer.innerHTML = '<span style="font-size:16px;margin-right:5px;">🔎</span>';
+    const searchInput = document.createElement('input');
+    searchInput.type = 'search';
+    searchInput.placeholder = '検索...';
+    searchInput.style = 'width:100%;padding:2px 5px;border:1px solid #ccc;border-radius:3px;';
+    searchContainer.appendChild(searchInput);
+    header.appendChild(searchContainer);
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '☒';
+    closeButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;';
+    closeButton.onclick = () => document.body.removeChild(panel);
+    header.appendChild(closeButton);
+    panel.appendChild(header);
+    const contentContainer = document.createElement('div');
+    contentContainer.style.overflowY = 'auto';
+    panel.appendChild(contentContainer);
+    document.body.appendChild(panel);
+    const initialData = ${dataStr};
+    const autoExpandRules = ${rulesStr};
+    const githubLinkRules = ${githubRulesStr};
+    let history = [initialData];
+    let isSearching = false;
+    function getAllItemsRecursive(items) {
+        let flatList = [];
+        for (const item of items) {
+            flatList.push(item);
+            if (item.children && item.children.length > 0) {
+                flatList = flatList.concat(getAllItemsRecursive(item.children));
+            }
+        }
+        return flatList;
+    }
+    const allItemsFlat = getAllItemsRecursive(initialData);
+    function toHiragana(str) { return str.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 96)); }
+    function findPathToFolder(items, targetName, path = []) {
+        for (const item of items) {
+            const currentPath = [...path, item];
+            if (item.isFolder && item.name === targetName) {
+                let historyPath = [initialData];
+                currentPath.forEach(p => { historyPath.push(p.children || []); });
+                return historyPath;
+            }
+            if (item.children && item.children.length > 0) {
+                const result = findPathToFolder(item.children, targetName, currentPath);
+                if (result) return result;
+            }
+        }
+        return null;
+    }
+    function createItemElement(item, container) {
+        if (item.isFolder) {
+            const folderBtn = document.createElement('button');
+            folderBtn.textContent = '📁 ' + item.name;
+            folderBtn.style = 'display:block;margin:5px 0;background:#87CEEB;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+            folderBtn.onclick = () => {
+                const path = findPathToFolder(initialData, item.name);
+                if (path) {
+                    history = path;
+                    isSearching = false;
+                    searchInput.value = '';
+                    render();
+                }
+            };
+            container.appendChild(folderBtn);
+        } else if (item.children && item.children.length > 0) {
+            const folder = document.createElement('div');
+            const folderBtn = document.createElement('button');
+            folderBtn.textContent = '▽ ' + item.name;
+            folderBtn.style = 'display:block;margin:5px 0;background:#ADD8E6;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+            const childContainer = document.createElement('div');
+            childContainer.style.display = 'none';
+            childContainer.style.paddingLeft = '15px';
+            folder.appendChild(folderBtn);
+            folder.appendChild(childContainer);
+            folderBtn.onclick = function() {
+                const isHidden = childContainer.style.display === 'none';
+                childContainer.style.display = isHidden ? 'block' : 'none';
+                folderBtn.textContent = (isHidden ? '△ ' : '▽ ') + item.name;
+            };
+            item.children.forEach(child => createItemElement(child, childContainer));
+            container.appendChild(folder);
+        } else {
+            const btn = document.createElement('button');
+            btn.textContent = item.name;
+            btn.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+            btn.onclick = function() {
+                try { eval(item.script); } catch (e) { console.error('Script Error:', e); }
+                const topPanel = document.getElementById(panelId);
+                if (topPanel) topPanel.style.display = 'none';
+            };
+            container.appendChild(btn);
+        }
+    }
+    function render() {
+        const hiraFilterText = toHiragana(searchInput.value.toLowerCase());
+        contentContainer.innerHTML = '';
+        if (isSearching || history.length > 1) {
+            const backButton = document.createElement('button');
+            backButton.textContent = '← Back';
+            backButton.style = 'display:block;margin:5px 0;background:#6c757d;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
+            backButton.onclick = () => {
+                history = [initialData];
+                isSearching = false;
+                searchInput.value = '';
+                render();
+            };
+            contentContainer.appendChild(backButton);
+        }
+        if (isSearching) {
+            const searchResults = allItemsFlat.filter(item => toHiragana(item.name.toLowerCase()).includes(hiraFilterText));
+            searchResults.forEach(item => createItemElement(item, contentContainer));
+        } else {
+            const currentItems = history[history.length - 1];
+            currentItems.forEach(item => createItemElement(item, contentContainer));
+        }
+    }
+    searchInput.oninput = () => {
+        isSearching = searchInput.value.length > 0;
+        render();
+    };
+    document.addEventListener('click', (e) => { if (panel && !panel.contains(e.target) && panel.style.display !== 'none') { panel.style.display = 'none'; } }, true);
+    const currentUrl = window.location.href;
+    let bestMatchRule = null, bestMatchLength = 0;
+    for (const rule of autoExpandRules) {
+        if (rule.url && currentUrl.startsWith(rule.url) && rule.url.length > bestMatchLength) {
+            bestMatchLength = rule.url.length;
+            bestMatchRule = rule;
+        }
+    }
+    if (bestMatchRule) {
+        const pathToFolder = findPathToFolder(initialData, bestMatchRule.folderName);
+        if (pathToFolder) { history = pathToFolder; }
+    }
+    render();
+})()`.replace(/\s{2,}/g, ' ').replace(/\n/g, '');
+         return `javascript:${funcStr}`;
+     }
+
+     function parseAdvancedUserScript(fullCode) {
+        if (!fullCode.includes('// ==UserScript==')) return null;
+        const headerMatch = fullCode.match(/\/\/\s*==UserScript==([\s\S]*?)\/\/\s*==\/UserScript==/);
+        if (!headerMatch) return null;
+
+        const header = headerMatch[1];
+        const config = {
+            name: (header.match(/@name\s+(.*)/) || [])[1]?.trim() || '',
+            version: (header.match(/@version\s+(.*)/) || [])[1]?.trim() || '',
+            downloadURL: (header.match(/@downloadURL\s+(.*)/) || [])[1]?.trim() || '',
+            updateURL: (header.match(/@updateURL\s+(.*)/) || [])[1]?.trim() || '',
+            urls: [],
+            button: {},
+            shortcuts: [],
+            payload: ''
+        };
+        
+        const urlMatches = [...header.matchAll(/\/\/\s*@(match|include)\s+(.*)/g)];
+        config.urls = urlMatches.map(m => {
+            const type = m[1].trim();
+            const url = m[2].trim();
+            if (type === 'match' && url === 'http*://*/*') {
+                return { type: 'match_all', url: url };
+            }
+            return { type: type, url: url };
+        });
+
+        const bodyMatch = fullCode.match(/\/\/\s*==\/UserScript==\s*([\s\S]*)/);
+        if (!bodyMatch) return config;
+
+        const body = bodyMatch[1];
+        if (!body.includes("addEventListener('click'") && !body.includes("addEventListener('keydown'")) return config;
+
+         if (body.includes("addEventListener('keydown'")) {
+             config.mode = 'keyboard';
+             const keyRegex = /if\s*\(e\.key\s*===\s*'([^']+)'\)\s*\{/g;
+             let match;
+             while((match = keyRegex.exec(body)) !== null){
+                 const key = match[1];
+                 const startBrace = match.index + match[0].length - 1;
+                 const endBrace = findMatchingBrace(body, startBrace, '{', '}');
+                 if(endBrace !== -1){
+                     const code = body.substring(startBrace + 1, endBrace).trim();
+                     config.shortcuts.push({ key, code });
+                 }
+             }
+             config.payload = config.shortcuts[0]?.code || '';
+         } else {
+             config.mode = 'button';
+             const clickListenerStart = body.indexOf("button.addEventListener('click', () => {");
+             if(clickListenerStart !== -1){
+                 const startBrace = body.indexOf('{', clickListenerStart);
+                 const endBrace = findMatchingBrace(body, startBrace, '{', '}');
+                 if(endBrace !== -1) { config.payload = body.substring(startBrace + 1, endBrace).trim(); }
+             }
+             config.button.displayMode = body.includes("document.addEventListener('mousemove'") ? 'transparent' : 'fixed';
+             if (config.button.displayMode === 'transparent') {
+                 const c = body.match(/const cursorArea = \{\s*top:\s*([\d.-]+),\s*left:\s*([\d.-]+),\s*bottom:\s*([\d.-]+),\s*right:\s*([\d.-]+)\s*\};/);
+                 config.button.cursor = c ? { top: c[1], left: c[2], bottom: c[3], right: c[4] } : {};
+             }
+             const top = parseFloat((body.match(/button\.style\.top\s*=\s*'([\d.-]+)px'/) || [])[1] || 0);
+             const left = parseFloat((body.match(/button\.style\.left\s*=\s*'([\d.-]+)px'/) || [])[1] || 0);
+             const width = parseFloat((body.match(/button\.style\.width\s*=\s*'([\d.-]+)px'/) || [])[1] || 0);
+             const height = parseFloat((body.match(/button\.style\.height\s*=\s*'([\d.-]+)px'/) || [])[1] || 0);
+             config.button.display = { top, left, bottom: top + height, right: left + width };
+             config.button.contentType = (body.includes("button.textContent =") || !body.includes("for (let i = 0; i < 3; i++)")) ? 'custom' : 'default';
+             if (config.button.contentType === 'custom') {
+                 const rgbaToHex = (rgba) => {
+                     if(!rgba || !rgba.includes('rgba')) return { color: '#000000', opacity: 100 };
+                     const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+                     if (!match) return { color: '#000000', opacity: 100 };
+                     const toHex = (c) => parseInt(c, 10).toString(16).padStart(2, '0');
+                     return { color: `#${toHex(match[1])}${toHex(match[2])}${toHex(match[3])}`, opacity: match[4] !== undefined ? Math.round(parseFloat(match[4]) * 100) : 100 };
+                 }
+                 const bgRgba = (body.match(/button\.style\.backgroundColor\s*=\s*'([^']*)'/) || [])[1] || '';
+                 const textRgba = (body.match(/button\.style\.color\s*=\s*'([^']*)'/) || [])[1] || '';
+                 config.button.custom = {
+                     bgColor: rgbaToHex(bgRgba).color, opacity: rgbaToHex(bgRgba).opacity, textColor: rgbaToHex(textRgba).color,
+                     borderRadius: (body.match(/button\.style\.borderRadius\s*=\s*'([\d.-]+)px'/) || [])[1] || '',
+                     buttonText: (body.match(/button\.textContent\s*=\s*'([^']*)'/) || [])[1] || '',
+                     fontSize: (body.match(/button\.style\.fontSize\s*=\s*'([\d.-]+)px'/) || [])[1] || ''
+                 };
+             }
+         }
+         return config;
+     }
+
+     function generateAdvancedUserScript(config, toolPanelPayload) {
+         const newVersion = config.isNew ? config.version : incrementVersion(config.version);
+         let header = `// ==UserScript==
+// @name         ${config.name}
+// @namespace    http://tampermonkey.net/
+// @version      ${newVersion}
+// @description  Generated by Tool Panel Generator
+// @author       your_name
+${config.urls.map(u => `// @${u.type.padEnd(12, ' ')}${u.url}`).join('\n')}`;
+
+        if (config.downloadURL) header += `\n// @downloadURL  ${config.downloadURL}`;
+        if (config.updateURL) header += `\n// @updateURL    ${config.updateURL}`;
+        
+        header += `\n// @grant        none\n// ==/UserScript==\n`;
+
+         let body = "";
+         if(config.mode === 'button'){
+             const btn = config.button;
+             const width = btn.display.right - btn.display.left;
+             const height = btn.display.bottom - btn.display.top;
+             const colorToRgba = (colorStr, opacityPercent) => {
+                 const alpha = Math.max(0, Math.min(1, (parseInt(opacityPercent, 10) || 100) / 100));
+                 const div = document.createElement('div'); div.style.color = colorStr || 'black'; document.body.appendChild(div);
+                 const computedColor = window.getComputedStyle(div).color; document.body.removeChild(div);
+                 const match = computedColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+                 return match ? `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})` : `rgba(0,0,0,${alpha})`;
+             };
+             let styles = `
+   button.style.position = 'fixed';
+   button.style.top = '${btn.display.top}px';
+   button.style.left = '${btn.display.left}px';
+   button.style.width = '${width}px';
+   button.style.height = '${height}px';
+   button.style.zIndex = '2147483646';
+   button.style.cursor = 'pointer';
+   button.style.border = 'none';`;
+             let content = '';
+             if(btn.contentType === 'custom'){
+                 const custom = btn.custom;
+                 const bgColorRgba = colorToRgba(custom.bgColor || 'rgba(0,0,0,0.5)', custom.opacity);
+                 styles += `
+   button.style.backgroundColor = '${bgColorRgba}';
+   button.style.borderRadius = '${custom.borderRadius || 0}px';
+   button.style.display = 'flex';
+   button.style.alignItems = 'center';
+   button.style.justifyContent = 'center';`;
+                 if(custom.buttonText) {
+                     const textColorRgba = colorToRgba(custom.textColor || 'white', custom.opacity);
+                     content += `
+   button.textContent = '${custom.buttonText}';
+   button.style.color = '${textColorRgba}';
+   button.style.fontSize = '${custom.fontSize || 16}px';`;
+                 }
+             } else {
+                  styles += `
+   button.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+   button.style.borderRadius = '5px';
+   button.style.display = 'flex';
+   button.style.flexDirection = 'column';
+   button.style.alignItems = 'center';
+   button.style.justifyContent = 'center';`;
+                 content += `
+   for (let i = 0; i < 3; i++) {
+       const line = document.createElement('div');
+       line.style.width = '20px'; line.style.height = '3px'; line.style.backgroundColor = 'white'; line.style.margin = '2px 0';
+       button.appendChild(line);
+   }`;
+             }
+             let transparencyLogic = '';
+             if (btn.displayMode === 'transparent') {
+                 styles += `
+   button.style.display = 'none';`;
+                 transparencyLogic = `
+   const cursorArea = { top: ${btn.cursor.top}, left: ${btn.cursor.left}, bottom: ${btn.cursor.bottom}, right: ${btn.cursor.right} };
+   document.addEventListener('mousemove', (e) => {
+       const isCursorInArea = e.clientX >= cursorArea.left && e.clientX <= cursorArea.right && e.clientY >= cursorArea.top && e.clientY <= cursorArea.bottom;
+       const currentDisplay = button.style.display;
+       const newDisplay = isCursorInArea ? (button.style.flexDirection ? 'flex' : 'block') : 'none';
+       if(currentDisplay !== newDisplay) { button.style.display = newDisplay; }
+   });`;
+             }
+             body = `
+(function() {
+    'use strict';
+    const button = document.createElement('div');
+${styles}
+    document.body.appendChild(button);
+${content}
+${transparencyLogic}
+    button.addEventListener('click', () => {
+        ${toolPanelPayload}
+    });
+})();`;
+         } else {
+             config.shortcuts[0].code = toolPanelPayload;
+             const keyEvents = config.shortcuts.map(s => `
+        if (e.key === '${s.key}') {
+            ${s.code}
+        }`).join('');
+             body = `
+(function() {
+    'use strict';
+    document.addEventListener('keydown', (e) => {${keyEvents}
+    });
+})();`;
+         }
+         return header + body;
+     }
+
+     // =======================================================
+     //                 UI操作関数
+     // =======================================================
+     function createNewRow(prefix, level = 0, name = "", script = "", isFolder = false, isParent = false) {
+         const safeName = name.replace(/"/g, '&quot;');
+         const safeScript = script.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+         const parentClass = isParent ? 'parent-row expanded' : '';
+         const toggleIcon = isParent ? '<span class="toggle-icon"></span>' : '<span class="toggle-icon" style="visibility: hidden;"></span>';
+
+         return `<tr class="button-row ${parentClass}" data-level="${level}" data-is-folder="${isFolder}">
+             <td>
+                 <div class="name-control-wrapper" style="padding-left: ${level * 30}px;">
+                     ${toggleIcon}
+                     <span class="folder-icon">📁</span>
+                     <input type="text" class="form-control button-name" placeholder="ボタン名/フォルダ名" value="${safeName}">
+                 </div>
+             </td>
+             <td><textarea class="form-control button-script" placeholder="親階層やフォルダの場合はJS不要" rows="2" ${isFolder ? 'disabled' : ''}>${safeScript}</textarea></td>
+             <td class="text-nowrap">
+                 <button class="btn btn-xs btn-info up-button" title="この行を同じ階層内で一つ上に移動します">↑</button>
+                 <button class="btn btn-xs btn-info down-button" title="この行を同じ階層内で一つ下に移動します">↓</button>
+                 <button class="btn btn-xs btn-primary folder-button" title="フォルダ化/解除します。フォルダ化(📁)すると、クリックでその階層に移動する独立したパネルが開きます。スクリプトは不要になります。">フォルダ化</button>
+                 <button class="btn btn-xs btn-success add-sibling-button" title="この行の直下に、同じ階層の新しいアイテムを追加します">同階層</button>
+                 <button class="btn btn-xs btn-success add-child-button" title="この行の下に、一つ下の階層の新しいアイテムを追加します。これによりこの行は展開/収納可能な親階層(▽)になります。">下階層</button>
+                 <button class="btn btn-xs btn-danger remove-button" title="この行と、この行に含まれる全ての下階層を削除します">削除</button>
+                 <button class="btn btn-xs btn-warning copy-js-button" title="この行のJavaScriptコードをクリップボードにコピーします">JSコピー</button>
+                 <button class="btn btn-xs btn-default export-branch-button" title="この行を最上位として、全ての下階層を含む構造データをクリップボードにコピーします">🗂️📤</button>
+                 <button class="btn btn-xs btn-default import-branch-button" title="コピーした構造データをこの行に貼り付けます。この行と既存の下階層は全て置き換えられます。">🗂️📥</button>
+             </td></tr>`;
+     }
+
+     function buildButtonDataFromUI(containerSelector) {
+        const rows = $(`${containerSelector} > .button-row`).toArray();
+        const result = [];
+        const stack = [{ children: result, level: -1 }];
+
+        for (const row of rows) {
+            const $row = $(row);
+            const level = $row.data('level');
+            const item = {
+                name: $row.find('.button-name').val() || '',
+                script: $row.find('.button-script').val() || '',
+                children: []
+            };
+            if ($row.data('is-folder') === true) {
+                item.isFolder = true;
+            }
+            while (stack[stack.length - 1].level >= level) {
+                stack.pop();
+            }
+            stack[stack.length - 1].children.push(item);
+            stack.push({ children: item.children, level: level });
+        }
+        return result;
+    }
+
+     function getSelfAndDescendants($row) {
+         const currentLevel = $row.data('level');
+         const stopSelector = [];
+         for (let i = 0; i <= currentLevel; i++) {
+             stopSelector.push(`tr[data-level="${i}"]`);
+         }
+         const $descendants = $row.nextUntil(stopSelector.join(', '));
+         return $row.add($descendants);
+     }
+
+    function toggleRow($parentRow, forceCollapse = false) {
+        if (!$parentRow.hasClass('parent-row')) return;
+
+        let shouldHide;
+        if (forceCollapse) {
+            $parentRow.removeClass('expanded').addClass('collapsed');
+            shouldHide = true;
+        } else {
+            $parentRow.toggleClass('expanded collapsed');
+            shouldHide = $parentRow.hasClass('collapsed');
+        }
+
+        const parentLevel = $parentRow.data('level');
+        let $currentRow = $parentRow.next();
+
+        while ($currentRow.length > 0 && $currentRow.data('level') > parentLevel) {
+            $currentRow.toggle(!shouldHide);
+            if (!shouldHide && $currentRow.hasClass('parent-row collapsed')) {
+                const childLevel = $currentRow.data('level');
+                let $subsequentRow = $currentRow.next();
+                while ($subsequentRow.length && $subsequentRow.data('level') > childLevel) {
+                    $subsequentRow.hide();
+                    $subsequentRow = $subsequentRow.next();
+                }
+                $currentRow = $subsequentRow.prev();
+            }
+            $currentRow = $currentRow.next();
+        }
+    }
+
+
+     function setupRowButtons(prefix) {
+         const containerSelector = `#${prefix}-buttons-container`;
+         const container = $(containerSelector);
+
+         container.on('click', '.up-button', function() { const $row = $(this).closest('tr'); const level = $row.data('level'); let $prevSibling = $row.prevAll(`tr[data-level=${level}]`).first(); if ($prevSibling.length) { getSelfAndDescendants($row).insertBefore($prevSibling); } });
+         container.on('click', '.down-button', function() { const $row = $(this).closest('tr'); const level = $row.data('level'); let $nextSibling = $row.nextAll(`tr[data-level=${level}]`).first(); if ($nextSibling.length) { getSelfAndDescendants($nextSibling).after(getSelfAndDescendants($row));} });
+
+         container.on('click', '.folder-button', function() {
+             const $row = $(this).closest('tr');
+             const isCurrentlyFolder = $row.data('is-folder');
+             $row.data('is-folder', !isCurrentlyFolder).attr('data-is-folder', !isCurrentlyFolder);
+
+             if (!isCurrentlyFolder) {
+                 $row.find('.button-script').prop('disabled', true).val('');
+                 if (!$row.hasClass('parent-row')) {
+                    $row.addClass('parent-row expanded');
+                    $row.find('.toggle-icon').css('visibility', 'visible');
+                 }
+             } else {
+                 $row.find('.button-script').prop('disabled', false);
+                 if (getSelfAndDescendants($row).length <= 1) {
+                     $row.removeClass('parent-row expanded collapsed');
+                     $row.find('.toggle-icon').css('visibility', 'hidden');
+                 }
+             }
+         });
+
+         container.on('click', '.add-sibling-button', function() { const $row = $(this).closest('tr'); getSelfAndDescendants($row).last().after(createNewRow(prefix, $row.data('level'), '', '', false, false)); });
+         
+         container.on('click', '.add-child-button', function() {
+            const $row = $(this).closest('tr');
+            const level = $row.data('level');
+            if (!$row.hasClass('parent-row')) {
+                $row.addClass('parent-row expanded');
+                $row.find('.toggle-icon').css('visibility', 'visible');
+            }
+            if ($row.hasClass('collapsed')) {
+                toggleRow($row);
+            }
+            getSelfAndDescendants($row).last().after(createNewRow(prefix, level + 1, '', '', false, false));
+         });
+
+         container.on('click', '.remove-button', function() {
+             const $row = $(this).closest('tr');
+             if (container.find('tr[data-level="0"]').length === 1 && $row.data('level') === 0 && getSelfAndDescendants($row).length === container.find('tr').length) {
+                 alert('最後の1行は削除できません。'); return;
+             }
+             const level = $row.data('level');
+             if (level > 0) {
+                 const $parent = $row.prevAll('tr[data-level="' + (level - 1) + '"]').first();
+                 if ($parent.length) {
+                     const descendants = getSelfAndDescendants($parent);
+                     const toRemove = getSelfAndDescendants($row);
+                     if (descendants.length - toRemove.length <= 1) {
+                         $parent.removeClass('parent-row expanded collapsed');
+                         $parent.find('.toggle-icon').css('visibility', 'hidden');
+                         if (!$parent.data('is-folder')) {
+                             $parent.find('.button-script').prop('disabled', false);
+                         }
+                     }
+                 }
+             }
+             getSelfAndDescendants($row).remove();
+             if (container.find('tr').length === 0) { container.append(createNewRow(prefix, 0, 'ボタン1', "alert('Hello!');", false, false)); }
+         });
+         container.on('click', '.copy-js-button', function() { const script = $(this).closest('tr').find('.button-script').val(); if(script){ copyToClipboard(script, 'JavaScriptコードをコピーしました！'); } else { alert('コピーするJavaScriptコードがありません。'); }});
+         
+         container.on('click', '.export-branch-button', function() {
+             const $row = $(this).closest('tr');
+             const $branchRows = getSelfAndDescendants($row);
+             if ($branchRows.length === 0) { alert('エクスポート対象の行が見つかりません。'); return; }
+             const baseLevel = $row.data('level');
+             const branchData = $branchRows.map(function() {
+                 const $currentRow = $(this);
+                 return { name: $currentRow.find('.button-name').val() || '', script: $currentRow.find('.button-script').val() || '', isFolder: $currentRow.data('is-folder') === true, level: $currentRow.data('level') - baseLevel };
+             }).get();
+             const CLIPBOARD_PREFIX = 'TOOL_PANEL_BRANCH_DATA::';
+             const dataString = CLIPBOARD_PREFIX + JSON.stringify(branchData);
+             navigator.clipboard.writeText(dataString).then(() => {
+                 if ($branchRows.length === 1) { alert('下に階層がありません。\n（この行のデータはコピーされました）'); }
+                 else { alert('階層データをコピーしました。'); }
+             }).catch(err => { console.error('クリップボードへのコピーに失敗しました:', err); alert('コピーに失敗しました。'); });
+         });
+
+         container.on('click', '.import-branch-button', async function() {
+             const $row = $(this).closest('tr');
+             const baseLevel = $row.data('level');
+             const $anchor = $row.prev();
+             const CLIPBOARD_PREFIX = 'TOOL_PANEL_BRANCH_DATA::';
+             try {
+                 const clipboardText = await navigator.clipboard.readText();
+                 if (!clipboardText.startsWith(CLIPBOARD_PREFIX)) { alert('クリップボードに互換性のある階層データがありません。'); return; }
+                 const jsonString = clipboardText.substring(CLIPBOARD_PREFIX.length);
+                 const branchData = JSON.parse(jsonString);
+                 if (!Array.isArray(branchData) || branchData.length === 0) { alert('クリップボードのデータが空か、形式が正しくありません。'); return; }
+                 getSelfAndDescendants($row).remove();
+                 let newRowsHtml = '';
+                 branchData.forEach((itemData, index) => {
+                     const newLevel = baseLevel + itemData.level;
+                     const nextItem = branchData[index + 1];
+                     const isParent = itemData.isFolder || (nextItem && nextItem.level > itemData.level);
+                     newRowsHtml += createNewRow(prefix, newLevel, itemData.name, itemData.script, itemData.isFolder, isParent);
+                 });
+                 if ($anchor.length > 0) { $anchor.after(newRowsHtml); }
+                 else { container.prepend(newRowsHtml); }
+             } catch (err) { console.error('貼り付け処理中にエラーが発生しました:', err); alert('データの貼り付けに失敗しました。クリップボードの内容や形式を確認してください。'); }
+         });
+         
+         container.on('click', '.toggle-icon', function() {
+             toggleRow($(this).closest('.parent-row'));
+         });
+     }
+
+     function addUrlInput(container, type, url){
+         const div = $(`<div class="url-input"> <select class="url-type form-control"><option value="match">@match</option><option value="include">@include</option><option value="match_all">@match 全サイト</option></select> <input type="text" class="url-input-field form-control" placeholder="例: https://*.google.com/*"> <button class="delete-url-btn btn btn-xs btn-danger">削除</button> </div>`);
+         if (type === 'match_all') {
+            div.find('.url-type').val('match_all');
+            div.find('.url-input-field').val('http*://*/*').prop('readonly', true);
+         } else {
+            if(type) div.find('.url-type').val(type);
+            if(url) div.find('.url-input-field').val(url);
+         }
+         div.find('.delete-url-btn').on('click', function(){ $(this).parent().remove(); });
+         div.find('.url-type').on('change', function(){
+            const inputField = $(this).siblings('.url-input-field');
+            if($(this).val() === 'match_all') {
+                inputField.val('http*://*/*').prop('readonly', true);
+            } else {
+                if(inputField.val() === 'http*://*/*') inputField.val('');
+                inputField.prop('readonly', false);
+            }
+         });
+         container.append(div);
+     }
+
+     function addKeyInput(container, key, code, disabled){
+         const div = $(`<div class="keyboard-group"> <button class="delete-key-btn">削除</button> <div class="form-group"><label>キー</label><input type="text" class="key-input form-control"></div> <div class="form-group"><label>実行するJS（ブックマークレット）</label><textarea class="key-script form-control" rows="3"></textarea></div> </div>`);
+         if(key) div.find('.key-input').val(key);
+         if(code) div.find('.key-script').val(code);
+         if(disabled) div.find('.key-script').prop('disabled', true);
+         div.find('.delete-key-btn').on('click', function(){ $(this).parent().remove(); });
+         container.append(div);
+     }
+
+    // --- 自動展開ルール ---
+    function addAutoExpandRuleRow(listOrAnchor, url = '', folderName = '') {
+        const newRow = $(`<div class="auto-expand-rule"><input type="text" class="auto-expand-url form-control" placeholder="URL (前方一致)" value="${url}"><input type="text" class="auto-expand-folder form-control" placeholder="展開フォルダ名" value="${folderName}"><button class="btn btn-xs btn-info btn-rule-up" title="上へ">↑</button><button class="btn btn-xs btn-info btn-rule-down" title="下へ">↓</button><button class="btn btn-xs btn-success btn-rule-add" title="下に追加">追加</button><button class="btn btn-xs btn-danger btn-rule-del" title="削除">削除</button></div>`);
+        if (listOrAnchor.is('div[id$="-auto-expand-rules-list"]')) { listOrAnchor.append(newRow); } else { listOrAnchor.after(newRow); }
+    }
+    
+    function getAutoExpandRules(listId) {
+        const rules = [];
+        $(`#${listId} .auto-expand-rule`).each(function() {
+            const url = $(this).find('.auto-expand-url').val().trim();
+            const folderName = $(this).find('.auto-expand-folder').val().trim();
+            if (url || folderName) { rules.push({ url, folderName }); }
+        });
+        return rules;
+    }
+    
+    function setupAutoExpandRules(containerId) {
+        const container = $(`#${containerId}`);
+        container.on('click', '.btn-rule-up', function() { const row = $(this).closest('.auto-expand-rule'); row.prev().before(row); });
+        container.on('click', '.btn-rule-down', function() { const row = $(this).closest('.auto-expand-rule'); row.next().after(row); });
+        container.on('click', '.btn-rule-add', function() { addAutoExpandRuleRow($(this).closest('.auto-expand-rule')); });
+        container.on('click', '.btn-rule-del', function() {
+            const row = $(this).closest('.auto-expand-rule');
+            if (container.find('.auto-expand-rule').length > 1) { row.remove(); } else { alert('最後のルールは削除できません。'); }
+        });
+    }
+
+    // --- GitHub紐付けルール ---
+    function addGithubLinkRuleRow(listOrAnchor, buttonName = '', githubUrl = '') {
+        const newRow = $(`<div class="github-link-rule"><input type="text" class="link-button-name form-control" placeholder="ボタン名" value="${buttonName}"><input type="text" class="link-github-url form-control" placeholder="GitHubのJSファイルURL" value="${githubUrl}"><button class="btn btn-xs btn-info btn-rule-up" title="上へ">↑</button><button class="btn btn-xs btn-info btn-rule-down" title="下へ">↓</button><button class="btn btn-xs btn-success btn-rule-add" title="下に追加">追加</button><button class="btn btn-xs btn-danger btn-rule-del" title="削除">削除</button><button class="btn btn-xs btn-warning btn-link-update" title="このボタンのJSを更新">更新</button></div>`);
+        if (listOrAnchor.is('div[id$="-github-link-rules-list"]')) { listOrAnchor.append(newRow); } else { listOrAnchor.after(newRow); }
+    }
+
+    function getGithubLinkRules(listId) {
+        const rules = [];
+        $(`#${listId} .github-link-rule`).each(function() {
+            const buttonName = $(this).find('.link-button-name').val().trim();
+            const githubUrl = $(this).find('.link-github-url').val().trim();
+            if (buttonName || githubUrl) { rules.push({ buttonName, githubUrl }); }
+        });
+        return rules;
+    }
+    
+    async function updateScriptFromGithub(prefix, buttonName, githubUrl) {
+        if (!buttonName || !githubUrl) {
+            alert('ボタン名とGitHub URLの両方を入力してください。');
+            return;
+        }
+
+        const rawUrl = githubUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+        let code;
+        try {
+            const response = await fetch(rawUrl);
+            if (!response.ok) throw new Error(`ネットワークエラー: ${response.statusText}`);
+            code = await response.text();
+        } catch (error) {
+            console.error('GitHubからの更新に失敗しました:', error);
+            alert(`更新に失敗しました: ${error.message}`);
+            return;
+        }
+
+        if (prefix === 'single') {
+            // 'single' mode: Update the in-memory 'singleEditState' object
+            function updateScriptInState(items, name, newScriptVal) {
+                for (let item of items) {
+                    if (item.name === name && !item.isFolder && (!item.children || item.children.length === 0)) {
+                        item.script = newScriptVal;
+                        return true;
+                    }
+                    if (item.children && item.children.length > 0) {
+                        if (updateScriptInState(item.children, name, newScriptVal)) return true;
+                    }
+                }
+                return false;
+            }
+
+            if (singleEditState && singleEditState.items && updateScriptInState(singleEditState.items, buttonName, code)) {
+                if (singleEditState.targetButtonName === buttonName) {
+                    $('#single-after-script').val(code);
+                }
+                alert(`ボタン「${buttonName}」のスクリプトを(メモリ上で)更新しました。`);
+            } else {
+                alert(`更新対象のボタン「${buttonName}」がメモリ内に見つからないか、フォルダまたは親階層です。`);
+            }
+        } else {
+            // 'gen' and 'edit' modes: Update the DOM table
+            const tablePrefix = prefix;
+            const targetRow = $(`#${tablePrefix}-buttons-container tr`).filter(function() {
+                return $(this).find('.button-name').val() === buttonName && !$(this).data('is-folder') && $(this).find('.button-script').is(':enabled');
+            }).first();
+
+            if (targetRow.length === 0) {
+                alert(`更新対象のボタン「${buttonName}」が見つからないか、フォルダまたは親階層です。`);
+                return;
+            }
+            targetRow.find('.button-script').val(code);
+            alert(`ボタン「${buttonName}」のスクリプトを更新しました。`);
+        }
+    }
+
+    function setupGithubLinkRules(prefix) {
+        const container = $(`#${prefix}-github-link-rules-list`);
+        container.on('click', '.btn-rule-up', function() { const row = $(this).closest('.github-link-rule'); row.prev().before(row); });
+        container.on('click', '.btn-rule-down', function() { const row = $(this).closest('.github-link-rule'); row.next().after(row); });
+        container.on('click', '.btn-rule-add', function() { addGithubLinkRuleRow($(this).closest('.github-link-rule')); });
+        container.on('click', '.btn-rule-del', function() {
+            const row = $(this).closest('.github-link-rule');
+            if (container.find('.github-link-rule').length > 1) { row.remove(); } else { alert('最後のルールは削除できません。'); }
+        });
+        container.on('click', '.btn-link-update', async function() {
+            const ruleRow = $(this).closest('.github-link-rule');
+            await updateScriptFromGithub(prefix, ruleRow.find('.link-button-name').val(), ruleRow.find('.link-github-url').val());
+        });
+        $(`#${prefix}-update-all-links-button`).on('click', async function() {
+            if (!confirm('全ての紐付けルールに基づいてスクリプトを更新します。よろしいですか？')) return;
+            const rules = getGithubLinkRules(`${prefix}-github-link-rules-list`);
+            for (const rule of rules) {
+                await updateScriptFromGithub(prefix, rule.buttonName, rule.githubUrl);
+            }
+        });
+    }
+
+     // =======================================================
+     //                 UIイベントハンドラ
+     // =======================================================
+     function initGenerateMode() {
+         $('#gen-buttons-container').empty().append(createNewRow('gen', 0, 'ボタン1', "alert('Hello!');", false, false));
+         $('#gen-auto-expand-rules-list').empty();
+         addAutoExpandRuleRow($('#gen-auto-expand-rules-list'));
+         $('#gen-github-link-rules-list').empty();
+         addGithubLinkRuleRow($('#gen-github-link-rules-list'));
+
+         $('#us-gen-url-container').find('.url-input').remove();
+         addUrlInput($('#us-gen-url-container'));
+         $('#us-gen-keyboard-container').empty();
+         addKeyInput($('#us-gen-keyboard-container'), '', "/* ツールパネルが実行されます */", true);
+     }
+
+     $('input[name="gen-mode"]').on('change', function() {
+        const isUserScript = this.value === 'userscript';
+        $('#gen-userscript-settings-container').toggle(isUserScript);
+        $('#gen-javascript-settings').toggle(!isUserScript);
+     });
+
+     $('#gen-generate-button').on('click', function() {
+         const mode = $('input[name="gen-mode"]:checked').val();
+         const buttonData = buildButtonDataFromUI('#gen-buttons-container');
+         if (buttonData.length === 0) { alert('作成するボタンがありません。'); return; }
+
+         const position = {
+            yProp: $('input[name="gen-y-pos"]:checked').val(), yVal: $(`#gen-panel-y`).val(),
+            xProp: $('input[name="gen-x-pos"]:checked').val(), xVal: $(`#gen-panel-x`).val()
+         };
+
+         const autoExpandRules = getAutoExpandRules('gen-auto-expand-rules-list');
+         const githubLinkRules = getGithubLinkRules('gen-github-link-rules-list');
+         let finalCode = '';
+         let outputTitle = '';
+         let bookmarkletName = '';
+
+         if (mode === 'userscript') {
+            const config = readUserScriptSettingsFromUI('gen');
+            config.isNew = true;
+            const toolPanelPayload = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules).substring(11);
+            finalCode = generateAdvancedUserScript(config, toolPanelPayload);
+            outputTitle = '生成されたUserScript';
+            $('#gen-bookmarklet-link').hide();
+            $('#gen-bookmarklet-help').hide();
+         } else {
+            finalCode = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules);
+            bookmarkletName = $('#gen-bookmarklet-name').val() || 'ツールパネル';
+            outputTitle = '生成されたブックマークレット';
+            $('#gen-bookmarklet-link').text(bookmarkletName).attr('href', finalCode).show();
+            $('#gen-bookmarklet-help').show();
+         }
+         
+         $('#gen-output-title').text(outputTitle);
+         $('#gen-generated-code').text(finalCode);
+         $('#gen-output-section').show();
+     });
+
+     $('#gen-copy-button').on('click', () => copyToClipboard($('#gen-generated-code').text()));
+     $('#gen-test-button').on('click', () => testGeneratedCode($('#gen-generated-code').text()));
+     $('#gen-save-button').on('click', () => {
+        const mode = $('input[name="gen-mode"]:checked').val();
+        const filename = mode === 'userscript' ? $('#us-gen-name').val() : $('#gen-bookmarklet-name').val();
+        saveCodeAsFile($('#gen-generated-code').text(), filename || 'tool-panel');
+     });
+
+     $('#edit-start-button').on('click', function() {
+         const inputCode = $('#edit-bookmarklet-input').val().trim();
+         if (!inputCode) { alert('コードを入力してください'); return; }
+         parsedUserScriptConfig = null;
+         $('#edit-userscript-settings-container').hide();
+         $('#edit-generate-js-button').hide();
+         try {
+             const advancedConfig = parseAdvancedUserScript(inputCode);
+             let toolPanelPayload = inputCode;
+             if (advancedConfig) {
+                 parsedUserScriptConfig = advancedConfig;
+                 populateUserScriptSettingsUI(advancedConfig, 'edit');
+                 toolPanelPayload = advancedConfig.payload;
+                 $('#edit-userscript-settings-container').show();
+                 $('#edit-generate-js-button').show();
+             }
+             const { items, position, autoExpandRules, githubLinkRules } = extractDataAndSettingsFromCode(toolPanelPayload);
+             populateEditUI(items, 'edit');
+             
+             $('input[name="edit-y-pos"]').prop('checked', false).filter(`[value="${position.yProp}"]`).prop('checked', true);
+             $('input[name="edit-x-pos"]').prop('checked', false).filter(`[value="${position.xProp}"]`).prop('checked', true);
+             $('#edit-panel-y').val(position.yVal);
+             $('#edit-panel-x').val(position.xVal);
+
+             $('#edit-auto-expand-rules-list').empty();
+             (autoExpandRules || []).forEach(r => addAutoExpandRuleRow($('#edit-auto-expand-rules-list'), r.url, r.folderName));
+             if ($('#edit-auto-expand-rules-list').children().length === 0) addAutoExpandRuleRow($('#edit-auto-expand-rules-list'));
+
+             $('#edit-github-link-rules-list').empty();
+             (githubLinkRules || []).forEach(r => addGithubLinkRuleRow($('#edit-github-link-rules-list'), r.buttonName, r.githubUrl));
+             if ($('#edit-github-link-rules-list').children().length === 0) addGithubLinkRuleRow($('#edit-github-link-rules-list'));
+
+             $('#edit-editor-section').show();
+             $('#edit-output-section').hide();
+         } catch (e) { console.error(e); alert('データの抽出中にエラーが発生しました: ' + e.message); }
+     });
+
+     $('#edit-regenerate-button').on('click', function() {
+         const newToolPanelData = buildButtonDataFromUI('#edit-buttons-container');
+         const position = {
+            yProp: $('input[name="edit-y-pos"]:checked').val(), yVal: $('#edit-panel-y').val(),
+            xProp: $('input[name="edit-x-pos"]:checked').val(), xVal: $('#edit-panel-x').val()
+         };
+
+         const autoExpandRules = getAutoExpandRules('edit-auto-expand-rules-list');
+         const githubLinkRules = getGithubLinkRules('edit-github-link-rules-list');
+         const newToolPanelPayload = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules);
+         let finalCode = '';
+
+         if(parsedUserScriptConfig){
+             const updatedConfig = readUserScriptSettingsFromUI('edit');
+             const payload = newToolPanelPayload.substring(newToolPanelPayload.indexOf(':') + 1);
+             finalCode = generateAdvancedUserScript(updatedConfig, payload);
+         } else {
+             finalCode = newToolPanelPayload;
+         }
+         $('#edit-generated-code').text(finalCode);
+         if (parsedUserScriptConfig) {
+              $('#edit-generated-title').text('生成されたUserScript');
+              $('#edit-bookmarklet-link').hide(); $('#edit-bookmarklet-link-help').hide();
+         } else {
+              $('#edit-generated-title').text('生成されたブックマークレット');
+              const bookmarkletName = ($('#edit-buttons-container .button-name').first().val() || 'ツールパネル');
+              $('#edit-bookmarklet-link').text(bookmarkletName).attr('href', finalCode).show(); $('#edit-bookmarklet-link-help').show();
+         }
+         $('#edit-output-section').show();
+     });
+
+    $('#edit-generate-js-button').on('click', function() {
+        const newToolPanelData = buildButtonDataFromUI('#edit-buttons-container');
+        const position = {
+           yProp: $('input[name="edit-y-pos"]:checked').val(), yVal: $('#edit-panel-y').val(),
+           xProp: $('input[name="edit-x-pos"]:checked').val(), xVal: $('#edit-panel-x').val()
+        };
+
+        const autoExpandRules = getAutoExpandRules('edit-auto-expand-rules-list');
+        const githubLinkRules = getGithubLinkRules('edit-github-link-rules-list');
+        const bookmarkletCode = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules);
+        const bookmarkletName = ($('#edit-buttons-container .button-name').first().val() || 'ツールパネル');
+
+        $('#edit-generated-code').text(bookmarkletCode);
+        $('#edit-generated-title').text('生成されたブックマークレット');
+        $('#edit-bookmarklet-link').text(bookmarkletName).attr('href', bookmarkletCode).show();
+        $('#edit-bookmarklet-link-help').show();
+        $('#edit-output-section').show();
+    });
+
+     $('#edit-copy-button').on('click', () => copyToClipboard($('#edit-generated-code').text()));
+     $('#edit-test-button').on('click', () => testGeneratedCode($('#edit-generated-code').text()));
+     $('#edit-save-button').on('click', () => saveCodeAsFile($('#edit-generated-code').text(), $('#us-edit-name').val() || 'tool-panel-edited'));
+     $('#edit-import-button').on('click', () => handleGitHubImport('edit-github-url', 'edit-bookmarklet-input'));
+     
+     $('#single-edit-start-button').on('click', function() {
+         const inputCode = $('#single-bookmarklet-input').val().trim();
+         const targetButtonName = $('#single-button-name').val().trim();
+         if (!inputCode || !targetButtonName) { alert('コードとボタン名を入力してください'); return; }
+         singleEditState = {};
+         $('#single-generate-js-button').hide();
+         const advancedConfig = parseAdvancedUserScript(inputCode);
+         let toolPanelPayload = inputCode;
+         if (advancedConfig) {
+             singleEditState.config = advancedConfig;
+             toolPanelPayload = advancedConfig.payload;
+             $('#single-generate-js-button').show();
+         }
+         const { items, position, autoExpandRules, githubLinkRules } = extractDataAndSettingsFromCode(toolPanelPayload);
+         if (!items || items.length === 0) { alert('ツールパネルのデータを抽出できませんでした。'); return; }
+
+         function findScript(itemsArr, name) {
+             for (const item of itemsArr) {
+                 if (item.name === name && !item.isFolder && (!item.children || item.children.length === 0)) return item.script;
+                 if (item.children?.length) { const found = findScript(item.children, name); if (found !== null) return found; }
+             }
+             return null;
+         }
+         const script = findScript(items, targetButtonName);
+         if (script === null) { alert(`"${targetButtonName}"という名前のボタンが見つからないか、親階層またはフォルダです。`); return; }
+         singleEditState.items = items;
+         singleEditState.position = position;
+         singleEditState.targetButtonName = targetButtonName;
+
+         $('#single-auto-expand-rules-list').empty();
+         (autoExpandRules || []).forEach(rule => addAutoExpandRuleRow($('#single-auto-expand-rules-list'), rule.url, rule.folderName));
+         if ($('#single-auto-expand-rules-list').children().length === 0) addAutoExpandRuleRow($('#single-auto-expand-rules-list'));
+
+         $('#single-github-link-rules-list').empty();
+         (githubLinkRules || []).forEach(r => addGithubLinkRuleRow($('#single-github-link-rules-list'), r.buttonName, r.githubUrl));
+         if ($('#single-github-link-rules-list').children().length === 0) addGithubLinkRuleRow($('#single-github-link-rules-list'));
+
+         $('#single-editing-button-name').text(targetButtonName);
+         $('#single-after-script').val(script);
+         $('#single-editor-section').show();
+         $('#single-output-section').hide();
+     });
+
+     $('#single-regenerate-button').on('click', function() {
+         if(!singleEditState.items) return;
+         const newScript = $('#single-after-script').val();
+
+         function updateScript(items, name, newScriptVal) {
+              for (let item of items) {
+                 if (item.name === name && !item.isFolder && (!item.children || item.children.length === 0)) { item.script = newScriptVal; return true; }
+                 if (item.children?.length) { if (updateScript(item.children, name, newScriptVal)) return true; }
+              }
+              return false;
+         }
+         updateScript(singleEditState.items, singleEditState.targetButtonName, newScript);
+         const autoExpandRules = getAutoExpandRules('single-auto-expand-rules-list');
+         const githubLinkRules = getGithubLinkRules('single-github-link-rules-list');
+         const newToolPanelPayload = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules);
+         let finalCode = '';
+         if(singleEditState.config){
+             const payload = newToolPanelPayload.substring(newToolPanelPayload.indexOf(':') + 1);
+             finalCode = generateAdvancedUserScript(singleEditState.config, payload);
+         } else {
+             finalCode = newToolPanelPayload;
+         }
+         $('#single-generated-code').text(finalCode);
+         if (singleEditState.config) {
+              $('#single-generated-title').text('生成されたUserScript');
+              $('#single-bookmarklet-link').hide(); $('#single-bookmarklet-link-help').hide();
+         } else {
+              $('#single-generated-title').text('生成されたブックマークレット');
+              $('#single-bookmarklet-link').text("更新版ブックマークレット").attr('href', finalCode).show(); $('#single-bookmarklet-link-help').show();
+         }
+         $('#single-output-section').show();
+     });
+
+     $('#single-generate-js-button').on('click', function() {
+        if(!singleEditState.items) return;
+        const newScript = $('#single-after-script').val();
+        function updateScript(items, name, newScriptVal) {
+            for (let item of items) {
+                if (item.name === name && !item.isFolder && (!item.children || item.children.length === 0)) {
+                    item.script = newScriptVal;
+                    return true;
+                }
+                if (item.children?.length) {
+                    if (updateScript(item.children, name, newScriptVal)) return true;
+                }
+            }
+            return false;
+        }
+        updateScript(singleEditState.items, singleEditState.targetButtonName, newScript);
+
+        const autoExpandRules = getAutoExpandRules('single-auto-expand-rules-list');
+        const githubLinkRules = getGithubLinkRules('single-github-link-rules-list');
+        const bookmarkletCode = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules);
+        $('#single-generated-code').text(bookmarkletCode);
+        $('#single-generated-title').text('生成されたブックマークレット');
+        $('#single-bookmarklet-link').text("更新版ブックマークレット").attr('href', bookmarkletCode).show();
+        $('#single-bookmarklet-link-help').show();
+        $('#single-output-section').show();
+     });
+
+     $('#single-copy-final').on('click', () => copyToClipboard($('#single-generated-code').text()));
+     $('#single-test-button').on('click', () => testGeneratedCode($('#single-generated-code').text()));
+     $('#single-save-button').on('click', () => saveCodeAsFile($('#single-generated-code').text(), 'tool-panel-single-edited'));
+     $('#single-import-button').on('click', () => handleGitHubImport('single-github-url', 'single-bookmarklet-input'));
+     
+     $('.position-group input[type="checkbox"]').on('change', function() {
+        const name = $(this).attr('name');
+        $(`input[name="${name}"]`).not(this).prop('checked', false);
+        if (!$(`input[name="${name}"]:checked`).length) {
+            $(this).prop('checked', true);
+        }
+     });
+
+     function populateEditUI(items, prefix) {
+         const container = $(`#${prefix}-buttons-container`);
+         container.empty();
+         function renderItem(item, level) {
+             const isParent = (item.children && item.children.length > 0) || !!item.isFolder;
+             container.append(createNewRow(prefix, level, item.name, item.script, !!item.isFolder, isParent));
+             if (item.children && item.children.length > 0) {
+                 item.children.forEach(child => renderItem(child, level + 1));
+             }
+         }
+         if (items && items.length > 0) {
+             items.forEach(item => renderItem(item, 0));
+         } else {
+             container.append(createNewRow(prefix, 0, '（データなし）', "alert('データが読み込めませんでした。');", false, false));
+         }
+
+         if (prefix === 'edit') {
+             container.find('tr.parent-row').each(function() {
+                toggleRow($(this), true);
+             });
+         }
+     }
+
+     function populateUserScriptSettingsUI(config, prefix) {
+         $(`#us-${prefix}-name`).val(config.name); $(`#us-${prefix}-version`).val(config.version);
+         $(`#us-${prefix}-downloadURL`).val(config.downloadURL); $(`#us-${prefix}-updateURL`).val(config.updateURL);
+
+         const urlContainer = $(`#us-${prefix}-url-container`);
+         urlContainer.find('.url-input').remove();
+         (config.urls || []).forEach(u => addUrlInput(urlContainer, u.type, u.url));
+         if (config.urls.length === 0) addUrlInput(urlContainer);
+
+         $(`input[name="us-${prefix}-mode"][value="${config.mode}"]`).prop('checked', true).trigger('change');
+         if(config.mode === 'button' && config.button){
+             $(`input[name="us-${prefix}-displayMode"][value="${config.button.displayMode}"]`).prop('checked', true).trigger('change');
+             if(config.button.displayMode === 'transparent' && config.button.cursor){
+                 $(`#us-${prefix}-cursorTop`).val(config.button.cursor.top); $(`#us-${prefix}-cursorLeft`).val(config.button.cursor.left);
+                 $(`#us-${prefix}-cursorBottom`).val(config.button.cursor.bottom); $(`#us-${prefix}-cursorRight`).val(config.button.cursor.right);
+             }
+             if(config.button.display){
+                 $(`#us-${prefix}-displayTop`).val(config.button.display.top); $(`#us-${prefix}-displayLeft`).val(config.button.display.left);
+                 $(`#us-${prefix}-displayBottom`).val(config.button.display.bottom); $(`#us-${prefix}-displayRight`).val(config.button.display.right);
+             }
+             $(`input[name="us-${prefix}-contentType"][value="${config.button.contentType}"]`).prop('checked', true).trigger('change');
+             if(config.button.contentType === 'custom' && config.button.custom){
+                 $(`#us-${prefix}-bgColor`).val(config.button.custom.bgColor); $(`#us-${prefix}-opacity`).val(config.button.custom.opacity);
+                 $(`#us-${prefix}-textColor`).val(config.button.custom.textColor); $(`#us-${prefix}-borderRadius`).val(config.button.custom.borderRadius);
+                 $(`#us-${prefix}-buttonText`).val(config.button.custom.buttonText); $(`#us-${prefix}-fontSize`).val(config.button.custom.fontSize);
+             }
+         } else {
+             const keyContainer = $(`#us-${prefix}-keyboard-container`).empty();
+             (config.shortcuts || []).forEach((s, i) => { addKeyInput(keyContainer, s.key, i === 0 ? "（ツールパネルが実行されます）" : s.code, i === 0); });
+         }
+     }
+
+     function readUserScriptSettingsFromUI(prefix){
+         const config = (prefix === 'edit' && parsedUserScriptConfig) ? JSON.parse(JSON.stringify(parsedUserScriptConfig)) : {};
+         config.name = $(`#us-${prefix}-name`).val(); config.version = $(`#us-${prefix}-version`).val();
+         config.downloadURL = $(`#us-${prefix}-downloadURL`).val().trim();
+         config.updateURL = $(`#us-${prefix}-updateURL`).val().trim();
+         config.urls = [];
+         $(`#us-${prefix}-url-container .url-input`).each(function(){
+            let type = $(this).find('.url-type').val();
+            let url = $(this).find('.url-input-field').val();
+            if (type === 'match_all') type = 'match';
+            config.urls.push({ type, url }); 
+        });
+         config.mode = $(`input[name="us-${prefix}-mode"]:checked`).val();
+         if(config.mode === 'button'){
+             config.button = config.button || {};
+             config.button.displayMode = $(`input[name="us-${prefix}-displayMode"]:checked`).val();
+             if(config.button.displayMode === 'transparent'){ config.button.cursor = { top: $(`#us-${prefix}-cursorTop`).val(), left: $(`#us-${prefix}-cursorLeft`).val(), bottom: $(`#us-${prefix}-cursorBottom`).val(), right: $(`#us-${prefix}-cursorRight`).val() }; }
+             config.button.display = { top: $(`#us-${prefix}-displayTop`).val(), left: $(`#us-${prefix}-displayLeft`).val(), bottom: $(`#us-${prefix}-displayBottom`).val(), right: $(`#us-${prefix}-displayRight`).val() };
+             config.button.contentType = $(`input[name="us-${prefix}-contentType"]:checked`).val();
+             if(config.button.contentType === 'custom'){
+                  config.button.custom = { bgColor: $(`#us-${prefix}-bgColor`).val(), opacity: $(`#us-${prefix}-opacity`).val(), textColor: $(`#us-${prefix}-textColor`).val(), borderRadius: $(`#us-${prefix}-borderRadius`).val(), buttonText: $(`#us-${prefix}-buttonText`).val(), fontSize: $(`#us-${prefix}-fontSize`).val() };
+             }
+         } else {
+             config.shortcuts = [];
+              $(`#us-${prefix}-keyboard-container .keyboard-group`).each(function(){ config.shortcuts.push({ key: $(this).find('.key-input').val(), code: $(this).find('.key-script').val() }); });
+         }
+         return config;
+     }
+
+    function setupUserScriptToggle(prefix) {
+        $(`input[name="us-${prefix}-mode"]`).on('change', function(){ $(`#us-${prefix}-button-section`).toggle(this.value === 'button'); $(`#us-${prefix}-keyboard-section`).toggle(this.value === 'keyboard'); });
+        $(`input[name="us-${prefix}-displayMode"]`).on('change', function(){ $(`#us-${prefix}-cursor-area`).toggle(this.value === 'transparent'); });
+        $(`input[name="us-gen-contentType"]`).on('change', function(){ $(`#us-gen-custom-content`).toggle(this.value === 'custom'); });
+        $(`input[name="us-edit-contentType"]`).on('change', function(){ $(`#us-edit-custom-content`).toggle(this.value === 'custom'); });
+        $(`#us-${prefix}-add-url`).on('click', () => addUrlInput($(`#us-${prefix}-url-container`)));
+        $(`#us-${prefix}-add-key`).on('click', () => addKeyInput($(`#us-${prefix}-keyboard-container`), '', '', false));
+    }
+
+     // =======================================================
+     //                     初期化処理
+     // =======================================================
+     setupRowButtons('gen');
+     setupRowButtons('edit');
+     setupUserScriptToggle('gen');
+     setupUserScriptToggle('edit');
+     setupAutoExpandRules('gen-auto-expand-rules-list');
+     setupAutoExpandRules('edit-auto-expand-rules-list');
+     setupAutoExpandRules('single-auto-expand-rules-list');
+     setupGithubLinkRules('gen');
+     setupGithubLinkRules('edit');
+     setupGithubLinkRules('single');
+     initGenerateMode();
+});
+</script>
+</body>
+</html>
