@@ -602,7 +602,7 @@ $(document).ready(function() {
     const settingsButton = document.createElement('button');
     settingsButton.textContent = '⚙️';
     settingsButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;';
-    settingsButton.onclick = () => window.open("https://sites.google.com/view/toolpaneleditor/%E3%83%9B%E3%83%BC%E3%83%A0", "_blank");
+    settingsButton.onclick = () => window.open("https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html", "_blank");
     header.appendChild(settingsButton);
     const searchContainer = document.createElement('div');
     searchContainer.style = 'flex-grow:1;display:flex;align-items:center;margin:0 5px;';
@@ -661,13 +661,10 @@ $(document).ready(function() {
             folderBtn.textContent = '📁 ' + item.name;
             folderBtn.style = 'display:block;margin:5px 0;background:#87CEEB;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
             folderBtn.onclick = () => {
-                const path = findPathToFolder(initialData, item.name);
-                if (path) {
-                    history = path;
-                    isSearching = false;
-                    searchInput.value = '';
-                    render();
-                }
+                history.push(item.children);
+                isSearching = false;
+                searchInput.value = '';
+                render();
             };
             container.appendChild(folderBtn);
         } else if (item.children && item.children.length > 0) {
@@ -707,9 +704,12 @@ $(document).ready(function() {
             backButton.textContent = '← Back';
             backButton.style = 'display:block;margin:5px 0;background:#6c757d;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
             backButton.onclick = () => {
-                history = [initialData];
-                isSearching = false;
-                searchInput.value = '';
+                if (isSearching) {
+                    isSearching = false;
+                    searchInput.value = '';
+                } else if (history.length > 1) {
+                    history.pop();
+                }
                 render();
             };
             contentContainer.appendChild(backButton);
@@ -737,7 +737,10 @@ $(document).ready(function() {
     }
     if (bestMatchRule) {
         const pathToFolder = findPathToFolder(initialData, bestMatchRule.folderName);
-        if (pathToFolder) { history = pathToFolder; }
+        if (pathToFolder) {
+            history = [];
+            pathToFolder.forEach(p => history.push(p));
+        }
     }
     render();
 })()`.replace(/\s{2,}/g, ' ').replace(/\n/g, '');
