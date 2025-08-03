@@ -130,7 +130,7 @@ javascript:
             children: [
             {
                 name: "ツールパネル",
-                url: "https://sites.google.com/view/toolpaneleditor/%E3%83%9B%E3%83%BC%E3%83%A0",
+                url: "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html",
                 icon: "https://img.icons8.com/color/512/google-sites--v2.png"
             },
             {
