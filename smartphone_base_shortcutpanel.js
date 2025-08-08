@@ -39,6 +39,11 @@ javascript:
             icon: "https://www.google.com/s2/favicons?sz=64&domain_url=asmr18.fans"
         },
         {
+            name: "9Anime",
+            url: "https://9animetv.to/home",
+            icon: "https://www.google.com/s2/favicons?sz=64&domain_url=9animetv.to"
+        },
+        {
             name: "原神",
             isFolder: true,
             children: [
