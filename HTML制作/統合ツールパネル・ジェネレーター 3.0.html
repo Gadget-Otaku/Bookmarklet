@@ -35,8 +35,8 @@
      .url-input select { width: auto; }
      .url-input input { flex-grow: 1; }
      .url-input .delete-url-btn { background-color: #d9534f; color:white; border: none; padding: 2px 6px; font-size: 12px; border-radius: 3px; }
-     .auto-expand-rule, .github-link-rule { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
-     .auto-expand-rule input, .github-link-rule input { flex-grow: 1; }
+     .auto-expand-rule, .favorite-rule, .github-link-rule { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+     .auto-expand-rule input, .favorite-rule input, .github-link-rule input { flex-grow: 1; }
      .auto-expand-instructions { margin: 5px 0 15px 0; padding: 10px; background-color: #f0f8ff; font-size: 12px;}
      .auto-expand-instructions p { margin:0; }
      .position-group { display: flex; gap: 20px; align-items: center; }
@@ -173,6 +173,10 @@
                 </p>
             </div>
             <div id="gen-auto-expand-rules-list"></div>
+         </div>
+         <div class="userscript-settings-box" style="margin-top: 20px;">
+             <label>お気に入り</label>
+             <div id="gen-favorites-list"></div>
          </div>
          <div class="userscript-settings-box" style="margin-top: 20px;">
              <label>ボタン・Github URL紐づけルール</label>
@@ -315,6 +319,10 @@
                   <div id="edit-auto-expand-rules-list"></div>
               </div>
               <div class="userscript-settings-box" style="margin-top: 20px;">
+                <label>お気に入り</label>
+                <div id="edit-favorites-list"></div>
+              </div>
+              <div class="userscript-settings-box" style="margin-top: 20px;">
                   <label>ボタン・Github URL紐づけルール</label>
                   <div class="auto-expand-instructions">
                        <p>ボタン名とGitHubのJSファイルURLを紐付け、個別に、または一括でスクリプト内容を更新します。</p>
@@ -368,6 +376,10 @@
                 <div class="userscript-settings-box" style="margin-top: 15px;">
                   <label>自動フォルダ展開ルール（コード全体に適用）</label>
                   <div id="single-auto-expand-rules-list"></div>
+               </div>
+               <div class="userscript-settings-box" style="margin-top: 20px;">
+                 <label>お気に入り（コード全体に適用）</label>
+                 <div id="single-favorites-list"></div>
                </div>
                 <div class="userscript-settings-box" style="margin-top: 20px;">
                   <label>ボタン・Github URL紐づけルール（コード全体に適用）</label>
@@ -538,7 +550,7 @@ $(document).ready(function() {
          if(yPosMatch) { position.yProp = yPosMatch[1]; position.yVal = yPosMatch[2]; }
          if(xPosMatch) { position.xProp = xPosMatch[1]; position.xVal = xPosMatch[2]; }
 
-         let items = [], autoExpandRules = [], githubLinkRules = [];
+         let items = [], autoExpandRules = [], githubLinkRules = [], favoritesList = [];
 
          const extractJsonArray = (code, regex) => {
              const match = code.match(regex);
@@ -558,6 +570,7 @@ $(document).ready(function() {
          items = extractJsonArray(processCode, /const\s+initialData\s*=\s*|const\s+items\s*=\s*/);
          autoExpandRules = extractJsonArray(processCode, /const\s+autoExpandRules\s*=\s*/);
          githubLinkRules = extractJsonArray(processCode, /const\s+githubLinkRules\s*=\s*/);
+         favoritesList = extractJsonArray(processCode, /const\s+favoritesList\s*=\s*/);
 
          if (items.length === 0) {
              console.warn("Falling back to regex-based extraction for older format.");
@@ -586,14 +599,15 @@ $(document).ready(function() {
                  }
              }
          }
-         return { items, position, autoExpandRules, githubLinkRules };
+         return { items, position, autoExpandRules, githubLinkRules, favoritesList };
      }
 
-     function generateToolPanelBookmarklet(items, options = {}, autoExpandRules = [], githubLinkRules = []) {
+     function generateToolPanelBookmarklet(items, options = {}, autoExpandRules = [], githubLinkRules = [], favoritesList = []) {
          const pos = options.position || { yProp: 'top', yVal: '10', xProp: 'left', xVal: '10' };
          const dataStr = JSON.stringify(items);
          const rulesStr = JSON.stringify(autoExpandRules);
          const githubRulesStr = JSON.stringify(githubLinkRules);
+         const favoritesStr = JSON.stringify(favoritesList);
 
          const funcStr = `(function() {
     const panelId = 'tool-panel-nav-' + Date.now();
@@ -608,6 +622,10 @@ $(document).ready(function() {
     settingsButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;';
     settingsButton.onclick = () => window.open("https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html", "_blank");
     header.appendChild(settingsButton);
+    const favoritesButton = document.createElement('button');
+    favoritesButton.textContent = '⭐️';
+    favoritesButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;';
+    header.appendChild(favoritesButton);
     const searchContainer = document.createElement('div');
     searchContainer.style = 'flex-grow:1;display:flex;align-items:center;margin:0 5px;';
     searchContainer.innerHTML = '<span style="font-size:16px;margin-right:5px;">🔎</span>';
@@ -625,13 +643,17 @@ $(document).ready(function() {
     panel.appendChild(header);
     const contentContainer = document.createElement('div');
     contentContainer.style.overflowY = 'auto';
+
     panel.appendChild(contentContainer);
     document.body.appendChild(panel);
+
     const initialData = ${dataStr};
     const autoExpandRules = ${rulesStr};
     const githubLinkRules = ${githubRulesStr};
+    const favoritesList = ${favoritesStr};
     let history = [initialData];
     let isSearching = false;
+    let isFavoritesView = false;
     function getAllItemsRecursive(items) {
         let flatList = [];
         for (const item of items) {
@@ -643,6 +665,7 @@ $(document).ready(function() {
         return flatList;
     }
     const allItemsFlat = getAllItemsRecursive(initialData);
+    const allItemsMap = new Map(allItemsFlat.map(item => [item.name, item]));
     function toHiragana(str) { return str.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 96)); }
     function findPathToFolder(items, targetName, path = []) {
         for (const item of items) {
@@ -667,6 +690,7 @@ $(document).ready(function() {
             folderBtn.onclick = () => {
                 history.push(item.children);
                 isSearching = false;
+                isFavoritesView = false;
                 searchInput.value = '';
                 render();
             };
@@ -703,12 +727,14 @@ $(document).ready(function() {
     function render() {
         const hiraFilterText = toHiragana(searchInput.value.toLowerCase());
         contentContainer.innerHTML = '';
-        if (isSearching || history.length > 1) {
+        if (isSearching || isFavoritesView || history.length > 1) {
             const backButton = document.createElement('button');
             backButton.textContent = '← Back';
             backButton.style = 'display:block;margin:5px 0;background:#6c757d;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
             backButton.onclick = () => {
-                if (isSearching) {
+                if (isFavoritesView) {
+                    isFavoritesView = false;
+                } else if (isSearching) {
                     isSearching = false;
                     searchInput.value = '';
                 } else if (history.length > 1) {
@@ -718,7 +744,9 @@ $(document).ready(function() {
             };
             contentContainer.appendChild(backButton);
         }
-        if (isSearching) {
+        if (isFavoritesView) {
+             favoritesList.map(name => allItemsMap.get(name)).filter(Boolean).forEach(item => createItemElement(item, contentContainer));
+        } else if (isSearching) {
             const searchResults = allItemsFlat.filter(item => toHiragana(item.name.toLowerCase()).includes(hiraFilterText));
             searchResults.forEach(item => createItemElement(item, contentContainer));
         } else {
@@ -726,8 +754,15 @@ $(document).ready(function() {
             currentItems.forEach(item => createItemElement(item, contentContainer));
         }
     }
+    favoritesButton.onclick = () => {
+        isSearching = false;
+        searchInput.value = '';
+        isFavoritesView = true;
+        render();
+    };
     searchInput.oninput = () => {
         isSearching = searchInput.value.length > 0;
+        isFavoritesView = false;
         render();
     };
     document.addEventListener('click', (e) => { if (panel && !panel.contains(e.target) && panel.style.display !== 'none') { panel.style.display = 'none'; } }, true);
@@ -1211,7 +1246,33 @@ ${transparencyLogic}
         container.on('click', '.btn-rule-add', function() { addAutoExpandRuleRow($(this).closest('.auto-expand-rule')); });
         container.on('click', '.btn-rule-del', function() {
             const row = $(this).closest('.auto-expand-rule');
-            if (container.find('.auto-expand-rule').length > 1) { row.remove(); } else { alert('最後のルールは削除できません。'); }
+            if (container.find('.auto-expand-rule').length > 1) { row.remove(); } else { row.find('input').val(''); }
+        });
+    }
+
+    // --- お気に入りルール ---
+    function addFavoriteRuleRow(listOrAnchor, name = '') {
+        const newRow = $(`<div class="favorite-rule"><input type="text" class="favorite-name form-control" placeholder="ボタン・フォルダ名" value="${name}"><button class="btn btn-xs btn-info btn-rule-up" title="上へ">↑</button><button class="btn btn-xs btn-info btn-rule-down" title="下へ">↓</button><button class="btn btn-xs btn-success btn-rule-add" title="下に追加">追加</button><button class="btn btn-xs btn-danger btn-rule-del" title="削除">削除</button></div>`);
+        if (listOrAnchor.is('div[id$="-favorites-list"]')) { listOrAnchor.append(newRow); } else { listOrAnchor.after(newRow); }
+    }
+
+    function getFavorites(listId) {
+        const names = [];
+        $(`#${listId} .favorite-rule`).each(function() {
+            const name = $(this).find('.favorite-name').val().trim();
+            if (name) { names.push(name); }
+        });
+        return names;
+    }
+
+    function setupFavorites(containerId) {
+        const container = $(`#${containerId}`);
+        container.on('click', '.btn-rule-up', function() { const row = $(this).closest('.favorite-rule'); row.prev().before(row); });
+        container.on('click', '.btn-rule-down', function() { const row = $(this).closest('.favorite-rule'); row.next().after(row); });
+        container.on('click', '.btn-rule-add', function() { addFavoriteRuleRow($(this).closest('.favorite-rule')); });
+        container.on('click', '.btn-rule-del', function() {
+            const row = $(this).closest('.favorite-rule');
+            if (container.find('.favorite-rule').length > 1) { row.remove(); } else { row.find('input').val(''); }
         });
     }
 
@@ -1295,7 +1356,7 @@ ${transparencyLogic}
         container.on('click', '.btn-rule-add', function() { addGithubLinkRuleRow($(this).closest('.github-link-rule')); });
         container.on('click', '.btn-rule-del', function() {
             const row = $(this).closest('.github-link-rule');
-            if (container.find('.github-link-rule').length > 1) { row.remove(); } else { alert('最後のルールは削除できません。'); }
+            if (container.find('.github-link-rule').length > 1) { row.remove(); } else { row.find('input').val(''); }
         });
         container.on('click', '.btn-link-update', async function() {
             const ruleRow = $(this).closest('.github-link-rule');
@@ -1317,6 +1378,8 @@ ${transparencyLogic}
          $('#gen-buttons-container').empty().append(createNewRow('gen', 0, 'ボタン1', "alert('Hello!');", false, false));
          $('#gen-auto-expand-rules-list').empty();
          addAutoExpandRuleRow($('#gen-auto-expand-rules-list'));
+         $('#gen-favorites-list').empty();
+         addFavoriteRuleRow($('#gen-favorites-list'));
          $('#gen-github-link-rules-list').empty();
          addGithubLinkRuleRow($('#gen-github-link-rules-list'));
 
@@ -1343,6 +1406,7 @@ ${transparencyLogic}
          };
 
          const autoExpandRules = getAutoExpandRules('gen-auto-expand-rules-list');
+         const favoritesList = getFavorites('gen-favorites-list');
          const githubLinkRules = getGithubLinkRules('gen-github-link-rules-list');
          let finalCode = '';
          let outputTitle = '';
@@ -1351,13 +1415,13 @@ ${transparencyLogic}
          if (mode === 'userscript') {
             const config = readUserScriptSettingsFromUI('gen');
             config.isNew = true;
-            const toolPanelPayload = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules).substring(11);
+            const toolPanelPayload = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules, favoritesList).substring(11);
             finalCode = generateAdvancedUserScript(config, toolPanelPayload);
             outputTitle = '生成されたUserScript';
             $('#gen-bookmarklet-link').hide();
             $('#gen-bookmarklet-help').hide();
          } else {
-            finalCode = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules);
+            finalCode = generateToolPanelBookmarklet(buttonData, { position }, autoExpandRules, githubLinkRules, favoritesList);
             bookmarkletName = $('#gen-bookmarklet-name').val() || 'ツールパネル';
             outputTitle = '生成されたブックマークレット';
             $('#gen-bookmarklet-link').text(bookmarkletName).attr('href', finalCode).show();
@@ -1393,7 +1457,7 @@ ${transparencyLogic}
                  $('#edit-userscript-settings-container').show();
                  $('#edit-generate-js-button').show();
              }
-             const { items, position, autoExpandRules, githubLinkRules } = extractDataAndSettingsFromCode(toolPanelPayload);
+             const { items, position, autoExpandRules, githubLinkRules, favoritesList } = extractDataAndSettingsFromCode(toolPanelPayload);
              populateEditUI(items, 'edit');
              
              $('input[name="edit-y-pos"]').prop('checked', false).filter(`[value="${position.yProp}"]`).prop('checked', true);
@@ -1404,6 +1468,10 @@ ${transparencyLogic}
              $('#edit-auto-expand-rules-list').empty();
              (autoExpandRules || []).forEach(r => addAutoExpandRuleRow($('#edit-auto-expand-rules-list'), r.url, r.folderName));
              if ($('#edit-auto-expand-rules-list').children().length === 0) addAutoExpandRuleRow($('#edit-auto-expand-rules-list'));
+
+             $('#edit-favorites-list').empty();
+             (favoritesList || []).forEach(name => addFavoriteRuleRow($('#edit-favorites-list'), name));
+             if ($('#edit-favorites-list').children().length === 0) addFavoriteRuleRow($('#edit-favorites-list'));
 
              $('#edit-github-link-rules-list').empty();
              (githubLinkRules || []).forEach(r => addGithubLinkRuleRow($('#edit-github-link-rules-list'), r.buttonName, r.githubUrl));
@@ -1422,8 +1490,9 @@ ${transparencyLogic}
          };
 
          const autoExpandRules = getAutoExpandRules('edit-auto-expand-rules-list');
+         const favoritesList = getFavorites('edit-favorites-list');
          const githubLinkRules = getGithubLinkRules('edit-github-link-rules-list');
-         const newToolPanelPayload = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules);
+         const newToolPanelPayload = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules, favoritesList);
          let finalCode = '';
 
          if(parsedUserScriptConfig){
@@ -1453,8 +1522,9 @@ ${transparencyLogic}
         };
 
         const autoExpandRules = getAutoExpandRules('edit-auto-expand-rules-list');
+        const favoritesList = getFavorites('edit-favorites-list');
         const githubLinkRules = getGithubLinkRules('edit-github-link-rules-list');
-        const bookmarkletCode = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules);
+        const bookmarkletCode = generateToolPanelBookmarklet(newToolPanelData, { position }, autoExpandRules, githubLinkRules, favoritesList);
         const bookmarkletName = ($('#edit-buttons-container .button-name').first().val() || 'ツールパネル');
 
         $('#edit-generated-code').text(bookmarkletCode);
@@ -1482,7 +1552,7 @@ ${transparencyLogic}
              toolPanelPayload = advancedConfig.payload;
              $('#single-generate-js-button').show();
          }
-         const { items, position, autoExpandRules, githubLinkRules } = extractDataAndSettingsFromCode(toolPanelPayload);
+         const { items, position, autoExpandRules, githubLinkRules, favoritesList } = extractDataAndSettingsFromCode(toolPanelPayload);
          if (!items || items.length === 0) { alert('ツールパネルのデータを抽出できませんでした。'); return; }
 
          function findScript(itemsArr, name) {
@@ -1501,6 +1571,10 @@ ${transparencyLogic}
          $('#single-auto-expand-rules-list').empty();
          (autoExpandRules || []).forEach(rule => addAutoExpandRuleRow($('#single-auto-expand-rules-list'), rule.url, rule.folderName));
          if ($('#single-auto-expand-rules-list').children().length === 0) addAutoExpandRuleRow($('#single-auto-expand-rules-list'));
+         
+         $('#single-favorites-list').empty();
+         (favoritesList || []).forEach(name => addFavoriteRuleRow($('#single-favorites-list'), name));
+         if ($('#single-favorites-list').children().length === 0) addFavoriteRuleRow($('#single-favorites-list'));
 
          $('#single-github-link-rules-list').empty();
          (githubLinkRules || []).forEach(r => addGithubLinkRuleRow($('#single-github-link-rules-list'), r.buttonName, r.githubUrl));
@@ -1525,8 +1599,9 @@ ${transparencyLogic}
          }
          updateScript(singleEditState.items, singleEditState.targetButtonName, newScript);
          const autoExpandRules = getAutoExpandRules('single-auto-expand-rules-list');
+         const favoritesList = getFavorites('single-favorites-list');
          const githubLinkRules = getGithubLinkRules('single-github-link-rules-list');
-         const newToolPanelPayload = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules);
+         const newToolPanelPayload = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules, favoritesList);
          let finalCode = '';
          if(singleEditState.config){
              const payload = newToolPanelPayload.substring(newToolPanelPayload.indexOf(':') + 1);
@@ -1563,8 +1638,9 @@ ${transparencyLogic}
         updateScript(singleEditState.items, singleEditState.targetButtonName, newScript);
 
         const autoExpandRules = getAutoExpandRules('single-auto-expand-rules-list');
+        const favoritesList = getFavorites('single-favorites-list');
         const githubLinkRules = getGithubLinkRules('single-github-link-rules-list');
-        const bookmarkletCode = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules);
+        const bookmarkletCode = generateToolPanelBookmarklet(singleEditState.items, { position: singleEditState.position }, autoExpandRules, githubLinkRules, favoritesList);
         $('#single-generated-code').text(bookmarkletCode);
         $('#single-generated-title').text('生成されたブックマークレット');
         $('#single-bookmarklet-link').text("更新版ブックマークレット").attr('href', bookmarkletCode).show();
@@ -1688,6 +1764,9 @@ ${transparencyLogic}
      setupAutoExpandRules('gen-auto-expand-rules-list');
      setupAutoExpandRules('edit-auto-expand-rules-list');
      setupAutoExpandRules('single-auto-expand-rules-list');
+     setupFavorites('gen-favorites-list');
+     setupFavorites('edit-favorites-list');
+     setupFavorites('single-favorites-list');
      setupGithubLinkRules('gen');
      setupGithubLinkRules('edit');
      setupGithubLinkRules('single');
