@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         smartphone_google_shortcutpanel.user
-// @version      1.5
+// @version      1.6
 // @match        https://www.google.com/
 // @grant        none
 // ==/UserScript==
 
 (function() {
   'use strict';
-  /* MULTIGEN_METADATA: [{"type":"toolpanel_keyboard","fileName":"phonetool.user","buttonName":"ショートカットパネル","position":{"yProp":"bottom","yVal":"10","xProp":"right","xVal":"10"},"autoExpandRules":[{"url":"https://m.youtube.com/","folderName":"チャンネル一覧"},{"url":"https://m.youtube.com/watch?v=","folderName":"Youtube関連"},{"url":"https://www.pixiv.net/","folderName":"漫画関連"},{"url":"https://hitomi.la/","folderName":"漫画関連"},{"url":"https://momon-ga.com/","folderName":"漫画関連"},{"url":"https://x.com/","folderName":"X関連"},{"url":"https://asmr18.fans/","folderName":"ASMR関連"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"UserScript編集・更新"}],"favoritesList":["JavaScript実行","マンガ検索","再生速度","1倍速2倍速切り替え"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"マンガ検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/マンガ検索.js"}],"name":"phonetool.user","version":"1.0.30","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"keyboard","shortcuts":[{"key":"a"}]},{"type":"userscript_keyboard","fileName":"smartphone_keboard_L_shortcutpanel.user","name":"smartphone_keboard_L_shortcutpanel.user","version":"1.3","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/smartphone_keboard_L_shortcutpanel.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/smartphone_keboard_L_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"keyboard","shortcuts":[{"key":"l"}]},{"type":"google_homepage","fileName":"smartphone_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.5"},{"type":"javascript","fileName":"smartphone_base_shortcutpanel"}] */
+  /* MULTIGEN_METADATA: [{"type":"toolpanel_keyboard","fileName":"phonetool.user","buttonName":"ショートカットパネル","position":{"yProp":"bottom","yVal":"10","xProp":"right","xVal":"10"},"autoExpandRules":[{"url":"https://m.youtube.com/","folderName":"チャンネル一覧"},{"url":"https://m.youtube.com/watch?v=","folderName":"Youtube関連"},{"url":"https://www.pixiv.net/","folderName":"漫画関連"},{"url":"https://hitomi.la/","folderName":"漫画関連"},{"url":"https://momon-ga.com/","folderName":"漫画関連"},{"url":"https://x.com/","folderName":"X関連"},{"url":"https://asmr18.fans/","folderName":"ASMR関連"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"UserScript編集・更新"}],"favoritesList":["JavaScript実行","マンガ検索","再生速度","1倍速2倍速切り替え"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"マンガ検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/マンガ検索.js"}],"name":"phonetool.user","version":"1.0.31","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/phonetool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"keyboard","shortcuts":[{"key":"a"}]},{"type":"userscript_keyboard","fileName":"smartphone_keboard_L_shortcutpanel.user","name":"smartphone_keboard_L_shortcutpanel.user","version":"1.4","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/smartphone_keboard_L_shortcutpanel.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/smartphone_keboard_L_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"keyboard","shortcuts":[{"key":"l"}]},{"type":"google_homepage","fileName":"smartphone_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.6"},{"type":"javascript","fileName":"smartphone_base_shortcutpanel"}] */
    const metadata = {
   "name": "Googleカスタムショートカット",
   "source": "",
@@ -38,6 +38,11 @@
            "name": "ASMR",
            "url": "https://asmr18.fans",
            "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=asmr18.fans"
+       },
+       {
+           "name": "9Anime",
+           "url": "https://9animetv.to/home",
+           "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=9animetv.to"
        },
        {
            "name": "原神",
