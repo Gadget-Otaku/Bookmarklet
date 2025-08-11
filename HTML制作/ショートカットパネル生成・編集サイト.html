@@ -4,6 +4,7 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=1200, initial-scale=0.4">
  <title>Googleホームページカスタムショートカットキー配置UserScript生成・編集ツール (多機能統合版)</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
  <style>
   :root {
    --glass-bg: rgba(255, 255, 255, 0.8);
@@ -90,9 +91,13 @@
   .output-tab { padding: 8px 12px; background: #ddd; border: none; border-radius: 5px 5px 0 0; cursor: pointer; }
   .output-tab.active { background: #f1f1f1; font-weight: bold; }
   .code-preview-area { width: 100%; height: 250px; font-family: monospace; border: 1px solid #ccc; padding: 10px; box-sizing: border-box; background: #f1f1f1; resize: vertical; }
-  .output-buttons-container { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; margin-top: 10px;}
+  .output-buttons-container { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px;}
+  .output-actions-left { display: flex; align-items: center; gap: 10px; }
+  .output-actions-right { display: flex; align-items: center; gap: 10px; }
   .save-output-btn { background-color: #34a853; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
   .save-output-btn:hover { background-color: #2c9f42; }
+  .action-btn { background-color: #4285f4; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+  .action-btn:hover { background-color: #3367d6; }
   
   /* Tool Panel Editor Styles */
   .tool-panel-editor-section { margin-top: 20px; padding: 15px; background-color: rgba(255, 255, 255, 0.7); border-radius: 8px; border: 1px solid #1a73e8; }
@@ -226,8 +231,8 @@
    </div>
    <div class="config-group">
     <h3>画像URL確認 (編集)</h3>
-    <div class="config-item"><label for="domainForFavicon">ドメイン:</label><input type="text" id="domainForFavicon" placeholder="example.com"><button type="button" id="generateFaviconUrlBtn">画像URL生成</button></div>
-    <div class="config-item"><label for="imageUrlToCheck">画像URL:</label><input type="text" id="imageUrlToCheck" placeholder="https://..."><button type="button" id="checkImageUrlBtn">確認</button></div>
+    <div class="config-item"><label for="edit_domainForFavicon">ドメイン:</label><input type="text" id="edit_domainForFavicon" placeholder="example.com"><button type="button" id="edit_generateFaviconUrlBtn">画像URL生成</button></div>
+    <div class="config-item"><label for="edit_imageUrlToCheck">画像URL:</label><input type="text" id="edit_imageUrlToCheck" placeholder="https://..."><button type="button" id="edit_checkImageUrlBtn">確認</button></div>
    </div>
    <h3>ショートカット設定 (編集)</h3>
    <div id="editShortcutsContainer"></div><br>
@@ -250,7 +255,7 @@ if (!window.structuredClone) {
 
 document.addEventListener('DOMContentLoaded', () => {
   // ########## GLOBAL STATE ##########
-  let state = { isEditMode: false, toolPanel: { isEditing: false, originalCode: '', buttonName: '', position: {yProp: 'top', yVal: '10', xProp: 'left', xVal: '10'}, autoExpandRules: [], favoritesList: [], githubLinkRules: [] } };
+  let state = { isEditMode: false, toolPanel: { isEditing: false, originalCode: '', buttonName: '', position: {yProp: 'top', yVal: '10', xProp: 'left', xVal: '10'}, autoExpandRules: [], favoritesList: [], githubLinkRules: [] }, testableJsCode: null };
   let multiGenCounter = 0;
   let ruleCounter = 0;
 
@@ -893,6 +898,17 @@ ${downloadURL?`// @downloadURL  ${downloadURL}\n`:''}${updateURL?`// @updateURL 
 ${scriptBody}`;
   };
 
+  function convertToToolPanelItems(items) {
+    return items.map(item => {
+      if (item.isFolder) {
+        return { name: item.name, isFolder: true, children: item.children ? convertToToolPanelItems(item.children) : [] };
+      } else {
+        const script = item.url ? `window.open('${item.url.replace(/'/g, "\\'")}', '_blank');` : "alert('No URL specified');";
+        return { name: item.name, script: script };
+      }
+    });
+  }
+
   const generateToolPanelBookmarklet = (items, options = {}, autoExpandRules = [], githubLinkRules = [], favoritesList = []) => {
    const pos = options.position || { yProp: 'top', yVal: '10', xProp: 'left', xVal: '10' };
    const dataStr = JSON.stringify(items);
@@ -900,7 +916,7 @@ ${scriptBody}`;
    const githubRulesStr = JSON.stringify(githubLinkRules);
    const favoritesStr = JSON.stringify(favoritesList);
 
-   const funcStr = `(function() { const panelId = 'tool-panel-nav-' + Date.now(); if (document.getElementById(panelId)) return; const panel = document.createElement('div'); panel.id = panelId; panel.style = 'position:fixed;${pos.yProp}:${pos.yVal}px;${pos.xProp}:${pos.xVal}px;background:white;border:1px solid black;padding:10px;z-index:2147483647;box-shadow:0 0 10px rgba(0,0,0,0.3);font-family:Arial,sans-serif;min-width:200px;max-height:90vh;display:flex;flex-direction:column;'; const header = document.createElement('div'); header.style = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0;'; const settingsButton = document.createElement('button'); settingsButton.textContent = '⚙️'; settingsButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; settingsButton.onclick = () => window.open("https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html", "_blank"); header.appendChild(settingsButton); const favoritesButton = document.createElement('button'); favoritesButton.textContent = '⭐️'; favoritesButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; header.appendChild(favoritesButton); const searchContainer = document.createElement('div'); searchContainer.style = 'flex-grow:1;display:flex;align-items:center;margin:0 5px;'; searchContainer.innerHTML = '<span style="font-size:16px;margin-right:5px;">🔎</span>'; const searchInput = document.createElement('input'); searchInput.type = 'search'; searchInput.placeholder = '検索...'; searchInput.style = 'width:100%;padding:2px 5px;border:1px solid #ccc;border-radius:3px;'; searchContainer.appendChild(searchInput); header.appendChild(searchContainer); const closeButton = document.createElement('button'); closeButton.textContent = '☒'; closeButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; closeButton.onclick = () => document.body.removeChild(panel); header.appendChild(closeButton); panel.appendChild(header); const contentContainer = document.createElement('div'); contentContainer.style.overflowY = 'auto'; panel.appendChild(contentContainer); document.body.appendChild(panel); const initialData = ${dataStr}; const autoExpandRules = ${rulesStr}; const githubLinkRules = ${githubRulesStr}; const favoritesList = ${favoritesStr}; let history = [initialData]; let isSearching = false; let isFavoritesView = false; function getAllItemsRecursive(items) { let flatList = []; for (const item of items) { flatList.push(item); if (item.children && item.children.length > 0) { flatList = flatList.concat(getAllItemsRecursive(item.children)); } } return flatList; } const allItemsFlat = getAllItemsRecursive(initialData); const allItemsMap = new Map(allItemsFlat.map(item => [item.name, item])); function toHiragana(str) { return str.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 96)); } function findPathToFolder(items, targetName, path = []) { for (const item of items) { const currentPath = [...path, item]; if (item.isFolder && item.name === targetName) { let historyPath = [initialData]; currentPath.forEach(p => { historyPath.push(p.children || []); }); return historyPath; } if (item.children && item.children.length > 0) { const result = findPathToFolder(item.children, targetName, currentPath); if (result) return result; } } return null; } function createItemElement(item, container) { if (item.isFolder) { const folderBtn = document.createElement('button'); folderBtn.textContent = '📁 ' + item.name; folderBtn.style = 'display:block;margin:5px 0;background:#87CEEB;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; folderBtn.onclick = () => { history.push(item.children); isSearching = false; isFavoritesView = false; searchInput.value = ''; render(); }; container.appendChild(folderBtn); } else if (item.children && item.children.length > 0) { const folder = document.createElement('div'); const folderBtn = document.createElement('button'); folderBtn.textContent = '▽ ' + item.name; folderBtn.style = 'display:block;margin:5px 0;background:#ADD8E6;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; const childContainer = document.createElement('div'); childContainer.style.display = 'none'; childContainer.style.paddingLeft = '15px'; folder.appendChild(folderBtn); folder.appendChild(childContainer); folderBtn.onclick = function() { const isHidden = childContainer.style.display === 'none'; childContainer.style.display = isHidden ? 'block' : 'none'; folderBtn.textContent = (isHidden ? '△ ' : '▽ ') + item.name; }; item.children.forEach(child => createItemElement(child, childContainer)); container.appendChild(folder); } else { const btn = document.createElement('button'); btn.textContent = item.name; btn.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; btn.onclick = function() { try { eval(item.script); } catch (e) { console.error('Script Error:', e); } const topPanel = document.getElementById(panelId); if (topPanel) topPanel.style.display = 'none'; }; container.appendChild(btn); } } function render() { const hiraFilterText = toHiragana(searchInput.value.toLowerCase()); contentContainer.innerHTML = ''; if (isSearching || isFavoritesView || history.length > 1) { const backButton = document.createElement('button'); backButton.textContent = '← Back'; backButton.style = 'display:block;margin:5px 0;background:#6c757d;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; backButton.onclick = () => { if (isFavoritesView) { isFavoritesView = false; } else if (isSearching) { isSearching = false; searchInput.value = ''; } else if (history.length > 1) { history.pop(); } render(); }; contentContainer.appendChild(backButton); } if (isFavoritesView) { favoritesList.map(name => allItemsMap.get(name)).filter(Boolean).forEach(item => createItemElement(item, contentContainer)); } else if (isSearching) { const searchResults = allItemsFlat.filter(item => toHiragana(item.name.toLowerCase()).includes(hiraFilterText)); searchResults.forEach(item => createItemElement(item, contentContainer)); } else { const currentItems = history[history.length - 1]; currentItems.forEach(item => createItemElement(item, contentContainer)); } } favoritesButton.onclick = () => { isSearching = false; searchInput.value = ''; isFavoritesView = true; render(); }; searchInput.oninput = () => { isSearching = searchInput.value.length > 0; isFavoritesView = false; render(); }; document.addEventListener('click', (e) => { if (panel && !panel.contains(e.target) && panel.style.display !== 'none') { panel.style.display = 'none'; } }, true); const currentUrl = window.location.href; let bestMatchRule = null, bestMatchLength = 0; for (const rule of autoExpandRules) { if (rule.url && currentUrl.startsWith(rule.url) && rule.url.length > bestMatchLength) { bestMatchLength = rule.url.length; bestMatchRule = rule; } } if (bestMatchRule) { const pathToFolder = findPathToFolder(initialData, bestMatchRule.folderName); if (pathToFolder) { history = []; pathToFolder.forEach(p => history.push(p)); } } render();})()`.replace(/\s{2,}/g, ' ').replace(/\n/g, '');
+   const funcStr = `(function() { const panelId = 'tool-panel-nav-' + Date.now(); if (document.getElementById(panelId)) return; const panel = document.createElement('div'); panel.id = panelId; panel.style = 'position:fixed;${pos.yProp}:${pos.yVal}px;${pos.xProp}:${pos.xVal}px;background:white;border:1px solid black;padding:10px;z-index:2147483647;box-shadow:0 0 10px rgba(0,0,0,0.3);font-family:Arial,sans-serif;min-width:200px;max-height:90vh;display:flex;flex-direction:column;'; const header = document.createElement('div'); header.style = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0;'; const settingsButton = document.createElement('button'); settingsButton.textContent = '⚙️'; settingsButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; settingsButton.onclick = () => window.open("https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html", "_blank"); header.appendChild(settingsButton); const favoritesButton = document.createElement('button'); favoritesButton.textContent = '⭐️'; favoritesButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; header.appendChild(favoritesButton); const searchContainer = document.createElement('div'); searchContainer.style = 'flex-grow:1;display:flex;align-items:center;margin:0 5px;'; searchContainer.innerHTML = '<span style="font-size:16px;margin-right:5px;">🔎</span>'; const searchInput = document.createElement('input'); searchInput.type = 'search'; searchInput.placeholder = '検索...'; searchInput.style = 'width:100%;padding:2px 5px;border:1px solid #ccc;border-radius:3px;'; searchContainer.appendChild(searchInput); header.appendChild(searchContainer); const closeButton = document.createElement('button'); closeButton.textContent = '☒'; closeButton.style = 'background:transparent;border:none;font-size:16px;cursor:pointer;line-height:1;padding:0 5px;'; closeButton.onclick = () => document.body.removeChild(panel); header.appendChild(closeButton); panel.appendChild(header); const contentContainer = document.createElement('div'); contentContainer.style.overflowY = 'auto'; panel.appendChild(contentContainer); document.body.appendChild(panel); const initialData = ${dataStr}; const autoExpandRules = ${rulesStr}; const githubLinkRules = ${githubRulesStr}; const favoritesList = ${favoritesStr}; let history = [initialData]; let isSearching = false; let isFavoritesView = false; function getAllItemsRecursive(items) { let flatList = []; for (const item of items) { flatList.push(item); if (item.children && item.children.length > 0) { flatList = flatList.concat(getAllItemsRecursive(item.children)); } } return flatList; } const allItemsFlat = getAllItemsRecursive(initialData); const allItemsMap = new Map(allItemsFlat.map(item => [item.name, item])); function toHiragana(str) { return str.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 96)); } function findPathToFolder(items, targetName, path = []) { for (const item of items) { const currentPath = [...path, item]; if (item.isFolder && item.name === targetName) { let historyPath = [initialData]; currentPath.forEach(p => { historyPath.push(p.children || []); }); return historyPath; } if (item.children && item.children.length > 0) { const result = findPathToFolder(item.children, targetName, currentPath); if (result) return result; } } return null; } function createItemElement(item, container) { if (item.isFolder) { const folderBtn = document.createElement('button'); folderBtn.textContent = '📁 ' + item.name; folderBtn.style = 'display:block;margin:5px 0;background:#87CEEB;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; folderBtn.onclick = () => { history.push(item.children); isSearching = false; isFavoritesView = false; searchInput.value = ''; render(); }; container.appendChild(folderBtn); } else if (item.children && item.children.length > 0) { const folder = document.createElement('div'); const folderBtn = document.createElement('button'); folderBtn.textContent = '▽ ' + item.name; folderBtn.style = 'display:block;margin:5px 0;background:#ADD8E6;color:black;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; const childContainer = document.createElement('div'); childContainer.style.display = 'none'; childContainer.style.paddingLeft = '15px'; folder.appendChild(folderBtn); folder.appendChild(childContainer); folderBtn.onclick = function() { const isHidden = childContainer.style.display === 'none'; childContainer.style.display = isHidden ? 'block' : 'none'; folderBtn.textContent = (isHidden ? '△ ' : '▽ ') + item.name; }; item.children.forEach(child => createItemElement(child, childContainer)); container.appendChild(folder); } else { const btn = document.createElement('button'); btn.textContent = item.name; btn.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; btn.onclick = function() { try { (new Function(item.script))(); } catch (e) { console.error('Script Error:', e); } const topPanel = document.getElementById(panelId); if (topPanel) topPanel.style.display = 'none'; }; container.appendChild(btn); } } function render() { const hiraFilterText = toHiragana(searchInput.value.toLowerCase()); contentContainer.innerHTML = ''; if (isSearching || isFavoritesView || history.length > 1) { const backButton = document.createElement('button'); backButton.textContent = '← Back'; backButton.style = 'display:block;margin:5px 0;background:#6c757d;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;'; backButton.onclick = () => { if (isFavoritesView) { isFavoritesView = false; } else if (isSearching) { isSearching = false; searchInput.value = ''; } else if (history.length > 1) { history.pop(); } render(); }; contentContainer.appendChild(backButton); } if (isFavoritesView) { favoritesList.map(name => allItemsMap.get(name)).filter(Boolean).forEach(item => createItemElement(item, contentContainer)); } else if (isSearching) { const searchResults = allItemsFlat.filter(item => toHiragana(item.name.toLowerCase()).includes(hiraFilterText)); searchResults.forEach(item => createItemElement(item, contentContainer)); } else { const currentItems = history[history.length - 1]; currentItems.forEach(item => createItemElement(item, contentContainer)); } } favoritesButton.onclick = () => { isSearching = false; searchInput.value = ''; isFavoritesView = true; render(); }; searchInput.oninput = () => { isSearching = searchInput.value.length > 0; isFavoritesView = false; render(); }; document.addEventListener('click', (e) => { if (panel && !panel.contains(e.target) && panel.style.display !== 'none') { panel.style.display = 'none'; } }, true); const currentUrl = window.location.href; let bestMatchRule = null, bestMatchLength = 0; for (const rule of autoExpandRules) { if (rule.url && currentUrl.startsWith(rule.url) && rule.url.length > bestMatchLength) { bestMatchLength = rule.url.length; bestMatchRule = rule; } } if (bestMatchRule) { const pathToFolder = findPathToFolder(initialData, bestMatchRule.folderName); if (pathToFolder) { history = []; pathToFolder.forEach(p => history.push(p)); } } render();})()`.replace(/\s{2,}/g, ' ').replace(/\n/g, '');
    return `javascript:${funcStr}`;
   };
 
@@ -908,6 +924,10 @@ ${scriptBody}`;
   function collectAndGenerate(isEditMode) {
    const prefix = isEditMode ? 'edit' : '';
    const baseParams = { name: document.getElementById(`${prefix}ScriptName`).value, sourceUrl: document.getElementById(`${prefix}ImportSourceUrl`).value, downloadUrl: document.getElementById(`${prefix}DownloadUrl`).value, updateUrl: document.getElementById(`${prefix}UpdateUrl`).value, scale: document.getElementById(`${prefix}Scale`).value, gridCols: document.getElementById(`${prefix}GridCols`).value, gridRows: document.getElementById(`${prefix}GridRows`).value, topOffset: document.getElementById(`${prefix}TopOffset`).value, leftOffset: document.getElementById(`${prefix}LeftOffset`).value, items: extractTreeData(document.getElementById(`${prefix}ShortcutsContainer`)), urlRules: extractUrlRules(document.getElementById(`${prefix === 'edit' ? 'edit' : 'generate'}UrlRulesContainer`)) };
+   
+   const coreJsPayload = generateCoreLogic(baseParams, []);
+   state.testableJsCode = `javascript:${coreJsPayload}`;
+
    const multiGenContainer = document.getElementById(`${prefix}MultipleGenerateContainer`);
    const multiGenItems = multiGenContainer.querySelectorAll('.multiple-generate-item');
    const multiGenMetadata = []; const generationTasks = [];
@@ -967,7 +987,7 @@ ${scriptBody}`;
      task.data = { 
       type, 
       fileName, 
-      buttonName: state.toolPanel.buttonName,
+      buttonName: state.toolPanel.isEditing ? state.toolPanel.buttonName : '',
       position,
       autoExpandRules,
       favoritesList,
@@ -1011,34 +1031,42 @@ ${scriptBody}`;
     generationTasks.push(task);
    });
    
-   const baseJsCode = generateCoreLogic(baseParams, multiGenMetadata);
+   const baseJsCodeWithMetadata = generateCoreLogic(baseParams, multiGenMetadata);
    const results = [];
    generationTasks.forEach(task => {
     let result = { name: 'Unknown', code: '', fileName: 'script' };
     switch(task.type) {
-     case 'javascript': result.name = `${task.data.fileName || baseParams.name} (ブックマークレット)`; result.code = `javascript:${baseJsCode}`; result.fileName = task.data.fileName || `${baseParams.name}_bookmarklet`; break;
-     case 'google_homepage': const usName = task.data.fileName || task.data.name; result.name = `${usName} (Google)`; result.code = `// ==UserScript==\n// @name         ${usName}\n// @version      ${task.data.version}\n// @match        https://www.google.com/\n// @grant        none\n// ==/UserScript==\n\n${baseJsCode}`; result.fileName = usName; break;
-     case 'userscript_button': case 'userscript_keyboard': result.name = `${task.data.fileName || task.data.name} (${task.data.version})`; result.code = generateGenericUserScript(task.data, baseJsCode); result.fileName = task.data.fileName || task.data.name; break;
-     case 'toolpanel_js': case 'toolpanel_button': case 'toolpanel_keyboard': 
-      if (state.toolPanel.isEditing) {
-       const regeneratedPanel = regenerateToolPanel(state.toolPanel.originalCode, task.data.buttonName, baseJsCode, task.data.position, task.data.autoExpandRules, task.data.favoritesList, task.data.githubLinkRules);
-       let finalCode = regeneratedPanel;
-       if (task.type !== 'toolpanel_js') {
-        const toolPanelConfig = { name: task.data.name, version: task.data.version, urls: task.data.urls, downloadURL: task.data.downloadURL, updateURL: task.data.updateURL, mode: task.data.mode };
-        if (task.type === 'toolpanel_button') toolPanelConfig.button = task.data.button;
-        else toolPanelConfig.shortcuts = task.data.shortcuts;
-        finalCode = generateGenericUserScript(toolPanelConfig, regeneratedPanel);
-       }
-       result.name = `${task.data.fileName || 'Updated_Tool_Panel'} (${task.data.buttonName} 更新済)`;
-       result.code = finalCode;
-       result.fileName = task.data.fileName || 'Updated_Tool_Panel';
+     case 'javascript': result.name = `${task.data.fileName || baseParams.name} (ブックマークレット)`; result.code = `javascript:${baseJsCodeWithMetadata}`; result.fileName = task.data.fileName || `${baseParams.name}_bookmarklet`; break;
+     case 'google_homepage': const usName = task.data.fileName || task.data.name; result.name = `${usName} (Google)`; result.code = `// ==UserScript==\n// @name         ${usName}\n// @version      ${task.data.version}\n// @match        https://www.google.com/\n// @grant        none\n// ==/UserScript==\n\n${baseJsCodeWithMetadata}`; result.fileName = usName; break;
+     case 'userscript_button': case 'userscript_keyboard': result.name = `${task.data.fileName || task.data.name} (${task.data.version})`; result.code = generateGenericUserScript(task.data, baseJsCodeWithMetadata); result.fileName = task.data.fileName || task.data.name; break;
+     case 'toolpanel_js': case 'toolpanel_button': case 'toolpanel_keyboard': {
+      let finalCode;
+      let finalName = task.data.fileName || task.data.name || 'New_Tool_Panel';
+      if (state.toolPanel.isEditing && isEditMode) {
+       finalCode = regenerateToolPanel(state.toolPanel.originalCode, task.data.buttonName, baseJsCodeWithMetadata, task.data.position, task.data.autoExpandRules, task.data.favoritesList, task.data.githubLinkRules);
+       finalName = `${task.data.fileName || 'Updated_Tool_Panel'} (${task.data.buttonName} 更新済)`;
+      } else {
+       const toolPanelItems = convertToToolPanelItems(baseParams.items);
+       finalCode = generateToolPanelBookmarklet(toolPanelItems, task.data, task.data.autoExpandRules, task.data.githubLinkRules, task.data.favoritesList);
       }
+      
+      if (task.type !== 'toolpanel_js') {
+       const config = { ...task.data, mode: task.type.split('_')[1] };
+       finalCode = generateGenericUserScript(config, finalCode);
+       finalName = `${task.data.fileName || task.data.name} (${task.data.version})`;
+      }
+      
+      result.name = finalName;
+      result.code = finalCode;
+      result.fileName = task.data.fileName || finalName;
       break;
+     }
     }
     if (result.code) { results.push(result); }
    });
    displayResults(results, prefix);
   }
+
   function displayResults(results, prefix) {
    const outputSection = document.getElementById(`${prefix}OutputSection`);
    const tabsContainer = document.getElementById(`${prefix}OutputTabsContainer`);
@@ -1046,12 +1074,69 @@ ${scriptBody}`;
    const buttonsContainer = document.getElementById(`${prefix}OutputButtonsContainer`);
    tabsContainer.innerHTML = ''; buttonsContainer.innerHTML = '';
    if (results.length === 0) { outputSection.style.display = 'none'; return; }
+   
+   const leftActions = document.createElement('div');
+   leftActions.className = 'output-actions-left';
+   const rightActions = document.createElement('div');
+   rightActions.className = 'output-actions-right';
+   
+   const jsTestBtn = document.createElement('button');
+   jsTestBtn.textContent = 'JSテスト';
+   jsTestBtn.className = 'action-btn';
+   jsTestBtn.title = '現在のショートカット設定をプレビューします (Googleホームページ形式)';
+   jsTestBtn.onclick = () => {
+    if (state.testableJsCode) {
+     try {
+      (new Function(state.testableJsCode.substring(11)))();
+     } catch (e) {
+      console.error("JS Test execution failed:", e);
+      alert("テストの実行に失敗しました。");
+     }
+    }
+   };
+   leftActions.appendChild(jsTestBtn);
+
+   const individualSaveBtnContainer = document.createElement('div');
+   leftActions.appendChild(individualSaveBtnContainer);
+   
    results.forEach((result, index) => {
     const tab = document.createElement('button'); tab.className = 'output-tab'; tab.textContent = result.name; tab.dataset.index = index; tabsContainer.appendChild(tab);
-    const saveBtn = document.createElement('button'); saveBtn.textContent = `保存: ${result.name}`; saveBtn.className = 'save-output-btn'; saveBtn.style.display = 'none'; saveBtn.dataset.index = index; saveBtn.addEventListener('click', () => saveCodeAsFile(result.code, result.fileName)); buttonsContainer.appendChild(saveBtn);
+    const saveBtn = document.createElement('button'); saveBtn.textContent = `保存: ${result.fileName}`; saveBtn.className = 'save-output-btn'; saveBtn.style.display = 'none'; saveBtn.dataset.index = index; saveBtn.addEventListener('click', () => saveCodeAsFile(result.code, result.fileName)); individualSaveBtnContainer.appendChild(saveBtn);
    });
-   const switchTab = (index) => { tabsContainer.querySelectorAll('.output-tab').forEach((t, i) => t.classList.toggle('active', i === index)); buttonsContainer.querySelectorAll('.save-output-btn').forEach((b, i) => b.style.display = i === index ? 'block' : 'none'); previewArea.value = results[index].code; };
-   tabsContainer.querySelectorAll('.output-tab').forEach(tab => { tab.addEventListener('click', () => switchTab(parseInt(tab.dataset.index, 10))); });
+   
+   if (results.length > 1) {
+    const bulkDownloadBtn = document.createElement('button');
+    bulkDownloadBtn.textContent = '一括ダウンロード';
+    bulkDownloadBtn.className = 'action-btn';
+    bulkDownloadBtn.onclick = () => {
+     if (typeof JSZip === 'undefined') {
+      alert('ZIPライブラリの読み込みに失敗しました。');
+      return;
+     }
+     const zip = new JSZip();
+     results.forEach(result => {
+      const fileName = result.fileName.match(/\.(js|txt|html)$/) ? result.fileName : `${result.fileName}.js`;
+      zip.file(fileName, result.code);
+     });
+     zip.generateAsync({type:"blob"}).then(function(content) {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(content);
+      const scriptName = document.getElementById(`${prefix}ScriptName`).value || 'generated_scripts';
+      link.download = `${scriptName.replace(/[\s/\\?%*:|"<>]/g, '_')}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+     });
+    };
+    rightActions.appendChild(bulkDownloadBtn);
+   }
+
+   buttonsContainer.appendChild(leftActions);
+   buttonsContainer.appendChild(rightActions);
+
+   const switchTab = (index) => { tabsContainer.querySelectorAll('.output-tab').forEach((t, i) => t.classList.toggle('active', i == index)); individualSaveBtnContainer.querySelectorAll('.save-output-btn').forEach((b, i) => b.style.display = i == index ? 'block' : 'none'); previewArea.value = results[index].code; };
+   tabsContainer.querySelectorAll('.output-tab').forEach(tab => { tab.addEventListener('click', () => switchTab(tab.dataset.index)); });
    switchTab(0); outputSection.style.display = 'block';
   }
   
@@ -1237,7 +1322,8 @@ ${scriptBody}`;
    document.getElementById('editForm').style.display = 'block';
   });
 
-  setupImageChecker('gen'); setupImageChecker('edit');
+  setupImageChecker('gen');
+  setupImageChecker('edit');
   populateTreeForm([{ name: 'Google', url: 'https://www.google.com' }], document.getElementById('shortcutsContainer'));
   addMultipleGenerateItem('google_homepage', 'multipleGenerateContainer', {fileName: 'Googleカスタムショートカット'});
   document.getElementById('generateUrlRulesContainer').appendChild(createUrlRuleRow('generateUrlRules'));
