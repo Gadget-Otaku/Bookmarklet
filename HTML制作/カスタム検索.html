@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カスタム検索ブックマークレット生成・編集サイト2.0</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
+        .section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+        .dynamic-section { margin-bottom: 15px; }
+        .input-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        input[type="text"], input[type="number"], textarea { flex: 1; padding: 5px; }
+        textarea { width: 100%; box-sizing: border-box; min-height: 200px; }
+        button { padding: 5px 10px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 3px; }
+        .generated-code { white-space: pre-wrap; background: #f5f5f5; padding: 10px; margin-top: 10px; word-wrap: break-word; }
+        .sub-genre { margin-left: 20px; border-left: 2px solid #ccc; padding-left: 10px; }
+        .tag { display: flex; align-items: center; }
+        .tag input[type="checkbox"] { margin-right: 5px; }
+        .tag img { width: 20px; height: 20px; margin-right: 5px; }
+        .edit-sub-genre { margin-left: 20px; border-left: 2px solid #ccc; padding-left: 10px; }
+
+        /* ▶/▼ トグル用 */
+        .fold-toggle {
+            width: 28px;
+            min-width: 28px;
+            padding: 0 6px;
+            line-height: 1.2;
+            background: #eee;
+            color: #333;
+        }
+        .genre.collapsed > .tag-fields,
+        .genre.collapsed > .sub-genres {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>カスタム検索ブックマークレット生成・編集サイト2.0</h1>
+        <div>
+            <label><input type="radio" name="mode" value="generate" checked> 生成モード</label>
+            <label><input type="radio" name="mode" value="edit"> 編集モード</label>
+        </div>
+
+        <div id="generateMode" style="display: block;">
+            <div class="section">
+                 <h3>ファイル名設定</h3>
+                 <div class="input-row">
+                    <input type="text" id="fileName" placeholder="ファイル名 (例: MySearch)">
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>ジャンル設定</h3>
+                <div id="genreSection">
+                    <div class="dynamic-section genre" data-level="0">
+                        <div class="input-row">
+                            <!-- トップ階層はトグル無し -->
+                            <input type="text" placeholder="ジャンル名" class="genre-name">
+                            <button onclick="addGenreAfter(this, 0)">親ジャンル追加</button>
+                            <!-- 親ジャンルでは子を1階層下に作る -->
+                            <button onclick="addSubGenre(this, 1)">小ジャンル追加</button>
+                            <button onclick="addTagField(this)">タグ追加</button>
+                            <button onclick="this.closest('.genre').remove()">削除</button>
+                            <button onclick="moveUp(this)">↑</button>
+                            <button onclick="moveDown(this)">↓</button>
+                        </div>
+                        <div class="tag-fields"></div>
+                        <div class="sub-genres"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>検索ボタン設定</h3>
+                <div id="searchButtonSection">
+                    <div class="dynamic-section search-button">
+                        <div class="input-row">
+                            <input type="text" placeholder="ボタン名">
+                            <input type="text" placeholder="先頭URL">
+                            <input type="text" placeholder="末尾URL">
+                            <button onclick="addSearchButtonAfter(this)">追加</button>
+                            <button onclick="this.parentElement.parentElement.remove()">削除</button>
+                            <button onclick="moveUp(this)">↑</button>
+                            <button onclick="moveDown(this)">↓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="generateCode()">生成</button>
+            <div id="generateResultSection" style="display:none;">
+                <button onclick="copyCode('generate')">コピー</button>
+                <button onclick="testJs('generate')">JSテスト</button>
+                <button onclick="saveJs('generate')">JS保存</button>
+                <pre class="generated-code" id="generateGeneratedCode"></pre>
+            </div>
+        </div>
+
+        <div id="editMode" style="display: none;">
+            <h3>編集モード</h3>
+            <p>生成したJavaScriptコードを入れてください</p>
+            <textarea id="bookmarkletCode" placeholder="生成したJavaScriptコードを入れてください"></textarea>
+            <button onclick="extractConfig()">抽出</button>
+
+            <div class="section">
+                <h4>GitHubのURLからインポート</h4>
+                <div class="input-row">
+                    <input type="text" id="githubUrl" placeholder="GitHubのJSファイルのリポジトリまたはRawのURL">
+                    <button onclick="importFromGithub()">インポート</button>
+                </div>
+                <p>GitHub上のJSファイル（リポジトリまたはRawのURL）を読み込みます。</p>
+            </div>
+
+            <div id="editForm" style="display: none;">
+                <div class="section">
+                    <h3>ファイル名設定</h3>
+                    <div class="input-row">
+                        <input type="text" id="editFileName" placeholder="ファイル名 (例: MySearch)">
+                    </div>
+                </div>
+                <div class="section">
+                    <h3>ジャンル設定</h3>
+                    <div id="editGenreSection"></div>
+                </div>
+                <div class="section">
+                    <h3>検索ボタン設定</h3>
+                    <div id="editSearchButtonSection"></div>
+                </div>
+                <button onclick="generateCodeFromEdit()">生成</button>
+                <div id="editResultSection" style="display:none;">
+                    <button onclick="copyCode('edit')">コピー</button>
+                    <button onclick="testJs('edit')">JSテスト</button>
+                    <button onclick="saveJs('edit')">JS保存</button>
+                    <pre class="generated-code" id="editGeneratedCode"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- モード切り替え ---
+        function switchMode() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            document.getElementById('generateMode').style.display = mode === 'generate' ? 'block' : 'none';
+            document.getElementById('editMode').style.display = mode === 'edit' ? 'block' : 'none';
+        }
+        document.querySelectorAll('input[name="mode"]').forEach(radio => radio.addEventListener('change', switchMode));
+
+        // --- データ抽出 ---
+        function extractConfigFromCode(code) {
+            let cleanCode = code.startsWith('javascript:') ? code.substring(11) : code;
+            const match = cleanCode.match(/const config = (\{[\s\S]*?\});/);
+            if (match) {
+                try {
+                    let jsonStr = match[1];
+                    let balance = 0, endIndex = -1;
+                    for (let i = 0; i < jsonStr.length; i++) {
+                        if (jsonStr[i] === '{') balance++;
+                        else if (jsonStr[i] === '}') balance--;
+                        if (balance === 0) { endIndex = i; break; }
+                    }
+                    if (endIndex !== -1) return (new Function(`return ${jsonStr.substring(0, endIndex + 1)}`))();
+                } catch (e) {
+                    console.error('JSONパースエラー:', e);
+                    return null;
+                }
+            }
+            return null;
+        }
+        function extractConfig() {
+            const code = document.getElementById('bookmarkletCode').value;
+            const config = extractConfigFromCode(code);
+            if (config) {
+                rebuildEditForm(config);
+                document.getElementById('editForm').style.display = 'block';
+            } else {
+                alert('無効なJavaScriptコードです。設定(config)を抽出できませんでした。');
+            }
+        }
+
+        async function importFromGithub() {
+            const urlInput = document.getElementById('githubUrl').value.trim();
+            if (!urlInput) { alert('GitHubのURLを入力してください。'); return; }
+            try {
+                let rawUrl = '';
+                if (urlInput.includes('github.com') && urlInput.includes('/blob/')) {
+                    const parts = urlInput.split('/');
+                    const blobIndex = parts.findIndex(p => p === 'blob');
+                    if (blobIndex > -1 && parts.length > blobIndex + 1) {
+                        const branch = parts[blobIndex + 1];
+                        const filePath = parts.slice(blobIndex + 2).join('/');
+                        rawUrl = `https://raw.githubusercontent.com/${parts[3]}/${parts[4]}/${branch}/${filePath}`;
+                    } else {
+                        throw new Error('無効なGitHub URL形式です');
+                    }
+                } else if (urlInput.includes('raw.githubusercontent.com')) {
+                    rawUrl = urlInput;
+                } else {
+                    throw new Error('サポートされていないGitHub URL形式です');
+                }
+                const response = await fetch(rawUrl);
+                if (!response.ok) throw new Error(`ファイル取得エラー: ${response.status} ${response.statusText}`);
+                const jsCode = await response.text();
+                document.getElementById('bookmarkletCode').value = jsCode;
+                alert('インポートに成功しました。「抽出」ボタンを押して編集を開始してください。');
+            } catch (e) {
+                alert('GitHubからのインポートに失敗しました: ' + e.message);
+                console.error(e);
+            }
+        }
+
+        // --- UIフォーム再構築 ---
+        function rebuildEditForm(config) {
+            document.getElementById('editFileName').value = config.fileName || '';
+            const editGenreSection = document.getElementById('editGenreSection');
+            editGenreSection.innerHTML = '';
+
+            function addGenreWithIndent(parent, genreData, level) {
+                const newGenre = document.createElement('div');
+                newGenre.className = `dynamic-section genre ${level > 0 ? 'edit-sub-genre' : ''}`;
+                newGenre.dataset.level = level;
+
+                // レベルに応じたボタン動作
+                const subBtnFunc = level === 0
+                  ? 'addEditSubGenre(this, 1)' // 親 → 子を追加
+                  : `addEditSiblingSubGenre(this, ${level})`; // 小ジャンル → 同階層に兄弟追加
+
+                const parentBtnFunc = level === 0
+                  ? 'addEditGenreAfter(this, 0)' // トップ階層に親ジャンル追加
+                  : 'addEditParentGenreFromSub(this)'; // 小ジャンルから親ジャンル追加（トップ階層へ）
+
+                newGenre.innerHTML = createGenreHTML(
+                    level,
+                    parentBtnFunc,
+                    subBtnFunc,
+                    'addEditTagField(this)'
+                );
+
+                const nameInput = newGenre.querySelector('.genre-name');
+                if (nameInput) nameInput.value = genreData.name || '';
+
+                const parentElement = parent ? parent.querySelector('.sub-genres') : editGenreSection;
+                parentElement.appendChild(newGenre);
+
+                // タグ
+                if (genreData.tags) genreData.tags.forEach(tag => addTagField(
+                    newGenre.querySelector('button[onclick^="addEditTagField"]'),
+                    'addEditTagAfter',
+                    tag
+                ));
+
+                // 抽出直後は小ジャンルを収納（▶）
+                initGenreFold(newGenre, level > 0);
+
+                // 再帰
+                if (genreData.subGenres) genreData.subGenres.forEach(subGenre => addGenreWithIndent(newGenre, subGenre, level + 1));
+            }
+
+            if (config.genres) config.genres.forEach(genreData => addGenreWithIndent(null, genreData, 0));
+
+            const editSearchButtonSection = document.getElementById('editSearchButtonSection');
+            editSearchButtonSection.innerHTML = '';
+            if (config.searchButtons) {
+                config.searchButtons.forEach(buttonData => {
+                    const newButtonDiv = document.createElement('div');
+                    newButtonDiv.className = 'dynamic-section search-button';
+                    newButtonDiv.innerHTML = createSearchButtonHTML('addEditSearchButtonAfter(this)');
+                    newButtonDiv.querySelector('input[placeholder="ボタン名"]').value = buttonData.name || '';
+                    newButtonDiv.querySelector('input[placeholder="先頭URL"]').value = buttonData.prefix || '';
+                    newButtonDiv.querySelector('input[placeholder="末尾URL"]').value = buttonData.suffix || '';
+                    editSearchButtonSection.appendChild(newButtonDiv);
+                });
+            }
+        }
+
+        // --- UI要素の動的追加（編集モード用ラッパ） ---
+        function addEditGenreAfter(button, level) {
+            addGenreAfter(button, level, document.getElementById('editGenreSection'), 'addEditGenreAfter(this, 0)', 'addEditSubGenre(this, 1)', 'addEditTagField(this)');
+        }
+        // 親ジャンル→子を作成（作成された小ジャンルの「小ジャンル追加」は同階層に兄弟追加）
+        function addEditSubGenre(button, level) {
+            addSubGenre(button, level, 'addEditSiblingSubGenre', 'addEditTagField', 'addEditParentGenreFromSub');
+        }
+        // 小ジャンル→同階層に兄弟
+        function addEditSiblingSubGenre(button, level) {
+            addGenreAfter(button, level, null, 'addEditGenreAfter(this, 0)', `addEditSiblingSubGenre(this, ${level})`, 'addEditTagField(this)');
+        }
+        // 小ジャンル→トップ階層の親ジャンルをこのツリーの直後に追加
+        function addEditParentGenreFromSub(button) {
+            addParentGenreFromSub(button, /*isEdit*/ true);
+        }
+
+        function addEditTagField(button, tagData) { addTagField(button, 'addEditTagAfter', tagData); }
+        function addEditTagAfter(button) { addTagAfter(button, 'addEditTagAfter'); }
+        function addEditSearchButtonAfter(button) { addSearchButtonAfter(button, 'addEditSearchButtonAfter'); }
+
+        // --- 汎用UI断片 ---
+        function createGenreHTML(level, addGenreFunc, addSubGenreFunc, addTagFunc) {
+            const hasToggle = level > 0;
+            const parentBtn = addGenreFunc || (level === 0 ? 'addGenreAfter(this, 0)' : 'addParentGenreFromSub(this)');
+            const subBtn = addSubGenreFunc || (level === 0 ? 'addSubGenre(this, 1)' : `addSiblingSubGenre(this, ${level})`);
+            const tagBtn = addTagFunc || 'addTagField(this)';
+            return `<div class="input-row">
+                        ${hasToggle ? `<button type="button" class="fold-toggle" onclick="toggleFold(this)">▼</button>` : ''}
+                        <input type="text" placeholder="ジャンル名" class="genre-name">
+                        <button type="button" onclick="${parentBtn}">親ジャンル追加</button>
+                        <button type="button" onclick="${subBtn}">小ジャンル追加</button>
+                        <button type="button" onclick="${tagBtn}">タグ追加</button>
+                        <button type="button" onclick="this.closest('.genre').remove()">削除</button>
+                        <button type="button" onclick="moveUp(this)">↑</button>
+                        <button type="button" onclick="moveDown(this)">↓</button>
+                    </div>
+                    <div class="tag-fields"></div>
+                    <div class="sub-genres"></div>`;
+        }
+        function createTagHTML(onclickAttr, priority = '1') {
+             return `<input type="checkbox" class="auto-select">
+                <input type="text" placeholder="タグ名" value="">
+                <input type="text" placeholder="画像URL" value="">
+                <input type="text" placeholder="URL" value="">
+                <input type="number" placeholder="優先度" min="1" value="${priority}">
+                <button type="button" onclick="${onclickAttr}">タグ追加</button>
+                <button type="button" onclick="this.parentElement.remove()">削除</button>
+                <button type="button" onclick="moveTagUp(this)">↑</button>
+                <button type="button" onclick="moveTagDown(this)">↓</button>`;
+        }
+        function createSearchButtonHTML(onclickAttr) {
+            return `<div class="input-row">
+                    <input type="text" placeholder="ボタン名">
+                    <input type="text" placeholder="先頭URL">
+                    <input type="text" placeholder="末尾URL">
+                    <button type="button" onclick="${onclickAttr}">追加</button>
+                    <button type="button" onclick="this.parentElement.parentElement.remove()">削除</button>
+                    <button type="button" onclick="moveUp(this)">↑</button>
+                    <button type="button" onclick="moveDown(this)">↓</button>
+                </div>`;
+        }
+
+        // --- 収納・展開制御 ---
+        function toggleFold(btn) {
+            const genre = btn.closest('.genre');
+            const collapsed = genre.classList.toggle('collapsed');
+            btn.textContent = collapsed ? '▶' : '▼';
+        }
+        function initGenreFold(genreEl, collapsed) {
+            const btn = genreEl.querySelector(':scope > .input-row .fold-toggle');
+            if (!btn) return;
+            if (collapsed) {
+                genreEl.classList.add('collapsed');
+                btn.textContent = '▶';
+            } else {
+                genreEl.classList.remove('collapsed');
+                btn.textContent = '▼';
+            }
+        }
+
+        // --- 追加系（共通） ---
+        function addGenreAfter(button, level, parentSection, addGenreFunc, addSubGenreFunc, addTagFunc) {
+            const currentGenre = button.closest('.genre');
+            parentSection = parentSection || (level === 0 ? document.getElementById('genreSection') : currentGenre.parentElement);
+            const newGenre = document.createElement('div');
+            newGenre.className = 'dynamic-section genre' + (level > 0 ? ' sub-genre' : '');
+            newGenre.dataset.level = level;
+            newGenre.innerHTML = createGenreHTML(level, addGenreFunc, addSubGenreFunc, addTagFunc);
+            parentSection.insertBefore(newGenre, currentGenre.nextSibling);
+            // 小ジャンルはデフォルト展開表示（▼）
+            if (level > 0) initGenreFold(newGenre, false);
+        }
+
+        // 親 → 子を追加。子の「小ジャンル追加」は同階層に兄弟追加
+        function addSubGenre(button, level, addSubGenreFunc, addTagFunc, addParentBtnFunc) {
+            const parentGenre = button.closest('.genre');
+            const subGenres = parentGenre.querySelector('.sub-genres');
+            const newSubGenre = document.createElement('div');
+            newSubGenre.className = `dynamic-section genre sub-genre`;
+            newSubGenre.dataset.level = level;
+
+            const subFunc = addSubGenreFunc ? `${addSubGenreFunc}(this, ${level})` : `addSiblingSubGenre(this, ${level})`;
+            const tagFunc = addTagFunc ? `${addTagFunc}(this)` : 'addTagField(this)';
+            const parentBtn = addParentBtnFunc ? `${addParentBtnFunc}(this)` : null;
+
+            newSubGenre.innerHTML = createGenreHTML(level, parentBtn, subFunc, tagFunc);
+            subGenres.appendChild(newSubGenre);
+
+            // 生成モードでの新規小ジャンルは展開（▼）
+            initGenreFold(newSubGenre, false);
+        }
+
+        // 生成モード：小ジャンル → 同階層に兄弟を追加
+        function addSiblingSubGenre(button, level) {
+            addGenreAfter(button, level, null, null, `addSiblingSubGenre(this, ${level})`, 'addTagField(this)');
+        }
+
+        // 小ジャンルから「親ジャンル追加」：このツリー直後にトップ階層ジャンルを追加
+        function addParentGenreFromSub(button, isEdit = false) {
+            const currentGenre = button.closest('.genre');
+            // 最上位の親ジャンル（トップ階層）を探索
+            let top = currentGenre;
+            while (top && top.parentElement && top.parentElement.closest('.genre')) {
+                top = top.parentElement.closest('.genre');
+            }
+            const container = top.parentElement; // #genreSection or #editGenreSection
+            const newGenre = document.createElement('div');
+            newGenre.className = 'dynamic-section genre';
+            newGenre.dataset.level = 0;
+
+            const addGenreFunc = isEdit ? 'addEditGenreAfter(this, 0)' : 'addGenreAfter(this, 0)';
+            const addSubFunc   = isEdit ? 'addEditSubGenre(this, 1)' : 'addSubGenre(this, 1)';
+            const addTagFunc   = isEdit ? 'addEditTagField(this)' : 'addTagField(this)';
+
+            newGenre.innerHTML = createGenreHTML(0, addGenreFunc, addSubFunc, addTagFunc);
+            container.insertBefore(newGenre, top.nextElementSibling);
+        }
+
+        // タグ行追加（押下元の小ジャンル直下に必ず追加）
+        function addTagField(button, addTagAfterFunc, tagData = {}) {
+            const genreBox = button.closest('.dynamic-section.genre');
+            if (!genreBox) return;
+            let tagFields = genreBox.querySelector(':scope > .tag-fields');
+            if (!tagFields) {
+                tagFields = document.createElement('div');
+                tagFields.className = 'tag-fields';
+                genreBox.insertBefore(tagFields, genreBox.querySelector(':scope > .sub-genres'));
+            }
+            const newTag = document.createElement('div');
+            newTag.className = 'input-row tag';
+            const onclickAttr = addTagAfterFunc ? `${addTagAfterFunc}(this)` : 'addTagAfter(this)';
+            newTag.innerHTML = createTagHTML(onclickAttr, tagData.priority);
+
+            if(tagData.name) newTag.querySelector('input[placeholder="タグ名"]').value = tagData.name;
+            if(tagData.imageUrl) newTag.querySelector('input[placeholder="画像URL"]').value = tagData.imageUrl;
+            if(tagData.url) newTag.querySelector('input[placeholder="URL"]').value = tagData.url;
+            if(tagData.autoSelect) newTag.querySelector('.auto-select').checked = true;
+
+            tagFields.appendChild(newTag);
+        }
+        function addTagAfter(button, addTagAfterFunc) {
+            const currentTag = button.closest('.tag');
+            const priority = currentTag.querySelector('input[type="number"]').value;
+            const newTag = document.createElement('div');
+            newTag.className = 'input-row tag';
+            const onclickAttr = addTagAfterFunc ? `${addTagAfterFunc}(this)` : 'addTagAfter(this)';
+            newTag.innerHTML = createTagHTML(onclickAttr, priority);
+            currentTag.parentNode.insertBefore(newTag, currentTag.nextSibling);
+        }
+
+        function addSearchButtonAfter(button, addSearchBtnFunc) {
+            const currentButton = button.closest('.search-button');
+            const newButton = document.createElement('div');
+            newButton.className = 'dynamic-section search-button';
+            newButton.innerHTML = createSearchButtonHTML(addSearchBtnFunc || 'addSearchButtonAfter(this)');
+            currentButton.parentNode.insertBefore(newButton, currentButton.nextSibling);
+        }
+
+        function moveUp(button) { const c = button.closest('.dynamic-section'); if (c.previousElementSibling) c.parentNode.insertBefore(c, c.previousElementSibling); }
+        function moveDown(button) { const c = button.closest('.dynamic-section'); if (c.nextElementSibling) c.parentNode.insertBefore(c.nextElementSibling, c); }
+        function moveTagUp(button) { const c = button.closest('.tag'); if (c.previousElementSibling) c.parentNode.insertBefore(c, c.previousElementSibling); }
+        function moveTagDown(button) { const c = button.closest('.tag'); if (c.nextElementSibling) c.parentNode.insertBefore(c.nextElementSibling, c); }
+
+        // --- コード生成 ---
+        function generateCode() {
+            const config = getConfigFromForm('generate');
+            if (!config.fileName) { alert('ファイル名を入力してください。'); return; }
+            document.getElementById('generateGeneratedCode').textContent = generateBookmarkletCode(config);
+            document.getElementById('generateResultSection').style.display = 'block';
+        }
+        function generateCodeFromEdit() {
+            const config = getConfigFromForm('edit');
+            if (!config.fileName) { alert('ファイル名を入力してください。'); return; }
+            document.getElementById('editGeneratedCode').textContent = generateBookmarkletCode(config);
+            document.getElementById('editResultSection').style.display = 'block';
+        }
+
+        function getConfigFromForm(mode) {
+            const fid = mode === 'generate' ? 'fileName' : 'editFileName',
+                  gid = mode === 'generate' ? 'genreSection' : 'editGenreSection',
+                  sid = mode === 'generate' ? 'searchButtonSection' : 'editSearchButtonSection';
+
+            const getGenres = (els) => Array.from(els).map(g => {
+                const sub = g.querySelector(':scope > .sub-genres');
+                return {
+                    name: g.querySelector(':scope > .input-row > .genre-name').value,
+                    tags: Array.from(g.querySelectorAll(':scope > .tag-fields > .tag')).map(t => ({
+                        name: t.querySelector('input[placeholder="タグ名"]').value,
+                        url: t.querySelector('input[placeholder="URL"]').value,
+                        imageUrl: t.querySelector('input[placeholder="画像URL"]').value,
+                        priority: parseInt(t.querySelector('input[type="number"]').value) || 1,
+                        autoSelect: t.querySelector('.auto-select').checked
+                    })),
+                    subGenres: sub ? getGenres(sub.querySelectorAll(':scope > .genre')) : []
+                };
+            });
+            return {
+                fileName: document.getElementById(fid).value.trim(),
+                genres: getGenres(document.querySelectorAll(`#${gid} > .genre`)),
+                searchButtons: Array.from(document.querySelectorAll(`#${sid} .search-button`)).map(b => ({
+                    name: b.querySelector('input[placeholder="ボタン名"]').value,
+                    prefix: b.querySelector('input[placeholder="先頭URL"]').value,
+                    suffix: b.querySelector('input[placeholder="末尾URL"]').value
+                }))
+            };
+        }
+
+        function generateBookmarkletCode(config) {
+            const css = `
+              .bookmarklet-container { position:fixed; bottom:10px; right:10px; background:white; border:1px solid #ccc; border-radius: 5px;
+                padding:10px; z-index:2147483647; box-shadow:0 2px 10px rgba(0,0,0,0.2); max-height:90vh; overflow-y:auto; }
+              .bookmarklet-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+              .bookmarklet-header button { all:unset; font-size:18px; cursor:pointer; padding:2px 5px; line-height:1; }
+              .bookmarklet-header button:hover { background: #f0f0f0; border-radius: 3px; }
+              .genre-section { margin-bottom:10px; }
+              .toggle { cursor:pointer; user-select:none; font-weight:bold; }
+              .hidden { display:none; }
+              .tag { display:flex; align-items:center; margin:2px 0; }
+              .tag img { width:20px; height:20px; margin-right:5px; }
+              .sub-genre { margin-left:20px; border-left:2px solid #eee; padding-left:10px; }
+              .search-buttons button { margin: 2px; }
+            `.trim().replace(/\s\s+/g, ' ');
+
+            const jsBody = `
+    const config = ${JSON.stringify(config, null, 2)};
+    const containerId = 'customSearchBookmarkletContainer';
+    if (document.getElementById(containerId)) { document.getElementById(containerId).remove(); }
+    const style = document.createElement('style');
+    style.textContent = \`${css.replace(/`/g, '\\`')}\`;
+    document.head.appendChild(style);
+
+    const container = document.createElement('div');
+    container.id = containerId;
+    container.className = 'bookmarklet-container';
+    document.body.appendChild(container);
+
+    const header = document.createElement('div');
+    header.className = 'bookmarklet-header';
+    container.appendChild(header);
+
+    const settingsButton = document.createElement('button');
+    settingsButton.textContent = '⚙️';
+    settingsButton.onclick = () => window.open('https://github.com/Gadget-Otaku/Bookmarklet/blob/main/HTML%E5%88%B6%E4%BD%9C/%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E6%A4%9C%E7%B4%A2.html', '_blank');
+    header.appendChild(settingsButton);
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '☒';
+    closeButton.onclick = () => container.remove();
+    header.appendChild(closeButton);
+
+    function createGenreSection(genre, isSub = false) {
+        const section = document.createElement('div');
+        section.className = 'genre-section' + (isSub ? ' sub-genre' : '');
+        const toggle = document.createElement('div');
+        toggle.className = 'toggle';
+        toggle.textContent = '▶ ' + genre.name;
+
+        const content = document.createElement('div');
+        content.className = 'hidden';
+
+        toggle.onclick = () => {
+            content.classList.toggle('hidden');
+            toggle.textContent = (content.classList.contains('hidden') ? '▶ ' : '▼ ') + genre.name;
+
+            // 展開時：autoSelectのタグを自動チェック
+            if (!content.classList.contains('hidden')) {
+                (genre.tags || []).forEach(t => {
+                    if (t.autoSelect) {
+                        const checkbox = content.querySelector('input[data-url="' + t.url.replace(/"/g, '\\"') + '"]');
+                        if (checkbox) { checkbox.checked = true; }
+                    }
+                });
+            } else {
+                // 閉じたらチェック解除
+                content.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+            }
+        };
+
+        (genre.tags || []).forEach(t => {
+            const tag = document.createElement('label');
+            tag.className = 'tag';
+
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.dataset.url = t.url;
+            cb.dataset.priority = t.priority;
+            tag.appendChild(cb);
+
+            if (t.imageUrl && t.imageUrl !== 'undefined') {
+                const img = document.createElement('img');
+                img.src = t.imageUrl;
+                img.alt = t.name;
+                tag.appendChild(img);
+            }
+
+            const span = document.createElement('span');
+            span.textContent = ' ' + t.name;
+            tag.appendChild(span);
+
+            content.appendChild(tag);
+        });
+
+        (genre.subGenres || []).forEach(sub => content.appendChild(createGenreSection(sub, true)));
+
+        section.appendChild(toggle);
+        section.appendChild(content);
+        return section;
+    }
+
+    (config.genres || []).forEach(genre => container.appendChild(createGenreSection(genre)));
+
+    const searchButtonsContainer = document.createElement('div');
+    searchButtonsContainer.className = 'search-buttons';
+    container.appendChild(searchButtonsContainer);
+
+    (config.searchButtons || []).forEach(btn => {
+        const button = document.createElement('button');
+        button.textContent = btn.name;
+        button.onclick = () => {
+            const sel = Array.from(container.querySelectorAll('input[type=checkbox]:checked'))
+                .sort((a, b) => (a.dataset.priority || 1) - (b.dataset.priority || 1))
+                .map(el => el.dataset.url);
+            const url = (btn.prefix || '') + sel.join('') + (btn.suffix || '');
+            if (url) { window.open(url, '_blank'); }
+        };
+        searchButtonsContainer.appendChild(button);
+    });
+`;
+            return `javascript:(function(){${jsBody}})();`;
+        }
+
+        // --- ファイル操作 ---
+        function copyCode(mode) {
+            const code = document.getElementById(mode === 'generate' ? 'generateGeneratedCode' : 'editGeneratedCode').textContent;
+            navigator.clipboard.writeText(code).then(() => alert('コピーされました！'), () => alert('コピーに失敗しました'));
+        }
+        function testJs(mode) {
+            const code = document.getElementById(mode === 'generate' ? 'generateGeneratedCode' : 'editGeneratedCode').textContent;
+            if (code && code.startsWith('javascript:')) {
+                try { new Function(code.substring(11))(); }
+                catch(e) { alert('テスト実行中にエラーが発生しました: ' + e.message); console.error(e); }
+            } else {
+                alert('有効なコードが生成されていません。');
+            }
+        }
+        function saveJs(mode) {
+            const config = getConfigFromForm(mode);
+            if (!config.fileName) { alert('ファイル名を入力してください。'); return; }
+            let jsContent = document.getElementById(mode === 'generate' ? 'generateGeneratedCode' : 'editGeneratedCode').textContent;
+            if (jsContent.startsWith('javascript:')) { jsContent = jsContent.substring(11); }
+            const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${config.fileName}.js`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        switchMode();
+    </script>
+</body>
+</html>
+
