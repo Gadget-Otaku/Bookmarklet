@@ -277,6 +277,22 @@ document.addEventListener('DOMContentLoaded', () => {
   editTabBtn.addEventListener('click', () => switchTab(editTabBtn));
 
   // ########## UTILITY FUNCTIONS ##########
+  // --- ID resolver to unify Generate/Edit mode element lookups ---
+  function _$id(prefix, base) {
+    // Mapping for elements whose no-prefix ids are not just lowercased-first-letter
+    const mapNoPrefix = {
+      UrlRulesContainer: 'generateUrlRulesContainer',
+      ShortcutsContainer: 'shortcutsContainer',
+      MultipleGenerateContainer: 'multipleGenerateContainer',
+      OutputSection: 'outputSection',
+      OutputTabsContainer: 'outputTabsContainer',
+      CodePreviewArea: 'codePreviewArea',
+      OutputButtonsContainer: 'outputButtonsContainer'
+    };
+    if (prefix) return document.getElementById(prefix + base);
+    const noPrefixId = mapNoPrefix[base] || (base.charAt(0).toLowerCase() + base.slice(1));
+    return document.getElementById(noPrefixId);
+  }
   const incrementVersion = (v) => { if (!v) return '1.0.1'; const p = v.split('.'); const n = parseInt(p[p.length - 1], 10); p[p.length - 1] = isNaN(n) ? 1 : n + 1; return p.join('.'); };
   const saveCodeAsFile = (code, fileName) => { const blob = new Blob([code], { type: 'application/javascript;charset=utf-8' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName.replace(/[\s/\\?%*:|"<>]/g, '_') + '.js'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); };
   const fetchGithubRawContent = async (url) => { if (!url || !url.trim()) return null; let rawUrl = url.trim().replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/'); try { const response = await fetch(rawUrl); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return await response.text(); } catch (e) { console.error('GitHub fetch failed:', e); alert('GitHubからのインポートに失敗しました。URLを確認してください。'); return null; } };
@@ -923,12 +939,12 @@ ${scriptBody}`;
   // ########## MAIN GENERATE/REGENERATE & DISPLAY LOGIC ##########
   function collectAndGenerate(isEditMode) {
    const prefix = isEditMode ? 'edit' : '';
-   const baseParams = { name: document.getElementById(`${prefix}ScriptName`).value, sourceUrl: document.getElementById(`${prefix}ImportSourceUrl`).value, downloadUrl: document.getElementById(`${prefix}DownloadUrl`).value, updateUrl: document.getElementById(`${prefix}UpdateUrl`).value, scale: document.getElementById(`${prefix}Scale`).value, gridCols: document.getElementById(`${prefix}GridCols`).value, gridRows: document.getElementById(`${prefix}GridRows`).value, topOffset: document.getElementById(`${prefix}TopOffset`).value, leftOffset: document.getElementById(`${prefix}LeftOffset`).value, items: extractTreeData(document.getElementById(`${prefix}ShortcutsContainer`)), urlRules: extractUrlRules(document.getElementById(`${prefix === 'edit' ? 'edit' : 'generate'}UrlRulesContainer`)) };
+   const baseParams = { name: _$id(prefix, 'ScriptName').value, sourceUrl: _$id(prefix, 'ImportSourceUrl').value, downloadUrl: _$id(prefix, 'DownloadUrl').value, updateUrl: _$id(prefix, 'UpdateUrl').value, scale: _$id(prefix, 'Scale').value, gridCols: _$id(prefix, 'GridCols').value, gridRows: _$id(prefix, 'GridRows').value, topOffset: _$id(prefix, 'TopOffset').value, leftOffset: _$id(prefix, 'LeftOffset').value, items: extractTreeData(_$id(prefix, 'ShortcutsContainer')), urlRules: extractUrlRules(_$id(prefix, 'UrlRulesContainer')) };
    
    const coreJsPayload = generateCoreLogic(baseParams, []);
    state.testableJsCode = `javascript:${coreJsPayload}`;
 
-   const multiGenContainer = document.getElementById(`${prefix}MultipleGenerateContainer`);
+   const multiGenContainer = _$id(prefix, 'MultipleGenerateContainer');
    const multiGenItems = multiGenContainer.querySelectorAll('.multiple-generate-item');
    const multiGenMetadata = []; const generationTasks = [];
 
@@ -1068,10 +1084,10 @@ ${scriptBody}`;
   }
 
   function displayResults(results, prefix) {
-   const outputSection = document.getElementById(`${prefix}OutputSection`);
-   const tabsContainer = document.getElementById(`${prefix}OutputTabsContainer`);
-   const previewArea = document.getElementById(`${prefix}CodePreviewArea`);
-   const buttonsContainer = document.getElementById(`${prefix}OutputButtonsContainer`);
+   const outputSection = _$id(prefix, 'OutputSection');
+   const tabsContainer = _$id(prefix, 'OutputTabsContainer');
+   const previewArea = _$id(prefix, 'CodePreviewArea');
+   const buttonsContainer = _$id(prefix, 'OutputButtonsContainer');
    tabsContainer.innerHTML = ''; buttonsContainer.innerHTML = '';
    if (results.length === 0) { outputSection.style.display = 'none'; return; }
    
@@ -1121,7 +1137,7 @@ ${scriptBody}`;
      zip.generateAsync({type:"blob"}).then(function(content) {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(content);
-      const scriptName = document.getElementById(`${prefix}ScriptName`).value || 'generated_scripts';
+      const scriptName = _$id(prefix, 'ScriptName').value || 'generated_scripts';
       link.download = `${scriptName.replace(/[\s/\\?%*:|"<>]/g, '_')}.zip`;
       document.body.appendChild(link);
       link.click();
@@ -1154,18 +1170,18 @@ ${scriptBody}`;
   }
   function loadAndPopulate(prefix, script) {
    const config = parseBaseScript(script);
-   document.getElementById(`${prefix}ScriptName`).value = config.name;
-   document.getElementById(`${prefix}ImportSourceUrl`).value = config.sourceUrl;
-   document.getElementById(`${prefix}DownloadUrl`).value = config.downloadUrl;
-   document.getElementById(`${prefix}UpdateUrl`).value = config.updateUrl;
-   document.getElementById(`${prefix}Scale`).value = config.scale;
-   document.getElementById(`${prefix}GridCols`).value = config.gridCols;
-   document.getElementById(`${prefix}GridRows`).value = config.gridRows;
-   document.getElementById(`${prefix}TopOffset`).value = config.topOffset;
-   document.getElementById(`${prefix}LeftOffset`).value = config.leftOffset;
-   populateTreeForm(config.items, document.getElementById(`${prefix}ShortcutsContainer`));
+   _$id(prefix, 'ScriptName').value = config.name;
+   _$id(prefix, 'ImportSourceUrl').value = config.sourceUrl;
+   _$id(prefix, 'DownloadUrl').value = config.downloadUrl;
+   _$id(prefix, 'UpdateUrl').value = config.updateUrl;
+   _$id(prefix, 'Scale').value = config.scale;
+   _$id(prefix, 'GridCols').value = config.gridCols;
+   _$id(prefix, 'GridRows').value = config.gridRows;
+   _$id(prefix, 'TopOffset').value = config.topOffset;
+   _$id(prefix, 'LeftOffset').value = config.leftOffset;
+   populateTreeForm(config.items, _$id(prefix, 'ShortcutsContainer'));
    const urlRulesMatch = script.match(/const urlRules = (\[[\s\S]*?\]);/);
-   const urlRulesContainer = document.getElementById(`${prefix}UrlRulesContainer`);
+   const urlRulesContainer = _$id(prefix, 'UrlRulesContainer');
    urlRulesContainer.innerHTML = '';
    if(urlRulesMatch && urlRulesMatch[1]) { try { const rules = new Function(`return ${urlRulesMatch[1]}`)(); populateUrlRulesForm(rules, urlRulesContainer); } catch(e){ console.error(e); } } else { urlRulesContainer.appendChild(createUrlRuleRow(`${prefix}UrlRules`)); }
   }
