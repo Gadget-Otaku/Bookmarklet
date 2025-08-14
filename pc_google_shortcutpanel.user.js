@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         pc_google_shortcutpanel.user
-// @version      1.1.18
+// @version      1.1.19
 // @match        https://www.google.com/
 // @grant        none
 // ==/UserScript==
 
 (function() {
   'use strict';
-  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.19","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/pctool.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.18"},{"type":"javascript","fileName":"pc_base_shortcutpanel"}] */
+  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.20","downloadURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/pctool.user.js","updateURL":"https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.19"},{"type":"javascript","fileName":"pc_base_shortcutpanel"}] */
    const metadata = {
   "name": "Googleカスタムショートカット",
   "source": "",
@@ -52,6 +52,11 @@
                    "name": "Venice AI",
                    "url": "https://venice.ai/chat",
                    "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=venice.ai"
+               },
+               {
+                   "name": "Genspark",
+                   "url": "https://www.genspark.ai/agents?type=moa_chat",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai"
                }
            ]
        },
@@ -202,13 +207,13 @@
                    "icon": "https://img.icons8.com/color/512/google-sites--v2.png"
                },
                {
-                   "name": "UserScript",
-                   "url": "https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0",
+                   "name": "ショートカットパネル",
+                   "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%91%E3%83%8D%E3%83%AB%E7%94%9F%E6%88%90%E3%83%BB%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%88.html",
                    "icon": "https://img.icons8.com/color/512/google-sites--v2.png"
                },
                {
-                   "name": "ショートカットパネル",
-                   "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%91%E3%83%8D%E3%83%AB%E7%94%9F%E6%88%90%E3%83%BB%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%88.html",
+                   "name": "UserScript",
+                   "url": "https://sites.google.com/view/userscriptgenerator/%E3%83%9B%E3%83%BC%E3%83%A0",
                    "icon": "https://img.icons8.com/color/512/google-sites--v2.png"
                },
                {
@@ -218,7 +223,7 @@
                },
                {
                    "name": "カスタム検索ブックマークレット生成・編集サイト2.0",
-                   "url": "https://sites.google.com/view/custome-search2/%E3%83%9B%E3%83%BC%E3%83%A0",
+                   "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E6%A4%9C%E7%B4%A2.html",
                    "icon": "https://img.icons8.com/color/512/google-sites--v2.png"
                },
                {
@@ -343,7 +348,7 @@
            "color": "black"
        },
        {
-           "url": "https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B32.0",
+           "url": "https://gadget-otaku.github.io/Bookmarklet/",
            "color": "black"
        }
    ];
