@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UserScript 生成＆編集サイト3.0</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f7f7f7;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #333;
+      border-bottom: 2px solid #007BFF;
+      padding-bottom: 10px;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: #ddd;
+      margin: 25px 0;
+    }
+    /* --- Page & Sub Mode --- */
+    .mode-toggle-group {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .mode-toggle-group button {
+      padding: 12px 25px;
+      font-size: 1.1em;
+      background-color: #6c757d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .mode-toggle-group button:hover { background-color: #5a6268; }
+    .mode-toggle-group button.active { background-color: #007BFF; }
+    #sub-mode-toggle { border-left: 2px solid #ccc; padding-left: 10px; }
+
+    /* --- Form Elements --- */
+    .form-group { margin-bottom: 15px; }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    textarea { font-family: monospace; min-height: 120px; }
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    button:hover { background-color: #0056b3; }
+    .action-button { background-color: #17a2b8; } /* Add Button, Add JS etc. */
+    .generate-button { font-size: 1.2em; padding: 12px 30px; background-color: #28a745;}
+    .generate-button:hover { background-color: #218838; }
+
+    /* --- Action Item Group (for Buttons/Shortcuts/JS Blocks) --- */
+    .action-item-group {
+      border: 1px solid #007BFF;
+      border-left: 5px solid #007BFF;
+      padding: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+    .action-item-group .delete-action-item {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      font-size: 0.9em;
+      white-space: nowrap;
+      background-color: #dc3545;
+    }
+     .action-item-group .delete-action-item:hover { background-color: #c82333; }
+
+    /* --- Specific Sections & Styles --- */
+    #url-explanation, .url-explanation {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #e9f7fd;
+        border-left: 5px solid #007BFF;
+    }
+    .url-input { display: flex; align-items: center; gap: 5px; margin-bottom: 5px;}
+    .url-input select { width: auto; }
+    .url-input input { flex-grow: 1; }
+    .url-input .delete-url { padding: 4px 8px; font-size: 0.9em; height: auto; margin: 0; white-space: nowrap; background-color: #dc3545; }
+    .add-url-btn { margin-bottom: 15px; }
+    .section-box { border: 1px solid #ccc; padding: 15px; margin-top: 5px; background-color: #fdfdfd; border-radius: 4px; }
+    .input-row { display: flex; gap: 10px; align-items: center; }
+    .input-row label { margin-bottom: 0; font-weight: normal; white-space: nowrap; }
+    .radio-group label { font-weight: normal; margin-right: 15px; }
+    .radio-group input { width: auto; margin-right: 5px; }
+    .js-update-note { font-size: 0.9em; color: #666; margin-top: 5px; }
+
+    /* Output & Import */
+    .output-actions { margin-bottom: 10px; display: flex; gap: 10px;}
+    .output { padding: 15px; background-color: #2b303b; color: #c0c5ce; border: 1px solid #ddd; white-space: pre-wrap; word-wrap: break-word; border-radius: 5px; font-family: monospace;}
+    .copy-button { background-color: #28a745; }
+    .save-button { background-color: #17a2b8; }
+    .github-import-section { border: 1px solid #28a745; background-color: #f0fff4; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    .github-import-section .input-row button { background-color: #28a745; }
+
+  </style>
+</head>
+<body>
+
+<h1>UserScript 生成＆編集サイト 3.4</h1>
+
+<div class="mode-toggle-group">
+  <button id="generateTab" class="active">生成モード</button>
+  <button id="editTab">編集モード</button>
+</div>
+
+<div id="generateSection">
+    <div class="mode-toggle-group" id="sub-mode-toggle">
+      <button id="modeButton" class="active">ボタン</button>
+      <button id="modeKeyboard">キーボード</button>
+      <button id="modeUrlMatch">URL一致</button>
+    </div>
+
+    <div id="common-fields">
+        <div class="form-group"><label>UserScript名</label><input type="text" id="ScriptName" placeholder="Enter UserScript name"></div>
+        <div class="form-group"><label>バージョン</label><input type="text" id="ScriptVersion" placeholder="Enter version (e.g., 1.0)" value="1.0"></div>
+        <div class="form-group" id="urlContainerWrapper">
+            <label>起動するサイトのURL</label>
+            <div id="url-explanation" class="url-explanation">
+              ワイルドカード(<code>*</code>)を含め、実行したいページのURLパターンを直接入力してください。(例: <code>https://www.google.com/search*</code>)<br>
+              「@match 全て」を選択すると、全てのHTTP/HTTPSサイトで起動します。
+            </div>
+            <div id="urlContainer"></div>
+            <button id="addUrl" class="add-url-btn">URL追加</button>
+        </div>
+        <div class="form-group" id="specificUrlWrapper" style="display: none;">
+             <label>起動する特定サイトのURL</label>
+            <div class="url-explanation">
+                JavaScriptを実行したいサイトのURLを**完全な形**で入力してください。<br>
+                例: <code>https://www.google.com/</code> と入力すると、<code>https://www.google.com/search?q=...</code> では実行されません。
+            </div>
+            <input type="text" id="SpecificUrl" placeholder="https://www.example.com/path">
+        </div>
+        <div class="form-group"><label>@downloadURL</label><input type="text" id="DownloadURL" placeholder="https://example.com/myscript.user.js"></div>
+        <div class="form-group"><label>@updateURL</label><input type="text" id="UpdateURL" placeholder="https://example.com/myscript.meta.js"></div>
+    </div>
+    <hr>
+
+    <div id="buttonSection">
+        <div id="button-container"></div>
+        <button id="addButton" class="action-button">ボタン追加</button>
+    </div>
+
+    <div id="keyboardSection" style="display: none;">
+        <div id="shortcut-container"></div>
+        <button id="addShortcut" class="action-button">ショートカット追加</button>
+    </div>
+
+    <div id="urlMatchSection" style="display: none;">
+        <h3>ページ読み込み時に自動実行するJavaScript</h3>
+        <div id="urlmatch-js-container"></div>
+        <button id="addUrlMatchJs" class="action-button">JS追加</button>
+        <hr>
+        <h3>ページに表示するボタン</h3>
+        <div id="urlmatch-button-container"></div>
+        <button id="addUrlMatchButton" class="action-button">ボタン追加</button>
+    </div>
+
+    <hr>
+    <button id="generateBtn" class="generate-button">生成</button>
+
+    <div id="output-container" style="display: none; margin-top: 20px;">
+      <h2>生成されたUserScript</h2>
+      <div class="output-actions">
+          <button id="copy-script" class="copy-button">UserScriptをコピー</button>
+          <button id="save-script" class="save-button">JSファイルとして保存</button>
+      </div>
+      <div id="output" class="output"></div>
+    </div>
+</div>
+
+
+<div id="editSection" style="display: none;">
+  <div class="github-import-section">
+      <label>GitHubリポジトリからインポート</label>
+      <div class="input-row">
+          <input type="text" id="githubUrl" placeholder="GitHubのUserScriptファイルのURLを入力">
+          <button id="importBtn">インポート</button>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label>既存UserScriptを貼り付け</label>
+    <textarea id="inputScript" rows="10" placeholder="ここにUserScriptを貼り付けてください"></textarea>
+    <button id="parseScript">編集する</button>
+  </div>
+
+  <div id="editForm" style="display:none;">
+    <hr>
+    <h2>UserScript編集</h2>
+    <div style="margin-bottom: 20px; font-weight: bold; font-size: 1.2em;">編集中のタイプ: <span id="editSubModeDisplay"></span></div>
+
+    <div id="edit-common-fields">
+        <div class="form-group"><label>UserScript名</label><input type="text" id="editScriptName"></div>
+        <div class="form-group"><label>バージョン (再生成時に自動インクリメント)</label><input type="text" id="editScriptVersion" placeholder="Enter version (e.g., 1.0)"></div>
+        <div class="form-group" id="editUrlContainerWrapper">
+            <label>起動するサイトのURL</label>
+            <div class="url-explanation">
+              ワイルドカード(<code>*</code>)を含め、実行したいページのURLパターンを直接入力してください。(例: <code>https://www.google.com/search*</code>)<br>
+              「@match 全て」を選択すると、全てのHTTP/HTTPSサイトで起動します。
+            </div>
+            <div id="editUrlContainer"></div>
+            <button id="addEditUrl" class="add-url-btn">URL追加</button>
+        </div>
+        <div class="form-group" id="editSpecificUrlWrapper" style="display: none;">
+             <label>起動する特定サイトのURL</label>
+            <div class="url-explanation">
+                JavaScriptを実行したいサイトのURLを**完全な形**で入力してください。<br>
+                例: <code>https://www.google.com/</code> と入力すると、<code>https://www.google.com/search?q=...</code> では実行されません。
+            </div>
+            <input type="text" id="editSpecificUrl" placeholder="https://www.example.com/path">
+        </div>
+        <div class="form-group"><label>@downloadURL</label><input type="text" id="editDownloadURL" placeholder="https://example.com/myscript.user.js"></div>
+        <div class="form-group"><label>@updateURL</label><input type="text" id="editUpdateURL" placeholder="https://example.com/myscript.meta.js"></div>
+    </div>
+    <hr>
+
+    <div id="editButtonSection" style="display: none;">
+        <div id="edit-button-container"></div>
+        <button class="action-button add-edit-button">ボタン追加</button>
+    </div>
+    <div id="editKeyboardSection" style="display: none;">
+        <div id="edit-shortcut-container"></div>
+        <button class="action-button add-edit-shortcut">ショートカット追加</button>
+    </div>
+    <div id="editUrlMatchSection" style="display: none;">
+        <h3>ページ読み込み時に自動実行するJavaScript</h3>
+        <div id="edit-urlmatch-js-container"></div>
+        <button class="action-button add-edit-urlmatch-js">JS追加</button>
+        <hr>
+        <h3>ページに表示するボタン</h3>
+        <div id="edit-urlmatch-button-container"></div>
+        <button class="action-button add-edit-urlmatch-button">ボタン追加</button>
+    </div>
+
+    <hr>
+    <button id="generateEditBtn" class="generate-button">再生成</button>
+  </div>
+
+  <div id="editOutput" style="display: none; margin-top: 20px;">
+    <h2>更新されたUserScript</h2>
+    <div class="output-actions">
+        <button id="copyScriptEdit" class="copy-button">UserScriptをコピー</button>
+        <button id="saveScriptEdit" class="save-button">JSファイルとして保存</button>
+    </div>
+    <div id="outputEdit" class="output"></div>
+  </div>
+</div>
+
+<script>
+// --- グローバル変数・初期設定 ---
+let currentSubMode = "button";
+let actionItemCounter = 0; // To create unique IDs for dynamic elements
+
+// --- DOM要素 ---
+const elements = {
+    // Page Mode
+    generateTab: document.getElementById('generateTab'),
+    editTab: document.getElementById('editTab'),
+    generateSection: document.getElementById('generateSection'),
+    editSection: document.getElementById('editSection'),
+    // Sub Mode (Generate)
+    modeButton: document.getElementById('modeButton'),
+    modeKeyboard: document.getElementById('modeKeyboard'),
+    modeUrlMatch: document.getElementById('modeUrlMatch'),
+    // Generate Sections
+    buttonSection: document.getElementById('buttonSection'),
+    keyboardSection: document.getElementById('keyboardSection'),
+    urlMatchSection: document.getElementById('urlMatchSection'),
+    // Generate Common Wrappers
+    urlContainerWrapper: document.getElementById('urlContainerWrapper'),
+    specificUrlWrapper: document.getElementById('specificUrlWrapper'),
+};
+
+// --- TEMPLATES for Dynamic Forms ---
+
+const buttonFormTemplate = (id) => `
+  <div class="form-group">
+    <label for="jsUpdateGitHubUrl_${id}">JS更新用GitHub URL</label>
+    <div class="input-row">
+        <input type="text" id="jsUpdateGitHubUrl_${id}" class="js-update-github-url" placeholder="GitHubのリポジトリURLまたはRaw URL">
+        <button class="update-js-btn" data-target-id="${id}">更新</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>表示方法</label>
+    <div class="radio-group">
+        <input type="radio" id="displayModeFixed_${id}" name="displayMode_${id}" value="fixed" checked onchange="toggleCursorArea(this, 'cursorAreaSection_${id}')">
+        <label for="displayModeFixed_${id}">固定表示</label>
+        <input type="radio" id="displayModeTransparent_${id}" name="displayMode_${id}" value="transparent" onchange="toggleCursorArea(this, 'cursorAreaSection_${id}')">
+        <label for="displayModeTransparent_${id}">透明化</label>
+    </div>
+  </div>
+  <div id="cursorAreaSection_${id}" style="display: none;">
+      <div class="form-group">
+          <label>カーソル域 (マウスがこのエリアに入るとボタン表示)</label>
+          <div class="section-box">
+              <div class="input-row"><label>上から</label><input type="number" class="cursorTop" placeholder="px"><label>左から</label><input type="number" class="cursorLeft" placeholder="px"></div>
+              <div class="input-row"><label>下まで</label><input type="number" class="cursorBottom" placeholder="px"><label>右まで</label><input type="number" class="cursorRight" placeholder="px"></div>
+          </div>
+      </div>
+  </div>
+  <div class="form-group">
+      <label>表示域 (ボタンが表示される場所と大きさ)</label>
+      <div class="section-box">
+          <div class="input-row"><label>上から</label><input type="number" class="displayTop" placeholder="px"><label>左から</label><input type="number" class="displayLeft" placeholder="px"></div>
+          <div class="input-row"><label>下まで</label><input type="number" class="displayBottom" placeholder="px"><label>右まで</label><input type="number" class="displayRight" placeholder="px"></div>
+      </div>
+  </div>
+  <div class="form-group">
+      <label>表示内容</label>
+      <div class="radio-group">
+          <input type="radio" id="contentTypeDefault_${id}" name="contentType_${id}" value="default" checked onchange="toggleCustomContent(this, 'customContentSection_${id}')"> <label for="contentTypeDefault_${id}">デフォルト</label>
+          <input type="radio" id="contentTypeCustom_${id}" name="contentType_${id}" value="custom" onchange="toggleCustomContent(this, 'customContentSection_${id}')"> <label for="contentTypeCustom_${id}">カスタム</label>
+      </div>
+  </div>
+  <div id="customContentSection_${id}" style="display: none;">
+      <div class="section-box">
+          <div class="form-group"><label>背景色</label><input type="text" class="bgColor" placeholder="例: #000000, black"></div>
+          <div class="form-group"><label>四隅半径</label><input type="number" class="borderRadius" placeholder="px"></div>
+          <div class="form-group"><label>文字表示</label><input type="text" class="buttonText" placeholder="ボタンに表示する文字"></div>
+          <div class="form-group"><label>文字色</label><input type="text" class="textColor" placeholder="例: #ffffff, white"></div>
+          <div class="form-group"><label>文字大きさ</label><input type="number" class="fontSize" placeholder="px"></div>
+          <div class="form-group"><label>透明度 (0-100)</label><input type="number" class="opacity" min="0" max="100" placeholder="100"></div>
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="javascript_${id}">ボタン押下時のJavaScript</label>
+    <textarea id="javascript_${id}" class="main-js-code" rows="5" placeholder="Enter JavaScript code"></textarea>
+  </div>`;
+
+const shortcutFormTemplate = (id) => `
+  <div class="form-group">
+    <label for="jsUpdateGitHubUrl_${id}">JS更新用GitHub URL</label>
+    <div class="input-row">
+        <input type="text" id="jsUpdateGitHubUrl_${id}" class="js-update-github-url" placeholder="GitHubのリポジトリURLまたはRaw URL">
+        <button class="update-js-btn" data-target-id="${id}">更新</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>キーボード</label><input type="text" class="key-input" placeholder="例: a">
+  </div>
+  <div class="form-group">
+    <label for="javascript_${id}">実行するJavaScript (ブックマークレット)</label>
+    <textarea id="javascript_${id}" class="main-js-code" placeholder="javascript:(function(){...})();" rows="5"></textarea>
+  </div>`;
+
+const urlMatchJsFormTemplate = (id) => `
+  <div class="form-group">
+    <label for="jsUpdateGitHubUrl_${id}">JS更新用GitHub URL</label>
+    <div class="input-row">
+        <input type="text" id="jsUpdateGitHubUrl_${id}" class="js-update-github-url" placeholder="GitHubのリポジトリURLまたはRaw URL">
+        <button class="update-js-btn" data-target-id="${id}">更新</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="javascript_${id}">実行するJavaScript</label>
+    <textarea id="javascript_${id}" class="main-js-code" rows="5" placeholder="ページ読み込み時に実行されるコード"></textarea>
+  </div>`;
+
+
+// --- イベントリスナー ---
+
+document.addEventListener('DOMContentLoaded', initialize);
+
+// Page Mode Toggle
+elements.generateTab.addEventListener('click', () => switchPageMode('generate'));
+elements.editTab.addEventListener('click', () => switchPageMode('edit'));
+
+// Sub Mode Toggle (Generate)
+elements.modeButton.addEventListener('click', () => switchSubMode('button'));
+elements.modeKeyboard.addEventListener('click', () => switchSubMode('keyboard'));
+elements.modeUrlMatch.addEventListener('click', () => switchSubMode('urlMatch'));
+
+// Add Action Item Buttons (Generate)
+document.getElementById('addButton').addEventListener('click', () => addActionItem('button'));
+document.getElementById('addShortcut').addEventListener('click', () => addActionItem('shortcut'));
+document.getElementById('addUrlMatchJs').addEventListener('click', () => addActionItem('urlMatchJs'));
+document.getElementById('addUrlMatchButton').addEventListener('click', () => addActionItem('urlMatchButton'));
+
+// Add Action Item Buttons (Edit)
+document.querySelector('.add-edit-button').addEventListener('click', () => addActionItem('button', true));
+document.querySelector('.add-edit-shortcut').addEventListener('click', () => addActionItem('shortcut', true));
+document.querySelector('.add-edit-urlmatch-js').addEventListener('click', () => addActionItem('urlMatchJs', true));
+document.querySelector('.add-edit-urlmatch-button').addEventListener('click', () => addActionItem('urlMatchButton', true));
+
+
+// Add URL Buttons
+document.getElementById('addUrl').addEventListener('click', () => addUrlInput('urlContainer'));
+document.getElementById('addEditUrl').addEventListener('click', () => addUrlInput('editUrlContainer'));
+
+// Generate & Parse Buttons
+document.getElementById('generateBtn').addEventListener('click', handleGenerate.bind(null, false));
+document.getElementById('generateEditBtn').addEventListener('click', handleGenerate.bind(null, true));
+document.getElementById('parseScript').addEventListener('click', handleParse);
+
+// GitHub Import
+document.getElementById('importBtn').addEventListener('click', importFromGitHub);
+
+// Dynamic Event Delegation for Update/Delete buttons
+document.body.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('delete-action-item')) {
+        e.target.closest('.action-item-group').remove();
+    }
+    if (e.target.classList.contains('update-js-btn')) {
+        e.preventDefault();
+        const button = e.target;
+        const group = button.closest('.action-item-group');
+        const urlInput = group.querySelector('.js-update-github-url');
+        const jsTextarea = group.querySelector('.main-js-code');
+        await updateJsFromGitHub(urlInput, jsTextarea);
+    }
+});
+
+
+// --- 関数定義 ---
+
+function initialize() {
+    switchPageMode('generate');
+    switchSubMode('button');
+    addUrlInput('urlContainer');
+    // Add one initial item for the default mode
+    addActionItem('button');
+}
+
+function switchPageMode(pageMode) {
+    const isGenerate = pageMode === 'generate';
+    elements.generateSection.style.display = isGenerate ? 'block' : 'none';
+    elements.editSection.style.display = isGenerate ? 'none' : 'block';
+    elements.generateTab.classList.toggle('active', isGenerate);
+    elements.editTab.classList.toggle('active', !isGenerate);
+}
+
+function switchSubMode(subMode, isEditing = false) {
+    currentSubMode = subMode;
+    const commonWrapperId = isEditing ? 'editUrlContainerWrapper' : 'urlContainerWrapper';
+    const specificWrapperId = isEditing ? 'editSpecificUrlWrapper' : 'specificUrlWrapper';
+    
+    document.getElementById(commonWrapperId).style.display = subMode !== 'urlMatch' ? 'block' : 'none';
+    document.getElementById(specificWrapperId).style.display = subMode === 'urlMatch' ? 'block' : 'none';
+
+    if (isEditing) {
+        document.getElementById('editSubModeDisplay').textContent = { button: 'ボタン', keyboard: 'キーボード', urlMatch: 'URL一致' }[subMode];
+        document.getElementById('editButtonSection').style.display = subMode === 'button' ? 'block' : 'none';
+        document.getElementById('editKeyboardSection').style.display = subMode === 'keyboard' ? 'block' : 'none';
+        document.getElementById('editUrlMatchSection').style.display = subMode === 'urlMatch' ? 'block' : 'none';
+    } else {
+        ['modeButton', 'modeKeyboard', 'modeUrlMatch'].forEach(id => document.getElementById(id).classList.remove('active'));
+        const activeBtnId = 'mode' + subMode.charAt(0).toUpperCase() + subMode.slice(1);
+        document.getElementById(activeBtnId).classList.add('active');
+        
+        elements.buttonSection.style.display = subMode === 'button' ? 'block' : 'none';
+        elements.keyboardSection.style.display = subMode === 'keyboard' ? 'block' : 'none';
+        elements.urlMatchSection.style.display = subMode === 'urlMatch' ? 'block' : 'none';
+        
+        // Add one item if the container is empty
+        const containerId = {button: 'button-container', keyboard: 'shortcut-container', urlMatch: 'urlmatch-js-container'}[subMode];
+        if (containerId && document.getElementById(containerId).children.length === 0) {
+             const actionType = {button: 'button', keyboard: 'shortcut', urlMatch: 'urlMatchJs'}[subMode];
+             addActionItem(actionType);
+             if (subMode === 'urlMatch' && document.getElementById('urlmatch-button-container').children.length === 0) {
+                 addActionItem('urlMatchButton');
+             }
+        }
+    }
+}
+
+function addActionItem(type, isEdit = false) {
+    const id = actionItemCounter++;
+    let template = '';
+    let containerId = '';
+
+    const prefix = isEdit ? 'edit-' : '';
+
+    switch (type) {
+        case 'button':
+            template = buttonFormTemplate(id);
+            containerId = `${prefix}button-container`;
+            break;
+        case 'shortcut':
+            template = shortcutFormTemplate(id);
+            containerId = `${prefix}shortcut-container`;
+            break;
+        case 'urlMatchJs':
+            template = urlMatchJsFormTemplate(id);
+            containerId = `${prefix}urlmatch-js-container`;
+            break;
+        case 'urlMatchButton':
+            template = buttonFormTemplate(id);
+            containerId = `${prefix}urlmatch-button-container`;
+            break;
+    }
+
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const div = document.createElement('div');
+    div.className = 'action-item-group';
+    div.innerHTML = `<button class="delete-action-item">この項目を削除</button>${template}`;
+    container.appendChild(div);
+}
+
+
+// --- UI Toggles for dynamic forms ---
+function toggleCursorArea(radio, targetId) {
+    document.getElementById(targetId).style.display = radio.value === 'transparent' ? 'block' : 'none';
+}
+function toggleCustomContent(radio, targetId) {
+    document.getElementById(targetId).style.display = radio.value === 'custom' ? 'block' : 'none';
+}
+
+
+// --- URL Input Management ---
+function addUrlInput(containerId, type = 'match', url = '') {
+    const container = document.getElementById(containerId);
+    const div = document.createElement('div');
+    div.className = 'url-input';
+    div.innerHTML = `
+        <select class="url-type">
+            <option value="match" ${type === 'match' ? 'selected' : ''}>@match</option>
+            <option value="include" ${type === 'include' ? 'selected' : ''}>@include</option>
+            <option value="match_all" ${type === 'match_all' ? 'selected' : ''}>@match 全て</option>
+        </select>
+        <input type="text" class="url-input-field" placeholder="Enter URL pattern" value="${url}">
+        <button class="delete-url" onclick="this.parentNode.remove()">削除</button>`;
+    
+    const select = div.querySelector('.url-type');
+    const input = div.querySelector('.url-input-field');
+    
+    const syncInput = () => {
+        if (select.value === 'match_all') {
+            input.value = 'http*://*/*';
+            input.readOnly = true;
+        } else {
+            input.readOnly = false;
+        }
+    };
+    select.addEventListener('change', syncInput);
+    syncInput(); // Initial state check
+    container.appendChild(div);
+}
+
+// --- Data Gathering from UI ---
+function sanitizeJsCode(rawJs) {
+    if (!rawJs) return '';
+    let code = rawJs.trim();
+    if (code.startsWith('javascript:')) {
+        code = code.substring(11);
+    }
+    // Regex to unwrap IIFE: (function(){...})() or (function(){...}())
+    const iifeMatch = code.match(/^\s*\(\s*function\s*\(\s*\)\s*{([\s\S]*)}\s*\)\s*\(\s*\);?\s*$/);
+    if (iifeMatch && iifeMatch[1]) {
+        code = iifeMatch[1].trim();
+    }
+    return code;
+}
+
+function getOptionsFromUi(isEdit) {
+    const prefix = isEdit ? 'edit' : '';
+    const options = {
+        name: document.getElementById(`${prefix}ScriptName`).value.trim(),
+        version: document.getElementById(`${prefix}ScriptVersion`).value.trim(),
+        downloadURL: document.getElementById(`${prefix}DownloadURL`).value.trim(),
+        updateURL: document.getElementById(`${prefix}UpdateURL`).value.trim(),
+        mode: currentSubMode
+    };
+
+    if (currentSubMode === 'urlMatch') {
+        options.urls = [{ type: 'match', url: document.getElementById(`${prefix}SpecificUrl`).value.trim() }];
+    } else {
+        options.urls = Array.from(document.querySelectorAll(
+            isEdit ? '#editUrlContainer .url-input' : '#urlContainer .url-input'
+        )).map(c => {
+            const typeSelect = c.querySelector('.url-type');
+            const urlInput = c.querySelector('.url-input-field');
+            let type = typeSelect.value;
+            let url = urlInput.value.trim();
+            if (type === 'match_all') {
+                type = 'match';
+                url = 'http*://*/*';
+            }
+            return { type, url };
+        }).filter(u => u.url);
+    }
+    
+    if (currentSubMode === 'button') {
+        options.buttons = Array.from(document.querySelectorAll(isEdit ? '#edit-button-container .action-item-group' : '#button-container .action-item-group'))
+            .map(extractButtonData);
+    } else if (currentSubMode === 'keyboard') {
+        options.shortcuts = Array.from(document.querySelectorAll(isEdit ? '#edit-shortcut-container .action-item-group' : '#shortcut-container .action-item-group'))
+            .map(group => ({
+                githubUrl: group.querySelector('.js-update-github-url')?.value.trim() || '',
+                key: group.querySelector('.key-input')?.value.trim() || '',
+                code: sanitizeJsCode(group.querySelector('.main-js-code')?.value || '')
+            }));
+    } else if (currentSubMode === 'urlMatch') {
+        options.jsBlocks = Array.from(document.querySelectorAll(isEdit ? '#edit-urlmatch-js-container .action-item-group' : '#urlmatch-js-container .action-item-group'))
+            .map(group => ({
+                githubUrl: group.querySelector('.js-update-github-url')?.value.trim() || '',
+                code: sanitizeJsCode(group.querySelector('.main-js-code')?.value || '')
+            }));
+        options.buttons = Array.from(document.querySelectorAll(isEdit ? '#edit-urlmatch-button-container .action-item-group' : '#urlmatch-button-container .action-item-group'))
+            .map(extractButtonData);
+    }
+    
+    return options;
+}
+
+function extractButtonData(group) {
+    const getNum = (sel) => group.querySelector(sel)?.value || null;
+    const getStr = (sel) => group.querySelector(sel)?.value.trim() || '';
+    const getRadio = (name) => group.querySelector(`input[name^="${name}"]:checked`)?.value || '';
+
+    const data = {
+        githubUrl: getStr('.js-update-github-url'),
+        js: sanitizeJsCode(group.querySelector('.main-js-code')?.value || ''),
+        displayMode: getRadio('displayMode'),
+        contentType: getRadio('contentType'),
+        display: {
+            top: getNum('.displayTop'), left: getNum('.displayLeft'),
+            bottom: getNum('.displayBottom'), right: getNum('.displayRight')
+        },
+    };
+    if (data.displayMode === 'transparent') {
+        data.cursor = {
+            top: getNum('.cursorTop'), left: getNum('.cursorLeft'),
+            bottom: getNum('.cursorBottom'), right: getNum('.cursorRight')
+        };
+    }
+    if (data.contentType === 'custom') {
+        data.custom = {
+            bgColor: getStr('.bgColor'), borderRadius: getNum('.borderRadius'),
+            text: getStr('.buttonText'), textColor: getStr('.textColor'),
+            fontSize: getNum('.fontSize'), opacity: getNum('.opacity')
+        };
+    }
+    return data;
+}
+
+// --- SCRIPT GENERATION ---
+function handleGenerate(isEdit = false) {
+    try {
+        const options = getOptionsFromUi(isEdit);
+        if (isEdit) {
+            options.version = incrementVersion(options.version);
+        }
+        const fullCode = generateUserScript(options);
+        
+        const outputId = isEdit ? 'outputEdit' : 'output';
+        const containerId = isEdit ? 'editOutput' : 'output-container';
+        document.getElementById(outputId).textContent = fullCode;
+        document.getElementById(containerId).style.display = 'block';
+    } catch (error) {
+        alert(`生成に失敗しました。エラー: ${error.message}`);
+        console.error("Generation failed:", error);
+    }
+}
+
+function generateUserScript(options) {
+    const urlLines = options.urls.map(u => `// @${u.type.padEnd(12, ' ')}${u.url}`).join('\n');
+    let additionalMeta = '';
+    if (options.downloadURL) additionalMeta += `// @downloadURL    ${options.downloadURL}\n`;
+    if (options.updateURL) additionalMeta += `// @updateURL      ${options.updateURL}\n`;
+    additionalMeta += `// @UserScript_Mode ${options.mode}\n`;
+
+    let scriptBody = '';
+    
+    if (options.mode === 'button' || options.mode === 'urlMatch') {
+        (options.buttons || []).forEach((btn, index) => {
+            let githubComment = btn.githubUrl ? `// GITHUB_URL_BUTTON_${index}: ${btn.githubUrl}\n` : '';
+            scriptBody += `
+// --- BUTTON ${index} START ---
+${githubComment}(() => {
+    const button = document.createElement('div');
+    button.style.position = 'fixed';
+    button.style.top = '${btn.display.top || 0}px';
+    button.style.left = '${btn.display.left || 0}px';
+    button.style.width = '${(btn.display.right - btn.display.left) || 50}px';
+    button.style.height = '${(btn.display.bottom - btn.display.top) || 50}px';
+    button.style.zIndex = '1000${index}';
+    button.style.cursor = 'pointer';
+    
+${generateButtonStyles(btn)}
+    
+    document.body.appendChild(button);
+
+${generateTransparencyLogic(btn)}
+
+    button.addEventListener('click', () => {
+${btn.js.split('\n').map(line => '        ' + line).join('\n')}
+    });
+})();
+// --- BUTTON ${index} END ---\n`;
+        });
+        
+        if (options.mode === 'urlMatch') {
+            (options.jsBlocks || []).forEach((block, index) => {
+                let githubComment = block.githubUrl ? `// GITHUB_URL_JS_${index}: ${block.githubUrl}\n` : '';
+                scriptBody += `
+// --- JS_BLOCK ${index} START ---
+${githubComment}(() => {
+${block.code.split('\n').map(line => '    ' + line).join('\n')}
+})();
+// --- JS_BLOCK ${index} END ---\n`;
+            });
+        }
+    } else if (options.mode === 'keyboard') {
+        const keyEvents = (options.shortcuts || []).map((s, index) => {
+            let githubComment = s.githubUrl ? `// GITHUB_URL_KEY_${index}: ${s.githubUrl}\n` : '';
+            return `
+        // --- KEY ${index} START ---
+        ${githubComment}if (e.key === '${s.key.replace(/'/g, "\\'")}') {
+${s.code.split('\n').map(line => '            ' + line).join('\n')}
+        }
+        // --- KEY ${index} END ---`;
+        }).join('');
+        
+        scriptBody = `    document.addEventListener('keydown', (e) => {${keyEvents}
+    });`;
+    }
+
+    return `// ==UserScript==
+// @name         ${options.name || 'Untitled Script'}
+// @namespace    http://tampermonkey.net/
+// @version      ${options.version}
+// @description  Generated by UserScript Site 3.4
+// @author       You
+${urlLines}
+${additionalMeta}// @grant        none
+// @license      MIT
+// ==/UserScript==
+
+(function() {
+    'use strict';
+${scriptBody}
+})();`;
+}
+
+
+function generateButtonStyles(btn) {
+    let styles = '';
+    if (btn.contentType === 'custom') {
+        const custom = btn.custom;
+        const bgColorRgba = colorToRgba(custom.bgColor || 'rgba(0,0,0,0.5)', custom.opacity);
+        styles += `    button.style.backgroundColor = '${bgColorRgba}';
+    button.style.borderRadius = '${custom.borderRadius || 0}px';
+    button.style.border = 'none';
+    button.style.display = 'flex';
+    button.style.alignItems = 'center';
+    button.style.justifyContent = 'center';`;
+        if (custom.text) {
+            const textColorRgba = colorToRgba(custom.textColor || 'white', custom.opacity);
+            styles += `
+    button.textContent = '${custom.text.replace(/'/g, "\\'")}';
+    button.style.color = '${textColorRgba}';
+    button.style.fontSize = '${custom.fontSize || 16}px';`;
+        }
+    } else { // default
+        styles += `    button.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    button.style.borderRadius = '5px';
+    button.style.border = '1px solid white';
+    button.style.display = 'flex';
+    button.style.flexDirection = 'column';
+    button.style.alignItems = 'center';
+    button.style.justifyContent = 'center';
+    for (let i = 0; i < 3; i++) {
+        const line = document.createElement('div');
+        line.style.width = '20px';
+        line.style.height = '3px';
+        line.style.backgroundColor = 'white';
+        line.style.margin = '2px 0';
+        button.appendChild(line);
+    }`;
+    }
+    return styles;
+}
+
+function generateTransparencyLogic(btn) {
+    if (btn.displayMode === 'transparent') {
+        return `
+    button.style.opacity = '0'; // Initially transparent
+    button.style.transition = 'opacity 0.2s ease-in-out';
+    const cursorArea = { top: ${btn.cursor?.top || 0}, left: ${btn.cursor?.left || 0}, bottom: ${btn.cursor?.bottom || 'window.innerHeight'}, right: ${btn.cursor?.right || 'window.innerWidth'} };
+    let isCursorInArea = false;
+    document.addEventListener('mousemove', (e) => {
+        const wasInArea = isCursorInArea;
+        isCursorInArea = e.clientX >= cursorArea.left && e.clientX <= cursorArea.right &&
+                         e.clientY >= cursorArea.top && e.clientY <= cursorArea.bottom;
+        if (wasInArea !== isCursorInArea) {
+            button.style.opacity = isCursorInArea ? '1' : '0';
+        }
+    });`;
+    }
+    return '';
+}
+
+// --- SCRIPT PARSING ---
+function handleParse() {
+    const script = document.getElementById('inputScript').value;
+    if (!script.trim()) return alert("UserScriptが入力されていません。");
+
+    try {
+        ['edit-button-container', 'edit-shortcut-container', 'edit-urlmatch-js-container', 'edit-urlmatch-button-container', 'editUrlContainer']
+            .forEach(id => document.getElementById(id).innerHTML = '');
+
+        const name = (script.match(/\/\/\s*@name\s+(.*)/) || ['', ''])[1].trim();
+        const version = (script.match(/\/\/\s*@version\s+(.*)/) || ['', '1.0'])[1].trim();
+        const downloadURL = (script.match(/\/\/\s*@downloadURL\s+(.*)/) || ['', ''])[1].trim();
+        const updateURL = (script.match(/\/\/\s*@updateURL\s+(.*)/) || ['', ''])[1].trim();
+        const mode = (script.match(/\/\/\s*@UserScript_Mode\s+(.*)/) || ['', 'button'])[1].trim();
+
+        document.getElementById('editScriptName').value = name;
+        document.getElementById('editScriptVersion').value = version;
+        document.getElementById('editDownloadURL').value = downloadURL;
+        document.getElementById('editUpdateURL').value = updateURL;
+        
+        switchSubMode(mode, true);
+        
+        const urlMatches = [...script.matchAll(/\/\/\s*@(match|include)\s+(.*)/g)];
+        if (mode === 'urlMatch') {
+             document.getElementById('editSpecificUrl').value = urlMatches[0] ? urlMatches[0][2].trim() : '';
+        } else {
+            if (urlMatches.length > 0) {
+                urlMatches.forEach(m => {
+                    let type = m[1]; let url = m[2].trim();
+                    if (type === 'match' && url === 'http*://*/*') type = 'match_all';
+                    addUrlInput('editUrlContainer', type, url);
+                });
+            } else { addUrlInput('editUrlContainer'); }
+        }
+
+        const bodyMatch = script.match(/\(function\(\)\s*{\s*'use strict';([\s\S]*)}\)\(\);/);
+        if (!bodyMatch) throw new Error("スクリプトのメイン構造を解析できませんでした。");
+        const body = bodyMatch[1];
+        
+        if (mode === 'button' || mode === 'urlMatch') {
+            const buttonBlocks = [...body.matchAll(/\/\/\s*---\s*BUTTON\s*(\d+)\s*START\s*---([\s\S]*?)\/\/\s*---\s*BUTTON\s*\1\s*END\s*---/g)];
+            buttonBlocks.forEach(block => parseButtonBlock(block[2], true));
+        }
+        if (mode === 'urlMatch') {
+             const jsBlocks = [...body.matchAll(/\/\/\s*---\s*JS_BLOCK\s*(\d+)\s*START\s*---([\s\S]*?)\/\/\s*---\s*JS_BLOCK\s*\1\s*END\s*---/g)];
+             jsBlocks.forEach(block => parseJsBlock(block[2], true));
+        }
+        if (mode === 'keyboard') {
+             const keyBlocks = [...body.matchAll(/\/\/\s*---\s*KEY\s*(\d+)\s*START\s*---([\s\S]*?)\/\/\s*---\s*KEY\s*\1\s*END\s*---/g)];
+             keyBlocks.forEach(block => parseKeyBlock(block[2], true));
+        }
+
+        document.getElementById('editForm').style.display = 'block';
+        document.getElementById('editOutput').style.display = 'none';
+    } catch (error) {
+        console.error("Parsing failed:", error);
+        alert(`スクリプトの解析に失敗しました。\nこのサイトで生成されたスクリプトか確認してください。\nエラー: ${error.message}`);
+    }
+}
+
+function parseButtonBlock(block, isEdit) {
+    const containerSelector = isEdit ? (currentSubMode === 'urlMatch' ? '#edit-urlmatch-button-container' : '#edit-button-container') : '#button-container';
+    addActionItem(currentSubMode === 'urlMatch' ? 'urlMatchButton' : 'button', isEdit);
+    const group = document.querySelector(`${containerSelector} .action-item-group:last-child`);
+    if (!group) return;
+    
+    const githubUrl = (block.match(/\/\/\s*GITHUB_URL_BUTTON_\d+:\s*(.*)/) || [])[1];
+    if (githubUrl) group.querySelector('.js-update-github-url').value = githubUrl.trim();
+    
+    const jsCode = (block.match(/button\.addEventListener\('click',\s*\(\)\s*=>\s*{([\s\S]*)}\);/m) || [])[1];
+    if (jsCode) group.querySelector('.main-js-code').value = deindent(jsCode);
+
+    const getVal = (regex) => (block.match(regex) || [])[1];
+    const topVal = getVal(/button\.style\.top\s*=\s*'([\d.-]+)px'/);
+    const leftVal = getVal(/button\.style\.left\s*=\s*'([\d.-]+)px'/);
+    group.querySelector('.displayTop').value = topVal;
+    group.querySelector('.displayLeft').value = leftVal;
+    const width = parseFloat(getVal(/button\.style\.width\s*=\s*'([\d.-]+)px'/));
+    const height = parseFloat(getVal(/button\.style\.height\s*=\s*'([\d.-]+)px'/));
+    if (!isNaN(width) && !isNaN(parseFloat(leftVal))) group.querySelector('.displayRight').value = parseFloat(leftVal) + width;
+    if (!isNaN(height) && !isNaN(parseFloat(topVal))) group.querySelector('.displayBottom').value = parseFloat(topVal) + height;
+
+    const isTransparent = block.includes("document.addEventListener('mousemove'");
+    const transparentRadio = group.querySelector('input[value="transparent"]');
+    if(isTransparent) {
+        transparentRadio.checked = true;
+        toggleCursorArea(transparentRadio, transparentRadio.id.replace('displayModeTransparent', 'cursorAreaSection'));
+        const cursorMatch = block.match(/const cursorArea = \{\s*top:\s*([^,]+),\s*left:\s*([^,]+),\s*bottom:\s*([^,]+),\s*right:\s*([^}]+)\s*\};/);
+        if (cursorMatch) {
+            group.querySelector('.cursorTop').value = cursorMatch[1].trim();
+            group.querySelector('.cursorLeft').value = cursorMatch[2].trim();
+            group.querySelector('.cursorBottom').value = cursorMatch[3].trim();
+            group.querySelector('.cursorRight').value = cursorMatch[4].trim();
+        }
+    }
+    
+    const isCustom = !block.includes("for (let i = 0; i < 3; i++)");
+    const customRadio = group.querySelector('input[value="custom"]');
+    if (isCustom) {
+        customRadio.checked = true;
+        toggleCustomContent(customRadio, customRadio.id.replace('contentTypeCustom', 'customContentSection'));
+        const bgColorMatch = getVal(/button\.style\.backgroundColor\s*=\s*'([^']*)'/);
+        if (bgColorMatch) {
+            const {color, opacity} = rgbaToHexAndOpacity(bgColorMatch);
+            group.querySelector('.bgColor').value = color;
+            group.querySelector('.opacity').value = opacity;
+        }
+        const textColorMatch = getVal(/button\.style\.color\s*=\s*'([^']*)'/);
+        if(textColorMatch) group.querySelector('.textColor').value = rgbaToHexAndOpacity(textColorMatch).color;
+        
+        group.querySelector('.borderRadius').value = getVal(/button\.style\.borderRadius\s*=\s*'([\d.-]+)px'/);
+        group.querySelector('.buttonText').value = (getVal(/button\.textContent\s*=\s*'((?:[^'\\]|\\.)*)'/) || '').replace(/\\'/g, "'");
+        group.querySelector('.fontSize').value = getVal(/button\.style\.fontSize\s*=\s*'([\d.-]+)px'/);
+    }
+}
+
+function parseJsBlock(block, isEdit) {
+    addActionItem('urlMatchJs', isEdit);
+    const group = document.querySelector((isEdit ? '#edit-urlmatch-js-container' : '#urlmatch-js-container') + ' .action-item-group:last-child');
+    
+    const githubUrl = (block.match(/\/\/\s*GITHUB_URL_JS_\d+:\s*(.*)/) || [])[1];
+    if (githubUrl) group.querySelector('.js-update-github-url').value = githubUrl.trim();
+    
+    const jsCode = (block.match(/\(\(\)\s*=>\s*{([\s\S]*)}\)\(\);/m) || [])[1];
+    if (jsCode) group.querySelector('.main-js-code').value = deindent(jsCode);
+}
+
+function parseKeyBlock(block, isEdit) {
+    addActionItem('shortcut', isEdit);
+    const group = document.querySelector((isEdit ? '#edit-shortcut-container' : '#shortcut-container') + ' .action-item-group:last-child');
+    
+    const githubUrl = (block.match(/\/\/\s*GITHUB_URL_KEY_\d+:\s*(.*)/) || [])[1];
+    if (githubUrl) group.querySelector('.js-update-github-url').value = githubUrl.trim();
+    
+    const key = (block.match(/if\s*\(e\.key\s*===\s*'([^']+)'\)/) || [])[1];
+    if (key) group.querySelector('.key-input').value = key;
+    
+    const jsCode = (block.match(/if\s*\(e\.key\s*===\s*'[^']+'\)\s*{([\s\S]*)}/) || [])[1];
+    if (jsCode) group.querySelector('.main-js-code').value = deindent(jsCode);
+}
+
+// --- UTILITIES ---
+async function importFromGitHub() {
+    let url = document.getElementById('githubUrl').value.trim();
+    if (!url) return alert("GitHubのURLを入力してください。");
+    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        document.getElementById('inputScript').value = await response.text();
+        alert("インポートに成功しました。「編集する」ボタンを押して編集を開始してください。");
+    } catch (error) {
+        alert(`インポートに失敗しました。\nURLが正しいか確認してください。\nエラー: ${error.message}`);
+    }
+}
+
+async function updateJsFromGitHub(urlInput, jsTextarea) {
+    if (!urlInput || !jsTextarea) return;
+    let url = urlInput.value.trim();
+    if (!url) return alert("GitHubのURLを入力してください。");
+    url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        jsTextarea.value = await response.text();
+        alert("JavaScriptを更新しました！");
+    } catch (error) {
+        alert(`JavaScriptの更新に失敗しました。\nエラー: ${error.message}`);
+    }
+}
+
+function incrementVersion(versionStr) {
+    if (!versionStr) return '1.0.1';
+    const parts = versionStr.split('.');
+    const lastPart = parseInt(parts[parts.length - 1], 10);
+    parts[parts.length - 1] = isNaN(lastPart) ? 1 : lastPart + 1;
+    return parts.join('.');
+}
+
+function deindent(str) {
+    if (!str) return '';
+    const lines = str.split('\n');
+    if (lines.length <= 1) return str.trim();
+    
+    let minIndent = Infinity;
+    for (const line of lines) {
+        if (line.trim() !== '') {
+            const indent = line.match(/^\s*/)[0].length;
+            if (indent < minIndent) {
+                minIndent = indent;
+            }
+        }
+    }
+    if (minIndent === Infinity) return str;
+    
+    return lines.map(line => line.substring(minIndent)).join('\n').trim();
+}
+
+function colorToRgba(colorStr, opacityPercent) {
+    const alpha = Math.max(0, Math.min(1, (parseInt(opacityPercent, 10) || 100) / 100));
+    const div = document.createElement('div');
+    div.style.color = colorStr;
+    document.body.appendChild(div);
+    const computedColor = window.getComputedStyle(div).color;
+    document.body.removeChild(div);
+    const match = computedColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (match) return `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})`;
+    return `rgba(0, 0, 0, ${alpha})`;
+}
+
+function rgbaToHexAndOpacity(rgbaStr) {
+    const match = rgbaStr.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+    if (!match) return { color: '#000000', opacity: 100 };
+    const toHex = (c) => parseInt(c).toString(16).padStart(2, '0');
+    const color = `#${toHex(match[1])}${toHex(match[2])}${toHex(match[3])}`;
+    const opacity = match[4] !== undefined ? Math.round(parseFloat(match[4]) * 100) : 100;
+    return { color, opacity };
+}
+
+document.getElementById('copy-script').addEventListener('click', () => copyToClipboard('output'));
+document.getElementById('copyScriptEdit').addEventListener('click', () => copyToClipboard('outputEdit'));
+document.getElementById('save-script').addEventListener('click', () => saveScriptToFile('output'));
+document.getElementById('saveScriptEdit').addEventListener('click', () => saveScriptToFile('outputEdit'));
+
+function copyToClipboard(elementId) {
+    navigator.clipboard.writeText(document.getElementById(elementId).textContent)
+        .then(() => alert('UserScriptをコピーしました！'))
+        .catch(() => alert('コピーに失敗しました'));
+}
+function saveScriptToFile(outputElementId) {
+    const scriptContent = document.getElementById(outputElementId).textContent;
+    if (!scriptContent) return;
+    let filename = (scriptContent.match(/\/\/\s*@name\s+(.*)/) || [])[1]?.trim().replace(/[\s/\\?%*:|"<>]/g, '_') + '.user.js' || 'userscript.user.js';
+    const blob = new Blob([scriptContent], { type: 'application/javascript;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+    a.remove();
+}
+</script>
+
+</body>
+</html>
