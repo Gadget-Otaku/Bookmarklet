@@ -252,7 +252,21 @@
     // ====== 共通ユーティリティ ======
     function escapeHTML(s) {
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     }
+
+
+    // 見た目が空の contenteditable で発生する "\n" を 0 カウントに正規化
+    function _isVisuallyEmptyMemo() {
+      const html = memo.innerHTML.replace(/\s|&nbsp;/g, '').toLowerCase();
+      // よくある空状態のパターン
+      return html === '' || html === '<br>' || html === '<div><br></div>' || html === '<p><br></p>';
+    }
+    function getMemoTextForCount() {
+      const s = memo.innerText;
+      return (s === '\n' && _isVisuallyEmptyMemo()) ? '' : s;
+    }
+
 
     function clearHighlights() {
       memo.innerText = rawText;
@@ -349,7 +363,7 @@
     }
     function currentCountTargetText() {
       const selText = getSelectedTextInMemo();
-      return selText != null ? selText : memo.innerText;
+      return selText != null ? selText : getMemoTextForCount();
     }
     function updateCharCount() {
       const text = currentCountTargetText();
@@ -370,7 +384,7 @@
 
     // ====== メモ入力と履歴 ======
     memo.addEventListener('input', () => {
-      const newText = memo.innerText;
+      const newText = getMemoTextForCount();
       if (newText !== history[currentStep]) {
         history = history.slice(0, currentStep + 1);
         history.push(newText);
@@ -389,7 +403,7 @@
       const range = selection.getRangeAt(0);
       range.deleteContents();
       range.insertNode(document.createTextNode(text));
-      rawText = memo.innerText;
+      rawText = getMemoTextForCount();
       history = history.slice(0, currentStep + 1);
       history.push(rawText);
       currentStep++;
@@ -511,7 +525,7 @@
       const modified = lines.map(line => prefix + line + suffix).join('\n');
       range.deleteContents();
       range.insertNode(document.createTextNode(modified));
-      rawText = memo.innerText;
+      rawText = getMemoTextForCount();
       history = history.slice(0, currentStep + 1);
       history.push(rawText);
       currentStep++;
@@ -628,7 +642,7 @@
         memo.innerText = result;
       }
 
-      rawText = memo.innerText;
+      rawText = getMemoTextForCount();
       history.push(rawText);
       currentStep = history.length - 1;
       transformWindow.style.display = 'none';
@@ -647,7 +661,7 @@
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.text();
         memo.innerText = data;
-        rawText = memo.innerText;
+        rawText = getMemoTextForCount();
         history.push(rawText);
         currentStep = history.length - 1;
         transformWindow.style.display = 'none';
