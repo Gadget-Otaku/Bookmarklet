@@ -151,7 +151,7 @@
       <label><input type="radio" name="action" value="custom"> カスタム</label>
       <label><input type="radio" name="action" value="pc_view"> PC表示</label>
       <label><input type="radio" name="action" value="github_import"> GitHubインポート</label>
-      <!-- ★ ここに分割コピーを追加（GitHubインポートと同期の間） -->
+      <!-- ★ 分割コピー（GitHubインポートと同期の間） -->
       <label><input type="radio" name="action" value="split_copy"> 分割コピー</label>
       <label><input type="radio" name="action" value="sync"> 同期</label>
 
@@ -243,30 +243,54 @@
     const charCountMenu = document.getElementById('char-count-menu');
     let countMode = 'default';
 
-    let rawText = memo.innerText;
-    let matches = [];
-    let currentIndex = 0;
-    let history = [memo.innerText];
-    let currentStep = 0;
+    // 「明示的な改行があるか」のフラグ（Enter/貼り付けでのみ立てる）
+    let hasExplicitBreaks = false;
 
     // ====== 共通ユーティリティ ======
     function escapeHTML(s) {
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
     }
-
 
     // 見た目が空の contenteditable で発生する "\n" を 0 カウントに正規化
     function _isVisuallyEmptyMemo() {
       const html = memo.innerHTML.replace(/\s|&nbsp;/g, '').toLowerCase();
-      // よくある空状態のパターン
       return html === '' || html === '<br>' || html === '<div><br></div>' || html === '<p><br></p>';
     }
-    function getMemoTextForCount() {
-      const s = memo.innerText;
-      return (s === '\n' && _isVisuallyEmptyMemo()) ? '' : s;
+
+    // 末尾に明示的な改行（<br> 等）があるか
+    function hasExplicitTrailingBreak() {
+      const last = memo.lastChild;
+      if (!last) return false;
+      if (last.nodeName === 'BR') return true;
+      if (last.nodeType === 1) {
+        const html = (last.innerHTML || '').trim().toLowerCase();
+        if (html.endsWith('<br>')) return true;
+        const lc = last.lastChild;
+        if (lc && lc.nodeName === 'BR') return true;
+      }
+      return false;
     }
 
+    // カウント用正規化：
+    //  - 明示的な改行がなければ \n を全除外（ブラウザ由来の改行ノイズを消す）
+    //  - 明示的な改行があるときは末尾の暗黙改行だけ除去
+    function normalizeForCount(s) {
+      if (!s) return '';
+      if (!hasExplicitBreaks) {
+        return s.replace(/\n/g, '');
+      } else {
+        // 末尾の暗黙改行はカウントしない
+        if (/\n+$/.test(s) && !hasExplicitTrailingBreak()) {
+          s = s.replace(/\n+$/, '');
+        }
+        return s;
+      }
+    }
+
+    function getMemoTextForCount() {
+      if (_isVisuallyEmptyMemo()) return '';
+      return normalizeForCount(memo.innerText);
+    }
 
     function clearHighlights() {
       memo.innerText = rawText;
@@ -292,9 +316,7 @@
 
     // contenteditable内の絶対オフセットで範囲選択
     function selectMemoRangeByIndex(start, end) {
-      // ハイライトDOMが混ざらないよう素のテキストに戻す
       clearHighlights();
-
       const walker = document.createTreeWalker(memo, NodeFilter.SHOW_TEXT, null);
       let cur = 0, startNode=null, startOffset=0, endNode=null, endOffset=0;
       while (true) {
@@ -319,7 +341,6 @@
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
-        // 見えるようにスクロール
         const rect = range.getBoundingClientRect();
         if (rect && rect.top) window.scrollBy({ top: rect.top - (window.innerHeight/2), behavior: 'smooth' });
         return true;
@@ -328,9 +349,8 @@
     }
 
     async function copyText(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
+      try { await navigator.clipboard.writeText(text); }
+      catch {
         const ta = document.createElement('textarea');
         ta.value = text;
         document.body.appendChild(ta);
@@ -342,28 +362,24 @@
 
     // ====== 文字数カウント ======
     function countDefault(str) {
-      // code pointベースで安定
       let n = 0;
-      for (const _ch of str) n++;
+      for (const _ch of str) n++;  // code pointベース
       return n;
     }
     function isHalfwidth(ch) {
-      // ASCII
-      if (/[\u0000-\u007F]/.test(ch)) return true;
-      // 半角カタカナ
-      if (/[\uFF61-\uFF9F]/.test(ch)) return true;
+      if (/[\u0000-\u007F]/.test(ch)) return true;      // ASCII（改行含む）
+      if (/[\uFF61-\uFF9F]/.test(ch)) return true;      // 半角カナ
       return false;
     }
     function countXPost(str) {
       let total = 0;
-      for (const ch of str) {
-        total += isHalfwidth(ch) ? 1 : 2;
-      }
+      for (const ch of str) total += isHalfwidth(ch) ? 1 : 2;
       return total;
     }
     function currentCountTargetText() {
       const selText = getSelectedTextInMemo();
-      return selText != null ? selText : getMemoTextForCount();
+      const base = selText != null ? selText : memo.innerText;
+      return normalizeForCount(base);
     }
     function updateCharCount() {
       const text = currentCountTargetText();
@@ -377,12 +393,25 @@
       charCountMenu.style.display = 'block';
     }
 
-    document.addEventListener('selectionchange', () => {
-      // 範囲選択の有無に応じて動的に切替
-      updateCharCount();
-    });
+    document.addEventListener('selectionchange', () => updateCharCount());
 
     // ====== メモ入力と履歴 ======
+    let rawText = getMemoTextForCount();
+    let matches = [];
+    let currentIndex = 0;
+    let history = [rawText];
+    let currentStep = 0;
+
+    // Enter/改行の明示入力を検出
+    memo.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') hasExplicitBreaks = true;
+    });
+    memo.addEventListener('beforeinput', (e) => {
+      if (e.inputType === 'insertParagraph' || e.inputType === 'insertLineBreak') {
+        hasExplicitBreaks = true;
+      }
+    });
+
     memo.addEventListener('input', () => {
       const newText = getMemoTextForCount();
       if (newText !== history[currentStep]) {
@@ -391,6 +420,8 @@
         currentStep++;
       }
       rawText = newText;
+      // 全消去で改行フラグをリセット
+      if (rawText === '') hasExplicitBreaks = false;
       countSpan.innerText = '0/0';
       updateCharCount();
     });
@@ -403,6 +434,9 @@
       const range = selection.getRangeAt(0);
       range.deleteContents();
       range.insertNode(document.createTextNode(text));
+      // 貼り付けで明示改行が含まれていればカウント対象化
+      if (/\r?\n/.test(text)) hasExplicitBreaks = true;
+
       rawText = getMemoTextForCount();
       history = history.slice(0, currentStep + 1);
       history.push(rawText);
@@ -416,7 +450,9 @@
         currentStep--;
         const state = history[currentStep];
         memo.innerText = state;
-        rawText = state;
+        rawText = getMemoTextForCount();
+        // 履歴適用時は内容を見てフラグ推定
+        hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
         clearHighlights();
         updateCharCount();
       }
@@ -428,7 +464,8 @@
         currentStep++;
         const state = history[currentStep];
         memo.innerText = state;
-        rawText = state;
+        rawText = getMemoTextForCount();
+        hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
         clearHighlights();
         updateCharCount();
       }
@@ -440,6 +477,7 @@
       currentStep = 0;
       rawText = '';
       memo.innerText = '';
+      hasExplicitBreaks = false;  // ← リセット
       clearHighlights();
       updateCharCount();
     });
@@ -504,9 +542,9 @@
       w.document.close();
     });
 
-    // ▽（ブックマークレット）そのまま
+    // ▽（ブックマークレット）
     execBmBtn.addEventListener('click', () => {
-      javascript:(function(){/*（略：ユーザー提供の既存処理そのまま）*/})();
+      javascript:(function(){/* 必要なら元の処理に差し替えてください */})();
     });
 
     // 新しいタブで開く
@@ -526,6 +564,7 @@
       range.deleteContents();
       range.insertNode(document.createTextNode(modified));
       rawText = getMemoTextForCount();
+      hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
       history = history.slice(0, currentStep + 1);
       history.push(rawText);
       currentStep++;
@@ -539,7 +578,7 @@
       const name = filenameInput.value.trim();
       const ext = extensionInput.value.trim().replace(/^\./, '');
       if (!name || !ext) return alert('ファイル名と拡張子を入力してください');
-      const blob = new Blob([memo.innerText], { type: 'text/plain;charset=utf-8' });
+      const blob = new Blob([getMemoTextForCount()], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -565,14 +604,10 @@
         splitCopyContainer.style.display = (v === 'split_copy') ? 'block' : 'none';
         syncContainer.style.display = (v === 'sync') ? 'block' : 'none';
 
-        // 変換ボタンは custom でも表示する（修正点）
         const hideConvert = (v === 'github_import' || v === 'sync' || v === 'split_copy');
         convertButton.style.display = hideConvert ? 'none' : 'inline-block';
 
-        // 分割コピーは選択した瞬間に生成
-        if (v === 'split_copy') {
-          generateSplitButtons();
-        }
+        if (v === 'split_copy') generateSplitButtons();
       });
     });
 
@@ -619,18 +654,13 @@
         });
         result = (action === 'remove1') ? lines.join('') : lines.join('\n');
       } else if (action === 'custom') {
-        // 空欄/空白対応：空欄（空文字）は変換先のみ機能、空白は両方OK
-        const from = customFrom.value; // トリムしない：先頭末尾の空白を保持
+        const from = customFrom.value; // 先頭末尾の空白は保持
         const to = customTo.value;
-        if (from === '') { // 変換元が空欄なら安全のため何もしない
-          if (to === '') {
-            alert('変換元と変換先が空欄です。処理は行いません。');
-          } else {
-            alert('変換元が空欄のため、処理は行いません。変換先が空欄のときは削除として機能します。');
-          }
+        if (from === '') {
+          if (to === '') alert('変換元と変換先が空欄です。処理は行いません。');
+          else alert('変換元が空欄のため、処理は行いません。変換先が空欄のときは削除として機能します。');
           return;
         }
-        // 'to' が空欄なら削除
         result = text.split(from).join(to);
       }
 
@@ -643,6 +673,7 @@
       }
 
       rawText = getMemoTextForCount();
+      hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
       history.push(rawText);
       currentStep = history.length - 1;
       transformWindow.style.display = 'none';
@@ -662,6 +693,7 @@
         const data = await response.text();
         memo.innerText = data;
         rawText = getMemoTextForCount();
+        hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
         history.push(rawText);
         currentStep = history.length - 1;
         transformWindow.style.display = 'none';
@@ -674,9 +706,7 @@
 
     // ====== 分割コピー ======
     function generateSplitButtons() {
-      // 検索ハイライトがあるとインデックスがズレるので解除してから
       clearHighlights();
-
       splitButtons.innerHTML = '';
       const size = Math.max(1, parseInt(splitSizeInput.value || '19000', 10));
       const text = rawText;
@@ -693,7 +723,6 @@
         btn.textContent = `${first5}～${last5}`;
         btn.title = `#${chunkIndex+1} (${start}..${end})`;
         btn.addEventListener('click', async () => {
-          // 範囲選択してからコピー
           selectMemoRangeByIndex(start, end);
           await copyText(chunk);
         });
@@ -746,7 +775,8 @@
         if (receivedTopic === topic && isReceiving) {
           const newText = message.toString();
           memo.innerText = newText;
-          rawText = newText;
+          rawText = getMemoTextForCount();
+          hasExplicitBreaks = /\n/.test(memo.innerText) && !_isVisuallyEmptyMemo();
           history.push(rawText);
           currentStep = history.length - 1;
           alert('受信しました。');
@@ -763,15 +793,13 @@
     });
 
     // ====== 文字数ボタンのUI ======
-    charCountBtn.addEventListener('click', (e) => {
-      // メニュー表示/非表示
+    charCountBtn.addEventListener('click', () => {
       if (charCountMenu.style.display === 'block') {
         charCountMenu.style.display = 'none';
       } else {
         showCountMenuNearButton();
       }
     });
-    // モード切替
     charCountMenu.addEventListener('change', (e) => {
       if (e.target.name === 'countMode') {
         countMode = e.target.value;
@@ -779,15 +807,22 @@
         charCountMenu.style.display = 'none';
       }
     });
-    // 外側クリックでメニュー閉じる
     document.addEventListener('click', (e) => {
       if (e.target !== charCountBtn && !charCountMenu.contains(e.target)) {
         charCountMenu.style.display = 'none';
       }
     }, true);
 
-    // 初期カウント表示
-    updateCharCount();
+    // ====== 初期化：常にデフォルトモードに戻す ======
+    (function initCountMode() {
+      countMode = 'default';
+      const defaultRadio = document.querySelector('input[name="countMode"][value="default"]');
+      if (defaultRadio) defaultRadio.checked = true;
+      // 初期状態では明示改行なし
+      hasExplicitBreaks = false;
+      updateCharCount();
+    })();
+
   </script>
 </body>
 </html>
