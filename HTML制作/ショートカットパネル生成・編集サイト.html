@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+ <link rel="icon" href="https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/HTML%E5%88%B6%E4%BD%9C/favicon/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%91%E3%83%8D%E3%83%AB%E7%94%9F%E6%88%90%E3%83%BB%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%88%E7%94%A8favicon.ico" type="image/x-icon">
+
  <meta charset="UTF-8">
  <meta name="viewport" content="width=1200, initial-scale=0.4">
  <title>Googleホームページカスタムショートカットキー配置UserScript生成・編集ツール (多機能統合版)</title>
@@ -82,6 +85,54 @@
   .tree-controls button:hover { background: #e8eaed; transform: translateY(-1px); }
   .folder-indicator { position: absolute; left: 28px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: #1a73e8; }
   .folder-row { padding-left: 25px !important; }
+
+  /* --- Search Box --- */
+  .search-box {
+    opacity: 0.5;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 12px;
+    transition: opacity 0.2s;
+  }
+  .search-box:hover, .search-box:focus-within {
+      opacity: 1;
+  }
+  .search-box input { padding: 4px 6px; font-size: 12px; border: 1px solid #ccc; border-radius: 3px; }
+  .search-box button { padding: 4px 8px; font-size: 12px; background: #e8f0fe; color: #1a73e8; border: none; cursor: pointer; border-radius: 3px; }
+  
+  /* --- Global Search Navigator --- */
+  .search-nav-global {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2147483647;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .search-nav-global:hover {
+    opacity: 1;
+  }
+  .search-nav-global button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1;
+    padding: 4px 8px;
+  }
+  .search-status { min-width: 40px; text-align: center; }
+
 
   /* --- Main Buttons & Output --- */
   .main-generate-btn { padding: 12px 20px; border: none; border-radius: 8px; background: #1a73e8; color: white; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 5px rgba(26, 115, 232, 0.2); margin-top: 15px; width: 100%; }
@@ -170,7 +221,13 @@
    <div class="config-item"><label for="gen_domainForFavicon">ドメイン:</label><input type="text" id="gen_domainForFavicon" placeholder="example.com"><button type="button" id="gen_generateFaviconUrlBtn">画像URL生成</button></div>
    <div class="config-item"><label for="gen_imageUrlToCheck">画像URL:</label><input type="text" id="gen_imageUrlToCheck" placeholder="https://..."><button type="button" id="gen_checkImageUrlBtn">確認</button></div>
   </div>
-  <h3>ショートカット設定</h3>
+  <div style="position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: -10px;">
+    <h3>ショートカット設定</h3>
+    <div class="search-box" id="generateSearchBox">
+        <input type="text" placeholder="ショートカット名" class="search-input">
+        <button type="button" class="search-btn">検索</button>
+    </div>
+  </div>
   <div id="shortcutsContainer"></div><br>
   <button type="button" id="addRootItemBtn">+ ルートにアイテムを追加</button>
   <button type="button" id="generateBtn" class="main-generate-btn">生成</button>
@@ -234,7 +291,13 @@
     <div class="config-item"><label for="edit_domainForFavicon">ドメイン:</label><input type="text" id="edit_domainForFavicon" placeholder="example.com"><button type="button" id="edit_generateFaviconUrlBtn">画像URL生成</button></div>
     <div class="config-item"><label for="edit_imageUrlToCheck">画像URL:</label><input type="text" id="edit_imageUrlToCheck" placeholder="https://..."><button type="button" id="edit_checkImageUrlBtn">確認</button></div>
    </div>
-   <h3>ショートカット設定 (編集)</h3>
+    <div style="position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: -10px;">
+        <h3>ショートカット設定 (編集)</h3>
+        <div class="search-box" id="editSearchBox">
+            <input type="text" placeholder="ショートカット名" class="search-input">
+            <button type="button" class="search-btn">検索</button>
+        </div>
+    </div>
    <div id="editShortcutsContainer"></div><br>
    <button type="button" id="addRootItemEditBtn">+ ルートにアイテムを追加</button>
    <button type="button" id="regenerateBtn" class="main-generate-btn">再生成</button>
@@ -247,6 +310,12 @@
   </div>
  </div>
 
+<div id="globalSearchNav" class="search-nav-global" style="display: none;">
+    <span class="search-status"></span>
+    <button type="button" class="search-prev">↑</button>
+    <button type="button" class="search-next">↓</button>
+</div>
+
 <script>
 // --- Polyfill for structuredClone ---
 if (!window.structuredClone) {
@@ -258,6 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let state = { isEditMode: false, toolPanel: { isEditing: false, originalCode: '', buttonName: '', position: {yProp: 'top', yVal: '10', xProp: 'left', xVal: '10'}, autoExpandRules: [], favoritesList: [], githubLinkRules: [] }, testableJsCode: null };
   let multiGenCounter = 0;
   let ruleCounter = 0;
+  let searchState = { generate: { results: [], index: -1, prevHighlight: null }, edit: { results: [], index: -1, prevHighlight: null } };
+
 
   // ########## TAB SWITCHING ##########
   const generateTabBtn = document.getElementById('generateTab');
@@ -272,6 +343,15 @@ document.addEventListener('DOMContentLoaded', () => {
    editSection.classList.toggle('active', state.isEditMode);
    generateSection.style.display = !state.isEditMode ? 'block' : 'none';
    editSection.style.display = state.isEditMode ? 'block' : 'none';
+   
+   // Reset search on tab switch
+   document.getElementById('globalSearchNav').style.display = 'none';
+   Object.values(searchState).forEach(s => {
+       if (s.prevHighlight) s.prevHighlight.style.outline = '';
+       s.results = [];
+       s.index = -1;
+       s.prevHighlight = null;
+   });
   }
   generateTabBtn.addEventListener('click', () => switchTab(generateTabBtn));
   editTabBtn.addEventListener('click', () => switchTab(editTabBtn));
@@ -1050,7 +1130,7 @@ ${scriptBody}`;
    const baseJsCodeWithMetadata = generateCoreLogic(baseParams, multiGenMetadata);
    const results = [];
    generationTasks.forEach(task => {
-    let result = { name: 'Unknown', code: '', fileName: 'script' };
+    let result = { name: 'Unknown', code: '', fileName: 'script', updateUrl: task.data.updateURL || (task.type === 'google_homepage' ? baseParams.updateUrl : '') };
     switch(task.type) {
      case 'javascript': result.name = `${task.data.fileName || baseParams.name} (ブックマークレット)`; result.code = `javascript:${baseJsCodeWithMetadata}`; result.fileName = task.data.fileName || `${baseParams.name}_bookmarklet`; break;
      case 'google_homepage': const usName = task.data.fileName || task.data.name; result.name = `${usName} (Google)`; result.code = `// ==UserScript==\n// @name         ${usName}\n// @version      ${task.data.version}\n// @match        https://www.google.com/\n// @grant        none\n// ==/UserScript==\n\n${baseJsCodeWithMetadata}`; result.fileName = usName; break;
@@ -1113,11 +1193,31 @@ ${scriptBody}`;
    leftActions.appendChild(jsTestBtn);
 
    const individualSaveBtnContainer = document.createElement('div');
+   individualSaveBtnContainer.style.display = 'flex';
+   individualSaveBtnContainer.style.alignItems = 'center';
    leftActions.appendChild(individualSaveBtnContainer);
    
    results.forEach((result, index) => {
     const tab = document.createElement('button'); tab.className = 'output-tab'; tab.textContent = result.name; tab.dataset.index = index; tabsContainer.appendChild(tab);
-    const saveBtn = document.createElement('button'); saveBtn.textContent = `保存: ${result.fileName}`; saveBtn.className = 'save-output-btn'; saveBtn.style.display = 'none'; saveBtn.dataset.index = index; saveBtn.addEventListener('click', () => saveCodeAsFile(result.code, result.fileName)); individualSaveBtnContainer.appendChild(saveBtn);
+    
+    const saveBtn = document.createElement('button'); 
+    saveBtn.textContent = `保存: ${result.fileName}`; 
+    saveBtn.className = 'save-output-btn'; 
+    saveBtn.style.display = 'none'; 
+    saveBtn.dataset.index = index; 
+    saveBtn.addEventListener('click', () => saveCodeAsFile(result.code, result.fileName)); 
+    individualSaveBtnContainer.appendChild(saveBtn);
+
+    if (result.updateUrl && result.updateUrl.trim() !== '') {
+        const githubBtn = document.createElement('button');
+        githubBtn.textContent = 'GitHub';
+        githubBtn.className = 'action-btn github-btn';
+        githubBtn.style.marginLeft = '5px';
+        githubBtn.style.display = 'none';
+        githubBtn.dataset.index = index;
+        githubBtn.addEventListener('click', () => window.open(result.updateUrl, '_blank'));
+        individualSaveBtnContainer.appendChild(githubBtn);
+    }
    });
    
    if (results.length > 1) {
@@ -1151,11 +1251,104 @@ ${scriptBody}`;
    buttonsContainer.appendChild(leftActions);
    buttonsContainer.appendChild(rightActions);
 
-   const switchTab = (index) => { tabsContainer.querySelectorAll('.output-tab').forEach((t, i) => t.classList.toggle('active', i == index)); individualSaveBtnContainer.querySelectorAll('.save-output-btn').forEach((b, i) => b.style.display = i == index ? 'block' : 'none'); previewArea.value = results[index].code; };
+   const switchTab = (index) => {
+      tabsContainer.querySelectorAll('.output-tab').forEach((t, i) => t.classList.toggle('active', i == index));
+      individualSaveBtnContainer.querySelectorAll('.save-output-btn').forEach((b, i) => b.style.display = i == index ? 'inline-block' : 'none');
+      individualSaveBtnContainer.querySelectorAll('.github-btn').forEach(b => {
+          b.style.display = b.dataset.index == index ? 'inline-block' : 'none';
+      });
+      previewArea.value = results[index].code;
+   };
    tabsContainer.querySelectorAll('.output-tab').forEach(tab => { tab.addEventListener('click', () => switchTab(tab.dataset.index)); });
    switchTab(0); outputSection.style.display = 'block';
   }
   
+  // ########## SEARCH FUNCTIONS ##########
+  function navigateToMatch(mode, newIndex) {
+    const state = searchState[mode];
+    if (state.results.length === 0) return;
+    
+    if (newIndex < 0) newIndex = state.results.length - 1;
+    if (newIndex >= state.results.length) newIndex = 0;
+    state.index = newIndex;
+
+    const targetRow = state.results[newIndex];
+    const nameInput = targetRow.querySelector('.tree-item input[type="text"]');
+    
+    if (state.prevHighlight) {
+        state.prevHighlight.style.outline = '';
+    }
+    targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    nameInput.select();
+    targetRow.style.outline = '2px solid #1a73e8';
+    state.prevHighlight = targetRow;
+
+    const nav = document.getElementById('globalSearchNav');
+    const statusEl = nav.querySelector('.search-status');
+    statusEl.textContent = `${state.index + 1}/${state.results.length}`;
+  }
+
+  function performSearch(mode) {
+      const searchBox = document.getElementById(mode === 'generate' ? 'generateSearchBox' : 'editSearchBox');
+      const container = document.getElementById(mode === 'generate' ? 'shortcutsContainer' : 'editShortcutsContainer');
+      const term = searchBox.querySelector('.search-input').value.trim().toLowerCase();
+      const nav = document.getElementById('globalSearchNav');
+      const state = searchState[mode];
+
+      if (state.prevHighlight) {
+          state.prevHighlight.style.outline = '';
+          state.prevHighlight = null;
+      }
+      
+      if (!term) {
+          state.results = [];
+          state.index = -1;
+          nav.style.display = 'none';
+          return;
+      }
+      
+      const allRows = Array.from(container.querySelectorAll('.tree-row'));
+      state.results = allRows.filter(row => {
+          const nameInput = row.querySelector('.tree-item input[type="text"]');
+          return nameInput && nameInput.value.toLowerCase().includes(term);
+      });
+      
+      if (state.results.length > 0) {
+          nav.style.display = 'flex';
+          navigateToMatch(mode, 0);
+      } else {
+          nav.style.display = 'none';
+      }
+  }
+
+  function setupSearch(mode) {
+    const searchBox = document.getElementById(mode === 'generate' ? 'generateSearchBox' : 'editSearchBox');
+    if (!searchBox) return;
+    searchBox.querySelector('.search-btn').addEventListener('click', () => performSearch(mode));
+    searchBox.querySelector('.search-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch(mode);
+        }
+    });
+  }
+
+  function setupGlobalSearchNav() {
+    const nav = document.getElementById('globalSearchNav');
+    if (!nav) return;
+
+    nav.querySelector('.search-prev').addEventListener('click', () => {
+        const mode = state.isEditMode ? 'edit' : 'generate';
+        navigateToMatch(mode, searchState[mode].index - 1);
+    });
+
+    nav.querySelector('.search-next').addEventListener('click', () => {
+        const mode = state.isEditMode ? 'edit' : 'generate';
+        navigateToMatch(mode, searchState[mode].index + 1);
+    });
+  }
+
+
   // ########## EVENT LISTENERS & INITIALIZATION ##########
   function setupImageChecker(prefix) {
    document.getElementById(`${prefix}_generateFaviconUrlBtn`).addEventListener('click', () => {
@@ -1340,6 +1533,9 @@ ${scriptBody}`;
 
   setupImageChecker('gen');
   setupImageChecker('edit');
+  setupSearch('generate');
+  setupSearch('edit');
+  setupGlobalSearchNav();
   populateTreeForm([{ name: 'Google', url: 'https://www.google.com' }], document.getElementById('shortcutsContainer'));
   addMultipleGenerateItem('google_homepage', 'multipleGenerateContainer', {fileName: 'Googleカスタムショートカット'});
   document.getElementById('generateUrlRulesContainer').appendChild(createUrlRuleRow('generateUrlRules'));
