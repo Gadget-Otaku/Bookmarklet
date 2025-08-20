@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+  <link rel="icon" href="https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/HTML%E5%88%B6%E4%BD%9C/favicon/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0%E7%94%A8favicon.ico" type="image/x-icon">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1200, initial-scale=0.4">
   
@@ -11,7 +14,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
   <style>
+     button[id$="-github-button"] {
+         background-color: #000000; /* 背景を黒に */
+         color: #ffffff;           /* 文字を白に */
+         border-color: #000000;     /* 枠線の色を黒に */
+     }
+
      body { padding-top: 20px; }
      .panel { margin-top: 20px; }
      .code-window { background-color: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; font-family: monospace; min-height: 150px; overflow: auto; }
@@ -203,6 +213,7 @@
              <button id="gen-copy-button" class="btn btn-info">コードをコピー</button>
              <button id="gen-test-button" class="btn btn-warning">JSテスト</button>
              <button id="gen-save-button" class="btn btn-primary">JS保存</button>
+             <button id="gen-github-button" class="btn btn-default" style="display: none;">GitHub</button>
              <div id="gen-generated-code" class="code-window"></div>
          </div>
      </div>
@@ -345,6 +356,7 @@
                  <button id="edit-copy-button" class="btn btn-info">コードをコピー</button>
                  <button id="edit-test-button" class="btn btn-warning">JSテスト</button>
                  <button id="edit-save-button" class="btn btn-primary">JS保存</button>
+                 <button id="edit-github-button" class="btn btn-default" style="display: none;">GitHub</button>
                  <div id="edit-generated-code" class="code-window"></div>
              </div>
          </div>
@@ -410,6 +422,7 @@
                  <button id="single-copy-final" class="btn btn-info">コードをコピー</button>
                  <button id="single-test-button" class="btn btn-warning">JSテスト</button>
                  <button id="single-save-button" class="btn btn-primary">JS保存</button>
+                 <button id="single-github-button" class="btn btn-default" style="display: none;">GitHub</button>
                  <div id="single-generated-code" class="code-window"></div>
                </div>
              </div>
@@ -1430,6 +1443,14 @@ ${transparencyLogic}
          
          $('#gen-output-title').text(outputTitle);
          $('#gen-generated-code').text(finalCode);
+
+         const updateUrl = $('#us-gen-updateURL').val().trim();
+         if (mode === 'userscript' && updateUrl) {
+             $('#gen-github-button').show().off('click').on('click', () => window.open(updateUrl, '_blank'));
+         } else {
+             $('#gen-github-button').hide();
+         }
+
          $('#gen-output-section').show();
      });
 
@@ -1503,6 +1524,14 @@ ${transparencyLogic}
              finalCode = newToolPanelPayload;
          }
          $('#edit-generated-code').text(finalCode);
+
+         const updateUrl = $('#us-edit-updateURL').val().trim();
+         if (parsedUserScriptConfig && updateUrl) {
+             $('#edit-github-button').show().off('click').on('click', () => window.open(updateUrl, '_blank'));
+         } else {
+             $('#edit-github-button').hide();
+         }
+
          if (parsedUserScriptConfig) {
               $('#edit-generated-title').text('生成されたUserScript');
               $('#edit-bookmarklet-link').hide(); $('#edit-bookmarklet-link-help').hide();
@@ -1531,6 +1560,7 @@ ${transparencyLogic}
         $('#edit-generated-title').text('生成されたブックマークレット');
         $('#edit-bookmarklet-link').text(bookmarkletName).attr('href', bookmarkletCode).show();
         $('#edit-bookmarklet-link-help').show();
+        $('#edit-github-button').hide();
         $('#edit-output-section').show();
     });
 
@@ -1610,6 +1640,14 @@ ${transparencyLogic}
              finalCode = newToolPanelPayload;
          }
          $('#single-generated-code').text(finalCode);
+
+         const updateUrl = (singleEditState && singleEditState.config) ? singleEditState.config.updateURL : null;
+         if (updateUrl) {
+             $('#single-github-button').show().off('click').on('click', () => window.open(updateUrl, '_blank'));
+         } else {
+             $('#single-github-button').hide();
+         }
+
          if (singleEditState.config) {
               $('#single-generated-title').text('生成されたUserScript');
               $('#single-bookmarklet-link').hide(); $('#single-bookmarklet-link-help').hide();
@@ -1645,6 +1683,7 @@ ${transparencyLogic}
         $('#single-generated-title').text('生成されたブックマークレット');
         $('#single-bookmarklet-link').text("更新版ブックマークレット").attr('href', bookmarkletCode).show();
         $('#single-bookmarklet-link-help').show();
+        $('#single-github-button').hide();
         $('#single-output-section').show();
      });
 
