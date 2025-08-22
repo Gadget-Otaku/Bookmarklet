@@ -218,12 +218,12 @@
      <div class="position-axis-group">
       <label><input type="checkbox" name="y-pos" class="y-pos" value="top" checked> 上から</label>
       <label><input type="checkbox" name="y-pos" class="y-pos" value="bottom"> 下から</label>
-      <input type="number" id="yValue" value="80"> px
+      <input type="number" id="yValue" value="20"> px
      </div>
      <div class="position-axis-group">
       <label><input type="checkbox" name="x-pos" class="x-pos" value="left" checked> 左から</label>
       <label><input type="checkbox" name="x-pos" class="x-pos" value="right"> 右から</label>
-      <input type="number" id="xValue" value="0"> px
+      <input type="number" id="xValue" value="20"> px
      </div>
     </div>
    </div>
@@ -1152,7 +1152,7 @@ ${scriptBody}`;
          xProp: xPosCheckbox.value,
          xVal: _$id(prefix, 'XValue').value
      },
-     baseTextColor: document.querySelector(`input[name="${prefix}BaseColor"]:checked`).value,
+     baseTextColor: document.querySelector(`input[name="${isEditMode ? 'editBaseColor' : 'baseColor'}"]:checked`).value,
      items: extractTreeData(_$id(prefix, 'ShortcutsContainer')),
      urlRules: extractUrlRules(_$id(prefix, 'UrlRulesContainer'))
    };
