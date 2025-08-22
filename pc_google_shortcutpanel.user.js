@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         pc_google_shortcutpanel.user
-// @version      1.1.25
+// @version      1.1.26
 // @match        https://www.google.com/
+// @downloadURL  https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js
+// @updateURL    https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js
 // @grant        none
 // ==/UserScript==
 
 (function() {
   'use strict';
-  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.27","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.25"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.3","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
+  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.28","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.26","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.4","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
    const metadata = {
   "name": "Googleカスタムショートカット",
   "source": "",
@@ -16,8 +18,10 @@
 };
 
   const config = {
-   scale: 80, gridCols: 5, gridRows: 4, topOffset: 20, leftOffset: -460
+   scale: 80, gridCols: 5, gridRows: 4,
+   position: { yProp: 'top', yVal: 20, xProp: 'left', xVal: 20 }
   };
+  const baseTextColor = 'black';
   const items = [
        {
            "name": "YouTube",
@@ -360,12 +364,36 @@
        {
            "url": "https://gadget-otaku.github.io/Bookmarklet/",
            "color": "black"
+       },
+       {
+           "url": "https://www.youtube.com/",
+           "color": "white"
+       },
+       {
+           "url": "https://x.com/",
+           "color": "white"
+       },
+       {
+           "url": "https://chatgpt.com/",
+           "color": "white"
+       },
+       {
+           "url": "https://gemini.google.com/",
+           "color": "white"
+       },
+       {
+           "url": "https://chat.deepseek.com/",
+           "color": "white"
+       },
+       {
+           "url": "https://hianime.to/",
+           "color": "white"
        }
    ];
   const styleText = `
      :root { --item-size: 72px; --icon-size: 40px; --folder-size: 40px; --border-radius: 12px; --panel-padding: 20px; --item-gap: 15px; }
      .panel-style { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: var(--border-radius); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 1px rgba(255,255,255,0.4); padding: var(--panel-padding); position: fixed; }
-     .custom-shortcuts-container { transform: scale(${config.scale / 100}); transform-origin: top left; display: grid; grid-template-columns: repeat(${config.gridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); z-index: 2147483647; pointer-events: auto; cursor: move; max-height: calc(var(--item-size) * ${config.gridRows} + var(--item-gap) * (${config.gridRows} - 1) + var(--panel-padding) * 2); overflow-y: auto; padding-right: 5px; }
+     .custom-shortcuts-container { transform: scale(${config.scale / 100}); transform-origin: ${config.position.yProp} ${config.position.xProp}; display: grid; grid-template-columns: repeat(${config.gridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); z-index: 2147483647; pointer-events: auto; cursor: move; max-height: calc(var(--item-size) * ${config.gridRows} + var(--item-gap) * (${config.gridRows} - 1) + var(--panel-padding) * 2); overflow-y: auto; padding-right: 5px; }
      .custom-shortcuts-container::-webkit-scrollbar { width: 8px; } .custom-shortcuts-container::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.4); border-radius: 4px; } .custom-shortcuts-container::-webkit-scrollbar-track { background-color: rgba(255,255,255,0.1); }
      .panel-controls { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; cursor: default; }
      .control-button { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: sans-serif; font-size: 12px; line-height: 16px; cursor: pointer; transition: all 0.2s; user-select: none; background-color: rgba(0, 0, 0, 0.7); }
@@ -387,7 +415,33 @@
   function applyTheme(isDark) { isDarkMode = isDark; container.classList.toggle('dark-text', isDarkMode); container.classList.toggle('light-text', !isDarkMode); container.querySelector('.toggle-mode-btn').textContent = isDarkMode ? '●' : '◯'; }
   function createShortcut(item) { const link = document.createElement('a'); link.href = item.url; link.className = "custom-shortcut"; link.addEventListener('click', (e) => { e.preventDefault(); if (newTabMode) { window.open(link.href, '_blank'); } else { window.location.href = link.href; } }); const img = document.createElement('img'); try { img.src = item.icon || `https://www.google.com/s2/favicons?sz=64&domain_url=${new URL(item.url).hostname}`; } catch(e) { img.src = ''; } img.alt = item.name; img.onerror = (e) => { e.target.style.display='none'; }; const span = document.createElement('span'); span.textContent = item.name; link.appendChild(img); link.appendChild(span); return link; }
   function createFolder(item) { const folder = document.createElement('div'); folder.className = "custom-shortcut custom-folder"; const preview = document.createElement('div'); preview.className = 'folder-icon-preview'; if(item.children) { item.children.slice(0, 9).forEach(child => { if (child.icon) { const iconDiv = document.createElement('div'); iconDiv.className = 'preview-icon'; iconDiv.style.backgroundImage = `url(${child.icon})`; preview.appendChild(iconDiv); }}); } const span = document.createElement('span'); span.textContent = item.name; folder.appendChild(preview); folder.appendChild(span); folder.addEventListener('click', (e) => { e.stopPropagation(); const overlay = document.createElement('div'); overlay.className = 'folder-contents-overlay'; const contents = document.createElement('div'); contents.className = 'folder-contents panel-style'; contents.classList.toggle('dark-text', isDarkMode); contents.classList.toggle('light-text', !isDarkMode); if(item.children) { item.children.forEach(child => { if (!child.isFolder) { contents.appendChild(createShortcut(child)); } }); } overlay.appendChild(contents); document.body.appendChild(overlay); overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); }); }); return folder; }
-  function makeDraggableAndPosition(element) { setTimeout(() => { const scale = config.scale / 100; const rect = element.getBoundingClientRect(); const containerWidth = rect.width / scale; const initialLeft = (window.innerWidth / 2) + config.leftOffset - (containerWidth / 2); element.style.left = `${initialLeft}px`; element.style.top = `${config.topOffset}px`; }, 0); let startX, startY, startLeft, startTop; element.addEventListener('mousedown', (e) => { if (e.target.closest('.custom-shortcut, .panel-controls')) return; e.preventDefault(); const scale = config.scale / 100; startX = e.clientX; startY = e.clientY; startLeft = element.offsetLeft; startTop = element.offsetTop; function onMouseMove(e) { element.style.left = `${startLeft + ((e.clientX - startX) / scale)}px`; element.style.top = `${startTop + ((e.clientY - startY) / scale)}px`; } function onMouseUp() { document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); } document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp); }); }
+  function makeDraggableAndPosition(element) {
+    element.style[config.position.yProp] = `${config.position.yVal}px`;
+    element.style[config.position.xProp] = `${config.position.xVal}px`;
+    let startX, startY, startLeft, startTop;
+    element.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.custom-shortcut, .panel-controls')) return;
+        e.preventDefault();
+        const rect = element.getBoundingClientRect();
+        const scale = config.scale / 100;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = rect.left / scale;
+        startTop = rect.top / scale;
+        element.style.bottom = '';
+        element.style.right = '';
+        function onMouseMove(e) {
+            element.style.left = `${startLeft + ((e.clientX - startX) / scale)}px`;
+            element.style.top = `${startTop + ((e.clientY - startY) / scale)}px`;
+        }
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+  }
   const existingPanel = document.querySelector('.custom-shortcuts-container'); if (existingPanel) existingPanel.remove();
   const container = document.createElement('div'); container.className = "custom-shortcuts-container panel-style";
   const controls = document.createElement('div'); controls.className = 'panel-controls'; const settingsBtn = document.createElement('div'); settingsBtn.className = 'settings-button'; settingsBtn.title = 'ヘルプページを開く'; const newTabBtn = document.createElement('div'); newTabBtn.className = 'control-button new-tab-btn'; newTabBtn.textContent = '+'; newTabBtn.title = '新しいタブで開く (トグル)'; const toggleModeBtn = document.createElement('div'); toggleModeBtn.className = 'control-button toggle-mode-btn'; const closeBtn = document.createElement('div'); closeBtn.className = 'control-button close-btn'; closeBtn.textContent = '✕';
@@ -398,8 +452,9 @@
   closeBtn.addEventListener('click', (e) => { e.stopPropagation(); container.remove(); });
   items.forEach(item => { container.appendChild(item.isFolder ? createFolder(item) : createShortcut(item)); });
   document.body.appendChild(container); makeDraggableAndPosition(container);
-  let initialThemeIsDark = false; const currentUrl = window.location.href; let ruleApplied = false;
-  if (urlRules && urlRules.length > 0) { for (const rule of urlRules) { if (currentUrl === rule.url) { initialThemeIsDark = (rule.color === 'black'); ruleApplied = true; break; } } }
-  applyTheme(initialThemeIsDark);
+  let finalThemeIsDark = (baseTextColor === 'black');
+  const currentUrl = window.location.href;
+  if (urlRules && urlRules.length > 0) { for (const rule of urlRules) { if (rule.url && currentUrl.startsWith(rule.url)) { finalThemeIsDark = (rule.color === 'black'); break; } } }
+  applyTheme(finalThemeIsDark);
   const styleTag = document.createElement('style'); styleTag.textContent = styleText; document.head.appendChild(styleTag);
 })();
