@@ -51,6 +51,10 @@
   .config-item button { margin-left: 10px; padding: 8px 16px; font-size: 14px; background: #e8f0fe; color: #1a73e8; box-shadow: none; border-radius: 4px; border:none; cursor:pointer; }
   .config-item button:hover { background: #d2e3fc; transform: translateY(-1px); }
   .hint { font-size: 12px; color: #5f6368; margin-top: 4px; font-style: italic; width: 100%; padding-left: 5px; }
+  .position-setting-group { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .position-axis-group { display: flex; gap: 10px; align-items: center; }
+  .position-axis-group label { width: auto !important; font-weight: normal; }
+  .position-axis-group input[type="number"] { width: 70px; flex: 0 0 70px !important; }
 
   /* --- Multiple Generation --- */
   .multiple-generate-item { border: 1px solid #1a73e8; }
@@ -208,9 +212,31 @@
    <div class="config-item"><label>サイズスケール (%): </label><input type="number" id="scale" value="80" min="50" max="200"></div>
    <div class="config-item"><label>グリッド列数: </label><input type="number" id="gridCols" value="5" min="1" max="10"></div>
    <div class="config-item"><label>グリッド行数: </label><input type="number" id="gridRows" value="2" min="1" max="10"></div>
-   <div class="config-item"><label>上部オフセット (px): </label><input type="number" id="topOffset" value="80"></div>
-   <div class="config-item"><label>左オフセット (px): </label><input type="number" id="leftOffset" value="-460"></div>
+   <div class="config-item">
+    <label>パネル位置:</label>
+    <div class="position-setting-group">
+     <div class="position-axis-group">
+      <label><input type="checkbox" name="y-pos" class="y-pos" value="top" checked> 上から</label>
+      <label><input type="checkbox" name="y-pos" class="y-pos" value="bottom"> 下から</label>
+      <input type="number" id="yValue" value="80"> px
+     </div>
+     <div class="position-axis-group">
+      <label><input type="checkbox" name="x-pos" class="x-pos" value="left" checked> 左から</label>
+      <label><input type="checkbox" name="x-pos" class="x-pos" value="right"> 右から</label>
+      <input type="number" id="xValue" value="0"> px
+     </div>
+    </div>
+   </div>
   </div>
+   <div class="config-group">
+    <h3>基本の文字色</h3>
+    <div class="config-item">
+        <div class="radio-group">
+            <label><input type="radio" name="baseColor" value="white" checked> 白</label>
+            <label><input type="radio" name="baseColor" value="black"> 黒</label>
+        </div>
+    </div>
+   </div>
   <div class="config-group">
    <h3>文字色指定 <span class="hint">（指定したURLで表示された場合に文字色を固定します）</span></h3>
    <div id="generateUrlRulesContainer"></div>
@@ -278,8 +304,30 @@
     <div class="config-item"><label>サイズスケール (%): </label><input type="number" id="editScale" min="50" max="200"></div>
     <div class="config-item"><label>グリッド列数: </label><input type="number" id="editGridCols" min="1" max="10"></div>
     <div class="config-item"><label>グリッド行数: </label><input type="number" id="editGridRows" min="1" max="10"></div>
-    <div class="config-item"><label>上部オフセット (px): </label><input type="number" id="editTopOffset"></div>
-    <div class="config-item"><label>左オフセット (px): </label><input type="number" id="editLeftOffset"></div>
+    <div class="config-item">
+     <label>パネル位置:</label>
+     <div class="position-setting-group">
+      <div class="position-axis-group">
+       <label><input type="checkbox" name="edit-y-pos" class="y-pos" value="top"> 上から</label>
+       <label><input type="checkbox" name="edit-y-pos" class="y-pos" value="bottom"> 下から</label>
+       <input type="number" id="editYValue"> px
+      </div>
+      <div class="position-axis-group">
+       <label><input type="checkbox" name="edit-x-pos" class="x-pos" value="left"> 左から</label>
+       <label><input type="checkbox" name="edit-x-pos" class="x-pos" value="right"> 右から</label>
+       <input type="number" id="editXValue"> px
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="config-group">
+       <h3>基本の文字色 (編集)</h3>
+       <div class="config-item">
+           <div class="radio-group">
+               <label><input type="radio" name="editBaseColor" value="white"> 白</label>
+               <label><input type="radio" name="editBaseColor" value="black"> 黒</label>
+           </div>
+       </div>
    </div>
    <div class="config-group">
     <h3>文字色指定 (編集)</h3>
@@ -380,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ########## URL RULE UI ##########
   function createUrlRuleRow(containerId, rule = { url: '', color: 'white' }) {
    const row = document.createElement('div'); row.className = 'url-rule-row';
-   const urlInput = document.createElement('input'); urlInput.type = 'text'; urlInput.placeholder = 'URL (完全一致)'; urlInput.value = rule.url;
+   const urlInput = document.createElement('input'); urlInput.type = 'text'; urlInput.placeholder = 'URL (前半一致)'; urlInput.value = rule.url;
    const colorOptionsDiv = document.createElement('div'); colorOptionsDiv.className = 'color-options';
    const radioName = `color-rule-${containerId}-${ruleCounter++}`;
    const whiteLabel = document.createElement('label'); const whiteRadio = document.createElement('input'); whiteRadio.type = 'radio'; whiteRadio.name = radioName; whiteRadio.value = 'white'; whiteRadio.checked = rule.color !== 'black'; whiteLabel.append(whiteRadio, ' 白');
@@ -540,7 +588,11 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
     }
    } else if (type === 'google_homepage') {
-    content += `<div class="form-group"><label for="us-version-${id}">バージョン</label><input type="text" id="us-version-${id}" class="us-version" value="${data.version || '1.0.0'}"></div>`;
+    content += `
+      <div class="form-group"><label for="us-version-${id}">バージョン</label><input type="text" id="us-version-${id}" class="us-version" value="${data.version || '1.0.0'}"></div>
+      <div class="form-group"><label for="us-downloadURL-${id}">@downloadURL</label><input type="text" id="us-downloadURL-${id}" class="us-downloadURL" value="${data.downloadURL || ''}"></div>
+      <div class="form-group"><label for="us-updateURL-${id}">@updateURL</label><input type="text" id="us-updateURL-${id}" class="us-updateURL" value="${data.updateURL || ''}"></div>
+    `;
    }
    return content;
   };
@@ -670,7 +722,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ########## SCRIPT PARSING & DATA EXTRACTION ##########
   const extractMetadata = (scriptText) => { const match = scriptText.match(/\/\*\s*MULTIGEN_METADATA:\s*(\[[\s\S]*?\])\s*\*\//); if (match && match[1]) { try { const restored = match[1].replace(/\*\\\//g, '*/'); return JSON.parse(restored); } catch (e) { console.error("Failed to parse metadata", e); }} return null; };
-  const parseBaseScript = (scriptText) => { const config = {}; const extractValue = (regex, defaultValue) => (scriptText.match(regex) || [])[1] || defaultValue; config.name = extractValue(/const metadata =[\s\S]*?name:\s*"([^"]+)"/, 'Googleカスタムショートカット'); config.sourceUrl = extractValue(/const metadata =[\s\S]*?source:\s*"([^"]*)"/, ''); config.downloadUrl = extractValue(/const metadata =[\s\S]*?downloadURL:\s*"([^"]*)"/, ''); config.updateUrl = extractValue(/const metadata =[\s\S]*?updateURL:\s*"([^"]*)"/, ''); config.scale = extractValue(/scale:\s*(-?[\d.]+)/, 80); config.gridCols = extractValue(/gridCols:\s*(\d+)/, 5); config.gridRows = extractValue(/gridRows:\s*(\d+)/, 2); config.topOffset = extractValue(/topOffset:\s*(-?[\d.]+)/, 80); config.leftOffset = extractValue(/leftOffset:\s*(-?[\d.]+)/, -460); const itemsMatch = scriptText.match(/const items = (\[[\s\S]*?\]);/); if (itemsMatch && itemsMatch[1]) { try { config.items = new Function(`return ${itemsMatch[1]}`)(); } catch (e) { config.items = []; } } else { config.items = []; } return config; };
+  const parseBaseScript = (scriptText) => {
+   const config = {};
+   const extractValue = (regex, defaultValue) => (scriptText.match(regex) || [])[1] || defaultValue;
+   config.name = extractValue(/const metadata =[\s\S]*?name:\s*"([^"]+)"/, 'Googleカスタムショートカット');
+   config.sourceUrl = extractValue(/const metadata =[\s\S]*?source:\s*"([^"]*)"/, '');
+   config.downloadUrl = extractValue(/const metadata =[\s\S]*?downloadURL:\s*"([^"]*)"/, '');
+   config.updateUrl = extractValue(/const metadata =[\s\S]*?updateURL:\s*"([^"]*)"/, '');
+   config.scale = extractValue(/scale:\s*(-?[\d.]+)/, 80);
+   config.gridCols = extractValue(/gridCols:\s*(\d+)/, 5);
+   config.gridRows = extractValue(/gridRows:\s*(\d+)/, 2);
+   config.baseTextColor = extractValue(/const baseTextColor = '([^']+)';/, 'white');
+
+   // Position extraction
+   const yPropMatch = scriptText.match(/yProp:\s*'([^']+)'/);
+   const yValMatch = scriptText.match(/yVal:\s*(-?[\d.]+)/);
+   const xPropMatch = scriptText.match(/xProp:\s*'([^']+)'/);
+   const xValMatch = scriptText.match(/xVal:\s*(-?[\d.]+)/);
+
+   if (yPropMatch && yValMatch && xPropMatch && xValMatch) {
+    config.position = {
+     yProp: yPropMatch[1], yVal: yValMatch[1],
+     xProp: xPropMatch[1], xVal: xValMatch[1]
+    };
+   } else { // Fallback for old format
+    config.position = {
+     yProp: 'top', yVal: extractValue(/topOffset:\s*(-?[\d.]+)/, 80),
+     xProp: 'left', xVal: '0' // Old leftOffset was complex, defaulting is safer
+    };
+   }
+
+   const itemsMatch = scriptText.match(/const items = (\[[\s\S]*?\]);/);
+   if (itemsMatch && itemsMatch[1]) {
+    try { config.items = new Function(`return ${itemsMatch[1]}`)(); } catch (e) { config.items = []; }
+   } else { config.items = []; }
+   return config;
+  };
   
   const extractDataAndSettingsFromCode = (code) => {
    let processCode = code;
@@ -839,14 +926,16 @@ document.addEventListener('DOMContentLoaded', () => {
   'use strict';
   ${metadataComment}${metadataString}
   const config = {
-   scale: ${params.scale}, gridCols: ${params.gridCols}, gridRows: ${params.gridRows}, topOffset: ${params.topOffset}, leftOffset: ${params.leftOffset}
+   scale: ${params.scale}, gridCols: ${params.gridCols}, gridRows: ${params.gridRows},
+   position: { yProp: '${params.position.yProp}', yVal: ${params.position.yVal}, xProp: '${params.position.xProp}', xVal: ${params.position.xVal} }
   };
+  const baseTextColor = '${params.baseTextColor}';
   const items = ${itemsString};
   const urlRules = ${urlRulesString};
   const styleText = \`
      :root { --item-size: 72px; --icon-size: 40px; --folder-size: 40px; --border-radius: 12px; --panel-padding: 20px; --item-gap: 15px; }
      .panel-style { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: var(--border-radius); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 1px rgba(255,255,255,0.4); padding: var(--panel-padding); position: fixed; }
-     .custom-shortcuts-container { transform: scale(\${config.scale / 100}); transform-origin: top left; display: grid; grid-template-columns: repeat(\${config.gridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); z-index: 2147483647; pointer-events: auto; cursor: move; max-height: calc(var(--item-size) * \${config.gridRows} + var(--item-gap) * (\${config.gridRows} - 1) + var(--panel-padding) * 2); overflow-y: auto; padding-right: 5px; }
+     .custom-shortcuts-container { transform: scale(\${config.scale / 100}); transform-origin: \${config.position.yProp} \${config.position.xProp}; display: grid; grid-template-columns: repeat(\${config.gridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); z-index: 2147483647; pointer-events: auto; cursor: move; max-height: calc(var(--item-size) * \${config.gridRows} + var(--item-gap) * (\${config.gridRows} - 1) + var(--panel-padding) * 2); overflow-y: auto; padding-right: 5px; }
      .custom-shortcuts-container::-webkit-scrollbar { width: 8px; } .custom-shortcuts-container::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.4); border-radius: 4px; } .custom-shortcuts-container::-webkit-scrollbar-track { background-color: rgba(255,255,255,0.1); }
      .panel-controls { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; cursor: default; }
      .control-button { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: sans-serif; font-size: 12px; line-height: 16px; cursor: pointer; transition: all 0.2s; user-select: none; background-color: rgba(0, 0, 0, 0.7); }
@@ -868,7 +957,33 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyTheme(isDark) { isDarkMode = isDark; container.classList.toggle('dark-text', isDarkMode); container.classList.toggle('light-text', !isDarkMode); container.querySelector('.toggle-mode-btn').textContent = isDarkMode ? '●' : '◯'; }
   function createShortcut(item) { const link = document.createElement('a'); link.href = item.url; link.className = "custom-shortcut"; link.addEventListener('click', (e) => { e.preventDefault(); if (newTabMode) { window.open(link.href, '_blank'); } else { window.location.href = link.href; } }); const img = document.createElement('img'); try { img.src = item.icon || \`https://www.google.com/s2/favicons?sz=64&domain_url=\${new URL(item.url).hostname}\`; } catch(e) { img.src = ''; } img.alt = item.name; img.onerror = (e) => { e.target.style.display='none'; }; const span = document.createElement('span'); span.textContent = item.name; link.appendChild(img); link.appendChild(span); return link; }
   function createFolder(item) { const folder = document.createElement('div'); folder.className = "custom-shortcut custom-folder"; const preview = document.createElement('div'); preview.className = 'folder-icon-preview'; if(item.children) { item.children.slice(0, 9).forEach(child => { if (child.icon) { const iconDiv = document.createElement('div'); iconDiv.className = 'preview-icon'; iconDiv.style.backgroundImage = \`url(\${child.icon})\`; preview.appendChild(iconDiv); }}); } const span = document.createElement('span'); span.textContent = item.name; folder.appendChild(preview); folder.appendChild(span); folder.addEventListener('click', (e) => { e.stopPropagation(); const overlay = document.createElement('div'); overlay.className = 'folder-contents-overlay'; const contents = document.createElement('div'); contents.className = 'folder-contents panel-style'; contents.classList.toggle('dark-text', isDarkMode); contents.classList.toggle('light-text', !isDarkMode); if(item.children) { item.children.forEach(child => { if (!child.isFolder) { contents.appendChild(createShortcut(child)); } }); } overlay.appendChild(contents); document.body.appendChild(overlay); overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); }); }); return folder; }
-  function makeDraggableAndPosition(element) { setTimeout(() => { const scale = config.scale / 100; const rect = element.getBoundingClientRect(); const containerWidth = rect.width / scale; const initialLeft = (window.innerWidth / 2) + config.leftOffset - (containerWidth / 2); element.style.left = \`\${initialLeft}px\`; element.style.top = \`\${config.topOffset}px\`; }, 0); let startX, startY, startLeft, startTop; element.addEventListener('mousedown', (e) => { if (e.target.closest('.custom-shortcut, .panel-controls')) return; e.preventDefault(); const scale = config.scale / 100; startX = e.clientX; startY = e.clientY; startLeft = element.offsetLeft; startTop = element.offsetTop; function onMouseMove(e) { element.style.left = \`\${startLeft + ((e.clientX - startX) / scale)}px\`; element.style.top = \`\${startTop + ((e.clientY - startY) / scale)}px\`; } function onMouseUp() { document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); } document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp); }); }
+  function makeDraggableAndPosition(element) {
+    element.style[config.position.yProp] = \`\${config.position.yVal}px\`;
+    element.style[config.position.xProp] = \`\${config.position.xVal}px\`;
+    let startX, startY, startLeft, startTop;
+    element.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.custom-shortcut, .panel-controls')) return;
+        e.preventDefault();
+        const rect = element.getBoundingClientRect();
+        const scale = config.scale / 100;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = rect.left / scale;
+        startTop = rect.top / scale;
+        element.style.bottom = '';
+        element.style.right = '';
+        function onMouseMove(e) {
+            element.style.left = \`\${startLeft + ((e.clientX - startX) / scale)}px\`;
+            element.style.top = \`\${startTop + ((e.clientY - startY) / scale)}px\`;
+        }
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+  }
   const existingPanel = document.querySelector('.custom-shortcuts-container'); if (existingPanel) existingPanel.remove();
   const container = document.createElement('div'); container.className = "custom-shortcuts-container panel-style";
   const controls = document.createElement('div'); controls.className = 'panel-controls'; const settingsBtn = document.createElement('div'); settingsBtn.className = 'settings-button'; settingsBtn.title = 'ヘルプページを開く'; const newTabBtn = document.createElement('div'); newTabBtn.className = 'control-button new-tab-btn'; newTabBtn.textContent = '+'; newTabBtn.title = '新しいタブで開く (トグル)'; const toggleModeBtn = document.createElement('div'); toggleModeBtn.className = 'control-button toggle-mode-btn'; const closeBtn = document.createElement('div'); closeBtn.className = 'control-button close-btn'; closeBtn.textContent = '✕';
@@ -879,9 +994,10 @@ document.addEventListener('DOMContentLoaded', () => {
   closeBtn.addEventListener('click', (e) => { e.stopPropagation(); container.remove(); });
   items.forEach(item => { container.appendChild(item.isFolder ? createFolder(item) : createShortcut(item)); });
   document.body.appendChild(container); makeDraggableAndPosition(container);
-  let initialThemeIsDark = false; const currentUrl = window.location.href; let ruleApplied = false;
-  if (urlRules && urlRules.length > 0) { for (const rule of urlRules) { if (currentUrl === rule.url) { initialThemeIsDark = (rule.color === 'black'); ruleApplied = true; break; } } }
-  applyTheme(initialThemeIsDark);
+  let finalThemeIsDark = (baseTextColor === 'black');
+  const currentUrl = window.location.href;
+  if (urlRules && urlRules.length > 0) { for (const rule of urlRules) { if (rule.url && currentUrl.startsWith(rule.url)) { finalThemeIsDark = (rule.color === 'black'); break; } } }
+  applyTheme(finalThemeIsDark);
   const styleTag = document.createElement('style'); styleTag.textContent = styleText; document.head.appendChild(styleTag);
 })();`.trim();
   };
@@ -1019,7 +1135,27 @@ ${scriptBody}`;
   // ########## MAIN GENERATE/REGENERATE & DISPLAY LOGIC ##########
   function collectAndGenerate(isEditMode) {
    const prefix = isEditMode ? 'edit' : '';
-   const baseParams = { name: _$id(prefix, 'ScriptName').value, sourceUrl: _$id(prefix, 'ImportSourceUrl').value, downloadUrl: _$id(prefix, 'DownloadUrl').value, updateUrl: _$id(prefix, 'UpdateUrl').value, scale: _$id(prefix, 'Scale').value, gridCols: _$id(prefix, 'GridCols').value, gridRows: _$id(prefix, 'GridRows').value, topOffset: _$id(prefix, 'TopOffset').value, leftOffset: _$id(prefix, 'LeftOffset').value, items: extractTreeData(_$id(prefix, 'ShortcutsContainer')), urlRules: extractUrlRules(_$id(prefix, 'UrlRulesContainer')) };
+   const yPosCheckbox = document.querySelector(`input[name="${prefix ? prefix + '-' : ''}y-pos"]:checked`);
+   const xPosCheckbox = document.querySelector(`input[name="${prefix ? prefix + '-' : ''}x-pos"]:checked`);
+
+   const baseParams = {
+     name: _$id(prefix, 'ScriptName').value,
+     sourceUrl: _$id(prefix, 'ImportSourceUrl').value,
+     downloadUrl: _$id(prefix, 'DownloadUrl').value,
+     updateUrl: _$id(prefix, 'UpdateUrl').value,
+     scale: _$id(prefix, 'Scale').value,
+     gridCols: _$id(prefix, 'GridCols').value,
+     gridRows: _$id(prefix, 'GridRows').value,
+     position: {
+         yProp: yPosCheckbox.value,
+         yVal: _$id(prefix, 'YValue').value,
+         xProp: xPosCheckbox.value,
+         xVal: _$id(prefix, 'XValue').value
+     },
+     baseTextColor: document.querySelector(`input[name="${prefix}BaseColor"]:checked`).value,
+     items: extractTreeData(_$id(prefix, 'ShortcutsContainer')),
+     urlRules: extractUrlRules(_$id(prefix, 'UrlRulesContainer'))
+   };
    
    const coreJsPayload = generateCoreLogic(baseParams, []);
    state.testableJsCode = `javascript:${coreJsPayload}`;
@@ -1037,7 +1173,14 @@ ${scriptBody}`;
      const usForm = item;
      let currentVersion = usForm.querySelector('.us-version').value;
      if (isEditMode) currentVersion = incrementVersion(currentVersion);
-     task.data = { type, fileName, name: baseParams.name, version: currentVersion };
+     task.data = {
+         type,
+         fileName,
+         name: baseParams.name,
+         version: currentVersion,
+         downloadURL: usForm.querySelector('.us-downloadURL').value,
+         updateURL: usForm.querySelector('.us-updateURL').value,
+     };
     } else if (type.startsWith('userscript')) {
      const usForm = item; let currentVersion = usForm.querySelector('.us-version').value;
      if (isEditMode) currentVersion = incrementVersion(currentVersion);
@@ -1130,10 +1273,25 @@ ${scriptBody}`;
    const baseJsCodeWithMetadata = generateCoreLogic(baseParams, multiGenMetadata);
    const results = [];
    generationTasks.forEach(task => {
-    let result = { name: 'Unknown', code: '', fileName: 'script', updateUrl: task.data.updateURL || (task.type === 'google_homepage' ? baseParams.updateUrl : '') };
+    let result = { name: 'Unknown', code: '', fileName: 'script', updateUrl: task.data.updateURL || '' };
     switch(task.type) {
      case 'javascript': result.name = `${task.data.fileName || baseParams.name} (ブックマークレット)`; result.code = `javascript:${baseJsCodeWithMetadata}`; result.fileName = task.data.fileName || `${baseParams.name}_bookmarklet`; break;
-     case 'google_homepage': const usName = task.data.fileName || task.data.name; result.name = `${usName} (Google)`; result.code = `// ==UserScript==\n// @name         ${usName}\n// @version      ${task.data.version}\n// @match        https://www.google.com/\n// @grant        none\n// ==/UserScript==\n\n${baseJsCodeWithMetadata}`; result.fileName = usName; break;
+     case 'google_homepage':
+        const usName = task.data.fileName || task.data.name;
+        const downloadURL = task.data.downloadURL || baseParams.downloadUrl;
+        const updateURL = task.data.updateURL || baseParams.updateUrl;
+        result.name = `${usName} (Google)`;
+        result.code = `// ==UserScript==
+// @name         ${usName}
+// @version      ${task.data.version}
+// @match        https://www.google.com/
+${downloadURL ? `// @downloadURL  ${downloadURL}\n` : ''}${updateURL ? `// @updateURL    ${updateURL}\n` : ''}// @grant        none
+// ==/UserScript==
+
+${baseJsCodeWithMetadata}`;
+        result.fileName = usName;
+        result.updateUrl = updateURL;
+        break;
      case 'userscript_button': case 'userscript_keyboard': result.name = `${task.data.fileName || task.data.name} (${task.data.version})`; result.code = generateGenericUserScript(task.data, baseJsCodeWithMetadata); result.fileName = task.data.fileName || task.data.name; break;
      case 'toolpanel_js': case 'toolpanel_button': case 'toolpanel_keyboard': {
       let finalCode;
@@ -1370,8 +1528,19 @@ ${scriptBody}`;
    _$id(prefix, 'Scale').value = config.scale;
    _$id(prefix, 'GridCols').value = config.gridCols;
    _$id(prefix, 'GridRows').value = config.gridRows;
-   _$id(prefix, 'TopOffset').value = config.topOffset;
-   _$id(prefix, 'LeftOffset').value = config.leftOffset;
+   
+   // Populate new position controls
+   const pos = config.position;
+   document.querySelector(`input[name="${prefix ? prefix + '-' : ''}y-pos"][value="${pos.yProp}"]`).checked = true;
+   document.querySelector(`input[name="${prefix ? prefix + '-' : ''}y-pos"][value="${pos.yProp === 'top' ? 'bottom' : 'top'}"]`).checked = false;
+   document.querySelector(`input[name="${prefix ? prefix + '-' : ''}x-pos"][value="${pos.xProp}"]`).checked = true;
+   document.querySelector(`input[name="${prefix ? prefix + '-' : ''}x-pos"][value="${pos.xProp === 'left' ? 'right' : 'left'}"]`).checked = false;
+   _$id(prefix, 'YValue').value = pos.yVal;
+   _$id(prefix, 'XValue').value = pos.xVal;
+   
+   // Populate base text color
+   document.querySelector(`input[name="${prefix}BaseColor"][value="${config.baseTextColor}"]`).checked = true;
+
    populateTreeForm(config.items, _$id(prefix, 'ShortcutsContainer'));
    const urlRulesMatch = script.match(/const urlRules = (\[[\s\S]*?\]);/);
    const urlRulesContainer = _$id(prefix, 'UrlRulesContainer');
@@ -1443,6 +1612,37 @@ ${scriptBody}`;
     return null; // Not a recognized toolpanel wrapper
    }
    return config;
+  }
+  
+  function setupPositionControls(prefix) {
+      const yCheckboxes = document.querySelectorAll(`input[name="${prefix ? prefix + '-' : ''}y-pos"]`);
+      const xCheckboxes = document.querySelectorAll(`input[name="${prefix ? prefix + '-' : ''}x-pos"]`);
+
+      yCheckboxes.forEach(cb => {
+          cb.addEventListener('change', () => {
+              if (cb.checked) {
+                  yCheckboxes.forEach(other => {
+                      if (other !== cb) other.checked = false;
+                  });
+              }
+              if (!document.querySelector(`input[name="${prefix ? prefix + '-' : ''}y-pos"]:checked`)) {
+                  cb.checked = true; // Prevent unchecking all
+              }
+          });
+      });
+
+      xCheckboxes.forEach(cb => {
+          cb.addEventListener('change', () => {
+              if (cb.checked) {
+                  xCheckboxes.forEach(other => {
+                      if (other !== cb) other.checked = false;
+                  });
+              }
+              if (!document.querySelector(`input[name="${prefix ? prefix + '-' : ''}x-pos"]:checked`)) {
+                  cb.checked = true; // Prevent unchecking all
+              }
+          });
+      });
   }
 
 
@@ -1536,6 +1736,8 @@ ${scriptBody}`;
   setupSearch('generate');
   setupSearch('edit');
   setupGlobalSearchNav();
+  setupPositionControls('');
+  setupPositionControls('edit');
   populateTreeForm([{ name: 'Google', url: 'https://www.google.com' }], document.getElementById('shortcutsContainer'));
   addMultipleGenerateItem('google_homepage', 'multipleGenerateContainer', {fileName: 'Googleカスタムショートカット'});
   document.getElementById('generateUrlRulesContainer').appendChild(createUrlRuleRow('generateUrlRules'));
