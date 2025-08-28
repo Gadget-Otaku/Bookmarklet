@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<link rel="icon" href="https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/HTML%E5%88%B6%E4%BD%9C/favicon/X%20%E8%A9%B3%E7%B4%B0%E6%A4%9C%E7%B4%A2%E3%83%91%E3%83%8D%E3%83%AB%20%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%20(%E5%A4%9A%E6%A9%9F%E8%83%BD%E7%B5%B1%E5%90%88%E7%89%88)%E7%94%A8favicon.ico" type="image/x-icon">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=0.4">
+    <title>X 詳細検索パネル ジェネレーター (多機能統合版)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        /* === 全体・サイトのスタイル === */
+        :root {
+            --glass-bg: rgba(224, 237, 255, 0.7);
+            --glass-border: rgba(179, 209, 255, 0.5);
+            --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+            --primary-color: #007bff;
+            --primary-color-dark: #0056b3;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5; margin: 0; padding: 20px; background-color: #f4f7f9; color: #333; font-size: 14px;
+        }
+        main {
+            max-width: 950px; margin: 20px auto;
+        }
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        h1 { margin-bottom: 5px; }
+
+        /* === タブ切り替え === */
+        .tab { margin: 15px 0; display: flex; gap: 5px; }
+        .tab button { padding: 10px 20px; border: none; background: rgba(255, 255, 255, 0.7); border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #333; }
+        .tab button.active { background: #e8f0fe; color: var(--primary-color); box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); }
+        .tab button:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        
+        .section { display: none; background: var(--glass-bg); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); border-radius: var(--border-radius); padding: 20px; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === 設定グループ === */
+        .config-group, .multiple-generate-item { margin: 15px 0; padding: 15px; border-radius: 8px; background: rgba(255, 255, 255, 0.6); box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .config-group h3, .multiple-generate-item h4 { margin-top: 0; color: var(--primary-color); }
+        .config-item { margin: 12px 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;}
+        .config-item label { display: inline-block; width: 200px; font-weight: 500; flex-shrink: 0; }
+        .config-item input[type="text"], .config-item input[type="url"], .config-item select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; flex: 1; min-width: 250px; }
+        .config-item button { margin-left: 0; padding: 8px 16px; font-size: 14px; background: #e8f0fe; color: var(--primary-color); box-shadow: none; border-radius: 4px; border:none; cursor:pointer; }
+        .config-item button:hover { background: #d2e3fc; transform: translateY(-1px); }
+        .hint { font-size: 12px; color: #5f6368; margin-top: 4px; font-style: italic; width: 100%; padding-left: 5px; }
+        .position-setting-group { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+        .position-axis-group { display: flex; gap: 10px; align-items: center; }
+        .position-axis-group label { width: auto !important; font-weight: normal; }
+        .position-axis-group input[type="number"] { width: 70px; flex: 0 0 70px !important; padding: 8px; border: 1px solid #ddd; }
+
+        /* === 複数生成 === */
+        .multiple-generate-item { border: 1px solid var(--primary-color); }
+        .multiple-generate-item h4 { display: flex; justify-content: space-between; align-items: center; }
+        .delete-multi-gen-btn { background: #fce8e6; color: #d93025; padding: 4px 10px; font-size: 12px; border:none; cursor:pointer; border-radius: 4px;}
+
+        /* === UserScriptフォーム === */
+        .userscript-form-section { padding: 10px; margin-top: 10px; border-top: 1px dashed #aaa; }
+        .userscript-form-section .form-group { margin-bottom: 10px; }
+        .userscript-form-section label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .userscript-form-section input, .userscript-form-section textarea, .userscript-form-section select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .input-row { display: flex; gap: 10px; align-items: center; margin-bottom: 5px;}
+        .input-row label { margin-bottom: 0; font-weight: normal; white-space: nowrap; }
+        .radio-group { display: flex; align-items: center; gap: 15px; }
+        .radio-group label { font-weight: normal; }
+        .radio-group input { width: auto; margin-right: 5px; }
+        .section-box { border: 1px solid #ccc; padding: 15px; margin-top: 5px; background-color: #fff; border-radius: 4px; }
+        .url-input { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+        .url-input select { width: auto; } .url-input input { flex-grow: 1; }
+        .delete-url-btn { background-color: #fce8e6; color: #d93025; border:none; cursor:pointer; border-radius: 4px; padding: 4px 8px; font-size: 12px;}
+
+        /* === 元のジェネレーターのスタイル === */
+        fieldset { border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 20px 0; background: rgba(255, 255, 255, 0.4); }
+        legend { font-weight: bold; font-size: 1.1em; padding: 0 10px; margin-left: 10px; color: var(--primary-color); }
+        input[type="text"], input[type="url"], input[type="number"], input[type="date"], select, textarea {
+            width: calc(100% - 18px); padding: 8px; margin: 4px 0 8px 0; border: 1px solid #b3d1ff;
+            border-radius: 4px; font-size: 13px; background-color: #f0f0f0; color: #000;
+        }
+        textarea#inputScript { height: 150px; }
+        .item-controls button, .account-controls button { padding: 2px 6px; font-size: 11px; margin-left: 4px; background: #4d79b3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .item-controls .add-item-btn, .account-controls .add-item-btn { background-color: #28a745; }
+        .item-controls .delete-item-btn, .account-controls .delete-item-btn { background: #dc3545; }
+        .list-item, .shortcut-item { border: 1px solid #cce0ff; padding: 15px; margin-bottom: 15px; border-radius: 6px; background: #f0f7ff; }
+        .account-entry { display: flex; align-items: center; gap: 10px; padding: 8px; border-top: 1px solid #d4e4ff; }
+        
+        /* === 出力セクション === */
+        .main-generate-btn { padding: 12px 20px; border: none; border-radius: 8px; background: var(--primary-color); color: white; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); margin-top: 15px; width: 100%; font-size: 1.1em; }
+        .main-generate-btn:hover { background: var(--primary-color-dark); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); }
+        .output-section { margin-top: 20px; }
+        .output-tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
+        .output-tab { padding: 8px 12px; background: #ddd; border: none; border-radius: 5px 5px 0 0; cursor: pointer; }
+        .output-tab.active { background: #f1f1f1; font-weight: bold; }
+        .code-preview-area { width: 100%; height: 250px; font-family: monospace; border: 1px solid #ccc; padding: 10px; box-sizing: border-box; background: #f1f1f1; resize: vertical; }
+        .output-buttons-container { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px;}
+        .output-actions-left, .output-actions-right { display: flex; align-items: center; gap: 10px; }
+        .save-output-btn { background-color: #34a853; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        .action-btn { background-color: #4285f4; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+        
+    </style>
+</head>
+<body>
+    <main>
+        <header style="text-align: center;">
+            <h1>X 詳細検索パネル ジェネレーター (多機能統合版)</h1>
+            <p>リストやショートカットを登録し、様々な形式でオリジナルのX（旧Twitter）詳細検索パネルを作成・管理します。</p>
+        </header>
+
+        <div class="tab">
+            <button id="generateTab" class="active">生成</button>
+            <button id="editTab">編集</button>
+        </div>
+
+        <div id="generateSection" class="section active">
+            <h2>新規生成</h2>
+            <div class="config-group">
+                <h3>スクリプト情報</h3>
+                <div class="config-item"><label for="scriptName">スクリプト名:</label><input type="text" id="scriptName" value="X詳細検索パネル"><div class="hint">各生成物のベースとなる名前です。</div></div>
+                <div class="config-item"><label for="importSourceUrl">インポートするGitHub URL:</label><input type="text" id="importSourceUrl" placeholder="GitHubのURL (リポジトリ/Raw)"><button type="button" id="updateSourceBtn">設定をインポート</button></div>
+                <div class="config-item"><label for="downloadUrl">@downloadURL:</label><input type="text" id="downloadUrl" placeholder="https://.../*.user.js"></div>
+                <div class="config-item"><label for="updateUrl">@updateURL:</label><input type="text" id="updateUrl" placeholder="https://.../*.user.js"></div>
+            </div>
+            <div class="config-group">
+                <h3>複数生成</h3>
+                <div class="hint">ベースとなる検索パネル設定を、様々な形式で同時に出力します。</div>
+                <div id="multipleGenerateContainer"></div>
+                <div class="config-item" style="margin-top: 10px;">
+                    <select id="addMultipleGenerateSelect">
+                        <option value="javascript" selected>JavaScript (ブックマークレット)</option>
+                        <option value="userscript_button">汎用UserScript (ボタン)</option>
+                        <option value="userscript_keyboard">汎用UserScript (キーボード)</option>
+                        <option value="toolpanel_js">ツールパネル編集(JavaScript)</option>
+                        <option value="toolpanel_button">ツールパネル編集(ボタン)</option>
+                        <option value="toolpanel_keyboard">ツールパネル編集(キーボード)</option>
+                    </select>
+                    <button type="button" id="addMultipleGenerateBtn">追加</button>
+                </div>
+            </div>
+            <fieldset><legend>リスト設定</legend><div id="lists-container"></div></fieldset>
+            <fieldset><legend>ショートカット設定</legend><div id="shortcuts-container"></div><button type="button" class="add-btn" id="add-shortcut-btn">ショートカットを追加</button></fieldset>
+            <button type="button" id="generateBtn" class="main-generate-btn">生成</button>
+            <div id="outputSection" class="output-section" style="display: none;">
+                <h3>生成結果</h3>
+                <div id="outputTabsContainer" class="output-tabs"></div>
+                <textarea id="codePreviewArea" class="code-preview-area" readonly></textarea>
+                <div id="outputButtonsContainer" class="output-buttons-container"></div>
+            </div>
+        </div>
+
+        <div id="editSection" class="section">
+            <h2>編集</h2>
+            <div class="config-group">
+                <div class="config-item"><label for="githubUrlInput">GitHubのURLからインポート: </label><input type="text" id="githubUrlInput" placeholder="GitHubのUserScript/JSファイルのURL"><button type="button" id="importGithubBtn">インポート</button></div>
+                <div class="config-item"><label for="toolPanelButtonName">ツールパネルのボタン名: </label><input type="text" id="toolPanelButtonName" placeholder="ツールパネル内のボタンを編集する場合に入力"></div>
+                <div class="hint">ツールパネルのコードを貼り付け、その中の特定のボタンに登録されたX検索パネルを編集する場合は「ボタン名」も入力してください。</div>
+            </div>
+            <textarea id="inputScript" placeholder="ここに既存のUserScriptまたはJavaScriptコードを貼り付けてください"></textarea><br>
+            <button type="button" id="loadScriptBtn" class="main-generate-btn" style="margin-top: 10px;">スクリプトを読み込んで編集開始</button>
+            <hr>
+            <div id="editForm" style="display:none;">
+                <div class="config-group">
+                    <h3>スクリプト情報 (編集)</h3>
+                    <div class="config-item"><label for="editScriptName">スクリプト名:</label><input type="text" id="editScriptName"></div>
+                    <div class="config-item"><label for="editImportSourceUrl">インポートするGitHub URL:</label><input type="text" id="editImportSourceUrl" placeholder="GitHubのURL (リポジトリ/Raw)"><button type="button" id="editUpdateSourceBtn">設定をインポート</button></div>
+                    <div class="config-item"><label for="editDownloadUrl">@downloadURL:</label><input type="text" id="editDownloadUrl"></div>
+                    <div class="config-item"><label for="editUpdateUrl">@updateURL:</label><input type="text" id="editUpdateUrl"></div>
+                </div>
+                <div class="config-group">
+                    <h3>複数生成 (編集)</h3>
+                    <div id="editMultipleGenerateContainer"></div>
+                    <div class="config-item" style="margin-top: 10px;">
+                        <select id="addEditMultipleGenerateSelect">
+                            <option value="javascript">JavaScript (ブックマークレット)</option>
+                            <option value="userscript_button">汎用UserScript (ボタン)</option>
+                            <option value="userscript_keyboard">汎用UserScript (キーボード)</option>
+                            <option value="toolpanel_js">ツールパネル編集(JavaScript)</option>
+                            <option value="toolpanel_button">ツールパネル編集(ボタン)</option>
+                            <option value="toolpanel_keyboard">ツールパネル編集(キーボード)</option>
+                        </select>
+                        <button type="button" id="addEditMultipleGenerateBtn">追加</button>
+                    </div>
+                </div>
+                <fieldset><legend>リスト設定 (編集)</legend><div id="edit-lists-container"></div></fieldset>
+                <fieldset><legend>ショートカット設定 (編集)</legend><div id="edit-shortcuts-container"></div><button type="button" class="add-btn" id="edit-add-shortcut-btn">ショートカットを追加</button></fieldset>
+                <button type="button" id="regenerateBtn" class="main-generate-btn">再生成</button>
+                <div id="editOutputSection" class="output-section" style="display: none;">
+                    <h3>生成結果</h3>
+                    <div id="editOutputTabsContainer" class="output-tabs"></div>
+                    <textarea id="editCodePreviewArea" class="code-preview-area" readonly></textarea>
+                    <div id="editOutputButtonsContainer" class="output-buttons-container"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 20px; margin-top: 20px; color: #888; font-size: 12px;">
+        <p>&copy; 2025 X Search Panel Generator (Multi-function Integrated Version)</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ########## GLOBAL STATE ##########
+        let state = {
+            isEditMode: false,
+            toolPanel: { isEditing: false, originalCode: '', buttonName: '' },
+            testableJsCode: null
+        };
+        let multiGenCounter = 0;
+
+        // ########## TAB SWITCHING ##########
+        const generateTabBtn = document.getElementById('generateTab');
+        const editTabBtn = document.getElementById('editTab');
+        const generateSection = document.getElementById('generateSection');
+        const editSection = document.getElementById('editSection');
+
+        function switchTab(activeTab) {
+            state.isEditMode = (activeTab.id === 'editTab');
+            generateTabBtn.classList.toggle('active', !state.isEditMode);
+            editTabBtn.classList.toggle('active', state.isEditMode);
+            generateSection.classList.toggle('active', !state.isEditMode);
+            editSection.classList.toggle('active', state.isEditMode);
+        }
+        generateTabBtn.addEventListener('click', () => switchTab(generateTabBtn));
+        editTabBtn.addEventListener('click', () => switchTab(editTabBtn));
+
+        // ########## UTILITY FUNCTIONS ##########
+        const _$id = (id) => document.getElementById(id);
+        const incrementVersion = (v) => { if (!v) return '1.0.1'; const p = v.split('.'); const n = parseInt(p[p.length - 1], 10); p[p.length - 1] = isNaN(n) ? 1 : n + 1; return p.join('.'); };
+        const saveCodeAsFile = (code, fileName) => { const blob = new Blob([code], { type: 'application/javascript;charset=utf-8' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName.replace(/[\s/\\?%*:|"<>]/g, '_') + '.js'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); };
+        const fetchGithubRawContent = async (url) => { if (!url || !url.trim()) return null; let rawUrl = url.trim().replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/'); try { const response = await fetch(rawUrl); if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return await response.text(); } catch (e) { console.error('GitHub fetch failed:', e); alert('GitHubからのインポートに失敗しました。URLを確認してください。'); return null; } };
+
+        // ########## ORIGINAL PANEL UI LOGIC ##########
+        const createListItemHTML = (id, data = { listName: '', accounts: [] }) => {
+            const accounts = data.accounts.length > 0 ? data.accounts : [{ displayName: '', username: '' }];
+            return `<div class="list-item" data-id="${id}"><details open><summary class="item-header"><span>▼ リスト</span><div class="item-controls"><button type="button" class="move-up-btn" title="上へ移動">↑</button><button type="button" class="move-down-btn" title="下へ移動">↓</button><button type="button" class="add-item-btn" title="下に追加">追加</button><button type="button" class="delete-item-btn" title="このリストを削除">削除</button></div></summary><input type="text" placeholder="リスト名" class="list-name-input" value="${data.listName || ''}" required><div class="accounts-container">${accounts.map((acc, i) => createAccountEntryHTML(i, acc)).join('')}</div></details></div>`;
+        };
+        const createAccountEntryHTML = (id, data = { displayName: '', username: '' }) => `<div class="account-entry" data-id="${id}"><input type="text" placeholder="表示名" class="account-name-input" value="${data.displayName || ''}" required><input type="text" placeholder="ユーザー名 (@は入れない)" class="username-input" value="${data.username || ''}" required><div class="account-controls"><button type="button" class="move-up-btn" title="上へ移動">↑</button><button type="button" class="move-down-btn" title="下へ移動">↓</button><button type="button" class="add-item-btn" title="下に追加">追加</button><button type="button" class="delete-item-btn" title="このアカウントを削除">削除</button></div></div>`;
+        const createShortcutItemHTML = (id, data = {}) => {
+            const s = (key, fb = '') => data[key] || fb; const c = (key) => data[key] ? 'checked' : '';
+            return `<div class="shortcut-item" data-id="${id}"><details open><summary class="item-header"><span>▼ ショートカット</span><div class="item-controls"><button type="button" class="move-up-btn">↑</button><button type="button" class="move-down-btn">↓</button><button type="button" class="delete-item-btn">削除</button></div></summary><input type="text" placeholder="ショートカット名" class="shortcut-prop" data-prop="shortcutName" value="${s('shortcutName')}" required><div class="shortcut-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"><div><label>from:</label><input type="text" class="shortcut-prop" data-prop="fromUser" value="${s('fromUser')}"></div><div><label>to:</label><input type="text" class="shortcut-prop" data-prop="toUser" value="${s('toUser')}"></div><div><label>検索方法:</label><select class="shortcut-prop" data-prop="searchMethod"><option value="">選択しない</option><option value="AND" ${s('searchMethod')==='AND'?'selected':''}>AND</option><option value="OR" ${s('searchMethod')==='OR'?'selected':''}>OR</option></select></div><div><label>キーワード1:</label><input type="text" class="shortcut-prop" data-prop="keyword1" value="${s('keyword1')}"></div><div><label>キーワード2:</label><input type="text" class="shortcut-prop" data-prop="keyword2" value="${s('keyword2')}"></div><div><label>キーワード3:</label><input type="text" class="shortcut-prop" data-prop="keyword3" value="${s('keyword3')}"></div><div><label>完全に一致:</label><input type="text" class="shortcut-prop" data-prop="exactPhrase" value="${s('exactPhrase')}"></div><div><label>除外ワード1:</label><input type="text" class="shortcut-prop" data-prop="exclude1" value="${s('exclude1')}"></div><div><label>除外ワード2:</label><input type="text" class="shortcut-prop" data-prop="exclude2" value="${s('exclude2')}"></div><div><label>除外ワード3:</label><input type="text" class="shortcut-prop" data-prop="exclude3" value="${s('exclude3')}"></div><div><label>いつから:</label><input type="date" class="shortcut-prop" data-prop="since" value="${s('since')}"></div><div><label>いつまで:</label><input type="date" class="shortcut-prop" data-prop="until" value="${s('until')}"></div><div><label>いいね数(以上):</label><input type="number" class="shortcut-prop" data-prop="minFaves" value="${s('minFaves')}"></div><div><label>リプライ数(以上):</label><input type="number" class="shortcut-prop" data-prop="minReplies" value="${s('minReplies')}"></div><div><label>リツイート数(以上):</label><input type="number" class="shortcut-prop" data-prop="minRetweets" value="${s('minRetweets')}"></div><div><label>言語:</label><select class="shortcut-prop" data-prop="lang"><option value="">指定なし</option><option value="ja" ${s('lang')==='ja'?'selected':''}>日本語</option><option value="en" ${s('lang')==='en'?'selected':''}>英語</option></select></div><div class="checkbox-group" style="display: flex; flex-direction: column;"><label><input type="checkbox" class="shortcut-prop" data-prop="imagesOnly" ${c('imagesOnly')}> 画像のみ</label><label><input type="checkbox" class="shortcut-prop" data-prop="videosOnly" ${c('videosOnly')}> 動画のみ</label><label><input type="checkbox" class="shortcut-prop" data-prop="followerOnly" ${c('followerOnly')}> フォロワーのみ</label><label><input type="checkbox" class="shortcut-prop" data-prop="excludeLang" ${c('excludeLang')}> 指定言語を除外</label></div></div></details></div>`;
+        };
+
+        document.body.addEventListener('click', (e) => {
+            const t = e.target;
+            const currentPrefix = state.isEditMode ? 'edit-' : '';
+            
+            if (t.matches('.add-item-btn')) {
+                const accountEntry = t.closest('.account-entry');
+                if (accountEntry) { accountEntry.insertAdjacentHTML('afterend', createAccountEntryHTML(Date.now())); updateAllControlsInContainer(accountEntry.parentElement); return; }
+                const listItem = t.closest('.list-item');
+                if (listItem) { listItem.insertAdjacentHTML('afterend', createListItemHTML(Date.now())); updateAllControlsInContainer(listItem.parentElement); }
+            }
+            if (t.matches(`#${currentPrefix}add-shortcut-btn`)) { 
+                const container = _$id(`${currentPrefix}shortcuts-container`);
+                container.insertAdjacentHTML('beforeend', createShortcutItemHTML(Date.now())); 
+                updateAllControlsInContainer(container); 
+            }
+            if (t.matches('.delete-item-btn')) { 
+                const i = t.closest('.list-item, .shortcut-item, .account-entry'), p = i.parentElement; 
+                if (i.classList.contains('account-entry')) {
+                    const container = i.closest('.accounts-container');
+                    if (container.querySelectorAll('.account-entry').length === 1) { alert('リストには少なくとも1つのアカウントが必要です'); return; }
+                }
+                i.remove(); updateAllControlsInContainer(p); 
+            }
+            if (t.matches('.move-up-btn')) { const i = t.closest('.list-item, .shortcut-item, .account-entry'); if (i.previousElementSibling) { i.parentElement.insertBefore(i, i.previousElementSibling); updateAllControlsInContainer(i.parentElement); } }
+            if (t.matches('.move-down-btn')) { const i = t.closest('.list-item, .shortcut-item, .account-entry'); if (i.nextElementSibling) { i.parentElement.insertBefore(i.nextElementSibling, i); updateAllControlsInContainer(i.parentElement); } }
+        });
+
+        const updateAllControls = (prefix = '') => { 
+            updateAllControlsInContainer(_$id(`${prefix}lists-container`)); 
+            updateAllControlsInContainer(_$id(`${prefix}shortcuts-container`)); 
+            document.querySelectorAll(`#${prefix}lists-container .accounts-container`).forEach(updateAllControlsInContainer); 
+        };
+        const updateAllControlsInContainer = (c) => { if (!c) return; const i = Array.from(c.children); i.forEach((item, index) => { const u = item.querySelector('.move-up-btn'), d = item.querySelector('.move-down-btn'); if (u) u.disabled = index === 0; if (d) d.disabled = index === i.length - 1; }); };
+        
+        const populateForm = (data, prefix = '') => {
+            const listsContainer = _$id(`${prefix}lists-container`);
+            const shortcutsContainer = _$id(`${prefix}shortcuts-container`);
+            listsContainer.innerHTML = ''; shortcutsContainer.innerHTML = '';
+            if (data.lists && data.lists.length > 0) {
+                data.lists.forEach((list, i) => listsContainer.insertAdjacentHTML('beforeend', createListItemHTML(i, list)));
+            } else {
+                listsContainer.insertAdjacentHTML('beforeend', createListItemHTML(Date.now()));
+            }
+            if (data.shortcuts) {
+                data.shortcuts.forEach((sc, i) => shortcutsContainer.insertAdjacentHTML('beforeend', createShortcutItemHTML(i, sc)));
+            }
+            updateAllControls(prefix);
+        };
+
+        // ########## MULTIPLE GENERATION UI ##########
+        const getTypeName = (type) => ({'javascript': 'JavaScript (ブックマークレット)','userscript_button': '汎用UserScript (ボタン)','userscript_keyboard': '汎用UserScript (キーボード)','toolpanel_js': 'ツールパネル編集(JavaScript)','toolpanel_button': 'ツールパネル編集(ボタン)','toolpanel_keyboard': 'ツールパネル編集(キーボード)'})[type] || '不明';
+        
+        const getMultiGenFormHtml = (type, id, data = {}) => {
+            let content = `<div class="form-group"><label for="mg-fileName-${id}">ファイル名</label><input type="text" id="mg-fileName-${id}" class="mg-fileName" value="${data.fileName || ''}"></div>`;
+            
+            const panelPositionHTML = `
+                <div class="config-item">
+                    <label>パネル位置:</label>
+                    <div class="position-setting-group">
+                        <div class="position-axis-group">
+                            <label><input type="checkbox" name="mg-${id}-y-pos" class="y-pos" value="top" ${data.position?.yProp !== 'bottom' ? 'checked' : ''}> 上から</label>
+                            <label><input type="checkbox" name="mg-${id}-y-pos" class="y-pos" value="bottom" ${data.position?.yProp === 'bottom' ? 'checked' : ''}> 下から</label>
+                            <input type="number" class="yValue" value="${data.position?.yVal || '10'}"> px
+                        </div>
+                        <div class="position-axis-group">
+                            <label><input type="checkbox" name="mg-${id}-x-pos" class="x-pos" value="left" ${data.position?.xProp !== 'right' ? 'checked' : ''}> 左から</label>
+                            <label><input type="checkbox" name="mg-${id}-x-pos" class="x-pos" value="right" ${data.position?.xProp === 'right' ? 'checked' : ''}> 右から</label>
+                            <input type="number" class="xValue" value="${data.position?.xVal || '10'}"> px
+                        </div>
+                    </div>
+                </div>`;
+            
+            content += panelPositionHTML;
+
+            if (type.startsWith('userscript') || (type.startsWith('toolpanel_') && type !== 'toolpanel_js')) {
+                const isButton = type.endsWith('_button');
+                const buttonCustomContentHtml = `
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>表示内容</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="us-contentType-${id}" value="default" ${data.button?.contentType !== 'custom' ? 'checked' : ''}> デフォルト</label>
+                            <label><input type="radio" name="us-contentType-${id}" value="custom" ${data.button?.contentType === 'custom' ? 'checked' : ''}> カスタム</label>
+                        </div>
+                    </div>
+                    <div class="us-custom-content-box section-box" style="display:${data.button?.contentType === 'custom' ? 'block' : 'none'};">
+                        <div class="form-group"><label>背景色</label><input type="text" class="us-bgColor" value="${data.button?.custom?.bgColor || 'rgba(0,0,0,0.5)'}" placeholder="例: #000000, black"></div>
+                        <div class="form-group"><label>四隅半径(px)</label><input type="number" class="us-borderRadius" value="${data.button?.custom?.borderRadius || '5'}"></div>
+                        <div class="form-group"><label>文字表示</label><input type="text" class="us-buttonText" value="${data.button?.custom?.buttonText || 'X'}"></div>
+                        <div class="form-group"><label>文字色</label><input type="text" class="us-textColor" value="${data.button?.custom?.textColor || '#ffffff'}" placeholder="例: #ffffff, white"></div>
+                        <div class="form-group"><label>文字大きさ(px)</label><input type="number" class="us-fontSize" value="${data.button?.custom?.fontSize || '16'}"></div>
+                        <div class="form-group"><label>透明度 (0-100)</label><input type="number" class="us-opacity" min="0" max="100" value="${data.button?.custom?.opacity || '100'}" placeholder="100"></div>
+                    </div>`;
+
+                content += `<div class="userscript-form-section">
+                    <div class="form-group"><label for="us-name-${id}">UserScript名</label><input type="text" id="us-name-${id}" class="us-name" value="${data.name || ''}" placeholder="例: My X Search Panel Trigger"></div>
+                    <div class="form-group"><label for="us-version-${id}">バージョン</label><input type="text" id="us-version-${id}" class="us-version" value="${data.version || '1.0.0'}"></div>
+                    <div class="form-group" id="us-url-container-${id}"><label>起動するサイトのURL</label></div>
+                    <button type="button" class="us-add-url-btn" data-container-id="us-url-container-${id}">URL追加</button>
+                    <div class="form-group"><label for="us-downloadURL-${id}">@downloadURL</label><input type="text" id="us-downloadURL-${id}" class="us-downloadURL" value="${data.downloadURL || ''}"></div>
+                    <div class="form-group"><label for="us-updateURL-${id}">@updateURL</label><input type="text" id="us-updateURL-${id}" class="us-updateURL" value="${data.updateURL || ''}"></div>
+                    ${isButton ? `
+                    <div id="us-button-section-${id}">
+                        <div class="form-group"><label>表示方法</label><div class="radio-group"><label><input type="radio" name="us-displayMode-${id}" value="fixed" ${data.button?.displayMode !== 'transparent' ? 'checked' : ''}> 固定表示</label><label><input type="radio" name="us-displayMode-${id}" value="transparent" ${data.button?.displayMode === 'transparent' ? 'checked' : ''}> 透明化</label></div></div>
+                        <div class="us-cursor-area-box section-box" style="display:${data.button?.displayMode === 'transparent' ? 'block' : 'none'};"><label>カーソル域</label><div class="input-row"><label>左上:</label><label>上から</label><input type="number" class="us-cursorTop" placeholder="px" value="${data.button?.cursor?.top || '0'}"><label>左から</label><input type="number" class="us-cursorLeft" placeholder="px" value="${data.button?.cursor?.left || '0'}"></div><div class="input-row"><label>右下:</label><label>上から</label><input type="number" class="us-cursorBottom" placeholder="px" value="${data.button?.cursor?.bottom || '30'}"><label>左から</label><input type="number" class="us-cursorRight" placeholder="px" value="${data.button?.cursor?.right || '30'}"></div></div>
+                        <div class="section-box"><label>表示域</label><div class="input-row"><label>左上:</label><label>上から</label><input type="number" class="us-displayTop" placeholder="px" value="${data.button?.display?.top || '10'}"><label>左から</label><input type="number" class="us-displayLeft" placeholder="px" value="${data.button?.display?.left || '10'}"></div><div class="input-row"><label>右下:</label><label>上から</label><input type="number" class="us-displayBottom" placeholder="px" value="${data.button?.display?.bottom || '40'}"><label>左から</label><input type="number" class="us-displayRight" placeholder="px" value="${data.button?.display?.right || '40'}"></div></div>
+                        ${buttonCustomContentHtml}
+                    </div>` : `
+                    <div id="us-keyboard-section-${id}">
+                        <div class="form-group"><label>ショートカットキー</label><input type="text" class="us-key" placeholder="例: x" value="${data.shortcuts && data.shortcuts.length > 0 ? data.shortcuts[0].key : 'x'}"></div>
+                    </div>`}
+                </div>`;
+            }
+
+            if (type.startsWith('toolpanel_')) {
+                content += `<div class="form-group"><label>ボタン名</label><input type="text" class="toolpanel-button-name" value="${data.buttonName || state.toolPanel.buttonName || ''}" readonly></div>`;
+            }
+            
+            return content;
+        };
+
+
+        const addUrlInputToUSForm = (containerId, type = 'match', url = '') => { const container = document.getElementById(containerId); if(!container) return; const div = document.createElement('div'); div.className = 'url-input'; div.innerHTML = `<select class="us-url-type"><option value="match" ${type === 'match' ? 'selected' : ''}>@match</option><option value="include" ${type === 'include' ? 'selected' : ''}>@include</option></select><input type="text" class="us-url-input-field" placeholder="https://x.com/*" value="${url}"><button type="button" class="delete-url-btn">削除</button>`; div.querySelector('.delete-url-btn').addEventListener('click', () => div.remove()); container.appendChild(div); };
+
+
+        // 生成内容が前回から変わったか判定するためのスナップショット（version等は含めない）
+        function snapshotForVersionBump(item, panelData) {
+          const id = item.dataset.id;
+          const type = item.dataset.type;
+        
+          const snap = {
+            type,
+            position: {
+              yProp: item.querySelector('.y-pos:checked')?.value,
+              yVal: item.querySelector('.yValue')?.value,
+              xProp: item.querySelector('.x-pos:checked')?.value,
+              xVal: item.querySelector('.xValue')?.value
+            },
+            // パネルの実データも含める（ここが変わればスナップショットも変わる）
+            panelData
+          };
+        
+          if (type.startsWith('userscript') || (type.startsWith('toolpanel_') && type !== 'toolpanel_js')) {
+            snap.mode = type.split('_')[1];
+            // 対象URL（@match/@include）
+            snap.urls = Array.from(item.querySelectorAll(`#us-url-container-${id} .url-input`)).map(div => ({
+              type: div.querySelector('.us-url-type')?.value,
+              url: div.querySelector('.us-url-input-field')?.value
+            }));
+            if (snap.mode === 'button') {
+              snap.button = {
+                displayMode: item.querySelector(`input[name="us-displayMode-${id}"]:checked`)?.value,
+                display: {
+                  top: item.querySelector('.us-displayTop')?.value,
+                  left: item.querySelector('.us-displayLeft')?.value,
+                  bottom: item.querySelector('.us-displayBottom')?.value,
+                  right: item.querySelector('.us-displayRight')?.value
+                },
+                cursor: {
+                  top: item.querySelector('.us-cursorTop')?.value,
+                  left: item.querySelector('.us-cursorLeft')?.value,
+                  bottom: item.querySelector('.us-cursorBottom')?.value,
+                  right: item.querySelector('.us-cursorRight')?.value
+                },
+                contentType: item.querySelector(`input[name="us-contentType-${id}"]:checked`)?.value
+              };
+              if (snap.button.contentType === 'custom') {
+                snap.button.custom = {
+                  bgColor: item.querySelector('.us-bgColor')?.value,
+                  borderRadius: item.querySelector('.us-borderRadius')?.value,
+                  buttonText: item.querySelector('.us-buttonText')?.value,
+                  textColor: item.querySelector('.us-textColor')?.value,
+                  fontSize: item.querySelector('.us-fontSize')?.value,
+                  opacity: item.querySelector('.us-opacity')?.value
+                };
+              }
+            } else {
+              snap.shortcuts = [{ key: item.querySelector('.us-key')?.value }];
+            }
+            if (type.startsWith('toolpanel_')) {
+              snap.buttonName = item.querySelector('.toolpanel-button-name')?.value;
+            }
+          }
+          // ← version, name, downloadURL, updateURL は意図的に含めない
+          return JSON.stringify(snap);
+        }
+        
+
+
+        function addMultipleGenerateItem(type, containerId, data = {}) {
+            multiGenCounter++; 
+            const container = document.getElementById(containerId);
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'multiple-generate-item';
+            itemDiv.dataset.type = type;
+            itemDiv.dataset.id = multiGenCounter;
+            itemDiv.innerHTML = `<h4>${getTypeName(type)} <button type="button" class="delete-multi-gen-btn">削除</button></h4>` + getMultiGenFormHtml(type, multiGenCounter, data);
+            container.appendChild(itemDiv);
+            itemDiv.querySelector('.delete-multi-gen-btn').addEventListener('click', () => itemDiv.remove());
+
+            const id = itemDiv.dataset.id;
+            if (type.startsWith('userscript') || (type.startsWith('toolpanel_') && type !== 'toolpanel_js')) {
+                const urlContainerId = `us-url-container-${id}`;
+                if (data.urls && data.urls.length > 0) { data.urls.forEach(u => addUrlInputToUSForm(urlContainerId, u.type, u.url)); } else { addUrlInputToUSForm(urlContainerId, 'match', 'https://x.com/*'); }
+                itemDiv.querySelector('.us-add-url-btn')?.addEventListener('click', (e) => addUrlInputToUSForm(e.target.dataset.containerId));
+            }
+
+            // Event listeners for new button UI
+            if (type.endsWith('_button')) {
+                const displayModeRadios = itemDiv.querySelectorAll(`input[name="us-displayMode-${id}"]`);
+                const contentTypeRadios = itemDiv.querySelectorAll(`input[name="us-contentType-${id}"]`);
+                const cursorAreaBox = itemDiv.querySelector('.us-cursor-area-box');
+                const customContentBox = itemDiv.querySelector('.us-custom-content-box');
+
+                displayModeRadios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        if (cursorAreaBox) cursorAreaBox.style.display = e.target.value === 'transparent' ? 'block' : 'none';
+                    });
+                });
+                contentTypeRadios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        if(customContentBox) customContentBox.style.display = e.target.value === 'custom' ? 'block' : 'none';
+                    });
+                });
+            }
+
+            // Checkbox logic for position
+            itemDiv.querySelectorAll('.position-axis-group').forEach(group => {
+                const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        if (cb.checked) {
+                            checkboxes.forEach(other => { if (other !== cb) other.checked = false; });
+                        }
+                        if (!group.querySelector('input[type="checkbox"]:checked')) {
+                            cb.checked = true; // Prevent unchecking all
+                        }
+                    });
+                });
+            });
+        }
+        
+        // ########## SCRIPT PARSING & DATA EXTRACTION ##########
+        const extractMetadata = (scriptText) => { const match = scriptText.match(/\/\*\s*MULTIGEN_METADATA:\s*(\[[\s\S]*?\])\s*\*\//); if (match && match[1]) { try { const restored = match[1].replace(/\*\\\//g, '*/'); return JSON.parse(restored); } catch (e) { console.error("Failed to parse metadata", e); }} return null; };
+        
+        function parseBaseScript(scriptText) {
+            const config = {};
+            const panelDataMatch = scriptText.match(/const panelData\s*=\s*(\{[\s\S]*?\});/);
+            if (panelDataMatch && panelDataMatch[1]) {
+                try {
+                    const data = (new Function(`return ${panelDataMatch[1]}`))();
+                    config.lists = data.lists || [];
+                    config.shortcuts = data.shortcuts || [];
+                } catch (e) {
+                    console.error("Failed to parse panelData:", e);
+                    config.lists = []; config.shortcuts = [];
+                }
+            }
+            return config;
+        }
+
+        const findMatchingBrace = (str, pos, openChar = '{', closeChar = '}') => {
+            let depth = 1; let inString = null; let isEscaped = false;
+            for (let i = pos + 1; i < str.length; i++) {
+                const char = str[i];
+                if (inString) {
+                    if (isEscaped) { isEscaped = false; }
+                    else if (char === '\\') { isEscaped = true; }
+                    else if (char === inString) { inString = null; }
+                } else {
+                    if (char === '"' || char === "'" || char === '`') { inString = char; }
+                    else if (char === openChar) { depth++; }
+                    else if (char === closeChar) { depth--; }
+                }
+                if (depth === 0) return i;
+            }
+            return -1;
+
+        };
+
+
+        // --- ツールパネル IIFE を “javascript:(function(){ ... })()” で抜き出す ---
+        function extractToolPanelIIFE(code) {
+          if (!code) return null;
+        
+          // "javascript:" を剥がしてデコード
+          let s = code;
+          if (typeof s === 'string' && s.toLowerCase().startsWith('javascript:')) {
+            try { s = decodeURIComponent(s.slice(11)); } catch { s = s.slice(11); }
+          }
+        
+          // アンカー：panelId の初期化を探す
+          const anchorRe = /panelId\s*=\s*['"]tool-panel-nav-['"]\s*\+\s*Date\.now\(\)/;
+          let anchorIdx = s.search(anchorRe);
+        
+          // 予備：少し緩いアンカー（万一メタが違う場合）
+          if (anchorIdx < 0) {
+            const loose = /panelId\s*=\s*['"]tool-panel-nav-['"]/;
+            anchorIdx = s.search(loose);
+            if (anchorIdx < 0) return null;
+          }
+        
+          // アンカーより前で (function(){ を後方から見つける
+          const reStart = /\(\s*function\s*\(\s*\)\s*\{/g;
+          let start = -1, m;
+          while ((m = reStart.exec(s)) !== null) {
+            if (m.index <= anchorIdx) start = m.index; else break;
+          }
+          if (start < 0) return null;
+        
+          // 対応する '}' を文字列・コメントを考慮して探索
+          const openPos = s.indexOf('{', start);
+          if (openPos < 0) return null;
+        
+          let depth = 0, i = openPos;
+          let str = null, esc = false, lineC = false, blockC = false;
+        
+          for (; i < s.length; i++) {
+            const ch = s[i], nx = s[i + 1];
+        
+            if (str) {
+              if (esc) { esc = false; continue; }
+              if (ch === '\\') { esc = true; continue; }
+              if (ch === str) { str = null; }
+              continue;
+            }
+            if (blockC) { if (ch === '*' && nx === '/') { blockC = false; i++; } continue; }
+            if (lineC) { if (ch === '\n') lineC = false; continue; }
+        
+            if (ch === '"' || ch === "'" || ch === '`') { str = ch; continue; }
+            if (ch === '/' && nx === '*') { blockC = true; i++; continue; }
+            if (ch === '/' && nx === '/') { lineC = true; i++; continue; }
+        
+            if (ch === '{') depth++;
+            else if (ch === '}') {
+              depth--;
+              if (depth === 0) { i++; break; }
+            }
+          }
+          if (depth !== 0) return null;
+        
+          // IIFE 呼び出しの尻尾をできるだけ含める
+          let end = i;
+          if (s.slice(end, end + 3) === ')()') end += 3;          // ...})()
+          else if (s.slice(end, end + 4) === '})();') end += 4;   // ...})();（セミコロン付与型）
+        
+          const iife = s.slice(start, end);
+          return 'javascript:' + iife;
+        }
+        
+
+        const extractScriptFromToolPanel = (toolPanelCode, buttonName) => {
+            if (!toolPanelCode || !buttonName) return null;
+            let processCode = toolPanelCode.startsWith('javascript:') ? decodeURIComponent(toolPanelCode.substring(11)) : toolPanelCode;
+            
+            const itemsRegex = /const\s+(initialData|items)\s*=\s*(\[)/;
+            const match = processCode.match(itemsRegex);
+            if (!match) return null;
+
+            const startIndex = processCode.indexOf('[', match.index);
+            const endIndex = findMatchingBrace(processCode, startIndex, '[', ']');
+            if (endIndex === -1) return null;
+
+            const itemsStr = processCode.substring(startIndex, endIndex + 1);
+            let items;
+            try { items = (new Function(`return ${itemsStr}`))(); } catch (e) { return null; }
+
+            function findScript(itemsArr, name) {
+                for (const item of itemsArr) {
+                    if (item.name === name && !item.isFolder) return item.script;
+                    if (item.children) {
+                        const found = findScript(item.children, name);
+                        if (found) return found;
+                    }
+                }
+                return null;
+            }
+            return findScript(items, buttonName);
+        };
+        
+        // ########## SCRIPT GENERATION ##########
+        function generatePanelLogic(data, position) {
+            const dataString = JSON.stringify(data);
+            const posCss = `${position.yProp}: ${position.yVal}px; ${position.xProp}: ${position.xVal}px;`;
+            
+            return `(function(){if(document.getElementById('x-search-panel-container')){document.getElementById('x-search-panel-container').remove();return}
+const panelData=${dataString};
+const panelCSS=\`:root{--bg:#e6f0ff;--text:#003366;--border:#99c2ff;--input-bg:#f0f0f0;--input-text:#000;--btn-bg:#4da6ff;--btn-text:#fff;--accent-bg:#1a75ff;--accent-text:#fff;--list-bg:#d4e4ff;}@media (prefers-color-scheme:dark){:root{--bg:#1a3d66;--text:#e6f0ff;--border:#4d79b3;--input-bg:#333;--input-text:#fff;--btn-bg:#1a75ff;--list-bg:#254d80;}}#x-search-panel-container{color:var(--text);background-color:var(--bg);position:fixed;${posCss}border:1px solid var(--border);border-radius:8px;padding:10px;z-index:9999;font-size:12px;width:90%;max-width:380px;box-shadow:0 4px 12px rgba(0,0,0,.25);box-sizing:border-box;font-family:sans-serif}.x-panel-screen{display:none}.x-panel-screen.active{display:block}.x-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-bottom:1px solid var(--border);padding-bottom:5px}.x-panel-header .x-panel-title-container{display:flex;align-items:center;gap:8px}#x-panel-settings-btn{color:var(--text);background:0;border:0;font-size:20px;cursor:pointer;padding:0;line-height:1}.x-panel-header h3{margin:0}.x-panel-lists-container{display:flex;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;gap:12px}.x-panel-list{flex:0 0 31%;min-width:90px}.x-panel-list h4{margin:0 0 4px 0;font-size:13px}.x-panel-users,.x-panel-shortcuts{max-height:120px;overflow-y:auto;border:1px solid var(--border);background-color:var(--list-bg);padding:5px;border-radius:4px}.x-panel-user label,.x-panel-shortcut label{display:block;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.x-panel-footer{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}.x-panel-footer button{flex-grow:1;padding:6px;border:1px solid var(--border);background:var(--btn-bg);color:var(--btn-text);border-radius:4px;cursor:pointer;font-size:11px}.x-panel-close-btn,.x-panel-back-btn{color:var(--text);background:0;border:0;font-size:18px;cursor:pointer;padding:0 5px}.x-panel-fromto-group label{display:block;font-size:12px}hr{border-color:var(--border);border-style:solid;border-width:1px 0 0 0}.x-search-form-wrapper{max-height:300px;overflow-y:auto;padding-right:8px;margin-top:8px}.x-search-form div{margin-bottom:6px}.x-search-form label{font-weight:700;margin-bottom:2px;font-size:11px;display:block}#x-search-form input,#x-search-form select,#x-search-form textarea{color:var(--input-text)!important;background-color:var(--input-bg)!important;width:95%;padding:5px;border:1px solid var(--border);border-radius:4px;font-size:12px}.checkbox-group{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.checkbox-group label{justify-content:flex-start}.checkbox-group input[type=checkbox]{width:auto!important}#x-search-form-final-btn{width:100%;padding:8px;background:var(--accent-bg);color:var(--accent-text);border:0;font-size:14px;font-weight:700;margin-top:5px}\`;
+/* ... (The rest of the original panel's JS logic remains unchanged) ... */
+const panelContainer=document.createElement('div');panelContainer.id='x-search-panel-container';panelContainer.innerHTML=\`<style>\${panelCSS}</style><div id="list-screen" class="x-panel-screen active"><div class="x-panel-header"><div class="x-panel-title-container"><button id="x-panel-settings-btn">⚙️</button><h3>リスト</h3></div><button class="x-panel-close-btn">☒</button></div><div class="x-panel-lists-container">\${panelData.lists.map(list=>\`<div class="x-panel-list"><h4>\${list.listName}</h4><div class="x-panel-users">\${list.accounts.map(acc=>\`<div class="x-panel-user"><label><input type="checkbox" name="user-select" value="\${acc.username}"> \${acc.displayName}</label></div>\`).join('')}</div></div>\`).join('')}</div><div class="x-panel-fromto-group"><label><input type="radio" name="from-to-mode" value="from" id="radio-from"> from:</label><label><input type="radio" name="from-to-mode" value="to" id="radio-to"> to:</label><label><input type="radio" name="from-to-mode" value="from_to" id="radio-from_to"> from:↔to:</label><span id="from-to-display"></span></div><hr style="margin:8px 0"><h4>ショートカット</h4><div class="x-panel-shortcuts">\${panelData.shortcuts.map(sc=>\`<div class="x-panel-shortcut"><label><input type="radio" name="shortcut-select" value="\${sc.shortcutName}"> \${sc.shortcutName}</label></div>\`).join('')}</div><div class="x-panel-footer"><button type="button" id="profile-btn">プロフへ</button><button type="button" id="copy-user-btn">垢名コピー</button><button type="button" id="copy-all-btn">垢名抽出</button><button type="button" id="show-advanced-search-btn" style="background:var(--accent-bg);color:var(--accent-text);font-weight:700">詳細検索へ</button></div></div><div id="advanced-search-screen" class="x-panel-screen"><div class="x-panel-header"><button class="x-panel-back-btn" type="button">←戻る</button><h3>詳細検索</h3></div><form id="x-search-form" onsubmit="return false"><div class="x-search-form-wrapper"><div><label>ユーザー名:</label><input type="text" id="final-user"></div><div><label>from:</label><input type="text" id="final-from"></div><div><label>to:</label><input type="text" id="final-to"></div><div><label>検索方法:</label><select id="final-searchMethod"><option value="">選択しない</option><option value="AND">AND</option><option value="OR">OR</option></select></div><div><label>キーワード:</label><input type="text" id="final-keyword1"><input type="text" id="final-keyword2" style="margin-top:2px"><input type="text" id="final-keyword3" style="margin-top:2px"></div><div><label>完全に一致:</label><input type="text" id="final-exactPhrase"></div><div><label>除外ワード:</label><input type="text" id="final-exclude1"><input type="text" id="final-exclude2" style="margin-top:2px"><input type="text" id="final-exclude3" style="margin-top:2px"></div><div><label>いつから:</label><input type="date" id="final-since"></div><div><label>いつまで:</label><input type="date" id="final-until"></div><div><label>いいね数(以上):</label><input type="number" id="final-minFaves"></div><div><label>リプライ数(以上):</label><input type="number" id="final-minReplies"></div><div><label>リツイート数(以上):</label><input type="number" id="final-minRetweets"></div><div><label>言語:</label><select id="final-lang"><option value="">指定なし</option><option value="ja">日本語</option><option value="en">英語</option></select></div><div class="checkbox-group"><label><input type="checkbox" id="final-imagesOnly">画像のみ</label><label><input type="checkbox" id="final-videosOnly">動画のみ</label><label><input type="checkbox" id="final-followerOnly">フォロワーのみ</label><label><input type="checkbox" id="final-excludeLang">指定言語を除外</label></div></div><button type="button" id="x-search-form-final-btn">検索</button></form></div>\`;
+document.body.appendChild(panelContainer);
+const q=s=>panelContainer.querySelector(s),qAll=s=>panelContainer.querySelectorAll(s);const switchScreen=id=>{qAll('.x-panel-screen').forEach(s=>s.classList.remove('active'));q(\`#\${id}\`).classList.add('active')};q('.x-panel-close-btn').onclick=()=>panelContainer.remove();q('.x-panel-back-btn').onclick=()=>switchScreen('list-screen');q('#x-panel-settings-btn').onclick=()=>window.open('https://sites.google.com/view/x-advanced-panel-generator/%E3%83%9B%E3%83%BC%E3%83%A0','_blank');
+const displaySpan=q('#from-to-display'),updateFromToDisplay=()=>{const mode=q('input[name="from-to-mode"]:checked')?.value,selected=Array.from(qAll('input[name="user-select"]:checked'));displaySpan.innerHTML='';displaySpan.dataset.from='';displaySpan.dataset.to='';if(!mode)return;if((mode==='from'||mode==='to')&&selected.length>1){alert('from:かto:はユーザー1人のみ選択可能です。');q('input[name="from-to-mode"]:checked').checked=false;return}if(mode==='from_to'){if(selected.length!==2){alert('from: to: はユーザー2人の選択が必要です。');q('input[name="from-to-mode"]:checked').checked=false;return}const users=selected.map(cb=>cb.value);displaySpan.dataset.from=users[0];displaySpan.dataset.to=users[1];displaySpan.innerHTML=\` from:\${users[0]} <button type="button" id="swap-users-btn" style="border:0;background:0;cursor:pointer;color:var(--text)">↔</button> to:\${users[1]}\`}};
+qAll('input[name="user-select"]').forEach(cb=>cb.onchange=()=>{if(Array.from(qAll('input[name="user-select"]:checked')).length>2){alert('ユーザーは2人までです');cb.checked=false}updateFromToDisplay()});
+let lastCheckedFromTo='radio-from';q('#radio-from').checked=true;qAll('input[name="from-to-mode"]').forEach(radio=>radio.addEventListener('click',e=>{if(e.target.id===lastCheckedFromTo&&e.target.checked){e.target.checked=false;lastCheckedFromTo=null}else{lastCheckedFromTo=e.target.id}updateFromToDisplay()}));
+displaySpan.onclick=e=>{if(e.target.id==='swap-users-btn'){const from=displaySpan.dataset.from,to=displaySpan.dataset.to;displaySpan.dataset.from=to;displaySpan.dataset.to=from;displaySpan.innerHTML=\` from:\${to} <button type="button" id="swap-users-btn" style="border:0;background:0;cursor:pointer;color:var(--text)">↔</button> to:\${from}\`}};
+q('#profile-btn').onclick=()=>{const s=Array.from(qAll('input[name="user-select"]:checked'));if(s.length!==1)return alert('ユーザーを1人選択してください');location.href=\`https://x.com/\${s[0].value}\`};
+q('#copy-user-btn').onclick=()=>{const s=Array.from(qAll('input[name="user-select"]:checked'));if(s.length!==1)return alert('ユーザーを1人選択してください');navigator.clipboard.writeText(s[0].value).then(()=>alert('コピー: '+s[0].value))};
+q('#copy-all-btn').onclick=()=>{const currentUrl=window.location.href;const match=currentUrl.match(/https:\\/\\/x\\.com\\/([^\\/]+)/);if(!match||!match[1])return alert('このページからユーザー名を抽出できません');const username=match[1];navigator.clipboard.writeText(username).then(()=>alert('ユーザー名をコピーしました: '+username))};
+q('#show-advanced-search-btn').onclick=()=>{q('#x-search-form').reset();let p={};const scName=q('input[name="shortcut-select"]:checked')?.value;if(scName)p={...(panelData.shortcuts.find(sc=>sc.shortcutName===scName)||{})};const ftMode=q('input[name="from-to-mode"]:checked')?.value,selUsers=Array.from(qAll('input[name="user-select"]:checked')).map(cb=>cb.value);if(ftMode){delete p.user;delete p.fromUser;delete p.toUser;if(ftMode==='from'&&selUsers.length===1)p.fromUser=selUsers[0];if(ftMode==='to'&&selUsers.length===1)p.toUser=selUsers[0];if(ftMode==='from_to'&&selUsers.length===2){p.fromUser=displaySpan.dataset.from;p.toUser=displaySpan.dataset.to}}else if(selUsers.length===1)p.user=selUsers[0];else if(selUsers.length>1)return alert('ユーザー2人選択時は from/to を指定してください');
+const setVal=(id,val)=>{const e=q(\`#final-\${id}\`);if(e)e.value=val||''};const setCheck=(id,val)=>{const e=q(\`#final-\${id}\`);if(e)e.checked=!!val};
+setVal('user',p.user);setVal('from',p.fromUser);setVal('to',p.toUser);setVal('searchMethod',p.searchMethod);setVal('keyword1',p.keyword1);setVal('keyword2',p.keyword2);setVal('keyword3',p.keyword3);setVal('exactPhrase',p.exactPhrase);setVal('exclude1',p.exclude1);setVal('exclude2',p.exclude2);setVal('exclude3',p.exclude3);setVal('since',p.since);setVal('until',p.until);setVal('minFaves',p.minFaves);setVal('minReplies',p.minReplies);setVal('minRetweets',p.minRetweets);setVal('lang',p.lang);
+setCheck('imagesOnly',p.imagesOnly);setCheck('videosOnly',p.videosOnly);setCheck('followerOnly',p.followerOnly);setCheck('excludeLang',p.excludeLang);
+switchScreen('advanced-search-screen')};
+q('#x-search-form-final-btn').onclick=()=>{const v=id=>q(\`#final-\${id}\`).value,c=id=>q(\`#final-\${id}\`).checked,parts=[];const user=v('user'),from=v('from'),to=v('to');if(user&&(from||to))return alert('ユーザー名とfrom/toは同時に使用できません');if(user)parts.push(encodeURIComponent(user));if(from)parts.push(\`from:\${from}\`);if(to)parts.push(\`to:\${to}\`);const kws=[v('keyword1'),v('keyword2'),v('keyword3')].filter(Boolean);if(kws.length>0)parts.push(\`(\${kws.map(k=>\`"\${k}"\`).join(\` \${v('searchMethod')||' '} \`)})\`);if(v('exactPhrase'))parts.push(\`"\${v('exactPhrase')}"\`);[v('exclude1'),v('exclude2'),v('exclude3')].filter(Boolean).forEach(ex=>parts.push(\`-\${ex}\`));if(v('since'))parts.push(\`since:\${v('since')}\`);if(v('until'))parts.push(\`until:\${v('until')}\`);if(v('minFaves'))parts.push(\`min_faves:\${v('minFaves')}\`);if(v('minReplies'))parts.push(\`min_replies:\${v('minReplies')}\`);if(v('minRetweets'))parts.push(\`min_retweets:\${v('minRetweets')}\`);if(c('imagesOnly'))parts.push('filter:images');if(c('videosOnly'))parts.push('filter:videos');if(c('followerOnly'))parts.push('filter:follows');if(v('lang'))parts.push(\`\${c('excludeLang')?'-':''}lang:\${v('lang')}\`);location.href=\`https://x.com/search?q=\${encodeURIComponent(parts.join(' '))}&src=typed_query\`};
+})()`.replace(/\s{2,}/g, ' ').replace(/\n/g, '');
+        }
+
+        const generateGenericUserScript = (options, payload) => {
+            const {name, version, urls, downloadURL, updateURL} = options;
+            const scriptPayload = payload.startsWith('javascript:') ? payload.substring(11) : payload;
+            let scriptBody = '';
+
+            if (options.mode === 'button') {
+                const btn = options.button;
+                const width = (btn.display.right || 0) - (btn.display.left || 0);
+                const height = (btn.display.bottom || 0) - (btn.display.top || 0);
+
+                let styles = `position:fixed;top:${btn.display.top||0}px;left:${btn.display.left||0}px;width:${width||30}px;height:${height||30}px;z-index:2147483646;cursor:pointer;border:none;`;
+                let content = '';
+                if (btn.contentType === 'custom') {
+                    const custom = btn.custom;
+                    const colorToRgba = (colorStr, opacityPercent) => {
+                        const alpha = Math.max(0, Math.min(1, (parseInt(opacityPercent, 10) || 100) / 100));
+                        const div = document.createElement('div'); div.style.color = colorStr || 'black'; document.body.appendChild(div);
+                        const computedColor = window.getComputedStyle(div).color; document.body.removeChild(div);
+                        const match = computedColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+                        return match ? `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})` : `rgba(0,0,0,${alpha})`;
+                    };
+                    const bgColorRgba = colorToRgba(custom.bgColor, custom.opacity);
+                    styles += `background-color:${bgColorRgba};border-radius:${custom.borderRadius||0}px;display:flex;align-items:center;justify-content:center;`;
+                    if (custom.buttonText) {
+                        const textColorRgba = colorToRgba(custom.textColor, 100);
+                        content = `button.textContent='${custom.buttonText.replace(/'/g, "\\'")}';button.style.color='${textColorRgba}';button.style.fontSize='${custom.fontSize||16}px';`;
+                    }
+                } else { // Default
+                    styles += `background-color:rgba(0,0,0,0.5);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;`;
+                    content = `for(let i=0;i<3;i++){const l=document.createElement('div');l.style='width:20px;height:3px;background:white;margin:2px 0';button.appendChild(l);}`;
+                }
+
+                let transparencyLogic = '';
+                if (btn.displayMode === 'transparent') {
+                    styles += `display:none;`;
+                    transparencyLogic = `const ca={top:${btn.cursor.top||0},left:${btn.cursor.left||0},bottom:${btn.cursor.bottom||30},right:${btn.cursor.right||30}};document.addEventListener('mousemove',e=>{const i=e.clientX>=ca.left&&e.clientX<=ca.right&&e.clientY>=ca.top&&e.clientY<=ca.bottom;const d=i?(button.style.flexDirection?'flex':'block'):'none';if(button.style.display!==d){button.style.display=d;}});`;
+                }
+                scriptBody = `(function(){'use strict';const button=document.createElement('div');button.style.cssText='${styles}';document.body.appendChild(button);${content}${transparencyLogic}button.addEventListener('click',()=>{${scriptPayload}});})();`;
+            } else { // keyboard
+                const key = options.shortcuts[0].key;
+                scriptBody = `(function(){'use strict';document.addEventListener('keydown',e=>{if(e.key==='${key.replace(/'/g, "\\'")}'){${scriptPayload}}});})();`;
+            }
+            const urlLines = urls.map(u => `// @${u.type.padEnd(12, ' ')}${u.url}`).join('\n');
+            return `// ==UserScript==
+// @name         ${name}
+// @namespace    http://tampermonkey.net/
+// @version      ${version}
+// @description  Generated by X Search Panel Generator
+// @author       You
+${urlLines}
+${downloadURL?`// @downloadURL  ${downloadURL}\n`:''}${updateURL?`// @updateURL    ${updateURL}\n`:''}// @grant        none
+// ==/UserScript==
+${scriptBody}`;
+        };
+        
+        const regenerateToolPanel = (originalCode, buttonName, newButtonScript) => {
+            if (!originalCode || !buttonName || !newButtonScript) return null;
+            let processCode = originalCode;
+            if (processCode.toLowerCase().startsWith('javascript:')) {
+                try { processCode = decodeURIComponent(processCode.substring(11)); }
+                catch(e) { processCode = processCode.substring(11); }
+            }
+            
+            const itemsRegex = /const\s+(initialData|items)\s*=\s*(\[)/;
+            const match = processCode.match(itemsRegex);
+            if (!match) return null;
+
+            const startIndex = processCode.indexOf('[', match.index);
+            const endIndex = findMatchingBrace(processCode, startIndex, '[', ']');
+            if (endIndex === -1) return null;
+
+            const itemsStr = processCode.substring(startIndex, endIndex + 1);
+            let items;
+            try { items = (new Function(`return ${itemsStr}`))(); } catch (e) { return null; }
+
+            function updateScript(itemsArr, name, script) {
+                for (const item of itemsArr) {
+                    if (item.name === name) { item.script = script; return true; }
+                    if (item.children) { if (updateScript(item.children, name, script)) return true; }
+                }
+                return false;
+            }
+            
+            if (!updateScript(items, buttonName, newButtonScript)) return null;
+
+            const newItemsStr = JSON.stringify(items);
+            const updatedCode = processCode.substring(0, startIndex) + newItemsStr + processCode.substring(endIndex + 1);
+
+
+
+            return updatedCode;
+        };
+
+        // ########## MAIN GENERATE/REGENERATE & DISPLAY LOGIC ##########
+        function collectAndGenerate(isEdit) {
+            const prefix = isEdit ? 'edit-' : '';
+            const baseScriptName = _$id(isEdit ? 'editScriptName' : 'scriptName').value;
+            
+            const panelData = { lists: [], shortcuts: [] };
+            document.querySelectorAll(`#${prefix}lists-container .list-item`).forEach(i => { const l = { listName: i.querySelector('.list-name-input').value, accounts: [] }; i.querySelectorAll('.account-entry').forEach(a => l.accounts.push({ displayName: a.querySelector('.account-name-input').value, username: a.querySelector('.username-input').value })); panelData.lists.push(l); });
+            document.querySelectorAll(`#${prefix}shortcuts-container .shortcut-item`).forEach(i => { const s = {}; i.querySelectorAll('.shortcut-prop').forEach(p => { const k = p.dataset.prop, v = p.type === 'checkbox' ? p.checked : p.value; if (v) s[k] = v; }); if (s.shortcutName) panelData.shortcuts.push(s); });
+            
+            const multiGenContainer = _$id(isEdit ? 'editMultipleGenerateContainer' : 'multipleGenerateContainer');
+            const multiGenItems = multiGenContainer.querySelectorAll('.multiple-generate-item');
+            const multiGenMetadata = []; const generationTasks = [];
+
+            multiGenItems.forEach(item => {
+                const type = item.dataset.type; const id = item.dataset.id;
+                const fileName = item.querySelector('.mg-fileName').value;
+                const position = {
+                    yProp: item.querySelector('.y-pos:checked').value,
+                    yVal: item.querySelector('.yValue').value,
+                    xProp: item.querySelector('.x-pos:checked').value,
+                    xVal: item.querySelector('.xValue').value
+
+                };
+
+
+                // ★ 追加：スナップショットで差分検知
+                const itemHash = snapshotForVersionBump(item, panelData);
+                const lastHash = item.dataset.lastHash || '';
+                const hasChangedSinceLast = (itemHash !== lastHash);
+
+
+                let task = { type, data: {type, fileName, position} };
+                
+                const coreJsPayload = generatePanelLogic(panelData, position);
+                state.testableJsCode = `javascript:${coreJsPayload}`;
+
+                if (type.startsWith('userscript') || (type.startsWith('toolpanel_') && type !== 'toolpanel_js')) {
+                  let currentVersion = (item.querySelector('.us-version')?.value || '').trim();
+              
+                  // ★ 修正：編集モード かつ 前回から内容が変わった時だけバージョンを+1
+                  if (isEdit && hasChangedSinceLast) {
+                    currentVersion = incrementVersion(currentVersion);
+                    const verInput = item.querySelector('.us-version');
+                    if (verInput) verInput.value = currentVersion; // UIにも反映
+                  }
+              
+                  const usOptions = {
+                    type, fileName,
+                    name: item.querySelector('.us-name').value || `${baseScriptName} (${type})`,
+                    version: currentVersion,
+                    downloadURL: item.querySelector('.us-downloadURL').value,
+                    updateURL: item.querySelector('.us-updateURL').value,
+                    urls: Array.from(item.querySelectorAll(`#us-url-container-${id} .url-input`)).map(div => ({
+                      type: div.querySelector('.us-url-type').value,
+                      url: div.querySelector('.us-url-input-field').value
+                    })),
+                    mode: type.split('_')[1]
+                  };
+                    if (usOptions.mode === 'button') {
+                        usOptions.button = { 
+                            displayMode: item.querySelector(`input[name="us-displayMode-${id}"]:checked`).value,
+                            display: { top: item.querySelector('.us-displayTop').value, left: item.querySelector('.us-displayLeft').value, bottom: item.querySelector('.us-displayBottom').value, right: item.querySelector('.us-displayRight').value },
+                            cursor: { top: item.querySelector('.us-cursorTop').value, left: item.querySelector('.us-cursorLeft').value, bottom: item.querySelector('.us-cursorBottom').value, right: item.querySelector('.us-cursorRight').value },
+                            contentType: item.querySelector(`input[name="us-contentType-${id}"]:checked`).value,
+                        };
+                         if (usOptions.button.contentType === 'custom') {
+                            usOptions.button.custom = {
+                                bgColor: item.querySelector('.us-bgColor').value, borderRadius: item.querySelector('.us-borderRadius').value,
+                                buttonText: item.querySelector('.us-buttonText').value, textColor: item.querySelector('.us-textColor').value,
+                                fontSize: item.querySelector('.us-fontSize').value, opacity: item.querySelector('.us-opacity').value
+                            };
+                        }
+                    } else { 
+                        usOptions.shortcuts = [{ key: item.querySelector('.us-key').value }]; 
+                    }
+                    task.data = {...task.data, ...usOptions};
+                }
+                
+                if (type.startsWith('toolpanel_')) {
+                    task.data.buttonName = item.querySelector('.toolpanel-button-name').value;
+                }
+
+                multiGenMetadata.push(task.data);
+
+                generationTasks.push(task);
+
+
+
+                item.dataset.lastHash = itemHash;
+                          });
+            
+            const coreLogicWithMetadata = generatePanelLogic(panelData, generationTasks[0]?.data.position || {yProp:'bottom', yVal:10, xProp:'right', xVal:10});
+            const safeMetadataString = JSON.stringify(multiGenMetadata).replace(/\*\//g, '*\\/');
+            const metadataComment = `/* MULTIGEN_METADATA: ${safeMetadataString} */`;
+            const finalCorePayload = `${metadataComment}\n${coreLogicWithMetadata}`;
+
+            const results = [];
+            generationTasks.forEach(task => {
+                let result = { name: 'Unknown', code: '', fileName: 'script', updateUrl: task.data.updateURL || '' };
+                switch(task.type) {
+                    case 'javascript':
+                        result.name = `${task.data.fileName || baseScriptName} (ブックマークレット)`;
+                        result.code = `javascript:${finalCorePayload}`;
+                        result.fileName = task.data.fileName || `${baseScriptName}_bookmarklet`;
+                        break;
+                    case 'userscript_button':
+                    case 'userscript_keyboard':
+                        result.name = `${task.data.fileName || task.data.name} (${task.data.version})`;
+                        result.code = generateGenericUserScript(task.data, finalCorePayload);
+                        result.fileName = task.data.fileName || task.data.name;
+                        break;
+                    case 'toolpanel_js': {
+                      let output = null;
+                      if (isEdit && state.toolPanel.originalCode) {
+                        let base = state.toolPanel.originalCode;
+                        if (state.toolPanel.isEditing && task.data.buttonName) {
+                          const updated = regenerateToolPanel(state.toolPanel.originalCode, task.data.buttonName, finalCorePayload);
+                          if (updated) base = updated;
+                        }
+                        const extracted = extractToolPanelIIFE(base);   // ← ここが未定義で落ちていた
+                        if (extracted) output = extracted;
+                      }
+                      if (!output) output = `javascript:${finalCorePayload}`;
+                      result.name = `${task.data.fileName || baseScriptName} (ツールパネルJS)`;
+                      result.code = output;
+                      result.fileName = task.data.fileName || `${baseScriptName}_toolpanel`;
+                      break;
+                    }
+                    
+                    case 'toolpanel_button':
+                    case 'toolpanel_keyboard': {
+                        result.name = `${task.data.fileName || task.data.name} (${task.data.version})`;
+                        result.fileName = task.data.fileName || task.data.name;
+                        if (isEdit && state.toolPanel.isEditing) {
+                            let regeneratedCode = regenerateToolPanel(state.toolPanel.originalCode, task.data.buttonName, finalCorePayload);
+                            if (regeneratedCode) {
+                                regeneratedCode = regeneratedCode.replace(/(\/\/ @version\s+).*/, `$1${task.data.version}`);
+                                const updateOrAddMeta = (code, key, value) => {
+                                    const regex = new RegExp(`(// @${key}\\s+).*`);
+                                    if (!value) return code;
+                                    if (code.match(regex)) {
+                                        return code.replace(regex, `$1${value}`);
+                                    } else {
+                                        return code.replace(/(\/\/ @version.*)/, `$1\n// @${key.padEnd(12, ' ')}${value}`);
+                                    }
+                                };
+                                regeneratedCode = updateOrAddMeta(regeneratedCode, 'downloadURL', task.data.downloadURL);
+                                regeneratedCode = updateOrAddMeta(regeneratedCode, 'updateURL', task.data.updateURL);
+                                result.code = regeneratedCode;
+                            } else {
+                                result.code = "/* Error: Tool panel regeneration failed. */";
+                            }
+                        } else {
+                            result.code = generateGenericUserScript(task.data, finalCorePayload);
+                        }
+                        break;
+                    }
+                }
+                if (result.code) results.push(result);
+            });
+
+            displayResults(results, isEdit ? 'edit' : '');
+        }
+
+        function displayResults(results, prefix) {
+          // 編集タブは editOutputSection / editOutputTabsContainer / ...
+          // 生成タブは outputSection / outputTabsContainer / ...
+          const ids = (prefix === 'edit')
+            ? { section: 'editOutputSection', tabs: 'editOutputTabsContainer', area: 'editCodePreviewArea', buttons: 'editOutputButtonsContainer' }
+            : { section: 'outputSection',     tabs: 'outputTabsContainer',      area: 'codePreviewArea',      buttons: 'outputButtonsContainer' };
+       
+          const outputSection    = _$id(ids.section);
+          const tabsContainer    = _$id(ids.tabs);
+          const previewArea      = _$id(ids.area);
+          const buttonsContainer = _$id(ids.buttons);
+            if (!outputSection || !tabsContainer || !previewArea || !buttonsContainer) {
+              console.error('Output DOM not found for prefix:', prefix);
+              return;
+            }
+
+            tabsContainer.innerHTML = ''; buttonsContainer.innerHTML = '';
+            if (results.length === 0) { outputSection.style.display = 'none'; return; }
+            
+            const leftActions = document.createElement('div'); leftActions.className = 'output-actions-left';
+            const rightActions = document.createElement('div'); rightActions.className = 'output-actions-right';
+            
+            const jsTestBtn = document.createElement('button');
+            jsTestBtn.textContent = 'JSテスト'; jsTestBtn.className = 'action-btn';
+            jsTestBtn.onclick = () => { if (state.testableJsCode) { try { (new Function(state.testableJsCode.substring(11)))(); } catch (e) { alert("テストの実行に失敗しました: " + e); } } };
+            leftActions.appendChild(jsTestBtn);
+
+            const individualSaveBtnContainer = document.createElement('div');
+            leftActions.appendChild(individualSaveBtnContainer);
+            
+            results.forEach((result, index) => {
+                const tab = document.createElement('button'); tab.className = 'output-tab'; tab.textContent = result.name; tab.dataset.index = index; tabsContainer.appendChild(tab);
+                const saveBtn = document.createElement('button'); saveBtn.textContent = `保存: ${result.fileName}`; saveBtn.className = 'save-output-btn'; saveBtn.style.display = 'none'; saveBtn.dataset.index = index; saveBtn.addEventListener('click', () => saveCodeAsFile(result.code, result.fileName)); individualSaveBtnContainer.appendChild(saveBtn);
+                if (result.updateUrl) {
+                    const githubBtn = document.createElement('button'); githubBtn.textContent = 'GitHub'; githubBtn.className = 'action-btn'; githubBtn.style.display = 'none'; githubBtn.dataset.index = index; githubBtn.onclick = () => window.open(result.updateUrl, '_blank'); individualSaveBtnContainer.appendChild(githubBtn);
+                }
+            });
+            
+            if (results.length > 1) {
+                const bulkDownloadBtn = document.createElement('button'); bulkDownloadBtn.textContent = '一括ダウンロード'; bulkDownloadBtn.className = 'action-btn';
+                bulkDownloadBtn.onclick = () => {
+                    const zip = new JSZip();
+                    results.forEach(result => zip.file(result.fileName.match(/\.js$/) ? result.fileName : `${result.fileName}.js`, result.code));
+                    zip.generateAsync({type:"blob"}).then(content => {
+                        const link = document.createElement('a'); link.href = URL.createObjectURL(content);
+                        link.download = `${_$id(prefix ? 'editScriptName' : 'scriptName').value.replace(/[\s/\\?%*:|"<>]/g, '_')}.zip`;
+                        link.click(); URL.revokeObjectURL(link.href);
+                    });
+                };
+                rightActions.appendChild(bulkDownloadBtn);
+            }
+
+            buttonsContainer.appendChild(leftActions);
+            buttonsContainer.appendChild(rightActions);
+
+            const switchOutputTab = (index) => {
+                tabsContainer.querySelectorAll('.output-tab').forEach((t, i) => t.classList.toggle('active', i == index));
+                individualSaveBtnContainer.querySelectorAll('button').forEach((b, i) => {
+                    b.style.display = (b.dataset.index == index) ? 'inline-block' : 'none';
+                });
+                previewArea.value = results[index].code;
+            };
+            tabsContainer.querySelectorAll('.output-tab').forEach(tab => tab.addEventListener('click', () => switchOutputTab(tab.dataset.index)));
+            switchOutputTab(0); outputSection.style.display = 'block';
+        }
+
+        // ########## EVENT LISTENERS & INITIALIZATION ##########
+        _$id('generateBtn').addEventListener('click', () => collectAndGenerate(false));
+        _$id('regenerateBtn').addEventListener('click', () => collectAndGenerate(true));
+        _$id('addMultipleGenerateBtn').addEventListener('click', () => addMultipleGenerateItem(_$id('addMultipleGenerateSelect').value, 'multipleGenerateContainer'));
+        _$id('addEditMultipleGenerateBtn').addEventListener('click', () => addMultipleGenerateItem(_$id('addEditMultipleGenerateSelect').value, 'editMultipleGenerateContainer'));
+        _$id('importGithubBtn').addEventListener('click', async () => { const url = _$id('githubUrlInput').value; const scriptText = await fetchGithubRawContent(url); if (scriptText) {_$id('inputScript').value = scriptText; alert("インポート成功。")} });
+
+        _$id('loadScriptBtn').addEventListener('click', () => {
+            let scriptText = _$id('inputScript').value;
+            if (!scriptText) return alert('読み込むコードを入力してください。');
+            
+            if (scriptText.toLowerCase().startsWith('javascript:')) {
+                scriptText = scriptText.substring(11);
+            }
+            try {
+                const decoded = decodeURIComponent(scriptText);
+                if (decoded.includes('const panelData')) {
+                    scriptText = decoded;
+                }
+            } catch (e) { /* Decoding failed, proceed with original text */ }
+
+            const buttonName = _$id('toolPanelButtonName').value.trim();
+            const multiGenContainer = _$id('editMultipleGenerateContainer');
+            multiGenContainer.innerHTML = '';
+
+            let targetScript = scriptText;
+            state.toolPanel.isEditing = false;
+            
+            if (buttonName) {
+                const extracted = extractScriptFromToolPanel(scriptText, buttonName);
+                if (!extracted) return alert('指定されたボタン名に対応するスクリプトが見つかりませんでした。');
+                targetScript = extracted;
+                state.toolPanel.isEditing = true;
+                state.toolPanel.originalCode = scriptText;
+                state.toolPanel.buttonName = buttonName;
+            }
+
+            const config = parseBaseScript(targetScript);
+            const metadata = extractMetadata(targetScript);
+
+            populateForm({ lists: config.lists, shortcuts: config.shortcuts }, 'edit-');
+
+            if (metadata) { 
+                metadata.forEach(metaItem => addMultipleGenerateItem(metaItem.type, 'editMultipleGenerateContainer', metaItem)); 
+            } else {
+                if(state.toolPanel.isEditing) {
+                    addMultipleGenerateItem('toolpanel_js', 'editMultipleGenerateContainer', {buttonName: buttonName});
+                } else {
+                    addMultipleGenerateItem('javascript', 'editMultipleGenerateContainer');
+                }
+            }
+
+            _$id('editForm').style.display = 'block';
+            alert("スクリプトを読み込みました。");
+        });
+
+        // Initialize forms
+        populateForm({ lists: [ { listName: 'マイリスト', accounts: [{displayName:'',username:''}] } ], shortcuts: [] }, '');
+        addMultipleGenerateItem('javascript', 'multipleGenerateContainer');
+    });
+    </script>
+</body>
+</html>
