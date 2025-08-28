@@ -836,13 +836,20 @@ ${scriptBody}`;
                 item.dataset.lastHash = itemHash;
                           });
             
-            const coreLogicWithMetadata = generatePanelLogic(panelData, generationTasks[0]?.data.position || {yProp:'bottom', yVal:10, xProp:'right', xVal:10});
             const safeMetadataString = JSON.stringify(multiGenMetadata).replace(/\*\//g, '*\\/');
             const metadataComment = `/* MULTIGEN_METADATA: ${safeMetadataString} */`;
-            const finalCorePayload = `${metadataComment}\n${coreLogicWithMetadata}`;
+            const results = []; // ← これが無くて ReferenceError になっていました
 
-            const results = [];
-            generationTasks.forEach(task => {
+            generationTasks.forEach((task, idx) => {
+                // ★ 各アイテムごとに位置を反映してパネルJSを生成
+                const coreLogicThisTask = generatePanelLogic(
+                  panelData,
+                  task.data.position || { yProp: 'bottom', yVal: 10, xProp: 'right', xVal: 10 }
+                );
+                const finalCorePayload = `${metadataComment}\n${coreLogicThisTask}`;
+                // JSテスト用は先頭タブのものをセット
+                if (idx === 0) state.testableJsCode = `javascript:${coreLogicThisTask}`;
+
                 let result = { name: 'Unknown', code: '', fileName: 'script', updateUrl: task.data.updateURL || '' };
                 switch(task.type) {
                     case 'javascript':
