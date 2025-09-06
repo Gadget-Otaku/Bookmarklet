@@ -1,6 +1,6 @@
 javascript:(function() {
   'use strict';
-  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.35","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.28","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.6","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
+  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.36","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.29","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.7","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
    const metadata = {
   "name": "Googleカスタムショートカット",
   "source": "",
@@ -118,6 +118,61 @@ javascript:(function() {
                    "name": "hanime",
                    "url": "https://hianime.to/recently-updated",
                    "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=hianime.to"
+               },
+               {
+                   "name": "メイン効果量",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%B0%A1%E6%98%93%E6%97%A9%E8%A6%8B%E8%A1%A8-,%E7%A8%AE%E9%A1%9E,-%E2%98%855%0A%EF%BC%88Lv.20",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "サブ効果量",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%A0%94%E7%A9%B6%E3%82%92%E5%8F%82%E7%85%A7%E3%80%82-,%E3%82%B5%E3%83%96%E5%8A%B9%E6%9E%9C,-%E4%BD%8E",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "lv20必要聖遺物",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "lv90必要経験値",
+                   "url": "https://kamigame.jp/genshin/page/132093570420104073.html#:~:text=%e3%81%8c%e5%b0%91%e3%81%aa%e3%81%8f%e3%81%aa%e3%82%8b%e3%80%82-,1%e3%80%9c90%e3%81%be%e3%81%a7%e3%81%ae%e5%bf%85%e8%a6%81%e7%b5%8c%e9%a8%93%e5%80%a4,-%e3%83%ac%e3%83%99%e3%83%ab",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=kamigame.jp"
+               },
+               {
+                   "name": "聖遺物スコア",
+                   "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
+                   "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png"
+               },
+               {
+                   "name": "育成計算機",
+                   "url": "https://act.hoyolab.com/ys/event/calculator-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=hoyolab&utm_medium=tools&lang=ja-jp&bbs_theme=dark&bbs_theme_device=1#/",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=act.hoyolab.com"
+               },
+               {
+                   "name": "テイワットマップ",
+                   "url": "https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
+                   "icon": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp&size=64#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50"
+               },
+               {
+                   "name": "ガチャリーク",
+                   "url": "https://tori-game.com/gensingacha/",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=tori-game.com"
+               },
+               {
+                   "name": "過去ガチャ",
+                   "url": "https://game8.jp/genshin/631517",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp"
+               },
+               {
+                   "name": "チャージセンター",
+                   "url": "https://sdk.hoyoverse.com/payment/genshin/index.html#/m",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=sdk.hoyoverse.com"
+               },
+               {
+                   "name": "シリアルコード",
+                   "url": "https://gamewith.jp/genshin/article/show/231856",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp"
                }
            ]
        },
@@ -203,11 +258,6 @@ javascript:(function() {
            "icon": "https://files.svgcdn.io/simple-icons/greasyfork.svg"
        },
        {
-           "name": "メモ帳2.0",
-           "url": "https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B32.0",
-           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsAZYI27WQaMCSK-W8M-1FoW4Tx-0BWk6dA&s"
-       },
-       {
            "name": "制作",
            "isFolder": true,
            "children": [
@@ -247,6 +297,11 @@ javascript:(function() {
                    "icon": "https://img.icons8.com/color/512/google-sites--v2.png"
                }
            ]
+       },
+       {
+           "name": "メモ帳2.0",
+           "url": "https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B32.0",
+           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsAZYI27WQaMCSK-W8M-1FoW4Tx-0BWk6dA&s"
        },
        {
            "name": "Notion",
@@ -343,13 +398,13 @@ javascript:(function() {
                    "name": "Colab",
                    "url": "https://colab.research.google.com/",
                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Google_Colaboratory_SVG_Logo.svg/2560px-Google_Colaboratory_SVG_Logo.svg.png"
-               },
-               {
-                   "name": "Notebook LM",
-                   "url": "https://notebooklm.google.com/?authuser=0&original_referer=https:%2F%2Fogs.google.com%23&pli=1",
-                   "icon": "https://play-lh.googleusercontent.com/qWDLmYCI4Lqzq8J-LhtvWvp1HIPkJb2lqkHjduXM7tnCo7N1tmKxnYdaX7CS2_5pkDuW"
                }
            ]
+       },
+       {
+           "name": "Notebook LM",
+           "url": "https://notebooklm.google.com/?authuser=0&original_referer=https:%2F%2Fogs.google.com%23&pli=1",
+           "icon": "https://play-lh.googleusercontent.com/qWDLmYCI4Lqzq8J-LhtvWvp1HIPkJb2lqkHjduXM7tnCo7N1tmKxnYdaX7CS2_5pkDuW"
        }
    ];
   const urlRules = [
