@@ -1,6 +1,6 @@
 javascript:(function() {
   'use strict';
-  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.36","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.29","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.7","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
+  /* MULTIGEN_METADATA: [{"type":"toolpanel_button","fileName":"pctool.user","buttonName":"ショートカットパネル","position":{"yProp":"top","yVal":"10","xProp":"left","xVal":"10"},"autoExpandRules":[{"url":"https://x.com/","folderName":"X"},{"url":"https://www.youtube.com/","folderName":"Youtube"},{"url":"https://mail.google.com/","folderName":"メール"},{"url":"https://sites.google.com/view/toolpaneleditor/","folderName":"ツールパネル"},{"url":"https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html","folderName":"ツールパネル"},{"url":"https://sites.google.com/view/homepage-custom-shortcut/","folderName":"ShortcutPanel"},{"url":"https://sites.google.com/view/userscriptgenerator/","folderName":"UserScript"},{"url":"https://sites.google.com/view/custome-search2/","folderName":"カスタムショートカット"},{"url":"https://gadget-otaku.github.io/Bookmarklet/","folderName":"制作"},{"url":"https://chatgpt.com/","folderName":"制作"},{"url":"https://gemini.google.com/","folderName":"制作"},{"url":"https://x.com/i/","folderName":"制作"},{"url":"https://chat.deepseek.com/","folderName":"制作"}],"favoritesList":["UserScript編集・更新","メモ帳","ショートカットパネル","JavaScript実行","再生速度","Geminiに質問ツールパネル","ローマ字変換"],"githubLinkRules":[{"buttonName":"リスト付きX詳細検索","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-panel.js"},{"buttonName":"ショートカットパネル","githubUrl":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_base_shortcutpanel.js"}],"name":"pctool.user","version":"1.1.37","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pctool.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"0","bottom":"30","right":"30"},"cursor":{"top":"0","left":"0","bottom":"30","right":"30"},"contentType":"default"}},{"type":"google_homepage","fileName":"pc_google_shortcutpanel.user","name":"Googleカスタムショートカット","version":"1.1.30","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_google_shortcutpanel.user.js"},{"type":"javascript","fileName":"pc_base_shortcutpanel"},{"type":"userscript_button","fileName":"pc_botton_shortcutpanel.user","name":"pc_botton_shortcutpanel.user","version":"1.0.8","downloadURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","updateURL":"https://github.com/Gadget-Otaku/Bookmarklet/blob/main/pc_botton_shortcutpanel.user.js","urls":[{"type":"match","url":"http*://*\/*"}],"mode":"button","button":{"displayMode":"transparent","display":{"top":"0","left":"30","bottom":"30","right":"60"},"cursor":{"top":"0","left":"30","bottom":"30","right":"60"},"contentType":"default"}}] */
    const metadata = {
   "name": "Googleカスタムショートカット",
   "source": "",
@@ -10,6 +10,7 @@ javascript:(function() {
 
   const config = {
    scale: 80, gridCols: 5, gridRows: 4,
+   folderScale: 100, folderGridCols: 4, folderGridRows: 4,
    position: { yProp: 'top', yVal: 20, xProp: 'left', xVal: 20 }
   };
   const baseTextColor = 'black';
@@ -108,71 +109,6 @@ javascript:(function() {
                    "name": "腕時計 時刻合わせ",
                    "url": "https://support.casio.jp/wat/adjustment/ta5161_ja/",
                    "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKM2zBns6CTS8niY7RI-YTpb7OwgbChkvhBw&s"
-               },
-               {
-                   "name": "Pixiv",
-                   "url": "https://www.pixiv.net/bookmark_new_illust.php",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=pixiv.net"
-               },
-               {
-                   "name": "hanime",
-                   "url": "https://hianime.to/recently-updated",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=hianime.to"
-               },
-               {
-                   "name": "メイン効果量",
-                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%B0%A1%E6%98%93%E6%97%A9%E8%A6%8B%E8%A1%A8-,%E7%A8%AE%E9%A1%9E,-%E2%98%855%0A%EF%BC%88Lv.20",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
-               },
-               {
-                   "name": "サブ効果量",
-                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%A0%94%E7%A9%B6%E3%82%92%E5%8F%82%E7%85%A7%E3%80%82-,%E3%82%B5%E3%83%96%E5%8A%B9%E6%9E%9C,-%E4%BD%8E",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
-               },
-               {
-                   "name": "lv20必要聖遺物",
-                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
-               },
-               {
-                   "name": "lv90必要経験値",
-                   "url": "https://kamigame.jp/genshin/page/132093570420104073.html#:~:text=%e3%81%8c%e5%b0%91%e3%81%aa%e3%81%8f%e3%81%aa%e3%82%8b%e3%80%82-,1%e3%80%9c90%e3%81%be%e3%81%a7%e3%81%ae%e5%bf%85%e8%a6%81%e7%b5%8c%e9%a8%93%e5%80%a4,-%e3%83%ac%e3%83%99%e3%83%ab",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=kamigame.jp"
-               },
-               {
-                   "name": "聖遺物スコア",
-                   "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
-                   "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png"
-               },
-               {
-                   "name": "育成計算機",
-                   "url": "https://act.hoyolab.com/ys/event/calculator-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=hoyolab&utm_medium=tools&lang=ja-jp&bbs_theme=dark&bbs_theme_device=1#/",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=act.hoyolab.com"
-               },
-               {
-                   "name": "テイワットマップ",
-                   "url": "https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
-                   "icon": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp&size=64#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50"
-               },
-               {
-                   "name": "ガチャリーク",
-                   "url": "https://tori-game.com/gensingacha/",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=tori-game.com"
-               },
-               {
-                   "name": "過去ガチャ",
-                   "url": "https://game8.jp/genshin/631517",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp"
-               },
-               {
-                   "name": "チャージセンター",
-                   "url": "https://sdk.hoyoverse.com/payment/genshin/index.html#/m",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=sdk.hoyoverse.com"
-               },
-               {
-                   "name": "シリアルコード",
-                   "url": "https://gamewith.jp/genshin/article/show/231856",
-                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp"
                }
            ]
        },
@@ -405,6 +341,77 @@ javascript:(function() {
            "name": "Notebook LM",
            "url": "https://notebooklm.google.com/?authuser=0&original_referer=https:%2F%2Fogs.google.com%23&pli=1",
            "icon": "https://play-lh.googleusercontent.com/qWDLmYCI4Lqzq8J-LhtvWvp1HIPkJb2lqkHjduXM7tnCo7N1tmKxnYdaX7CS2_5pkDuW"
+       },
+       {
+           "name": "Pixiv",
+           "url": "https://www.pixiv.net/bookmark_new_illust.php",
+           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=pixiv.net"
+       },
+       {
+           "name": "hanime",
+           "url": "https://hianime.to/recently-updated",
+           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=hianime.to"
+       },
+       {
+           "name": "原神",
+           "isFolder": true,
+           "children": [
+               {
+                   "name": "メイン効果量",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%B0%A1%E6%98%93%E6%97%A9%E8%A6%8B%E8%A1%A8-,%E7%A8%AE%E9%A1%9E,-%E2%98%855%0A%EF%BC%88Lv.20",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "サブ効果量",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%A0%94%E7%A9%B6%E3%82%92%E5%8F%82%E7%85%A7%E3%80%82-,%E3%82%B5%E3%83%96%E5%8A%B9%E6%9E%9C,-%E4%BD%8E",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "lv20必要聖遺物",
+                   "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki"
+               },
+               {
+                   "name": "lv90必要経験値",
+                   "url": "https://kamigame.jp/genshin/page/132093570420104073.html#:~:text=%e3%81%8c%e5%b0%91%e3%81%aa%e3%81%8f%e3%81%aa%e3%82%8b%e3%80%82-,1%e3%80%9c90%e3%81%be%e3%81%a7%e3%81%ae%e5%bf%85%e8%a6%81%e7%b5%8c%e9%a8%93%e5%80%a4,-%e3%83%ac%e3%83%99%e3%83%ab",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=kamigame.jp"
+               },
+               {
+                   "name": "聖遺物スコア",
+                   "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
+                   "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png"
+               },
+               {
+                   "name": "育成計算機",
+                   "url": "https://act.hoyolab.com/ys/event/calculator-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=hoyolab&utm_medium=tools&lang=ja-jp&bbs_theme=dark&bbs_theme_device=1#/",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=act.hoyolab.com"
+               },
+               {
+                   "name": "テイワットマップ",
+                   "url": "https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
+                   "icon": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp&size=64#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50"
+               },
+               {
+                   "name": "ガチャリーク",
+                   "url": "https://tori-game.com/gensingacha/",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=tori-game.com"
+               },
+               {
+                   "name": "過去ガチャ",
+                   "url": "https://game8.jp/genshin/631517",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp"
+               },
+               {
+                   "name": "チャージセンター",
+                   "url": "https://sdk.hoyoverse.com/payment/genshin/index.html#/m",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=sdk.hoyoverse.com"
+               },
+               {
+                   "name": "シリアルコード",
+                   "url": "https://gamewith.jp/genshin/article/show/231856",
+                   "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp"
+               }
+           ]
        }
    ];
   const urlRules = [
@@ -443,7 +450,7 @@ javascript:(function() {
    ];
   const styleText = `
      :root { --item-size: 72px; --icon-size: 40px; --folder-size: 40px; --border-radius: 12px; --panel-padding: 20px; --item-gap: 15px; }
-     .panel-style { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: var(--border-radius); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 1px rgba(255,255,255,0.4); padding: var(--panel-padding); position: fixed; }
+     .panel-style { box-sizing: border-box; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-radius: var(--border-radius); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 1px 1px rgba(255,255,255,0.4); padding: var(--panel-padding); position: fixed; }
      .custom-shortcuts-container { transform: scale(${config.scale / 100}); transform-origin: ${config.position.yProp} ${config.position.xProp}; display: grid; grid-template-columns: repeat(${config.gridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); z-index: 2147483647; pointer-events: auto; cursor: move; max-height: calc(var(--item-size) * ${config.gridRows} + var(--item-gap) * (${config.gridRows} - 1) + var(--panel-padding) * 2); overflow-y: auto; padding-right: 5px; }
      .custom-shortcuts-container::-webkit-scrollbar { width: 8px; } .custom-shortcuts-container::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.4); border-radius: 4px; } .custom-shortcuts-container::-webkit-scrollbar-track { background-color: rgba(255,255,255,0.1); }
      .panel-controls { position: absolute; top: 8px; right: 8px; display: flex; gap: 8px; cursor: default; }
@@ -459,13 +466,212 @@ javascript:(function() {
      .custom-folder .folder-icon-preview { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; padding: 2px; width: var(--folder-size); height: var(--folder-size); background: rgba(0,0,0,0.1); border-radius: var(--border-radius); }
      .folder-icon-preview .preview-icon { width: 95%; height: 95%; background-size: contain; background-repeat: no-repeat; background-position: center; border-radius: 4px; }
      .folder-contents-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2147483647; display: flex; align-items: center; justify-content: center; animation: blurFadeIn 0.3s ease-out forwards; }
-     .folder-contents { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 400px; transform: scale(0.8); opacity: 0; animation: scaleUp 0.15s ease-out 0.05s forwards; position: relative; }
-     @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } } @keyframes blurFadeIn { to { background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); } }
+     .folder-contents { display: block; transform: scale(0.8); opacity: 0; animation: scaleUp 0.15s ease-out 0.05s forwards; position: relative; overflow: hidden; padding-bottom: 5px; }
+     .folder-pages-slider { display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; cursor: grab; }
+     .folder-page { display: grid; grid-template-columns: repeat(${config.folderGridCols}, var(--item-size)); grid-auto-rows: var(--item-size); gap: var(--item-gap); }
+     .folder-pagination-dots { text-align: center; padding-top: 5px; }
+     .folder-pagination-dots .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); margin: 0 4px; cursor: pointer; transition: background 0.2s; }
+     .folder-pagination-dots .dot.active { background: white; }
+     @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(${config.folderScale / 100}); opacity: 1; } }
+     @keyframes blurFadeIn { to { background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); } }
    `;
   let isDarkMode = false; let newTabMode = false;
-  function applyTheme(isDark) { isDarkMode = isDark; container.classList.toggle('dark-text', isDarkMode); container.classList.toggle('light-text', !isDarkMode); container.querySelector('.toggle-mode-btn').textContent = isDarkMode ? '●' : '◯'; }
+
+  function applyTheme(isDark) { isDarkMode = isDark; container.classList.toggle('dark-text', isDarkMode); container.classList.toggle('light-text', !isDarkMode); const mainToggle = container.querySelector('.toggle-mode-btn'); if (mainToggle) mainToggle.textContent = isDarkMode ? '●' : '◯'; document.querySelectorAll('.folder-contents').forEach(fc => { fc.classList.toggle('dark-text', isDarkMode); fc.classList.toggle('light-text', !isDarkMode); const localToggle = fc.querySelector('.toggle-mode-btn'); if (localToggle) localToggle.textContent = isDarkMode ? '●' : '◯'; }); }
+  function chromeY(el){ const s = getComputedStyle(el); const num = v => parseFloat(v) || 0; return num(s.paddingTop) + num(s.paddingBottom) + num(s.borderTopWidth) + num(s.borderBottomWidth); }
   function createShortcut(item) { const link = document.createElement('a'); link.href = item.url; link.className = "custom-shortcut"; link.addEventListener('click', (e) => { e.preventDefault(); if (newTabMode) { window.open(link.href, '_blank'); } else { window.location.href = link.href; } }); const img = document.createElement('img'); try { img.src = item.icon || `https://www.google.com/s2/favicons?sz=64&domain_url=${new URL(item.url).hostname}`; } catch(e) { img.src = ''; } img.alt = item.name; img.onerror = (e) => { e.target.style.display='none'; }; const span = document.createElement('span'); span.textContent = item.name; link.appendChild(img); link.appendChild(span); return link; }
-  function createFolder(item) { const folder = document.createElement('div'); folder.className = "custom-shortcut custom-folder"; const preview = document.createElement('div'); preview.className = 'folder-icon-preview'; if(item.children) { item.children.slice(0, 9).forEach(child => { if (child.icon) { const iconDiv = document.createElement('div'); iconDiv.className = 'preview-icon'; iconDiv.style.backgroundImage = `url(${child.icon})`; preview.appendChild(iconDiv); }}); } const span = document.createElement('span'); span.textContent = item.name; folder.appendChild(preview); folder.appendChild(span); folder.addEventListener('click', (e) => { e.stopPropagation(); const overlay = document.createElement('div'); overlay.className = 'folder-contents-overlay'; const contents = document.createElement('div'); contents.className = 'folder-contents panel-style'; contents.classList.toggle('dark-text', isDarkMode); contents.classList.toggle('light-text', !isDarkMode); if(item.children) { item.children.forEach(child => { if (!child.isFolder) { contents.appendChild(createShortcut(child)); } }); } overlay.appendChild(contents); document.body.appendChild(overlay); overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); }); }); return folder; }
+  function createFolder(item) { const folder = document.createElement('div'); folder.className = "custom-shortcut custom-folder"; const preview = document.createElement('div'); preview.className = 'folder-icon-preview'; if(item.children) { item.children.slice(0, 9).forEach(child => { if (child.icon) { const iconDiv = document.createElement('div'); iconDiv.className = 'preview-icon'; iconDiv.style.backgroundImage = `url(${child.icon})`; preview.appendChild(iconDiv); }}); } const span = document.createElement('span'); span.textContent = item.name; folder.appendChild(preview); folder.appendChild(span);
+    folder.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const overlay = document.createElement('div');
+        overlay.className = 'folder-contents-overlay';
+        const contents = document.createElement('div');
+        contents.className = 'folder-contents panel-style';
+        contents.classList.toggle('dark-text', isDarkMode);
+
+        contents.classList.toggle('light-text', !isDarkMode);
+        // ▼ ここから追加
+        // スクロールは内部で完結させる（下のページに行かない）
+        contents.style.overflow = 'hidden';
+        
+        // フォルダ用のコントロール（新タブ切替・文字色切替・閉じる）
+        const overlayControls = document.createElement('div');
+        overlayControls.className = 'panel-controls';
+        
+        const overlayNewTabBtn = document.createElement('div');
+        overlayNewTabBtn.className = 'control-button new-tab-btn';
+        overlayNewTabBtn.textContent = '+';
+        overlayNewTabBtn.title = '新しいタブで開く (トグル)';
+        overlayNewTabBtn.classList.toggle('active', newTabMode);
+        overlayNewTabBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          newTabMode = !newTabMode;
+          overlayNewTabBtn.classList.toggle('active', newTabMode);
+          // 元パネル側の表示も同期
+          const mainNewTabBtn = document.querySelector('.custom-shortcuts-container .new-tab-btn');
+          if (mainNewTabBtn) mainNewTabBtn.classList.toggle('active', newTabMode);
+        });
+        
+        const overlayToggleModeBtn = document.createElement('div');
+        overlayToggleModeBtn.className = 'control-button toggle-mode-btn';
+        overlayToggleModeBtn.textContent = isDarkMode ? '●' : '◯';
+        overlayToggleModeBtn.title = '文字色切替';
+        overlayToggleModeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          applyTheme(!isDarkMode);
+        });
+        
+        const overlayCloseBtn = document.createElement('div');
+        overlayCloseBtn.className = 'control-button close-btn';
+        overlayCloseBtn.textContent = '✕';
+        overlayCloseBtn.title = '閉じる';
+        overlayCloseBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          overlay.remove();
+        });
+        
+        overlayControls.appendChild(overlayNewTabBtn);
+        overlayControls.appendChild(overlayToggleModeBtn);
+        overlayControls.appendChild(overlayCloseBtn);
+        contents.appendChild(overlayControls);
+        // ▲ ここまで追加
+
+        const slider = document.createElement('div');
+        slider.className = 'folder-pages-slider';
+        const children = item.children || [];
+        const itemsPerPage = config.folderGridCols * config.folderGridRows;
+        const totalPages = Math.ceil(children.length / itemsPerPage);
+        let currentPage = 0;
+        if (totalPages === 0) {
+            const emptyMsg = document.createElement('div');
+            emptyMsg.textContent = 'このフォルダは空です。';
+            emptyMsg.style.padding = '20px';
+            emptyMsg.style.textAlign = 'center';
+            slider.appendChild(emptyMsg);
+        } else {
+            for (let i = 0; i < totalPages; i++) {
+                const page = document.createElement('div');
+                page.className = 'folder-page';
+                const pageItems = children.slice(i * itemsPerPage, (i + 1) * itemsPerPage);
+                pageItems.forEach(child => { if (!child.isFolder) { page.appendChild(createShortcut(child)); } });
+                slider.appendChild(page);
+            }
+        }
+        contents.appendChild(slider);
+        let dotsContainer;
+        if (totalPages > 1) {
+            dotsContainer = document.createElement('div');
+            dotsContainer.className = 'folder-pagination-dots';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.dataset.page = i;
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = (ev) => { ev.stopPropagation(); goToPage(i); };
+                dotsContainer.appendChild(dot);
+            }
+            contents.appendChild(dotsContainer);
+        }
+        overlay.appendChild(contents);
+
+        document.body.appendChild(overlay);
+
+        const pageEl = slider.querySelector('.folder-page');
+        const itemPx = parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue('--item-size')
+        ) || 72;
+        const cs = pageEl ? getComputedStyle(pageEl) : null;
+        const gapPx = cs ? (parseFloat(cs.gap) || 15) : 15;
+        const pad = getComputedStyle(contents);
+        const padX = (parseFloat(pad.paddingLeft) || 0) + (parseFloat(pad.paddingRight) || 0);
+        
+        // 列数に応じた“理論幅” = アイテム幅×列数 + ギャップ×(列数-1) + 左右パディング
+        const contentsWidth =
+          (config.folderGridCols * itemPx) +
+          ((config.folderGridCols - 1) * gapPx) +
+          padX;
+        
+        // max-widthを殺して理論幅を適用
+        contents.style.maxWidth = 'none';
+        contents.style.width = contentsWidth + 'px';
+
+        overlay.addEventListener('click', (ev) => { if (ev.target === overlay) overlay.remove(); });
+        
+        let pageHeight = slider.querySelector('.folder-page')?.offsetHeight || 0;
+        const scaleFactor = Math.max(0.1, Number(config.folderScale) / 100);
+        const dotsH = dotsContainer?.offsetHeight || 0; // 下部ドット分も高さに含める
+        const extra = chromeY(contents);
+        // デバイスの小数px丸めでの1px欠け対策として +2 を足しておくと安全
+        contents.style.height = Math.ceil(pageHeight + dotsH + extra + 2) + 'px';
+        goToPage(0);
+
+        
+        function updateFolderDimensions(){
+          const firstPage = slider.querySelector('.folder-page');
+          const pageHeight = firstPage ? firstPage.offsetHeight : 0;
+          const dotsH = dotsContainer?.offsetHeight || 0;
+          contents.style.height = Math.ceil(pageHeight + dotsH + chromeY(contents) + 2) + 'px';
+        }
+        window.addEventListener('resize', updateFolderDimensions);
+        updateFolderDimensions();
+        
+
+
+        // ホイールでページ送り（フォルダ上のみ有効）
+        let wheelLock = false;          // スクロール過多を抑制
+        const onWheel = (e) => {
+          if (totalPages <= 1) return;
+          e.preventDefault();           // 下のページをスクロールさせない
+          if (wheelLock) return;
+          wheelLock = true;
+        
+          const dir = Math.sign(e.deltaY); // 下なら +1, 上なら -1
+          if (dir > 0 && currentPage < totalPages - 1) {
+            goToPage(currentPage + 1);
+          } else if (dir < 0 && currentPage > 0) {
+            goToPage(currentPage - 1);
+          }
+          setTimeout(() => wheelLock = false, 200); // 連続ページ送りの暴発防止
+        };
+        
+        // フォルダの表示領域でだけホイールを捕捉
+        contents.addEventListener('wheel', onWheel, { passive: false });
+
+        
+        // 画面サイズや回転で高さが変化したときに再計算
+        window.addEventListener('resize', () => {
+          const firstPage = slider.querySelector('.folder-page');
+          if (!firstPage) return;
+          pageHeight = firstPage.offsetHeight;
+          contents.style.height = pageHeight + 'px';
+          goToPage(currentPage);
+        }, { passive: true });
+        // 追加（ここまで）
+
+        function updateDots() { if (!dotsContainer) return; dotsContainer.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('active', i === currentPage)); }
+        function goToPage(pageNumber) {
+            if (pageNumber < 0 || pageNumber >= totalPages) return;
+            currentPage = pageNumber;
+            slider.style.transform = `translateY(-${currentPage * pageHeight}px)`;
+            updateDots();
+        }
+        if(totalPages > 1) {
+            let startY, dist = 0, isDown = false;
+            const getY = (ev) => (ev.touches ? ev.touches[0].clientY : ev.clientY);
+            const start = (e) => { isDown = true; slider.style.cursor = 'grabbing'; startY = getY(e); slider.style.transition = 'none'; };
+            const end = () => { if (!isDown) return; isDown = false; slider.style.cursor = 'grab'; slider.style.transition = 'transform 0.3s ease-in-out'; if (dist > 50 && currentPage > 0) { goToPage(currentPage - 1); } else if (dist < -50 && currentPage < totalPages - 1) { goToPage(currentPage + 1); } else { goToPage(currentPage); } dist = 0; };
+            const move = (e) => { if (!isDown) return; e.preventDefault(); dist = getY(e) - startY; slider.style.transform = `translateY(${ -currentPage * pageHeight + dist }px)`; };
+            slider.addEventListener('mousedown', start);
+            slider.addEventListener('mouseup', end);
+            slider.addEventListener('mouseleave', end);
+            slider.addEventListener('mousemove', move);
+            slider.addEventListener('touchstart', start, { passive: true });
+            slider.addEventListener('touchend', end);
+            slider.addEventListener('touchmove', move, { passive: false });
+        }
+    });
+    return folder;
+  }
   function makeDraggableAndPosition(element) {
     element.style[config.position.yProp] = `${config.position.yVal}px`;
     element.style[config.position.xProp] = `${config.position.xVal}px`;
