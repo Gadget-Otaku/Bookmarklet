@@ -10,7 +10,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>統合ツールパネル・ジェネレーター 3.0</title>
+  <title>統合ツールパネル・ジェネレーター 3.1</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -67,7 +67,7 @@
 </head>
 <body>
 <div class="container">
-  <h1 class="text-center">統合ツールパネル・ジェネレーター 3.0</h1>
+  <h1 class="text-center">統合ツールパネル・ジェネレーター 3.1</h1>
 
   <ul class="nav nav-tabs" role="tablist">
      <li role="presentation" class="active"><a href="#generate-mode" aria-controls="generate-mode" role="tab" data-toggle="tab">生成モード</a></li>
@@ -730,7 +730,7 @@ $(document).ready(function() {
             btn.textContent = item.name;
             btn.style = 'display:block;margin:5px 0;background:#4a90e2;color:white;padding:5px 10px;width:100%;text-align:left;border:none;cursor:pointer;';
             btn.onclick = function() {
-                try { eval(item.script); } catch (e) { console.error('Script Error:', e); }
+                try { (new Function(item.script))(); } catch (e) { console.error('Script Error:', e); }
                 const topPanel = document.getElementById(panelId);
                 if (topPanel) topPanel.style.display = 'none';
             };
@@ -899,7 +899,7 @@ ${config.urls.map(u => `// @${u.type.padEnd(12, ' ')}${u.url}`).join('\n')}`;
         if (config.downloadURL) header += `\n// @downloadURL  ${config.downloadURL}`;
         if (config.updateURL) header += `\n// @updateURL    ${config.updateURL}`;
         
-        header += `\n// @grant        none\n// ==/UserScript==\n`;
+        header += `\n// @grant        GM_setValue\n// @grant        GM_getValue\n// ==/UserScript==\n`;
 
          let body = "";
          if(config.mode === 'button'){
