@@ -29,7 +29,7 @@ YouTubeをはじめとする動画サイトでの視聴体験を劇的に向上�
 ### 🟣 Chromium系ブラウザをお使いの方
 **対象**: Google Chrome, Brave, Microsoft Edge, Vivaldi, Opera など
 
-1.  GitHubのリリースページ（または配布元）から **`.zip` ファイル** をダウンロードし、解凍（展開）してください。
+1.  [/dist](https://github.com/Gadget-Otaku/Bookmarklet/tree/main/%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/Ultimate%20Video%20Control/dist)から **`.zip` ファイル** をダウンロードし、解凍（展開）してください。
 2.  ブラウザの拡張機能管理ページを開きます。
     * Chrome/Brave/Edge: `chrome://extensions`
 3.  右上の **「デベロッパーモード」** をオンにします。
@@ -39,7 +39,7 @@ YouTubeをはじめとする動画サイトでの視聴体験を劇的に向上�
 ### 🦊 Firefox系ブラウザをお使いの方
 **対象**: Firefox Nightly, LibreWolf, Zen Browser, Floorp, Iceraven など
 
-1.  GitHubのリリースページ（または配布元）から **`.xpi` ファイル** をダウンロードしてください。
+1.  [/dist](https://github.com/Gadget-Otaku/Bookmarklet/tree/main/%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/Ultimate%20Video%20Control/dist)から **`.xpi` ファイル** をダウンロードしてください。
 2.  ブラウザの設定メニューから「アドオンとテーマ (`about:addons`)」を開きます。
 3.  歯車アイコン ⚙️ をクリックし、**「ファイルからアドオンをインストール」** を選択します。
 4.  ダウンロードした `.xpi` ファイルを選択してインストールしてください。
