@@ -31,7 +31,7 @@ YouTubeをはじめとする動画サイトでの視聴体験を劇的に向上�
 
 1.  [/dist](https://github.com/Gadget-Otaku/Bookmarklet/tree/main/%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/Ultimate%20Video%20Control/dist)から **`.zip` ファイル** をダウンロードし、解凍（展開）してください。
 2.  ブラウザの拡張機能管理ページを開きます。
-    * Chrome/Brave/Edge: `chrome://extensions` *
+    * Chrome/Brave/Edge: `chrome://extensions`
 3.  右上の **「デベロッパーモード」** をオンにします。
 4.  **「パッケージ化されていない拡張機能を読み込む」** (Load unpacked) をクリックします。
 5.  解凍したフォルダ（`manifest.json` が入っているフォルダ）を選択するとインストールされます。
