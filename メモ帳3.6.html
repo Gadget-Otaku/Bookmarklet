@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メモ帳 3.5</title>
+  <title>メモ帳 3.6</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -260,7 +260,6 @@ const expandBtn = document.getElementById('expand-btn');
 document.getElementById('settings-btn').addEventListener('click', () => { 
   panel.classList.add('open'); 
   showScreen('menu-screen'); 
-  // 起動時に拡張機能から設定読み込み
   loadGhSettingsFromExt();
 });
 document.querySelector('.panel-close').addEventListener('click', () => panel.classList.remove('open'));
@@ -496,15 +495,12 @@ expandBtn.addEventListener('click', () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/* GitHub連携 (通信タイムアウト付き)                */
+/* GitHub連携                                    */
 /* -------------------------------------------------------------------------- */
-
-// 拡張機能へメッセージ送信 (タイムアウト機能付き)
 function sendExtMessage(payload) {
   return new Promise((resolve, reject) => {
     const id = Date.now() + Math.random();
     let handled = false;
-
     const handler = (e) => {
       if (e.data && e.data.source === 'MEMO_EXTENSION' && e.data.id === id) {
         window.removeEventListener('message', handler);
@@ -514,18 +510,11 @@ function sendExtMessage(payload) {
     };
     window.addEventListener('message', handler);
     window.postMessage({ source: 'MEMO_TOOL_V3', id, payload }, "*");
-
-    // 1秒待って反応なければエラー
     setTimeout(() => {
-      if (!handled) {
-        window.removeEventListener('message', handler);
-        reject('EXTENSION_TIMEOUT');
-      }
+      if (!handled) { window.removeEventListener('message', handler); reject('EXTENSION_TIMEOUT'); }
     }, 1000);
   });
 }
-
-// 拡張機能から設定を読み込む
 async function loadGhSettingsFromExt() {
   try {
     const res = await sendExtMessage({ type: 'GET_SETTINGS' });
@@ -537,33 +526,26 @@ async function loadGhSettingsFromExt() {
     }
   } catch(e) {
     if(e === 'EXTENSION_TIMEOUT') {
-      document.getElementById('gh-status').textContent = "⚠ 拡張機能が検出できません (URLアクセス許可を確認)";
+      document.getElementById('gh-status').textContent = "⚠ 拡張機能が検出できません";
       document.getElementById('gh-status').style.color = 'red';
     }
   }
 }
-
-// メモ帳側で「設定保存」を押したとき
 document.getElementById('gh-save-config').onclick = async () => {
   const token = document.getElementById('gh-token').value.trim();
   const repoUrl = document.getElementById('gh-repo').value.trim();
   const filename = document.getElementById('gh-filename').value.trim();
   const statusDiv = document.getElementById('gh-status');
-
   if (!token || !repoUrl || !filename) return alert('全項目入力してください');
-
   const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\.]+)/);
   if (!match) return alert('リポジトリURLが無効です');
   const owner = match[1];
   const repo = match[2].replace(/(\.git)+$/, '').replace(/#.*$/, '');
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filename}`;
-
   statusDiv.textContent = "接続テスト中...";
   statusDiv.style.color = "blue";
-
   try {
     const res = await sendExtMessage({ type: 'GITHUB_FETCH', url: url, token: token });
-    // v6 は res.ok を返す (res.success も互換用にある)
     if (res.status === 404) {
       if(confirm("ファイルが見つかりません。新規作成しますか？")) {
         const initialData = { folders: [], tempMemo: "", candidates: [] };
@@ -574,27 +556,15 @@ document.getElementById('gh-save-config').onclick = async () => {
         });
         statusDiv.textContent = "ファイルを作成し、保存しました";
         alert('JSONファイルを新規作成しました');
-      } else {
-        statusDiv.textContent = "キャンセルされました";
-      }
-    } else if (res.ok || res.success) { // 両対応
-      statusDiv.textContent = "接続成功";
-      alert('接続成功: 既存ファイルを確認しました');
+      } else { statusDiv.textContent = "キャンセルされました"; }
+    } else if (res.ok || res.success) {
+      statusDiv.textContent = "接続成功"; alert('接続成功: 既存ファイルを確認しました');
     } else {
-      statusDiv.textContent = "エラー: " + (res.status || res.error);
-      alert('エラー: ' + res.error);
+      statusDiv.textContent = "エラー: " + (res.status || res.error); alert('エラー: ' + res.error);
     }
-  } catch (e) {
-    if (e === 'EXTENSION_TIMEOUT') {
-       alert("拡張機能と通信できません。\nChromeの拡張機能設定で「ファイルのURLへのアクセスを許可する」をONにしてください。");
-       statusDiv.textContent = "拡張機能エラー";
-       statusDiv.style.color = "red";
-    } else {
-       alert("エラー: " + e);
-    }
-  }
+    localStorage.setItem('gh_settings', JSON.stringify({ token, repo: repoUrl, filename }));
+  } catch (e) { alert("通信エラー: " + e); }
 };
-
 async function getGhConfig() {
   const token = document.getElementById('gh-token').value;
   const repoUrl = document.getElementById('gh-repo').value;
@@ -604,8 +574,6 @@ async function getGhConfig() {
   if(!match) return null;
   return { token, owner: match[1], repo: match[2].replace(/(\.git)+$/, '').replace(/#.*$/, ''), filename };
 }
-
-// データ取得・保存・ツリー表示ロジック
 let currentGitHubData = null; let currentSha = null;
 async function fetchGitHubData() {
   try {
@@ -620,7 +588,7 @@ async function fetchGitHubData() {
       renderTree(document.getElementById('memo-tree-view'), currentGitHubData.folders || []);
       renderTree(document.getElementById('save-tree-view'), currentGitHubData.folders || [], true);
     } else { alert('取得エラー: ' + res.error); }
-  } catch(e) { alert(e === 'EXTENSION_TIMEOUT' ? "拡張機能アクセス許可を確認してください" : e); }
+  } catch(e) { alert(e); }
 }
 async function saveToGitHub(data, msg) {
   try {
@@ -657,7 +625,18 @@ function renderTree(container, folders, isSaveMode = false) {
     const div = document.createElement('div'); div.className='item';
     if(node.type==='folder') {
       div.innerHTML = `📁 ${escapeHTML(node.name)}`;
-      div.onclick = () => { currentPath.push(node.name); renderTree(container, folders, isSaveMode); };
+      div.onclick = () => {
+        if (isSaveMode) {
+             document.querySelectorAll('.item').forEach(i=>i.classList.remove('selected'));
+             div.classList.add('selected');
+             // 保存モードではクリックで中に入らず選択状態にするだけにしたい場合もありますが、
+             // 要件の「階層表示」と「その階層に保存」を両立させるため、ここでは
+             // シングルクリックで中に入り、現在地(currentPath)に保存する仕様とします
+             currentPath.push(node.name); renderTree(container, folders, isSaveMode);
+        } else {
+             currentPath.push(node.name); renderTree(container, folders, isSaveMode);
+        }
+      };
     } else {
       div.innerHTML = `📋️ ${escapeHTML(node.name)}`;
       div.onclick = () => { if(!isSaveMode) { setText(node.content); panel.classList.remove('open'); } };
@@ -692,6 +671,43 @@ document.getElementById('clear').onclick=()=>{setText('');};
 document.getElementById('undo').onclick=()=>{if(currentStep>0){currentStep--;setText(history[currentStep]);}};
 document.getElementById('redo').onclick=()=>{if(currentStep<history.length-1){currentStep++;setText(history[currentStep]);}};
 document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(getText());};
+
+// -----------------------------------------------------------
+// 修正: メモ保存・一時保存ボタンのリスナー追加
+// -----------------------------------------------------------
+document.getElementById('do-save-memo').onclick = async () => {
+  const title = document.getElementById('save-title').value;
+  if(!title) return alert('タイトルを入力してください');
+  
+  // currentPath に従って保存先フォルダを特定
+  let target = { children: currentGitHubData.folders };
+  for(const p of currentPath) {
+    target = target.children.find(c => c.type === 'folder' && c.name === p);
+    if (!target) return alert('階層エラー: フォルダが見つかりません');
+  }
+  if (!target.children) target.children = [];
+  
+  const existingIdx = target.children.findIndex(c => c.type === 'memo' && c.name === title);
+  const newMemo = { type: 'memo', name: title, content: getText() };
+  
+  if (existingIdx >= 0) {
+    if(!confirm('同名のメモがあります。上書きしますか？')) return;
+    target.children[existingIdx] = newMemo;
+  } else {
+    target.children.push(newMemo);
+  }
+  
+  await saveToGitHub(currentGitHubData, `Save memo: ${title}`);
+  alert('保存しました');
+  // ツリー再描画
+  renderTree(document.getElementById('save-tree-view'), currentGitHubData.folders, true);
+};
+
+document.getElementById('do-save-temp').onclick = async () => {
+  currentGitHubData.tempMemo = getText();
+  await saveToGitHub(currentGitHubData, "Update temp memo");
+  alert('一時保存しました');
+};
 </script>
 </body>
 </html>
