@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メモ帳 3.4</title>
+  <title>メモ帳 3.5</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -13,43 +13,21 @@
     .controls { flex: 0 0 auto; margin-bottom: 10px; position: relative; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
     .controls button, .controls input, .controls select { padding: 7px 7px; font-size: 12px; }
     
-    /* 入力エリア */
     #editor-container { flex: 1; position: relative; border: 1px solid #ccc; overflow: hidden; }
-    #memo {
-      width: 100%; height: 100%; box-sizing: border-box;
-      padding: 10px; overflow: auto; white-space: pre-wrap; font-family: monospace; outline: none;
-    }
-    #code-editor {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      display: none; 
-    }
+    #memo { width: 100%; height: 100%; box-sizing: border-box; padding: 10px; overflow: auto; white-space: pre-wrap; font-family: monospace; outline: none; }
+    #code-editor { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; }
     
-    /* ハイライト */
     .highlight { background-color: yellow; }
     .highlight-delete { background-color: #ffcccc; text-decoration: line-through; }
     .highlight-change { background-color: cyan; }
-    
-    /* Ace Editor用マーカー */
     .ace-marker-change { background-color: rgba(0, 255, 255, 0.4); position: absolute; }
     .ace-marker-delete { background-color: rgba(255, 0, 0, 0.3); position: absolute; }
 
-    /* 左パネル */
-    #settings-panel {
-      display: none;
-      position: fixed; top: 0; left: 0; width: 300px; height: 100%;
-      background: #f9f9f9; border-right: 1px solid #ccc; z-index: 2000;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 15px; overflow-y: auto;
-    }
+    #settings-panel { display: none; position: fixed; top: 0; left: 0; width: 300px; height: 100%; background: #f9f9f9; border-right: 1px solid #ccc; z-index: 2000; box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 15px; overflow-y: auto; }
     #settings-panel.open { display: block; }
     .panel-header { display: flex; justify-content: flex-end; margin-bottom: 20px; }
     .panel-close { cursor: pointer; font-weight: bold; font-size: 18px; }
-    
-    /* 展開ボタン */
-    #expand-btn {
-      display: none;
-      position: fixed; top: 10px; left: 10px; z-index: 3000;
-      padding: 10px 15px; font-weight: bold; background: #fff; border: 2px solid #333; cursor: pointer;
-    }
+    #expand-btn { display: none; position: fixed; top: 10px; left: 10px; z-index: 3000; padding: 10px 15px; font-weight: bold; background: #fff; border: 2px solid #333; cursor: pointer; }
 
     .menu-btn { width: 100%; padding: 10px; text-align: left; margin-bottom: 5px; cursor: pointer; background: #fff; border: 1px solid #ddd; }
     .menu-btn:hover { background: #eee; }
@@ -93,7 +71,7 @@
       <button id="gh-save-config">設定保存 & 初期化</button>
       <div id="gh-status" class="status-msg"></div>
     </div>
-
+    
     <div id="transform-screen" class="screen">
       <button class="back-btn">←戻る</button>
       <h3>変換</h3>
@@ -282,7 +260,7 @@ const expandBtn = document.getElementById('expand-btn');
 document.getElementById('settings-btn').addEventListener('click', () => { 
   panel.classList.add('open'); 
   showScreen('menu-screen'); 
-  // 起動時に拡張機能から設定を読み込んでみる
+  // 起動時に拡張機能から設定読み込み
   loadGhSettingsFromExt();
 });
 document.querySelector('.panel-close').addEventListener('click', () => panel.classList.remove('open'));
@@ -537,7 +515,7 @@ function sendExtMessage(payload) {
     window.addEventListener('message', handler);
     window.postMessage({ source: 'MEMO_TOOL_V3', id, payload }, "*");
 
-    // 1秒待って反応なければエラー (拡張機能が動いてない/アクセス権限がない)
+    // 1秒待って反応なければエラー
     setTimeout(() => {
       if (!handled) {
         window.removeEventListener('message', handler);
@@ -547,7 +525,7 @@ function sendExtMessage(payload) {
   });
 }
 
-// 拡張機能から設定を読み込む (GET_SETTINGS)
+// 拡張機能から設定を読み込む
 async function loadGhSettingsFromExt() {
   try {
     const res = await sendExtMessage({ type: 'GET_SETTINGS' });
@@ -559,7 +537,7 @@ async function loadGhSettingsFromExt() {
     }
   } catch(e) {
     if(e === 'EXTENSION_TIMEOUT') {
-      document.getElementById('gh-status').textContent = "⚠ 拡張機能が見つかりません (ファイルのURLへのアクセスを許可してください)";
+      document.getElementById('gh-status').textContent = "⚠ 拡張機能が検出できません (URLアクセス許可を確認)";
       document.getElementById('gh-status').style.color = 'red';
     }
   }
@@ -584,9 +562,8 @@ document.getElementById('gh-save-config').onclick = async () => {
   statusDiv.style.color = "blue";
 
   try {
-    // 拡張機能経由でチェック
     const res = await sendExtMessage({ type: 'GITHUB_FETCH', url: url, token: token });
-    
+    // v6 は res.ok を返す (res.success も互換用にある)
     if (res.status === 404) {
       if(confirm("ファイルが見つかりません。新規作成しますか？")) {
         const initialData = { folders: [], tempMemo: "", candidates: [] };
@@ -600,17 +577,13 @@ document.getElementById('gh-save-config').onclick = async () => {
       } else {
         statusDiv.textContent = "キャンセルされました";
       }
-    } else if (res.success) {
+    } else if (res.ok || res.success) { // 両対応
       statusDiv.textContent = "接続成功";
       alert('接続成功: 既存ファイルを確認しました');
     } else {
       statusDiv.textContent = "エラー: " + (res.status || res.error);
       alert('エラー: ' + res.error);
     }
-    
-    // 設定をローカルストレージにも保存(バックアップ)
-    localStorage.setItem('gh_settings', JSON.stringify({ token, repo: repoUrl, filename }));
-
   } catch (e) {
     if (e === 'EXTENSION_TIMEOUT') {
        alert("拡張機能と通信できません。\nChromeの拡張機能設定で「ファイルのURLへのアクセスを許可する」をONにしてください。");
@@ -640,14 +613,14 @@ async function fetchGitHubData() {
     if (!cfg) { alert('GitHub設定を行ってください'); return; }
     const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.filename}`;
     const res = await sendExtMessage({ type: 'GITHUB_FETCH', url: url, token: cfg.token });
-    if (res.success) {
+    if (res.ok || res.success) {
       currentSha = res.data.sha;
       const content = decodeURIComponent(escape(atob(res.data.content)));
       currentGitHubData = JSON.parse(content);
       renderTree(document.getElementById('memo-tree-view'), currentGitHubData.folders || []);
       renderTree(document.getElementById('save-tree-view'), currentGitHubData.folders || [], true);
     } else { alert('取得エラー: ' + res.error); }
-  } catch(e) { alert(e === 'EXTENSION_TIMEOUT' ? "拡張機能のファイルアクセス許可を確認してください" : e); }
+  } catch(e) { alert(e === 'EXTENSION_TIMEOUT' ? "拡張機能アクセス許可を確認してください" : e); }
 }
 async function saveToGitHub(data, msg) {
   try {
@@ -658,7 +631,7 @@ async function saveToGitHub(data, msg) {
       type: 'GITHUB_FETCH', method: 'PUT', url: url, token: cfg.token, 
       body: { message: msg, content: content, sha: currentSha }
     });
-    if (res.success) {
+    if (res.ok || res.success) {
       currentSha = res.data.content.sha;
       if (data.tempMemo) sendExtMessage({ type: 'SET_TEMP_MEMO', text: data.tempMemo });
     } else { alert('保存エラー: ' + res.error); }
