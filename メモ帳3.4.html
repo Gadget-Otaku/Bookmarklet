@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メモ帳 3.4</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* 基本レイアウト */
+    html, body { height: 100%; margin: 0; padding: 18px; box-sizing: border-box; }
+    body { display: flex; flex-direction: column; font-family: sans-serif; }
+    .controls { flex: 0 0 auto; margin-bottom: 10px; position: relative; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .controls button, .controls input, .controls select { padding: 7px 7px; font-size: 12px; }
+    
+    /* 入力エリア */
+    #editor-container { flex: 1; position: relative; border: 1px solid #ccc; overflow: hidden; }
+    #memo {
+      width: 100%; height: 100%; box-sizing: border-box;
+      padding: 10px; overflow: auto; white-space: pre-wrap; font-family: monospace; outline: none;
+    }
+    #code-editor {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      display: none; 
+    }
+    
+    /* ハイライト */
+    .highlight { background-color: yellow; }
+    .highlight-delete { background-color: #ffcccc; text-decoration: line-through; }
+    .highlight-change { background-color: cyan; }
+    
+    /* Ace Editor用マーカー */
+    .ace-marker-change { background-color: rgba(0, 255, 255, 0.4); position: absolute; }
+    .ace-marker-delete { background-color: rgba(255, 0, 0, 0.3); position: absolute; }
+
+    /* 左パネル */
+    #settings-panel {
+      display: none;
+      position: fixed; top: 0; left: 0; width: 300px; height: 100%;
+      background: #f9f9f9; border-right: 1px solid #ccc; z-index: 2000;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 15px; overflow-y: auto;
+    }
+    #settings-panel.open { display: block; }
+    .panel-header { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+    .panel-close { cursor: pointer; font-weight: bold; font-size: 18px; }
+    
+    /* 展開ボタン */
+    #expand-btn {
+      display: none;
+      position: fixed; top: 10px; left: 10px; z-index: 3000;
+      padding: 10px 15px; font-weight: bold; background: #fff; border: 2px solid #333; cursor: pointer;
+    }
+
+    .menu-btn { width: 100%; padding: 10px; text-align: left; margin-bottom: 5px; cursor: pointer; background: #fff; border: 1px solid #ddd; }
+    .menu-btn:hover { background: #eee; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .row { margin-bottom: 10px; }
+    .row label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 12px; }
+    .row input[type="text"], .row input[type="password"] { width: 100%; padding: 5px; box-sizing: border-box; }
+    .item-list { border: 1px solid #eee; padding: 5px; max-height: 200px; overflow-y: auto; margin-bottom: 10px; }
+    .item { padding: 3px; cursor: pointer; display: flex; align-items: center; }
+    .item:hover { background: #eef; }
+    .item.selected { background: #ddf; border-left: 3px solid blue; }
+    #count { min-width: 40px; text-align: center; display: inline-block; font-size: 12px; }
+    .status-msg { font-size: 10px; color: blue; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <button id="expand-btn">⤢ 展開 (元に戻す)</button>
+
+  <div id="settings-panel">
+    <div class="panel-header"><span class="panel-close">☒</span></div>
+    
+    <div id="menu-screen" class="screen active">
+      <button class="menu-btn" id="btn-editor-mode">エディタモード オン</button>
+      <button class="menu-btn" id="btn-transform">変換</button>
+      <button class="menu-btn" id="btn-pc-view">PC表示</button>
+      <button class="menu-btn" id="btn-import">インポート</button>
+      <button class="menu-btn" id="btn-export">エクスポート</button>
+      <button class="menu-btn" id="btn-memo-list">メモ一覧</button>
+      <button class="menu-btn" id="btn-memo-save">メモ保存</button>
+      <hr>
+      <button class="menu-btn" id="btn-gh-settings">GitHub設定</button>
+    </div>
+
+    <div id="gh-settings-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <h3>GitHub設定</h3>
+      <div class="row"><label>GitHubアクセストークン</label><input type="password" id="gh-token"></div>
+      <div class="row"><label>リポジトリURL</label><input type="text" id="gh-repo" placeholder="https://github.com/user/repo"></div>
+      <div class="row"><label>保存ファイル名</label><input type="text" id="gh-filename" placeholder="memo_data.json"></div>
+      <button id="gh-save-config">設定保存 & 初期化</button>
+      <div id="gh-status" class="status-msg"></div>
+    </div>
+
+    <div id="transform-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <h3>変換</h3>
+      <label><input type="radio" name="trans-type" value="encode" checked> エンコード</label><br>
+      <label><input type="radio" name="trans-type" value="decode"> デコード</label><br>
+      <label><input type="radio" name="trans-type" value="remove-comment"> コメント削除</label>
+      <label style="margin-left:20px;"><input type="checkbox" id="chk-one-line"> 1文</label><br>
+      <label><input type="radio" name="trans-type" value="custom"> カスタム</label>
+      <div class="row" style="margin-top:10px;"><label>変換元</label><input type="text" id="trans-from"></div>
+      <div class="row"><label>変換先</label><input type="text" id="trans-to"></div>
+      <div style="display:flex; justify-content:space-between; margin-top:15px;">
+        <button id="do-transform">変換</button>
+        <button id="do-confirm-transform">確認</button>
+      </div>
+    </div>
+
+    <div id="import-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <h3>インポート</h3>
+      <div class="row"><label>URL</label><input type="text" id="import-url" placeholder="GitHub Raw / リポジトリ / サイトURL"></div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+        <button id="do-import-url">インポート</button>
+        <button id="btn-import-file">デバイスから</button>
+        <input type="file" id="file-input" style="display:none">
+        <button id="btn-candidates">候補</button>
+      </div>
+    </div>
+
+    <div id="candidate-screen" class="screen">
+      <button class="back-btn" data-target="import-screen">←戻る</button>
+      <button id="save-candidates" style="float:right;">保存</button>
+      <h3>候補編集</h3>
+      <div class="row">
+        <input type="radio" name="cand-sel" id="cand-new" checked> <label style="display:inline;">新規/選択なし</label>
+        <div id="candidate-list" class="item-list" style="height: 100px;"></div>
+      </div>
+      <div class="row"><label>名前</label><input type="text" id="cand-name"></div>
+      <div class="row"><label>URL</label><input type="text" id="cand-url"></div>
+      <div>
+        <button id="cand-add">追加</button>
+        <button id="cand-del">削除</button>
+        <button id="cand-up">↑</button>
+        <button id="cand-down">↓</button>
+      </div>
+    </div>
+
+    <div id="export-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <h3>エクスポート</h3>
+      <div class="row"><label>ファイル名</label><input type="text" id="export-name" placeholder="example"></div>
+      <div class="row"><label>拡張子</label><input type="text" id="export-ext" placeholder="txt"></div>
+      <button id="do-export">保存</button>
+    </div>
+
+    <div id="list-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <button id="sync-save" style="float:right;">保存</button>
+      <h3>メモ一覧</h3>
+      <div id="memo-tree-view" class="item-list" style="min-height:200px;">Loading...</div>
+      <div class="row"><button id="btn-edit-mode">編集</button></div>
+      <div id="new-folder-area" class="row">
+        <label>フォルダ作成</label>
+        <input type="text" id="new-folder-name" placeholder="フォルダ名">
+        <button id="create-folder">作成</button>
+      </div>
+    </div>
+
+    <div id="list-edit-ui" class="screen">
+       <button id="list-edit-back">貼り付け(終了)</button>
+       <h3>編集中</h3>
+       <div id="memo-tree-edit" class="item-list"></div>
+       <div style="display:flex; gap:5px; flex-wrap:wrap;">
+         <button id="edit-move">移動</button>
+         <button id="edit-copy">コピー</button>
+         <button id="edit-del">削除</button>
+       </div>
+       <div id="move-controls" style="display:none; margin-top:5px;">
+         <button id="move-up">上へ</button>
+         <button id="move-down">下へ</button>
+         <button id="move-in">←下の階層へ</button>
+         <button id="move-paste">貼り付け</button>
+       </div>
+    </div>
+
+    <div id="save-screen" class="screen">
+      <button class="back-btn">←戻る</button>
+      <h3>メモ保存</h3>
+      <div class="row"><label>タイトル名</label><input type="text" id="save-title"></div>
+      <div id="save-tree-view" class="item-list"></div>
+      <div style="display:flex; justify-content:space-between;">
+        <button id="do-save-memo">保存</button>
+        <button id="do-save-temp">一時保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="settings-btn">⚙️</button>
+    <button id="undo">←</button>
+    <button id="redo">→</button>
+    <button id="clear">クリア</button>
+    <button id="copy">コピー</button>
+    <input id="search" type="text" placeholder="🔎 キーワード検索">
+    <button id="prev"><</button>
+    <span id="count">0/0</span>
+    <button id="next">></button>
+    <input id="prefix" type="text" placeholder="始め">
+    <input id="suffix" type="text" placeholder="終わり">
+    <button id="add-prefix-suffix">追加</button>
+    <select id="exec-type">
+      <option value="js">JavaScript</option>
+      <option value="html">HTML</option>
+      <option value="md">Markdown</option>
+      <option value="svg">SVG</option>
+    </select>
+    <button id="do-exec">実行</button>
+    <button id="open-url">＋</button>
+    <button id="char-count-btn" title="文字数">0</button>
+  </div>
+
+  <div id="editor-container">
+    <div id="memo" contenteditable="true"></div>
+    <div id="code-editor"></div>
+  </div>
+
+<script>
+/* -------------------------------------------------------------------------- */
+/* 初期化                                       */
+/* -------------------------------------------------------------------------- */
+const memo = document.getElementById('memo');
+const editorDiv = document.getElementById('code-editor');
+let aceEditor = null;
+let isEditorMode = false;
+let history = [''];
+let currentStep = 0;
+
+function initAce() {
+  aceEditor = ace.edit("code-editor");
+  aceEditor.setTheme("ace/theme/twilight"); 
+  aceEditor.session.setMode("ace/mode/javascript");
+  aceEditor.setOptions({ fontSize: "14px", showLineNumbers: true, wrap: true });
+  aceEditor.on("change", () => updateHistory(aceEditor.getValue()));
+}
+initAce();
+
+document.getElementById('exec-type').addEventListener('change', (e) => {
+  const modeMap = {'js':'ace/mode/javascript','html':'ace/mode/html','md':'ace/mode/markdown','svg':'ace/mode/xml'};
+  if (aceEditor) aceEditor.session.setMode(modeMap[e.target.value]);
+});
+
+document.getElementById('btn-editor-mode').addEventListener('click', () => {
+  const btn = document.getElementById('btn-editor-mode');
+  if (!isEditorMode) {
+    const current = memo.innerText;
+    memo.style.display = 'none'; editorDiv.style.display = 'block';
+    aceEditor.setValue(current, -1);
+    isEditorMode = true; btn.textContent = "エディタモード オフ";
+  } else {
+    const current = aceEditor.getValue();
+    editorDiv.style.display = 'none'; memo.style.display = 'block';
+    memo.innerText = current;
+    isEditorMode = false; btn.textContent = "エディタモード オン";
+  }
+});
+
+function getText() { return isEditorMode ? aceEditor.getValue() : memo.innerText; }
+function setText(text) {
+  if (isEditorMode) aceEditor.setValue(text, -1); else memo.innerText = text;
+}
+function updateHistory(text) {
+  if (history[currentStep] !== text) {
+    history = history.slice(0, currentStep + 1);
+    history.push(text);
+    currentStep++;
+  }
+  updateCharCount();
+}
+
+/* -------------------------------------------------------------------------- */
+/* パネル制御                                    */
+/* -------------------------------------------------------------------------- */
+const panel = document.getElementById('settings-panel');
+const screens = document.querySelectorAll('.screen');
+const expandBtn = document.getElementById('expand-btn');
+
+document.getElementById('settings-btn').addEventListener('click', () => { 
+  panel.classList.add('open'); 
+  showScreen('menu-screen'); 
+  // 起動時に拡張機能から設定を読み込んでみる
+  loadGhSettingsFromExt();
+});
+document.querySelector('.panel-close').addEventListener('click', () => panel.classList.remove('open'));
+function showScreen(id) {
+  screens.forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+document.querySelectorAll('.back-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => showScreen(e.target.dataset.target || 'menu-screen'));
+});
+const bindScreen = (id, screen) => document.getElementById(id).onclick = () => showScreen(screen);
+bindScreen('btn-transform','transform-screen');
+bindScreen('btn-import','import-screen');
+bindScreen('btn-export','export-screen');
+bindScreen('btn-gh-settings','gh-settings-screen');
+document.getElementById('btn-memo-list').onclick = () => { fetchGitHubData(); showScreen('list-screen'); };
+document.getElementById('btn-memo-save').onclick = () => { fetchGitHubData(); showScreen('save-screen'); };
+document.getElementById('btn-candidates').onclick = () => { loadCandidatesUI(); showScreen('candidate-screen'); };
+
+/* -------------------------------------------------------------------------- */
+/* 検索機能                                      */
+/* -------------------------------------------------------------------------- */
+let searchMatches = [];
+let searchIndex = 0;
+function highlightSearch() {
+  const term = document.getElementById('search').value;
+  searchMatches = [];
+  searchIndex = 0;
+  if (!term) {
+    document.getElementById('count').textContent = "0/0";
+    if (!isEditorMode) memo.innerHTML = escapeHTML(getText());
+    return;
+  }
+  if (isEditorMode) {
+    aceEditor.findAll(term, {wrap: true, caseSensitive: false, regExp: false});
+    const regex = new RegExp(escapeRegExp(term), 'gi');
+    const count = (aceEditor.getValue().match(regex) || []).length;
+    document.getElementById('count').textContent = count > 0 ? `1/${count}` : "0/0";
+  } else {
+    const text = getText();
+    const regex = new RegExp(`(${escapeRegExp(term)})`, 'gi');
+    memo.innerHTML = escapeHTML(text).replace(regex, '<span class="highlight">$1</span>');
+    searchMatches = document.querySelectorAll('.highlight');
+    if (searchMatches.length > 0) {
+      searchMatches[0].scrollIntoView({block: "center", behavior: "smooth"});
+      document.getElementById('count').textContent = `1/${searchMatches.length}`;
+    } else { document.getElementById('count').textContent = "0/0"; }
+  }
+}
+document.getElementById('search').addEventListener('input', highlightSearch);
+document.getElementById('prev').onclick = () => {
+  if (isEditorMode) { aceEditor.findPrevious(); return; }
+  if (searchMatches.length === 0) return;
+  searchIndex = (searchIndex - 1 + searchMatches.length) % searchMatches.length;
+  searchMatches[searchIndex].scrollIntoView({block: "center", behavior: "smooth"});
+  document.getElementById('count').textContent = `${searchIndex + 1}/${searchMatches.length}`;
+};
+document.getElementById('next').onclick = () => {
+  if (isEditorMode) { aceEditor.findNext(); return; }
+  if (searchMatches.length === 0) return;
+  searchIndex = (searchIndex + 1) % searchMatches.length;
+  searchMatches[searchIndex].scrollIntoView({block: "center", behavior: "smooth"});
+  document.getElementById('count').textContent = `${searchIndex + 1}/${searchMatches.length}`;
+};
+
+/* -------------------------------------------------------------------------- */
+/* 行頭・行末 追加                                 */
+/* -------------------------------------------------------------------------- */
+document.getElementById('add-prefix-suffix').addEventListener('click', () => {
+  const prefix = document.getElementById('prefix').value || "";
+  const suffix = document.getElementById('suffix').value || "";
+  const beforeText = getText();
+  if (history[currentStep] !== beforeText) updateHistory(beforeText);
+
+  if (isEditorMode) {
+    const range = aceEditor.getSelectionRange();
+    const doc = aceEditor.session.getDocument();
+    for (let r = range.start.row; r <= range.end.row; r++) {
+      let line = doc.getLine(r);
+      aceEditor.session.replace(new ace.Range(r, 0, r, line.length), prefix + line + suffix);
+    }
+  } else {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const text = sel.toString();
+    if (!text) return;
+    const lines = text.split(/\r?\n/);
+    const newTextSegment = lines.map(line => prefix + line + suffix).join('\n');
+    const range = sel.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(document.createTextNode(newTextSegment));
+    memo.innerText = memo.innerText; 
+  }
+  updateHistory(getText());
+});
+
+/* -------------------------------------------------------------------------- */
+/* 変換・確認モード                                */
+/* -------------------------------------------------------------------------- */
+let originalContent = null;
+let confirmMarkers = [];
+function applyTransformLogic(text, type, isOneLine, customFrom, customTo) {
+  let result = text;
+  if (type === 'encode') result = encodeURIComponent(text);
+  else if (type === 'decode') result = decodeURIComponent(text);
+  else if (type === 'custom' && customFrom && customTo) result = text.split(customFrom).join(customTo);
+  return result;
+}
+function getRanges(text, type, customFrom, customTo) {
+  let ranges = [];
+  if (type === 'remove-comment') {
+    const lines = text.split('\n');
+    let offset = 0; let inside = false;
+    lines.forEach(line => {
+      const len = line.length + 1;
+      if (line.includes('// ==UserScript==')) inside = true;
+      if (line.includes('// ==/UserScript==')) inside = false;
+      if (!inside) {
+        let m = line.match(/^(\s*)(\/\/.*)$/);
+        if (m) ranges.push({start: offset, end: offset+line.length});
+        else {
+          let idx = line.search(/\s\/\//);
+          if (idx !== -1) ranges.push({start: offset+idx+1, end: offset+line.length});
+        }
+        let blockRegex = /\/\*[\s\S]*?\*\//g;
+        let bm;
+        while((bm = blockRegex.exec(line))!==null) ranges.push({start: offset+bm.index, end: offset+bm.index+bm[0].length});
+      }
+      offset += len;
+    });
+  } else if (type === 'custom' && !customTo && customFrom) {
+    let idx = text.indexOf(customFrom);
+    while (idx !== -1) { ranges.push({start: idx, end: idx+customFrom.length}); idx = text.indexOf(customFrom, idx+1); }
+  } else if (type === 'custom' && customTo && customFrom) {
+    const newText = text.split(customFrom).join(customTo);
+    let idx = newText.indexOf(customTo);
+    while (idx !== -1) { ranges.push({start: idx, end: idx+customTo.length}); idx = newText.indexOf(customTo, idx+1); }
+  }
+  return ranges;
+}
+function executeTransform(isConfirm) {
+  const type = document.querySelector('input[name="trans-type"]:checked').value;
+  const isOneLine = document.getElementById('chk-one-line').checked;
+  const customFrom = document.getElementById('trans-from').value;
+  const customTo = document.getElementById('trans-to').value;
+  const currentText = getText();
+  let mode = 'change'; 
+  if (type === 'remove-comment' || (type === 'custom' && !customTo)) mode = 'delete';
+
+  if (isConfirm) {
+    originalContent = currentText;
+    panel.classList.remove('open');
+    expandBtn.style.display = 'block';
+    if (mode === 'change') {
+      const result = applyTransformLogic(currentText, type, isOneLine, customFrom, customTo);
+      if (type === 'custom' && customFrom && customTo) {
+        if (isEditorMode) {
+          aceEditor.setValue(result, -1); aceEditor.setReadOnly(true);
+          const ranges = getRanges(currentText, type, customFrom, customTo);
+          ranges.forEach(rng => {
+             const doc = aceEditor.session.getDocument();
+             const p1 = doc.indexToPosition(rng.start);
+             const p2 = doc.indexToPosition(rng.end);
+             const r = new ace.Range(p1.row, p1.column, p2.row, p2.column);
+             confirmMarkers.push(aceEditor.session.addMarker(r, "ace-marker-change", "text"));
+          });
+        } else {
+          const escapedTo = escapeHTML(customTo);
+          const highlightedHtml = escapeHTML(result).split(escapedTo).join(`<span class="highlight-change">${escapedTo}</span>`);
+          memo.innerHTML = highlightedHtml; memo.contentEditable = false;
+        }
+      } else {
+        if (isEditorMode) {
+          aceEditor.setValue(result, -1); aceEditor.setReadOnly(true);
+          const r = new ace.Range(0, 0, aceEditor.session.getLength(), 0);
+          confirmMarkers.push(aceEditor.session.addMarker(r, "ace-marker-change", "fullLine"));
+        } else {
+          memo.innerHTML = `<span class="highlight-change" style="width:100%; display:inline-block;">${escapeHTML(result)}</span>`;
+          memo.contentEditable = false;
+        }
+      }
+    } else {
+      const ranges = getRanges(currentText, type, customFrom, null);
+      if (isEditorMode) {
+        aceEditor.setReadOnly(true);
+        ranges.forEach(rng => {
+          const doc = aceEditor.session.getDocument();
+          const p1 = doc.indexToPosition(rng.start);
+          const p2 = doc.indexToPosition(rng.end);
+          const r = new ace.Range(p1.row, p1.column, p2.row, p2.column);
+          confirmMarkers.push(aceEditor.session.addMarker(r, "ace-marker-delete", "text"));
+        });
+      } else {
+        let html = ""; let last = 0;
+        ranges.sort((a,b) => a.start - b.start);
+        ranges.forEach(r => {
+          html += escapeHTML(currentText.substring(last, r.start));
+          html += `<span class="highlight-delete">${escapeHTML(currentText.substring(r.start, r.end))}</span>`;
+          last = r.end;
+        });
+        html += escapeHTML(currentText.substring(last));
+        memo.innerHTML = html.replace(/\n/g, '<br>');
+        memo.contentEditable = false;
+      }
+    }
+  } else {
+    if (mode === 'change') {
+      setText(applyTransformLogic(currentText, type, isOneLine, customFrom, customTo));
+    } else {
+      const ranges = getRanges(currentText, type, customFrom, null);
+      let chars = currentText.split('');
+      ranges.sort((a,b) => b.start - a.start);
+      ranges.forEach(r => chars.splice(r.start, r.end - r.start));
+      let result = chars.join('');
+      if (type === 'remove-comment' && isOneLine) result = result.replace(/\r?\n/g, '');
+      setText(result);
+    }
+  }
+}
+document.getElementById('do-transform').onclick = () => executeTransform(false);
+document.getElementById('do-confirm-transform').onclick = () => executeTransform(true);
+expandBtn.addEventListener('click', () => {
+  if (originalContent !== null) {
+    if (isEditorMode) {
+      aceEditor.setValue(originalContent, -1); aceEditor.setReadOnly(false);
+      confirmMarkers.forEach(id => aceEditor.session.removeMarker(id)); confirmMarkers = [];
+    } else {
+      memo.innerText = originalContent; memo.contentEditable = true;
+    }
+    originalContent = null;
+  }
+  expandBtn.style.display = 'none'; panel.classList.add('open');
+});
+
+/* -------------------------------------------------------------------------- */
+/* GitHub連携 (通信タイムアウト付き)                */
+/* -------------------------------------------------------------------------- */
+
+// 拡張機能へメッセージ送信 (タイムアウト機能付き)
+function sendExtMessage(payload) {
+  return new Promise((resolve, reject) => {
+    const id = Date.now() + Math.random();
+    let handled = false;
+
+    const handler = (e) => {
+      if (e.data && e.data.source === 'MEMO_EXTENSION' && e.data.id === id) {
+        window.removeEventListener('message', handler);
+        handled = true;
+        resolve(e.data.payload);
+      }
+    };
+    window.addEventListener('message', handler);
+    window.postMessage({ source: 'MEMO_TOOL_V3', id, payload }, "*");
+
+    // 1秒待って反応なければエラー (拡張機能が動いてない/アクセス権限がない)
+    setTimeout(() => {
+      if (!handled) {
+        window.removeEventListener('message', handler);
+        reject('EXTENSION_TIMEOUT');
+      }
+    }, 1000);
+  });
+}
+
+// 拡張機能から設定を読み込む (GET_SETTINGS)
+async function loadGhSettingsFromExt() {
+  try {
+    const res = await sendExtMessage({ type: 'GET_SETTINGS' });
+    if (res) {
+      if(res.githubToken) document.getElementById('gh-token').value = res.githubToken;
+      if(res.repoUrl) document.getElementById('gh-repo').value = res.repoUrl;
+      if(res.fileName) document.getElementById('gh-filename').value = res.fileName;
+      document.getElementById('gh-status').textContent = "拡張機能から設定を読み込みました";
+    }
+  } catch(e) {
+    if(e === 'EXTENSION_TIMEOUT') {
+      document.getElementById('gh-status').textContent = "⚠ 拡張機能が見つかりません (ファイルのURLへのアクセスを許可してください)";
+      document.getElementById('gh-status').style.color = 'red';
+    }
+  }
+}
+
+// メモ帳側で「設定保存」を押したとき
+document.getElementById('gh-save-config').onclick = async () => {
+  const token = document.getElementById('gh-token').value.trim();
+  const repoUrl = document.getElementById('gh-repo').value.trim();
+  const filename = document.getElementById('gh-filename').value.trim();
+  const statusDiv = document.getElementById('gh-status');
+
+  if (!token || !repoUrl || !filename) return alert('全項目入力してください');
+
+  const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\.]+)/);
+  if (!match) return alert('リポジトリURLが無効です');
+  const owner = match[1];
+  const repo = match[2].replace(/(\.git)+$/, '').replace(/#.*$/, '');
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filename}`;
+
+  statusDiv.textContent = "接続テスト中...";
+  statusDiv.style.color = "blue";
+
+  try {
+    // 拡張機能経由でチェック
+    const res = await sendExtMessage({ type: 'GITHUB_FETCH', url: url, token: token });
+    
+    if (res.status === 404) {
+      if(confirm("ファイルが見つかりません。新規作成しますか？")) {
+        const initialData = { folders: [], tempMemo: "", candidates: [] };
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(initialData, null, 2))));
+        await sendExtMessage({ 
+          type: 'GITHUB_FETCH', method: 'PUT', url: url, token: token,
+          body: { message: "Init from MemoPad", content: content } 
+        });
+        statusDiv.textContent = "ファイルを作成し、保存しました";
+        alert('JSONファイルを新規作成しました');
+      } else {
+        statusDiv.textContent = "キャンセルされました";
+      }
+    } else if (res.success) {
+      statusDiv.textContent = "接続成功";
+      alert('接続成功: 既存ファイルを確認しました');
+    } else {
+      statusDiv.textContent = "エラー: " + (res.status || res.error);
+      alert('エラー: ' + res.error);
+    }
+    
+    // 設定をローカルストレージにも保存(バックアップ)
+    localStorage.setItem('gh_settings', JSON.stringify({ token, repo: repoUrl, filename }));
+
+  } catch (e) {
+    if (e === 'EXTENSION_TIMEOUT') {
+       alert("拡張機能と通信できません。\nChromeの拡張機能設定で「ファイルのURLへのアクセスを許可する」をONにしてください。");
+       statusDiv.textContent = "拡張機能エラー";
+       statusDiv.style.color = "red";
+    } else {
+       alert("エラー: " + e);
+    }
+  }
+};
+
+async function getGhConfig() {
+  const token = document.getElementById('gh-token').value;
+  const repoUrl = document.getElementById('gh-repo').value;
+  const filename = document.getElementById('gh-filename').value;
+  if(!token) return null;
+  const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\.]+)/);
+  if(!match) return null;
+  return { token, owner: match[1], repo: match[2].replace(/(\.git)+$/, '').replace(/#.*$/, ''), filename };
+}
+
+// データ取得・保存・ツリー表示ロジック
+let currentGitHubData = null; let currentSha = null;
+async function fetchGitHubData() {
+  try {
+    const cfg = await getGhConfig();
+    if (!cfg) { alert('GitHub設定を行ってください'); return; }
+    const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.filename}`;
+    const res = await sendExtMessage({ type: 'GITHUB_FETCH', url: url, token: cfg.token });
+    if (res.success) {
+      currentSha = res.data.sha;
+      const content = decodeURIComponent(escape(atob(res.data.content)));
+      currentGitHubData = JSON.parse(content);
+      renderTree(document.getElementById('memo-tree-view'), currentGitHubData.folders || []);
+      renderTree(document.getElementById('save-tree-view'), currentGitHubData.folders || [], true);
+    } else { alert('取得エラー: ' + res.error); }
+  } catch(e) { alert(e === 'EXTENSION_TIMEOUT' ? "拡張機能のファイルアクセス許可を確認してください" : e); }
+}
+async function saveToGitHub(data, msg) {
+  try {
+    const cfg = await getGhConfig();
+    const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.filename}`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const res = await sendExtMessage({ 
+      type: 'GITHUB_FETCH', method: 'PUT', url: url, token: cfg.token, 
+      body: { message: msg, content: content, sha: currentSha }
+    });
+    if (res.success) {
+      currentSha = res.data.content.sha;
+      if (data.tempMemo) sendExtMessage({ type: 'SET_TEMP_MEMO', text: data.tempMemo });
+    } else { alert('保存エラー: ' + res.error); }
+  } catch(e) { alert(e); }
+}
+let currentPath = [];
+function renderTree(container, folders, isSaveMode = false) {
+  container.innerHTML = '';
+  if (!isSaveMode && currentGitHubData?.tempMemo) {
+    const d = document.createElement('div'); d.className='item'; d.innerHTML='📋️ <b>一時メモ</b>';
+    d.onclick = () => { setText(currentGitHubData.tempMemo); panel.classList.remove('open'); };
+    container.appendChild(d);
+  }
+  if (currentPath.length > 0) {
+    const up = document.createElement('div'); up.className='item'; up.innerText='📁 ..';
+    up.onclick = () => { currentPath.pop(); renderTree(container, folders, isSaveMode); };
+    container.appendChild(up);
+  }
+  let target = { children: folders };
+  for(const p of currentPath) target = target.children.find(c=>c.name===p);
+  if(!target) return;
+  (target.children||[]).forEach(node => {
+    const div = document.createElement('div'); div.className='item';
+    if(node.type==='folder') {
+      div.innerHTML = `📁 ${escapeHTML(node.name)}`;
+      div.onclick = () => { currentPath.push(node.name); renderTree(container, folders, isSaveMode); };
+    } else {
+      div.innerHTML = `📋️ ${escapeHTML(node.name)}`;
+      div.onclick = () => { if(!isSaveMode) { setText(node.content); panel.classList.remove('open'); } };
+    }
+    container.appendChild(div);
+  });
+}
+document.getElementById('do-import-url').onclick = async () => {
+  const url = document.getElementById('import-url').value;
+  if(!url) return;
+  let target = url;
+  if(url.includes('github.com') && !url.includes('raw')) target = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+  try {
+    const res = await sendExtMessage({ type: 'FETCH_URL', url: target });
+    if(res.success) setText(res.text); else alert('失敗: '+res.error);
+  } catch(e) { alert('拡張機能エラー: '+e); }
+};
+document.getElementById('do-exec').onclick = () => {
+  const type = document.getElementById('exec-type').value;
+  let code = getText();
+  if (type === 'js') { try { new Function(code)(); } catch(e) { alert(e); } }
+  else {
+    const w = window.open();
+    if (type === 'md') w.document.write(marked.parse(code)); else w.document.write(code);
+    w.document.close();
+  }
+};
+function escapeHTML(s) { return s.replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[m])); }
+function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function updateCharCount() { document.getElementById('char-count-btn').textContent = getText().length; }
+document.getElementById('clear').onclick=()=>{setText('');};
+document.getElementById('undo').onclick=()=>{if(currentStep>0){currentStep--;setText(history[currentStep]);}};
+document.getElementById('redo').onclick=()=>{if(currentStep<history.length-1){currentStep++;setText(history[currentStep]);}};
+document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(getText());};
+</script>
+</body>
+</html>
