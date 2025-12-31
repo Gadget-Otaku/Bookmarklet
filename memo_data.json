@@ -1,5 +1,11 @@
 {
-  "folders": [],
+  "folders": [
+    {
+      "type": "memo",
+      "name": "別のメモ",
+      "content": "別のメモ"
+    }
+  ],
   "tempMemo": "一時メモ保存テスト",
   "candidates": []
 }
