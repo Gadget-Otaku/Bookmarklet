@@ -13,6 +13,11 @@
           "type": "memo",
           "name": "ああああああ",
           "content": "あああああああ"
+        },
+        {
+          "type": "folder",
+          "name": "下の階層",
+          "children": []
         }
       ]
     }
