@@ -3,41 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メモ帳 4.0</title>
+  <title>メモ帳 4.1</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     /* 基本レイアウト */
-    html, body { height: 100%; margin: 0; padding: 18px; box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0 18px 18px 18px; box-sizing: border-box; }
     body { display: flex; flex-direction: column; font-family: sans-serif; }
     
-    /* タイトルバー & コントロール */
-    .header-bar { display: flex; gap: 10px; margin-bottom: 5px; }
+    /* タイトルバー & コントロール (余白調整) */
+    .header-bar { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 5px; }
     #page-title { flex: 1; padding: 5px; font-weight: bold; border: 1px solid #ccc; }
     
     .controls { flex: 0 0 auto; margin-bottom: 10px; position: relative; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
     .controls button, .controls input, .controls select { padding: 7px 7px; font-size: 12px; }
     
-    /* エディタ */
     #editor-container { flex: 1; position: relative; border: 1px solid #ccc; overflow: hidden; }
     #memo { width: 100%; height: 100%; box-sizing: border-box; padding: 10px; overflow: auto; white-space: pre-wrap; font-family: monospace; outline: none; }
     #code-editor { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; }
     
-    /* ハイライト */
     .highlight { background-color: yellow; }
     .highlight-delete { background-color: #ffcccc; text-decoration: line-through; }
     .highlight-change { background-color: cyan; }
     .ace-marker-change { background-color: rgba(0, 255, 255, 0.4); position: absolute; }
     .ace-marker-delete { background-color: rgba(255, 0, 0, 0.3); position: absolute; }
 
-    /* 設定パネル */
     #settings-panel { display: none; position: fixed; top: 0; left: 0; width: 320px; height: 100%; background: #f9f9f9; border-right: 1px solid #ccc; z-index: 2000; box-shadow: 2px 0 5px rgba(0,0,0,0.1); padding: 15px; overflow-y: auto; }
     #settings-panel.open { display: block; }
     .panel-header { display: flex; justify-content: flex-end; margin-bottom: 20px; }
     .panel-close { cursor: pointer; font-weight: bold; font-size: 18px; }
     #expand-btn { display: none; position: fixed; top: 10px; left: 10px; z-index: 3000; padding: 10px 15px; font-weight: bold; background: #fff; border: 2px solid #333; cursor: pointer; }
 
-    /* スクリーン (パネル内ページ) */
     .menu-btn { width: 100%; padding: 10px; text-align: left; margin-bottom: 5px; cursor: pointer; background: #fff; border: 1px solid #ddd; }
     .menu-btn:hover { background: #eee; }
     .screen { display: none; }
@@ -45,15 +41,10 @@
     .row { margin-bottom: 10px; }
     .row label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 12px; }
     .row input[type="text"], .row input[type="password"] { width: 100%; padding: 5px; box-sizing: border-box; }
-    
-    /* リスト */
     .item-list { border: 1px solid #eee; padding: 5px; max-height: 250px; overflow-y: auto; margin-bottom: 10px; background: #fff; }
     .item { padding: 5px; cursor: pointer; display: flex; align-items: center; border-bottom: 1px solid #f0f0f0; }
     .item:hover { background: #eef; }
     .item.selected { background: #ddf; border-left: 3px solid blue; }
-    .folder-icon { color: #dcb028; margin-right: 5px; }
-    .memo-icon { color: #555; margin-right: 5px; }
-    
     #count { min-width: 40px; text-align: center; display: inline-block; font-size: 12px; }
     .status-msg { font-size: 10px; color: blue; margin-top: 5px; }
   </style>
@@ -213,6 +204,7 @@
   </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
 /* -------------------------------------------------------------------------- */
 /* 初期化 & エディタ                                 */
 /* -------------------------------------------------------------------------- */
@@ -267,7 +259,7 @@ function updateHistory(text) {
 /* -------------------------------------------------------------------------- */
 /* 拡張機能連携                                    */
 /* -------------------------------------------------------------------------- */
-let ghConfig = null; // { token, owner, repo, filename }
+let ghConfig = null;
 
 function sendExtMessage(payload) {
   return new Promise((resolve, reject) => {
@@ -315,7 +307,7 @@ async function loadGhSettings() {
   }
 }
 // 起動時にロード
-window.addEventListener('load', loadGhSettings);
+loadGhSettings();
 document.getElementById('btn-gh-connect').onclick = loadGhSettings;
 
 /* -------------------------------------------------------------------------- */
@@ -383,7 +375,6 @@ function performSearch() {
 
   if (isEditorMode) {
     aceEditor.findAll(term, {wrap: true, caseSensitive: false, regExp: false});
-    // Aceの場合はfindAllで全選択される。件数は簡易計算
     const regex = new RegExp(escapeRegExp(term), 'gi');
     const count = (aceEditor.getValue().match(regex) || []).length;
     document.getElementById('count').textContent = count > 0 ? `1/${count}` : "0/0";
@@ -448,7 +439,6 @@ document.getElementById('do-exec').onclick = () => {
 /* -------------------------------------------------------------------------- */
 /* UI: インポート / 候補                          */
 /* -------------------------------------------------------------------------- */
-// ファイルから
 document.getElementById('btn-import-file').onclick = () => document.getElementById('file-input').click();
 document.getElementById('file-input').onchange = (e) => {
   const file = e.target.files[0];
@@ -458,7 +448,6 @@ document.getElementById('file-input').onchange = (e) => {
   reader.readAsText(file);
 };
 
-// URLから
 document.getElementById('do-import-url').onclick = async () => {
   const url = document.getElementById('import-url').value;
   if(!url) return;
@@ -470,7 +459,6 @@ document.getElementById('do-import-url').onclick = async () => {
   } catch(e) { alert('拡張機能エラー: '+e); }
 };
 
-// 候補機能
 let selectedCandidateIdx = -1;
 function renderCandidates() {
   const list = document.getElementById('candidate-list');
@@ -528,7 +516,6 @@ document.getElementById('cand-down').onclick = () => {
 
 document.getElementById('save-candidates').onclick = async () => {
   if (selectedCandidateIdx >= 0) {
-    // 現在の入力値を反映
     currentGitHubData.candidates[selectedCandidateIdx].name = document.getElementById('cand-name').value;
     currentGitHubData.candidates[selectedCandidateIdx].url = document.getElementById('cand-url').value;
   }
@@ -537,7 +524,6 @@ document.getElementById('save-candidates').onclick = async () => {
   }
 };
 
-// 戻るボタンでURL反映
 document.querySelector('#candidate-screen .back-btn').addEventListener('click', () => {
   if (selectedCandidateIdx >= 0) {
     document.getElementById('import-url').value = currentGitHubData.candidates[selectedCandidateIdx].url;
@@ -561,9 +547,8 @@ document.getElementById('do-export').onclick = () => {
 /* -------------------------------------------------------------------------- */
 /* UI: メモ一覧・フォルダ・保存                     */
 /* -------------------------------------------------------------------------- */
-let currentPath = []; // フォルダ名の配列
+let currentPath = [];
 
-// 階層トラバース用
 function getFolder(root, path) {
   let target = { children: root };
   for (const p of path) {
@@ -577,7 +562,6 @@ function getFolder(root, path) {
 function renderTree(container, folders, mode = 'view') {
   container.innerHTML = '';
   
-  // 一時メモ (viewモードのみ)
   if (mode === 'view' && currentGitHubData.tempMemo) {
     const div = document.createElement('div');
     div.className = 'item';
@@ -590,7 +574,6 @@ function renderTree(container, folders, mode = 'view') {
     container.appendChild(div);
   }
 
-  // 親へ戻る
   if (currentPath.length > 0) {
     const div = document.createElement('div');
     div.className = 'item';
@@ -612,15 +595,8 @@ function renderTree(container, folders, mode = 'view') {
     if (node.type === 'folder') {
       div.innerHTML = `<span class="folder-icon">📁</span> ${escapeHTML(node.name)}`;
       div.onclick = () => {
-        if (mode === 'save') {
-           // 保存モード: 選択表示のみ（中に入るにはダブルクリックか別ボタンが必要だが、今回はシングルで入る仕様にする）
-           // 要件「フォルダの階層に行くにはクリックする必要があり」
-           currentPath.push(node.name);
-           renderTree(container, folders, mode);
-        } else {
-           currentPath.push(node.name);
-           renderTree(container, folders, mode);
-        }
+        currentPath.push(node.name);
+        renderTree(container, folders, mode);
       };
     } else {
       div.innerHTML = `<span class="memo-icon">📋️</span> ${escapeHTML(node.name)}`;
@@ -636,7 +612,6 @@ function renderTree(container, folders, mode = 'view') {
   });
 }
 
-// 一覧画面呼び出し
 document.getElementById('btn-memo-list').onclick = async () => {
   if (await fetchGitHubData()) {
     currentPath = [];
@@ -645,7 +620,6 @@ document.getElementById('btn-memo-list').onclick = async () => {
   }
 };
 
-// フォルダ作成
 document.getElementById('create-folder').onclick = async () => {
   const name = document.getElementById('new-folder-name').value;
   if (!name) return;
@@ -659,8 +633,6 @@ document.getElementById('create-folder').onclick = async () => {
   }
 };
 
-// 編集モード
-let clipboard = null;
 let editSelectedIdx = -1;
 
 document.getElementById('btn-edit-mode').onclick = () => {
@@ -731,8 +703,6 @@ document.getElementById('move-down').onclick = () => {
     renderEditTree();
   }
 };
-// 「下の階層へ」は、選択中のアイテムを、その下にあるフォルダに入れる動作と解釈
-// 簡易化のため「現在地を変更する」ボタンとします
 document.getElementById('move-in').onclick = () => {
   const folder = getFolder(currentGitHubData.folders, currentPath);
   const target = folder.children[editSelectedIdx];
@@ -750,11 +720,9 @@ document.getElementById('move-paste-btn').onclick = document.getElementById('lis
   showScreen('list-screen');
 };
 
-// メモ保存画面
 document.getElementById('btn-memo-save').onclick = async () => {
   if (await fetchGitHubData()) {
     currentPath = [];
-    // タイトル自動入力
     document.getElementById('save-title').value = titleInput.value;
     renderTree(document.getElementById('save-tree-view'), currentGitHubData.folders, 'save');
     showScreen('save-screen');
@@ -778,7 +746,6 @@ document.getElementById('do-save-memo').onclick = async () => {
   
   if (await saveToGitHub(`Save memo: ${title}`)) {
     alert("保存しました");
-    // タイトル入力欄も更新
     titleInput.value = title;
   }
 };
@@ -809,7 +776,7 @@ function escapeHTML(s) { return s.replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;
 function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 document.getElementById('clear').onclick=()=>{setText(''); titleInput.value='';};
 
-// パネル外クリックで閉じる制御はCSS/HTML構造的に難しいため、閉じるボタンを使用
+}); // End DOMContentLoaded
 </script>
 </body>
 </html>
