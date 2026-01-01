@@ -1,11 +1,6 @@
 {
   "folders": [
     {
-      "type": "memo",
-      "name": "別のメモ",
-      "content": "別のメモ"
-    },
-    {
       "type": "folder",
       "name": "新しいフォルダ",
       "children": [
@@ -15,11 +10,6 @@
           "content": "あああああああ"
         }
       ]
-    },
-    {
-      "type": "memo",
-      "name": "ああああああ",
-      "content": "あああああああ"
     }
   ],
   "tempMemo": "さあいくぞ",
