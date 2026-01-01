@@ -8,7 +8,13 @@
     {
       "type": "folder",
       "name": "新しいフォルダ",
-      "children": []
+      "children": [
+        {
+          "type": "memo",
+          "name": "ああああああ",
+          "content": "あああああああ"
+        }
+      ]
     },
     {
       "type": "memo",
