@@ -28,5 +28,10 @@
     }
   ],
   "tempMemo": "さあいくぞ",
-  "candidates": []
+  "candidates": [
+    {
+      "name": "",
+      "url": ""
+    }
+  ]
 }
