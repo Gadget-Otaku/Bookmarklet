@@ -9,6 +9,11 @@
       "type": "folder",
       "name": "新しいフォルダ",
       "children": []
+    },
+    {
+      "type": "memo",
+      "name": "ああああああ",
+      "content": "あああああああ"
     }
   ],
   "tempMemo": "別のメモになりました",
