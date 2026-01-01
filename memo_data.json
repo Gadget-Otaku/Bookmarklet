@@ -4,6 +4,11 @@
       "type": "memo",
       "name": "別のメモ",
       "content": "別のメモ"
+    },
+    {
+      "type": "folder",
+      "name": "新しいフォルダ",
+      "children": []
     }
   ],
   "tempMemo": "別のメモになりました",
