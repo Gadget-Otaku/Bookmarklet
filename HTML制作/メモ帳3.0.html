@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.postMessage({ source: 'MEMO_TOOL_V3', id, payload }, "*");
       setTimeout(() => {
         if (!handled) { window.removeEventListener('message', handler); reject('EXTENSION_TIMEOUT'); }
-      }, 1000);
+      }, 3000);
     });
   }
 
