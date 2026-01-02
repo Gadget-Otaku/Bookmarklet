@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メモ帳 3.0</title>
+  <title>メモ帳 4.2 (Interactive Transform)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
@@ -21,11 +21,7 @@
     /* エディタエリア (レイヤー重ね合わせのため relative 指定) */
     #editor-container { flex: 1; position: relative; border: 1px solid #ccc; overflow: hidden; }
 
-    /* ★修正: メイン入力欄 (#memo) 
-       - 絶対配置にしてコンテナいっぱいに広げる
-       - 背景を透明にして下のハイライト層を見せる
-       - z-indexを上げて手前に配置
-    */
+    /* メイン入力欄 (#memo) */
     #memo { 
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%; 
@@ -40,11 +36,7 @@
       color: inherit;
     }
 
-    /* ★追加: ハイライト専用レイヤー 
-       - #memo と同じフォント・配置・パディングにする
-       - 入力などは受け付けない (pointer-events: none)
-       - 文字色は透明 (color: transparent) にして背景色だけ見せる
-    */
+    /* ハイライト専用レイヤー (#highlight-layer) */
     #highlight-layer {
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -60,13 +52,23 @@
       display: block;
     }
 
-    /* ハイライトのスタイル */
-    #highlight-layer .highlight { 
-      background-color: yellow; 
-      color: transparent;
+    /* スタイル装飾 */
+    /* 検索ヒット用 (レイヤー内) */
+    #highlight-layer .highlight { background-color: yellow; color: transparent; }
+
+    /* 変換確認用 (memo内に直接描画) */
+    .highlight-change { background-color: cyan; cursor: pointer; } /* 青色マーカー (変更後) */
+    .highlight-delete { background-color: #ffcccc; text-decoration: line-through; color: #cc0000; cursor: pointer; } /* 赤色マーカー (削除対象) */
+    
+    /* ★追加: 無効化されたマーカー (取り消し状態) */
+    .highlight-disabled { 
+      background-color: #e0e0e0 !important; 
+      text-decoration: none !important; 
+      color: inherit !important; 
+      cursor: pointer;
     }
 
-    /* Ace Editor (JSモード等) */
+    /* Ace Editor */
     #code-editor { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; z-index: 10; background: #141414; }
     
     /* 設定パネル */
@@ -74,7 +76,12 @@
     #settings-panel.open { display: block; }
     .panel-header { display: flex; justify-content: flex-end; margin-bottom: 20px; }
     .panel-close { cursor: pointer; font-weight: bold; font-size: 18px; }
-    #expand-btn { display: none; position: fixed; top: 10px; left: 10px; z-index: 3000; padding: 10px 15px; font-weight: bold; background: #fff; border: 2px solid #333; cursor: pointer; }
+    
+    /* 確認モード用のボタン群 */
+    .preview-btns { display: none; position: fixed; top: 10px; left: 10px; z-index: 3000; }
+    .preview-btns button { padding: 10px 15px; font-weight: bold; border: 2px solid #333; cursor: pointer; margin-right: 5px; }
+    #expand-btn { background: #fff; }
+    #apply-btn { background: #ccffcc; }
 
     /* メニューボタン等 */
     .menu-btn { width: 100%; padding: 10px; text-align: left; margin-bottom: 5px; cursor: pointer; background: #fff; border: 1px solid #ddd; }
@@ -102,6 +109,8 @@
     /* 変換画面のレイアウト修正 */
     #transform-screen label { display: block; margin-bottom: 5px; }
     #transform-screen input[type="radio"] { margin-right: 5px; }
+    /* 無効化時のスタイル */
+    .disabled-input { opacity: 0.5; pointer-events: none; }
     
     /* 候補編集画面のレイアウト */
     .candidate-edit-row { display: flex; gap: 5px; margin-bottom: 5px; align-items: center; }
@@ -120,7 +129,10 @@
     <input type="text" id="page-title" placeholder="タイトル未設定">
   </div>
 
-  <button id="expand-btn">⤢ 展開 (元に戻す)</button>
+  <div class="preview-btns" id="preview-controls">
+    <button id="expand-btn">⤢ 展開 (キャンセル)</button>
+    <button id="apply-btn">レ 確定 (適用)</button>
+  </div>
 
   <div id="settings-panel">
     <div class="panel-header"><span class="panel-close">☒</span></div>
@@ -146,13 +158,13 @@
       <label><input type="radio" name="trans-type" value="decode"> デコード</label>
       <label><input type="radio" name="trans-type" value="remove-comment"> コメント削除</label>
       <div style="margin-left:20px;">
-        <label><input type="checkbox" id="chk-one-line"> 1文</label>
+        <label id="lbl-one-line"><input type="checkbox" id="chk-one-line"> 1文</label>
       </div>
       <label><input type="radio" name="trans-type" value="custom"> カスタム</label>
       <div class="row" style="margin-top:10px;"><label>変換元</label><input type="text" id="trans-from"></div>
       <div class="row"><label>変換先</label><input type="text" id="trans-to"></div>
       <div style="display:flex; justify-content:space-between; margin-top:15px;">
-        <button id="do-transform">変換</button>
+        <button id="do-transform">変換 (即時)</button>
         <button id="do-confirm-transform">確認</button>
       </div>
     </div>
@@ -305,22 +317,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-editor-mode').addEventListener('click', () => {
     const btn = document.getElementById('btn-editor-mode');
     if (!isEditorMode) {
-      // Aceモードへ
       const current = memo.innerText;
       memo.style.display = 'none'; 
-      highlightLayer.style.display = 'none'; // ハイライトレイヤーも隠す
+      highlightLayer.style.display = 'none';
       editorDiv.style.display = 'block';
       if(aceEditor) aceEditor.setValue(current, -1);
       isEditorMode = true; btn.textContent = "エディタモード オフ";
     } else {
-      // 通常モードへ
       const current = aceEditor ? aceEditor.getValue() : "";
       editorDiv.style.display = 'none'; 
       memo.style.display = 'block';
-      highlightLayer.style.display = 'block'; // ハイライトレイヤー再表示
+      highlightLayer.style.display = 'block';
       memo.innerText = current;
       isEditorMode = false; btn.textContent = "エディタモード オン";
-      // 検索状態を反映させるために更新
       document.getElementById('search').dispatchEvent(new Event('input'));
     }
   });
@@ -330,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(isEditorMode && aceEditor) aceEditor.setValue(text, -1); 
     else {
       memo.innerText = text; 
-      // テキスト変更時にハイライト更新
       if(document.getElementById('search').value) updateHighlights();
     }
   }
@@ -348,12 +356,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------------------------------------------------------------------------- */
   const panel = document.getElementById('settings-panel');
   const screens = document.querySelectorAll('.screen');
+  const previewControls = document.getElementById('preview-controls');
   const expandBtn = document.getElementById('expand-btn');
 
   document.getElementById('settings-btn').addEventListener('click', () => { 
     panel.classList.add('open'); 
     showScreen('menu-screen'); 
     loadGhSettingsFromExt();
+    updateTransformUI(); // UI状態更新
   });
   document.querySelector('.panel-close').onclick = () => panel.classList.remove('open');
   
@@ -363,14 +373,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if(target) target.classList.add('active');
   }
 
-  // Back Button Logic
   document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       showScreen(e.target.dataset.target || 'menu-screen');
     });
   });
 
-  // Menu Button Bindings
   const bindScreen = (id, screen) => {
     const el = document.getElementById(id);
     if(el) el.onclick = () => showScreen(screen);
@@ -379,9 +387,6 @@ document.addEventListener('DOMContentLoaded', () => {
   bindScreen('btn-import', 'import-screen');
   bindScreen('btn-export', 'export-screen');
 
-  /* -------------------------------------------------------------------------- */
-  /* PC表示ボタン (width=2000)                        */
-  /* -------------------------------------------------------------------------- */
   document.getElementById('btn-pc-view').onclick = () => {
     const meta = document.querySelector('meta[name="viewport"]');
     if (meta.content.includes('width=device-width')) {
@@ -392,6 +397,39 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('モバイル表示に戻しました');
     }
   };
+
+  /* -------------------------------------------------------------------------- */
+  /* 変換機能 UI制御 (要件1: チェックボックス・入力欄の制御)               */
+  /* -------------------------------------------------------------------------- */
+  const transRadios = document.querySelectorAll('input[name="trans-type"]');
+  transRadios.forEach(radio => radio.addEventListener('change', updateTransformUI));
+
+  function updateTransformUI() {
+    const type = document.querySelector('input[name="trans-type"]:checked').value;
+    
+    // 1文チェックボックス: コメント削除時のみ有効
+    const chkOneLine = document.getElementById('chk-one-line');
+    const lblOneLine = document.getElementById('lbl-one-line');
+    if (type === 'remove-comment') {
+      chkOneLine.disabled = false;
+      lblOneLine.classList.remove('disabled-input');
+    } else {
+      chkOneLine.disabled = true;
+      chkOneLine.checked = false; // 無効時はチェック外す
+      lblOneLine.classList.add('disabled-input');
+    }
+
+    // カスタム入力欄: カスタム時のみ有効
+    const txtFrom = document.getElementById('trans-from');
+    const txtTo = document.getElementById('trans-to');
+    if (type === 'custom') {
+      txtFrom.disabled = false;
+      txtTo.disabled = false;
+    } else {
+      txtFrom.disabled = true;
+      txtTo.disabled = true;
+    }
+  }
 
   /* -------------------------------------------------------------------------- */
   /* 拡張機能連携                                    */
@@ -448,7 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // 起動時にロード
   loadGhSettingsFromExt();
   document.getElementById('btn-gh-connect').onclick = loadGhSettingsFromExt;
 
@@ -498,47 +535,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* -------------------------------------------------------------------------- */
-  /* キーワード検索機能 (オーバーレイ方式による完全修正版)                  */
+  /* キーワード検索機能 (オーバーレイ方式)                  */
   /* -------------------------------------------------------------------------- */
   let searchIndex = 0;
-  let searchMatches = []; // オーバーレイ用の要素リスト
-  let aceSearchResults = []; // Aceエディタ用の検索結果インデックスリスト
+  let searchMatches = [];
+  let aceSearchResults = [];
   const searchInput = document.getElementById('search');
-  let isComposing = false; // IMEフラグ
+  let isComposing = false;
 
-  // スクロール同期 (入力欄がスクロールしたらハイライトも追従)
   memo.addEventListener('scroll', () => {
     highlightLayer.scrollTop = memo.scrollTop;
     highlightLayer.scrollLeft = memo.scrollLeft;
   });
 
-  // 入力時にもハイライトを更新 (文字を打ってもハイライトがズレないように)
   memo.addEventListener('input', () => {
     if (searchInput.value && !isComposing) updateHighlights();
   });
 
-  // IME制御
   searchInput.addEventListener('compositionstart', () => { isComposing = true; });
   searchInput.addEventListener('compositionend', () => { isComposing = false; searchInput.dispatchEvent(new Event('input')); });
 
-  // 検索入力イベント
   searchInput.addEventListener('input', () => {
     if (isComposing) return;
     searchIndex = 0;
     
     if (isEditorMode && aceEditor) {
-      // Aceモード検索
       execAceSearch();
     } else {
-      // 通常モード検索
       updateHighlights();
     }
   });
 
-  // 通常モード：ハイライト描画処理
   function updateHighlights() {
     const searchTerm = searchInput.value;
-    const text = memo.innerText; // getText()だとAceの値を取ってしまうため直接取得
+    const text = memo.innerText;
     
     if (!searchTerm) {
       highlightLayer.innerHTML = '';
@@ -547,7 +577,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // HTMLエスケープしてからハイライトタグを埋め込む
     const escapedText = escapeHTML(text);
     const escapedTerm = escapeHTML(searchTerm); 
     const regex = new RegExp(escapeRegExp(escapedTerm), 'gi');
@@ -565,7 +594,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matchCount > 0) scrollToCurrentMatch();
   }
 
-  // Aceモード：検索処理
   function execAceSearch() {
     aceSearchResults = [];
     const searchTerm = searchInput.value;
@@ -583,7 +611,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(aceSearchResults.length > 0) scrollToCurrentAceMatch();
   }
 
-  // 次へボタン
   document.getElementById('next').addEventListener('click', () => {
     if (isEditorMode) {
         if(aceSearchResults.length === 0) return;
@@ -597,7 +624,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCountLabel();
   });
 
-  // 前へボタン
   document.getElementById('prev').addEventListener('click', () => {
     if (isEditorMode) {
         if(aceSearchResults.length === 0) return;
@@ -616,7 +642,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(len > 0) document.getElementById('count').textContent = `${searchIndex + 1}/${len}`;
   }
 
-  // 通常モード：スクロール処理
   function scrollToCurrentMatch() {
     const target = searchMatches[searchIndex];
     if (target) {
@@ -627,7 +652,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Aceモード：スクロール処理
   function scrollToCurrentAceMatch() {
     if(aceEditor && aceSearchResults[searchIndex] !== undefined) {
        const pos = aceEditor.session.doc.indexToPosition(aceSearchResults[searchIndex]);
@@ -636,9 +660,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* -------------------------------------------------------------------------- */
-  /* 行頭・行末 追加 (修正)                           */
-  /* -------------------------------------------------------------------------- */
   document.getElementById('add-prefix-suffix').addEventListener('click', () => {
     const prefix = document.getElementById('prefix').value || "";
     const suffix = document.getElementById('suffix').value || "";
@@ -680,9 +701,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(document.getElementById('search').value) updateHighlights();
   });
 
-  /* -------------------------------------------------------------------------- */
-  /* コピー機能 (修正: fallback追加)                   */
-  /* -------------------------------------------------------------------------- */
   document.getElementById('copy').addEventListener('click', () => {
     const text = getText();
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -702,60 +720,227 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* -------------------------------------------------------------------------- */
-  /* 変換機能の修正                                   */
+  /* 変換機能: コメント検出・確認・適用                                */
   /* -------------------------------------------------------------------------- */
   document.getElementById('do-transform').onclick = () => executeTransform(false);
   document.getElementById('do-confirm-transform').onclick = () => executeTransform(true);
   
   let originalContent = null;
+  // インタラクティブな変更のために、spanタグのクリックイベントをグローバルに定義
+  window.toggleHighlight = function(el) {
+    el.classList.toggle('highlight-disabled');
+  };
+
+  function processComments(text, mode, removeNewlines) {
+    let output = "";
+    let i = 0;
+    const len = text.length;
+
+    const append = (str, isDeleted) => {
+      if (mode === 'strip') {
+        if (!isDeleted) output += str;
+      } else {
+        // markモード: 削除対象をspanで囲む (onclick付与)
+        if (isDeleted) output += `<span class="highlight-delete" onclick="toggleHighlight(this)">${escapeHTML(str)}</span>`;
+        else output += escapeHTML(str);
+      }
+    };
+
+    while (i < len) {
+      let isStartOfElement = (i === 0) || (['\n', '\r', ' ', '\t'].includes(text[i-1]));
+
+      // 1. UserScript ブロックの保護
+      if (isStartOfElement && text.startsWith("// ==UserScript==", i)) {
+        let closeTag = "// ==/UserScript==";
+        let endIdx = text.indexOf(closeTag, i + 17);
+        if (endIdx === -1) {
+           closeTag = "// ==UserScript==";
+           endIdx = text.indexOf(closeTag, i + 17);
+        }
+        if (endIdx !== -1) {
+          let contentEnd = endIdx + closeTag.length;
+          let content = text.substring(i, contentEnd);
+          append(content, false);
+          i = contentEnd;
+          continue;
+        }
+      }
+
+      // 2. ブロックコメント /* ... */
+      if (isStartOfElement && text.startsWith("/*", i)) {
+        let endIdx = text.indexOf("*/", i + 2);
+        if (endIdx !== -1) {
+          let content = text.substring(i, endIdx + 2);
+          append(content, true);
+          i = endIdx + 2;
+          continue;
+        }
+      }
+
+      // 3. 行コメント //
+      if (isStartOfElement && text.startsWith("//", i)) {
+          let eol = text.indexOf("\n", i);
+          if (eol === -1) eol = len;
+          let content = text.substring(i, eol);
+          append(content, true);
+          i = eol;
+          continue;
+      }
+
+      // 4. 改行削除（1文モード）
+      // コメント削除時の1文チェックはここで処理
+      if (removeNewlines && (text[i] === '\n' || text[i] === '\r')) {
+          if (mode === 'mark') {
+             append(text[i] === '\r' ? '' : '↵\n', true);
+          }
+          i++;
+          continue;
+      }
+
+      // 通常文字
+      append(text[i], false);
+      i++;
+    }
+    return output;
+  }
+
   function executeTransform(isConfirm) {
     const type = document.querySelector('input[name="trans-type"]:checked').value;
-    const isOneLine = document.getElementById('chk-one-line').checked;
+    const isOneLine = document.getElementById('chk-one-line').checked && !document.getElementById('chk-one-line').disabled;
     const customFrom = document.getElementById('trans-from').value;
     const customTo = document.getElementById('trans-to').value;
     const currentText = getText();
     let result = currentText;
 
-    if (type === 'encode') result = encodeURIComponent(currentText);
-    else if (type === 'decode') result = decodeURIComponent(currentText);
-    else if (type === 'remove-comment') {
-      result = currentText.split('\n').map(l => {
-        let idx = l.indexOf('//');
-        return idx !== -1 ? l.substring(0, idx) : l; 
-      }).join('\n');
-      if(isOneLine) result = result.replace(/\r?\n/g, '');
-    } else if (type === 'custom') {
-      if(customFrom) result = currentText.split(customFrom).join(customTo);
-    }
-
-    if (isConfirm) {
-      originalContent = currentText;
-      panel.classList.remove('open');
-      expandBtn.style.display = 'block';
-      if(isEditorMode && aceEditor) {
-        aceEditor.setValue(result, -1); aceEditor.setReadOnly(true);
-      } else {
-        memo.innerText = result; memo.contentEditable = false;
-        memo.style.backgroundColor = "#eef"; // 背景色がつくとハイライト層は隠れるが、確認モードなのでOK
+    // 即時実行のロジック
+    if (!isConfirm) {
+      if (type === 'encode') result = encodeURIComponent(currentText);
+      else if (type === 'decode') result = decodeURIComponent(currentText);
+      else if (type === 'remove-comment') {
+        result = processComments(currentText, 'strip', isOneLine);
+      } else if (type === 'custom') {
+        if(customFrom) result = currentText.split(customFrom).join(customTo);
       }
-    } else {
+      // 1文チェックがコメント削除以外なら後処理（要件通りUI制御したが一応）
+      if (type !== 'remove-comment' && isOneLine) {
+          // ※UI制御でコメント削除以外は1文チェックできないようにしたが、
+          // 万が一の場合はここを通る可能性あり。ただ要件的にはコメント削除時のみ。
+      }
       setText(result);
       updateHistory(result);
+      return;
+    }
+
+    // --- 確認モード (プレビュー) ---
+    originalContent = currentText;
+    panel.classList.remove('open');
+    previewControls.style.display = 'block'; // ボタン表示
+    highlightLayer.style.display = 'none';
+
+    if(isEditorMode && aceEditor) {
+      // Aceの場合は簡易表示のみ（クリック操作は非対応）
+      // ロジック計算して表示
+      if (type === 'encode') result = encodeURIComponent(currentText);
+      else if (type === 'decode') result = decodeURIComponent(currentText);
+      else if (type === 'remove-comment') result = processComments(currentText, 'strip', isOneLine);
+      else if (type === 'custom' && customFrom) result = currentText.split(customFrom).join(customTo);
+      aceEditor.setValue(result, -1); aceEditor.setReadOnly(true);
+    } else {
+      memo.contentEditable = false;
+      memo.style.backgroundColor = "#eef";
+
+      // プレビューHTMLの生成 (onclick付与)
+      if (type === 'remove-comment') {
+          memo.innerHTML = processComments(currentText, 'mark', isOneLine);
+      } 
+      else if (type === 'custom' && !customTo && customFrom) {
+           // カスタム削除
+           let tempHtml = escapeHTML(currentText);
+           const safeFrom = escapeRegExp(customFrom);
+           // 削除箇所を赤く
+           tempHtml = tempHtml.replace(new RegExp(safeFrom, 'g'), `<span class="highlight-delete" onclick="toggleHighlight(this)">$&</span>`);
+           memo.innerHTML = tempHtml;
+      } 
+      else if (type === 'custom' && customFrom) {
+           // 置換 (青マーカー) - 変換後を表示し、元データをdata属性に持つ
+           const parts = currentText.split(customFrom);
+           const safeTo = escapeHTML(customTo);
+           const safeFrom = escapeHTML(customFrom);
+           // 青マーカーには data-original を付与してクリック時に元に戻せるようにする...
+           // というより、disable時は元テキストに戻すロジックが必要。
+           // 青マーカー：表示はNewText。無効化時はOldTextに戻す。
+           memo.innerHTML = parts.map(p => escapeHTML(p)).join(`<span class="highlight-change" data-original="${safeFrom}" onclick="toggleHighlight(this)">${safeTo}</span>`);
+      } else {
+           // 全体変換系
+           const safeResult = escapeHTML(type === 'encode' ? encodeURIComponent(currentText) : decodeURIComponent(currentText));
+           const safeOriginal = escapeHTML(currentText);
+           if (currentText !== safeResult) {
+              memo.innerHTML = `<span class="highlight-change" data-original="${safeOriginal}" onclick="toggleHighlight(this)">${safeResult}</span>`;
+           } else {
+              memo.innerHTML = safeResult;
+           }
+      }
     }
   }
 
+  // 適用ボタンの処理
+  document.getElementById('apply-btn').onclick = () => {
+    // 現在のmemo内のHTMLを解析して結果文字列を構築
+    let finalString = "";
+    
+    // #memo の子ノードを走査
+    const nodes = memo.childNodes;
+    nodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        finalString += node.textContent;
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN') {
+        const isDisabled = node.classList.contains('highlight-disabled');
+        
+        if (node.classList.contains('highlight-delete')) {
+          // 赤マーカー: 有効なら削除(追加しない)、無効なら元のテキスト(innerText)を追加
+          if (isDisabled) {
+            finalString += node.innerText;
+          }
+        } else if (node.classList.contains('highlight-change')) {
+          // 青マーカー: 有効なら今のテキスト(innerText=変換後)、無効なら元のテキスト(data-original)
+          if (isDisabled) {
+             finalString += (node.getAttribute('data-original') || node.innerText);
+          } else {
+             finalString += node.innerText;
+          }
+        } else {
+          // その他のspan
+          finalString += node.innerText;
+        }
+      }
+    });
+
+    // 確定処理
+    resetPreviewState();
+    setText(finalString);
+    updateHistory(finalString);
+  };
+
+  // 展開(キャンセル)ボタン
   expandBtn.onclick = () => {
     if (originalContent !== null) {
       if(isEditorMode && aceEditor) {
         aceEditor.setValue(originalContent, -1); aceEditor.setReadOnly(false);
       } else {
-        memo.innerText = originalContent; memo.contentEditable = true;
-        memo.style.backgroundColor = ""; // 透明に戻り、ハイライト層が見えるようになる
+        memo.innerText = originalContent; 
       }
-      originalContent = null;
+      resetPreviewState();
     }
-    expandBtn.style.display = 'none'; panel.classList.add('open');
   };
+
+  function resetPreviewState() {
+    originalContent = null;
+    memo.contentEditable = true;
+    memo.style.backgroundColor = ""; 
+    highlightLayer.style.display = 'block'; 
+    previewControls.style.display = 'none';
+    if(searchInput.value) updateHighlights();
+  }
 
   /* -------------------------------------------------------------------------- */
   /* インポート / エクスポート / 候補                  */
@@ -949,13 +1134,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mode === 'edit') {
         if(index === editSelectedIdx) div.classList.add('selected');
         div.onclick = (e) => {
-           // アイコンクリックでなければ選択
            if (!e.target.classList.contains('folder-icon') && !e.target.classList.contains('memo-icon')) {
              editSelectedIdx = index;
              document.getElementById('edit-name-input').value = node.name;
              const enterBtn = document.getElementById('edit-enter-folder');
              enterBtn.style.display = (node.type === 'folder') ? 'inline-block' : 'none';
-             renderEditTree(); // 再描画で選択反映
+             renderEditTree();
            }
         };
       }
@@ -993,7 +1177,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('edit-copy').onclick = () => {
     if(editSelectedIdx >= 0) {
       const folder = getFolder(currentGitHubData.folders, currentPath);
-      // Deep Copy
       const node = JSON.parse(JSON.stringify(folder.children[editSelectedIdx]));
       node.name += " - コピー";
       folder.children.splice(editSelectedIdx + 1, 0, node);
@@ -1082,7 +1265,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('undo').onclick=()=>{if(currentStep>0){currentStep--;setText(history[currentStep]);}};
   document.getElementById('redo').onclick=()=>{if(currentStep<history.length-1){currentStep++;setText(history[currentStep]);}};
 
-  // 実行ボタン
   document.getElementById('do-exec').onclick = () => {
     const type = document.getElementById('exec-type').value;
     let code = "";
@@ -1104,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.getElementById('open-url').onclick = () => {
-    window.open('https://gadget-otaku.github.io/Bookmarklet/HTML制作/メモ帳3.0.html', '_blank');
+    window.open('https://gadget-otaku.github.io/Bookmarklet/%E3%83%A1%E3%83%A2%E5%B8%B32.0', '_blank');
   };
 
   // エスケープ関数
