@@ -298,6 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let history = [''];
   let currentStep = 0;
 
+  // ★追加: タイトル入力時にタブ名も変更
+  titleInput.addEventListener('input', () => {
+    document.title = titleInput.value || "メモ帳 3.0";
+  });
+
   function initAce() {
     try {
       if (typeof ace !== 'undefined') {
@@ -1128,6 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
           div.onclick = () => {
             setText(node.content);
             titleInput.value = node.name;
+            document.title = node.name; // ★追加
             panel.classList.remove('open');
           };
         }
@@ -1153,6 +1159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tempDiv.onclick = () => {
         setText(currentGitHubData.tempMemo);
         titleInput.value = "一時メモ";
+        document.title = "一時メモ"; // ★追加
         panel.classList.remove('open');
       };
     }
@@ -1250,6 +1257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (await saveToGitHub(`Save memo: ${title}`)) {
       alert("保存しました");
       titleInput.value = title;
+      document.title = title; // ★追加
     }
   };
 
@@ -1263,7 +1271,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------------------------------------------------------------------------- */
   /* その他 / 実行 / +ボタン                           */
   /* -------------------------------------------------------------------------- */
-  document.getElementById('clear').onclick=()=>{setText(''); titleInput.value='';};
+  document.getElementById('clear').onclick=()=>{
+    setText(''); 
+    titleInput.value='';
+    document.title = "メモ帳 3.0"; // ★追加
+  };
   document.getElementById('undo').onclick=()=>{if(currentStep>0){currentStep--;setText(history[currentStep]);}};
   document.getElementById('redo').onclick=()=>{if(currentStep<history.length-1){currentStep++;setText(history[currentStep]);}};
 
