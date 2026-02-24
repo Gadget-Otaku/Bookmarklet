@@ -1,0 +1,751 @@
+{
+  "name": "趣味",
+  "type": "folder",
+  "children": [
+    {
+      "name": "漫画関連",
+      "type": "folder",
+      "children": [
+        {
+          "name": "Pixiv新着",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://www.pixiv.net/bookmark_new_illust.php\";"
+        },
+        {
+          "name": "Pixivフォロー中",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://www.pixiv.net/users/79106745/following\";"
+        },
+        {
+          "name": "全言語⇔日本語",
+          "type": "button",
+          "js": "javascript:(function(){\n const url = window.location.href;\n \n if (url.startsWith('https://hitomi.la/artist/')) {\n let newUrl = url;\n if (url.includes('-all.html')) {\n newUrl = url.replace(/-all\\.html/, '-japanese.html');\n } else if (url.includes('-japanese.html')) {\n newUrl = url.replace(/-japanese\\.html/, '-all.html');\n }\n if (newUrl !== url) {\n window.location.href = newUrl;\n }\n return;\n }\n \n (function trySwitch(count){\n const items = document.querySelectorAll('#lang-list li');\n if (!items.length) {\n if (count < 10) {\n return setTimeout(() => trySwitch(count + 1), 100);\n }\n alert('このギャラリーに日本語版はありません。');\n return;\n }\n for (let i = 0; i < items.length; i++) {\n const a = items[i].querySelector('a');\n if (!a) continue;\n const txt = a.textContent.trim();\n const href = a.getAttribute('href') || '';\n const dataLang = a.getAttribute('data-language') || '';\n if (txt === '日本語' || href.includes('japanese') || dataLang === 'japanese') {\n a.click();\n return;\n }\n }\n alert('このギャラリーに日本語版はありません。');\n })(0);\n})();\n"
+        },
+        {
+          "name": "site:検索",
+          "type": "button",
+          "js": "javascript:(function(){\nconst getPixivInfo = () => {\n const title = document.title;\n const match = title.match(/^#.*?\\s(.*?)\\s-\\s(.*?)の/);\n if (match) return { title: match[1], author: match[2] };\n return { title: '', author: '' };\n};\nconst getDmmdoujinInfo = () => {\n const title = document.title;\n const match = title.match(/^(.+)\\s*\\(([^()]+)\\)｜FANZA同人$/);\n if (match) return { title: match[1], author: match[2] };\n return { title: '', author: '' };\n};\nconst getDmmAVInfo = () => {\n const title = document.title;\n const match = title.match(/^(.+?)\\s([^\\s]+)\\s-\\sエロ動画・アダルトビデオ - FANZA動画$/);\n if (match) return { title: match[1], author: match[2] };\n return { title: '', author: '' };\n};\nconst getMissAVInfo = () => {\n const title = document.title;\n const match = title.match();\n if (match) return { title: match[1], author: match[2] };\n return { title: '', author: '' };\n};\nconst getInfo = () => { const url = location.href; if (url.startsWith('https://www.pixiv.net/artworks/')) return getPixivInfo(); if (url.startsWith('https://www.dmm.co.jp/dc/doujin/')) return getDmmdoujinInfo(); if (url.startsWith('https://www.dmm.co.jp/digital/videoa/')) return getDmmAVInfo(); if (url.startsWith('https://www.google.com/search?q=dmm')) return getMissAVInfo(); return { title: \"\", author: \"\" }; }\nconst sites=[\n{ name: \"モモンガ\", url: \"site:momon-ga.com\" },\n{ name: \"ヒトミラ\", url: \"site:hitomi.la\" },\n{ name: \"ニャ\", url: \"site:nyahentai.re\" },\n{ name: \"ケモノ\", url: \"site:kemono.su\" },\n{ name: \"ダンボール\", url: \"site:danbooru.donmai.us\" },\n{ name: \"MissAV\", url: \"site:missav.ws\" },\n{ name: \"MissAV (ai)\", url: \"site:missav.ai\" }\n];\nconst uiSettings=[\n{ \n urlPrefix:'https://www.pixiv.net/artworks/', \n titleChecked:false, \n authorChecked:true, \n selectedSites:[1,2] \n },\n{ \n urlPrefix:'https://www.dmm.co.jp/dc/doujin/', \n titleChecked:true, \n authorChecked:false, \n selectedSites:[1,2] \n },\n{ \n urlPrefix:'https://www.dmm.co.jp/digital/videoa/', \n titleChecked:true, \n authorChecked:false, \n selectedSites:[5] \n },\n{ \n urlPrefix:'https://www.google.com/search?q=dmm', \n titleChecked:false, \n authorChecked:false, \n selectedSites:[5] \n }\n];\n\n const popup = document.createElement('div');\n popup.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:250px; padding:20px; background:#f4f4f4; border:2px solid #888; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2); z-index:10000;';\n \n const closeButton = document.createElement('span');\n closeButton.textContent = '☒';\n closeButton.style.cssText = 'position:absolute; top:10px; right:10px; cursor:pointer;';\n closeButton.onclick = () => document.body.removeChild(popup);\n popup.appendChild(closeButton);\n\n const checkboxes = sites.map((site, index) => {\n const label = document.createElement('label');\n const checkbox = document.createElement('input');\n checkbox.type = 'checkbox';\n checkbox.value = site.url;\n checkbox.setAttribute('data-index', index);\n label.appendChild(checkbox);\n label.appendChild(document.createTextNode(site.name || site.url));\n popup.appendChild(label);\n popup.appendChild(document.createElement('br'));\n return checkbox;\n });\n\n const titleChk = document.createElement('input');\n titleChk.type = 'checkbox';\n const titleLbl = document.createElement('label');\n titleLbl.appendChild(titleChk);\n titleLbl.appendChild(document.createTextNode('タイトルを抽出'));\n popup.appendChild(titleLbl);\n popup.appendChild(document.createElement('br'));\n\n const authorChk = document.createElement('input');\n authorChk.type = 'checkbox';\n const authorLbl = document.createElement('label');\n authorLbl.appendChild(authorChk);\n authorLbl.appendChild(document.createTextNode('作者を抽出'));\n popup.appendChild(authorLbl);\n popup.appendChild(document.createElement('br'));\n\n const searchBox = document.createElement('input');\n searchBox.type = 'text';\n searchBox.placeholder = '検索キーワード';\n searchBox.style.cssText = 'width:100%; margin-top:10px; padding:5px;';\n popup.appendChild(searchBox);\n\n const searchButton = document.createElement('button');\n searchButton.textContent = '検索';\n searchButton.style.cssText = 'position:absolute; right:10px; bottom:10px; padding:5px; cursor:pointer;';\n searchButton.onclick = function() {\n const selectedSites = checkboxes.filter(cb => cb.checked).map(cb => cb.value);\n const info = getInfo();\n let keyword = searchBox.value.trim();\n if (!keyword) {\n const parts = [];\n if (titleChk.checked && info.title) parts.push(info.title);\n if (authorChk.checked && info.author) parts.push(info.author);\n keyword = parts.join(' ');\n }\n if (selectedSites.length > 0 && keyword) {\n const query = selectedSites.join(' OR ') + ' ' + keyword;\n window.open('https://www.google.com/search?q=' + encodeURIComponent(query));\n } else {\n alert('少なくとも1つのサイトとキーワードまたは抽出対象を選択してください。');\n }\n };\n popup.appendChild(searchButton);\n\n const currentUrl = location.href;\n const matchingSetting = uiSettings.find(s => currentUrl.startsWith(s.urlPrefix));\n if (matchingSetting) {\n titleChk.checked = matchingSetting.titleChecked;\n authorChk.checked = matchingSetting.authorChecked;\n const selectedIndexes = matchingSetting.selectedSites.map(n => parseInt(n) - 1).filter(n => !isNaN(n) && n < checkboxes.length);\n checkboxes.forEach((cb, index) => { cb.checked = selectedIndexes.includes(index); });\n }\n\n searchBox.addEventListener('keydown', function(e) { if (e.key === 'Enter') searchButton.onclick(); });\n document.body.appendChild(popup);\n \n})();"
+        },
+        {
+          "name": "マンガ検索",
+          "type": "button",
+          "js": "(function(){\n const config = {\n \"fileName\": \"マンガ検索\",\n \"genres\": [\n {\n \"name\": \"ヒトミラ作者\",\n \"tags\": [\n {\n \"name\": \"作者有効化\",\n \"url\": \"artist/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 1,\n \"autoSelect\": true\n }\n ],\n \"subGenres\": [\n {\n \"name\": \"ふたなり\",\n \"tags\": [\n {\n \"name\": \"ひょうが。\",\n \"url\": \"hyouga.\",\n \"imageUrl\": \"https://img.momoniji.com/wp-content/uploads/b/55/5526/552669/c001.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"きたく\",\n \"url\": \"kitaku\",\n \"imageUrl\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7uERaV6qkOOqq9ZtW_D5UIEUzSSoayQxgzOScys6jpPj1_AIq_zo1phk&s=10\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"あいたにこふ\",\n \"url\": \"aitanikov\",\n \"imageUrl\": \"https://z3.momon-ga.com/galleries/629008/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"TS\",\n \"tags\": [\n {\n \"name\": \"TSFのF\",\n \"url\": \"tsf no f\",\n \"imageUrl\": \"https://z3.momon-ga.com/galleries/1227278/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"柚木\",\n \"url\": \"yuzuki\",\n \"imageUrl\": \"https://img.honto.jp/series/1/0/240/C-MBJ-28246-3-484613X_1.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"安治ぽん太郎\",\n \"url\": \"aji pontarou\",\n \"imageUrl\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgZ21t8nk5iiZhdqvxkNQmA0Yy7AbsieWDYwdNGAF7sNDeYgxyvOwqrIn1xbN6UGrw9TU&usqp=CAU\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"べってぃ\",\n \"url\": \"betty\",\n \"imageUrl\": \"https://img.dlsite.jp/modpub/images2/work/doujin/RJ01369000/RJ01368004_img_main.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"あむぁい(タグx)\",\n \"url\": \"group/amuai okashi seisakusho\",\n \"imageUrl\": \"https://doujin-assets.dmm.co.jp/digital/comic/d_539881/d_539881pl.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"いわした \",\n \"url\": \"iwashita\",\n \"imageUrl\": \"https://comic.iowl.jp/_next/image?url=https://comic-image.iowl.jp/images/thumbnail/2258/225830/225830_large.jpg&w=384&q=75\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"れいとうみかん \",\n \"url\": \"reitou mikan\",\n \"imageUrl\": \"https://img.papy.co.jp/lc/sc/item/cover/9-2711160-c400.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"ウェルト\",\n \"url\": \"welt\",\n \"imageUrl\": \"https://pbs.twimg.com/media/GE28a6faYAAbPRX?format=jpg&name=4096x4096\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"やすみみらきち\",\n \"url\": \"yasumi mirakichi\",\n \"imageUrl\": \"https://t3.nhentai.website/galleries/2674229/cover.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"吉田悟郎\",\n \"url\": \"yoshida gorou\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/2896893/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"男の娘\",\n \"tags\": [\n {\n \"name\": \"佐々木武蔵\",\n \"url\": \"sasaki musashi\",\n \"imageUrl\": \"https://cdn.imagedeliveries.com/3037979/thumbnails/cover.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"ななもと\",\n \"url\": \"nanamoto\",\n \"imageUrl\": \"https://doujinrepublic.com/media/binary/005/333/414/5333414.jpg.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"きつねビール\",\n \"url\": \"kitsune beer\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/2994307/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"遊亀こねふ\",\n \"url\": \"yuuki konefu\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3429704/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"ミナミ・シン\",\n \"url\": \"sin iti\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3019476/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"ふくもとまひろ\",\n \"url\": \"fukumoto mahiro\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3294213/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n },\n {\n \"name\": \"田口もにゃ太\",\n \"url\": \"taguchi%20monyata\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3403330/1.webp\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"魔法少女\",\n \"tags\": [\n {\n \"name\": \"山梨ユウヤ\",\n \"url\": \"yamanashi yuuya\",\n \"imageUrl\": \"https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=232000033025.jpg&c=1&aa=0\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"ロリ\",\n \"tags\": [\n {\n \"name\": \"古山　造\",\n \"url\": \"furuyama tsukuru\",\n \"imageUrl\": \"https://aicomic.org/attachment/comic/2970336-98bab124b3/2970336-98bab124b3.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"潮吹き\",\n \"tags\": [\n {\n \"name\": \"ぽちたろ\",\n \"url\": \"pochitaro\",\n \"imageUrl\": \"https://img.dlsite.jp/modpub/images2/work/doujin/RJ01074000/RJ01073400_img_main.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"性教育\",\n \"tags\": [\n {\n \"name\": \"グリエルモ\",\n \"url\": \"guglielmo\",\n \"imageUrl\": \"https://image.yodobashi.com/product/100/000/086/600/704/437/100000086600704437_10203.jpg\",\n \"priority\": 4,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n }\n ]\n },\n {\n \"name\": \"ヒトミラタグ\",\n \"tags\": [\n {\n \"name\": \"タグ有効化\",\n \"url\": \"tag/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 1,\n \"autoSelect\": true\n },\n {\n \"name\": \"ふたなり\",\n \"url\": \"female:futanari\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"TS\",\n \"url\": \"male:gender change\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"男の娘\",\n \"url\": \"female:shemale\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"魔法少女\",\n \"url\": \"female:magical girl\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"ロリ\",\n \"url\": \"female:loli\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"潮吹き\",\n \"url\": \"female:squirting\",\n \"imageUrl\": \"undefined\",\n \"priority\": 3,\n \"autoSelect\": false\n },\n {\n \"name\": \"週間人気\",\n \"url\": \"popular/week/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n },\n {\n \"name\": \"月間人気\",\n \"url\": \"popular/month/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n },\n {\n \"name\": \"年間人気\",\n \"url\": \"popular/year/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"モモンガ作者\",\n \"tags\": [],\n \"subGenres\": [\n {\n \"name\": \"ふたなり\",\n \"tags\": [\n {\n \"name\": \"ひょうが。\",\n \"url\": \"cartoonist/ひょうが。/\",\n \"imageUrl\": \"https://img.momoniji.com/wp-content/uploads/b/55/5526/552669/c001.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"きたく\",\n \"url\": \"cartoonist/きたく/\",\n \"imageUrl\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7uERaV6qkOOqq9ZtW_D5UIEUzSSoayQxgzOScys6jpPj1_AIq_zo1phk&s=10\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"あいたにこふ\",\n \"url\": \"cartoonist/あいたにこふ/\",\n \"imageUrl\": \"https://z3.momon-ga.com/galleries/629008/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"TS\",\n \"tags\": [\n {\n \"name\": \"TSFのF\",\n \"url\": \"group/tsfのf/\",\n \"imageUrl\": \"https://z3.momon-ga.com/galleries/1227278/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"柚木\",\n \"url\": \"cartoonist/柚木/\",\n \"imageUrl\": \"https://img.honto.jp/series/1/0/240/C-MBJ-28246-3-484613X_1.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"安治ぽん太郎\",\n \"url\": \"cartoonist/安治ぽん太郎/\",\n \"imageUrl\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgZ21t8nk5iiZhdqvxkNQmA0Yy7AbsieWDYwdNGAF7sNDeYgxyvOwqrIn1xbN6UGrw9TU&usqp=CAU\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"べってぃ\",\n \"url\": \"group/あむぁいおかし製作所/\",\n \"imageUrl\": \"https://img.dlsite.jp/modpub/images2/work/doujin/RJ01369000/RJ01368004_img_main.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"あむぁい\",\n \"url\": \"group/あむぁいおかし製作所/\",\n \"imageUrl\": \"https://doujin-assets.dmm.co.jp/digital/comic/d_539881/d_539881pl.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"いわした\",\n \"url\": \"cartoonist/いわした/\",\n \"imageUrl\": \"https://comic.iowl.jp/_next/image?url=https://comic-image.iowl.jp/images/thumbnail/2258/225830/225830_large.jpg&w=384&q=75\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"れいとうみかん\",\n \"url\": \"cartoonist/れいとうみかん/\",\n \"imageUrl\": \"https://img.papy.co.jp/lc/sc/item/cover/9-2711160-c400.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"ウェルト\",\n \"url\": \"cartoonist/ウェルト/\",\n \"imageUrl\": \"https://pbs.twimg.com/media/GE28a6faYAAbPRX?format=jpg&name=4096x4096\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"やすみみらきち\",\n \"url\": \"cartoonist/やすみみらきち/\",\n \"imageUrl\": \"https://t3.nhentai.website/galleries/2674229/cover.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"吉田悟郎\",\n \"url\": \"group/吉田悟郎商會/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/2896893/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"男の娘\",\n \"tags\": [\n {\n \"name\": \"佐々木武蔵\",\n \"url\": \"cartoonist/佐々木武蔵/\",\n \"imageUrl\": \"https://cdn.imagedeliveries.com/3037979/thumbnails/cover.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"きつねビール\",\n \"url\": \"cartoonist/きつねビール/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/2994307/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"男の子で遊ぼう\",\n \"url\": \"cartoonist/男の子で遊ぼう/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3429704/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"ミナミ・シン\",\n \"url\": \"cartoonist/ミナミ・シン/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3019476/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"ふくもとまひろ\",\n \"url\": \"cartoonist/fukumoto-mahiro/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3294213/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n },\n {\n \"name\": \"田口もにゃ太\",\n \"url\": \"https://momon-ga.com/cartoonist/%E7%94%B0%E5%8F%A3%E3%82%82%E3%81%AB%E3%82%83%E5%A4%AA/\",\n \"imageUrl\": \"https://cdn4.momon-ga.com/galleries/3403330/1.webp\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"魔法少女\",\n \"tags\": [\n {\n \"name\": \"山梨ユウヤ\",\n \"url\": \"cartoonist/山梨ユウヤ/\",\n \"imageUrl\": \"https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=232000033025.jpg&c=1&aa=0\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"潮吹き\",\n \"tags\": [\n {\n \"name\": \"ぽちたろ\",\n \"url\": \"cartoonist/ぽちたろ/\",\n \"imageUrl\": \"https://img.dlsite.jp/modpub/images2/work/doujin/RJ01074000/RJ01073400_img_main.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n },\n {\n \"name\": \"性教育\",\n \"tags\": [\n {\n \"name\": \"グリエルモ\",\n \"url\": \"cartoonist/ぐりえるも/\",\n \"imageUrl\": \"https://image.yodobashi.com/product/100/000/086/600/704/437/100000086600704437_10203.jpg\",\n \"priority\": 1,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n }\n ]\n },\n {\n \"name\": \"モモンガタグ\",\n \"tags\": [\n {\n \"name\": \"タグ有効化\",\n \"url\": \"tag/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 1,\n \"autoSelect\": true\n },\n {\n \"name\": \"ふたなり\",\n \"url\": \"futanari/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n },\n {\n \"name\": \"TS\",\n \"url\": \"gender-change/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n },\n {\n \"name\": \"男の娘\",\n \"url\": \"shemale/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n },\n {\n \"name\": \"魔法少女\",\n \"url\": \"magical-girl/\",\n \"imageUrl\": \"undefined\",\n \"priority\": 2,\n \"autoSelect\": false\n }\n ],\n \"subGenres\": []\n }\n ],\n \"searchButtons\": [\n {\n \"name\": \"ヒトミラ検索\",\n \"prefix\": \"https://hitomi.la/\",\n \"suffix\": \"-all.html\"\n },\n {\n \"name\": \"モモンガ検索\",\n \"prefix\": \"https://momon-ga.com/\",\n \"suffix\": \"\"\n }\n ]\n};\n const containerId = 'customSearchBookmarkletContainer';\n if (document.getElementById(containerId)) { document.getElementById(containerId).remove(); }\n const style = document.createElement('style');\n style.textContent = `.bookmarklet-container { position:fixed; bottom:10px; right:10px; background:white; border:1px solid #ccc; border-radius: 5px; padding:10px; z-index:2147483647; box-shadow:0 2px 10px rgba(0,0,0,0.2); max-height:90vh; overflow-y:auto; } .bookmarklet-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; } .bookmarklet-header button { all:unset; font-size:18px; cursor:pointer; padding:2px 5px; line-height:1; } .bookmarklet-header button:hover { background: #f0f0f0; border-radius: 3px; } .genre-section { margin-bottom:10px; } .toggle { cursor:pointer; user-select:none; font-weight:bold; } .hidden { display:none; } .tag { display:flex; align-items:center; margin:2px 0; } .tag img { width:20px; height:20px; margin-right:5px; } .sub-genre { margin-left:20px; border-left:2px solid #eee; padding-left:10px; } .search-buttons button { margin: 2px; }`;\n document.head.appendChild(style);\n const container = document.createElement('div');\n container.id = containerId;\n container.className = 'bookmarklet-container';\n document.body.appendChild(container);\n const header = document.createElement('div');\n header.className = 'bookmarklet-header';\n container.appendChild(header);\n const settingsButton = document.createElement('button');\n settingsButton.textContent = '⚙️';\n settingsButton.onclick = () => window.open('https://sites.google.com/view/custome-search2/%E3%83%9B%E3%83%BC%E3%83%A0', '_blank');\n header.appendChild(settingsButton);\n const closeButton = document.createElement('button');\n closeButton.textContent = '☒';\n closeButton.onclick = () => container.remove();\n header.appendChild(closeButton);\n function createGenreSection(genre, isSub = false) {\n const section = document.createElement('div');\n section.className = 'genre-section' + (isSub ? ' sub-genre' : '');\n const toggle = document.createElement('div');\n toggle.className = 'toggle';\n toggle.textContent = '▶ ' + genre.name;\n const content = document.createElement('div');\n content.className = 'hidden';\n toggle.onclick = () => {\n content.classList.toggle('hidden');\n toggle.textContent = (content.classList.contains('hidden') ? '▶ ' : '▼ ') + genre.name;\n // --- 自動チェック機能のロジックをここに追加 ---\n if (!content.classList.contains('hidden')) {\n // パネル展開時：autoSelectがtrueのタグをチェックする\n (genre.tags || []).forEach(t => {\n if (t.autoSelect) {\n const checkbox = content.querySelector('input[data-url=\"' + t.url.replace(/\"/g, '\\\"') + '\"]');\n if (checkbox) {\n checkbox.checked = true;\n }\n }\n });\n } else {\n // パネル格納時：すべてのチェックを外す\n content.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);\n }\n };\n (genre.tags || []).forEach(t => {\n const tag = document.createElement('label');\n tag.className = 'tag';\n const cb = document.createElement('input');\n cb.type = 'checkbox';\n cb.dataset.url = t.url;\n cb.dataset.priority = t.priority;\n tag.appendChild(cb);\n if (t.imageUrl && t.imageUrl !== 'undefined') {\n const img = document.createElement('img');\n img.src = t.imageUrl;\n img.alt = t.name;\n tag.appendChild(img);\n }\n const span = document.createElement('span');\n span.textContent = ' ' + t.name;\n tag.appendChild(span);\n content.appendChild(tag);\n });\n (genre.subGenres || []).forEach(sub => content.appendChild(createGenreSection(sub, true)));\n section.appendChild(toggle);\n section.appendChild(content);\n return section;\n }\n (config.genres || []).forEach(genre => container.appendChild(createGenreSection(genre)));\n const searchButtonsContainer = document.createElement('div');\n searchButtonsContainer.className = 'search-buttons';\n container.appendChild(searchButtonsContainer);\n (config.searchButtons || []).forEach(btn => {\n const button = document.createElement('button');\n button.textContent = btn.name;\n button.onclick = () => {\n const sel = Array.from(container.querySelectorAll('input[type=checkbox]:checked'))\n .sort((a, b) => (a.dataset.priority || 1) - (b.dataset.priority || 1))\n .map(el => el.dataset.url);\n const url = (btn.prefix || '') + sel.join('') + (btn.suffix || '');\n if (url) { window.open(url, '_blank'); }\n };\n searchButtonsContainer.appendChild(button);\n });\n})();"
+        }
+      ]
+    },
+    {
+      "name": "アニメ関連",
+      "type": "folder",
+      "children": [
+        {
+          "name": "今期アニメ",
+          "type": "folder",
+          "children": [
+            {
+              "name": "グノーシア",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://hianime.to/watch/gnosia-19893?ep=145851\";"
+            },
+            {
+              "name": "マッドスレイブ",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://hianime.to/watch/chained-soldier-season-2-uncensored-20449?ep=162385\";"
+            }
+          ]
+        },
+        {
+          "name": "保存用",
+          "type": "folder",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "Youtube関連",
+      "type": "folder",
+      "children": [
+        {
+          "name": "チャンネル一覧",
+          "type": "folder",
+          "children": [
+            {
+              "name": "ガジェット",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "ガジェット全般",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "トーマスガジェマガ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@ThomasGadgemaga/videos\";"
+                    },
+                    {
+                      "name": "ワタナベカズマサ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@WatanabeKazumasa/videos\";"
+                    },
+                    {
+                      "name": "吉田製作所",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@yoshidaaaaaaaaaaaaaaaaaaaaaaaa/videos\";"
+                    },
+                    {
+                      "name": "MKBHD",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@mkbhd/videos\";"
+                    },
+                    {
+                      "name": "Mrwhosetheboss",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Mrwhosetheboss/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "スマホ",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "モバイルドットコム",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@mobilecomtv/featured/videos\";"
+                    },
+                    {
+                      "name": "Zuki",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Hetanoyokozuki/videos\";"
+                    },
+                    {
+                      "name": "シンスペース",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@sinspace/videos\";"
+                    },
+                    {
+                      "name": "Tovi",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@ToviWorks/videos\";"
+                    },
+                    {
+                      "name": "スマサポ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@sumasapo/videos\";"
+                    },
+                    {
+                      "name": "電子レンジマン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Denshirangeman/videos\";"
+                    },
+                    {
+                      "name": "ぱぱのひとりごと",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@papahito/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "PC",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ハードウェア",
+                      "type": "folder",
+                      "children": [
+                        {
+                          "name": "戸田覚",
+                          "type": "button",
+                          "js": "javascript:window.location.href=\"https://www.youtube.com/@todasatoru/featured/videos\";"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "ソフト・豆知識",
+                      "type": "folder",
+                      "children": [
+                        {
+                          "name": "パソコン博士TAIKI",
+                          "type": "button",
+                          "js": "javascript:window.location.href=\"https://www.youtube.com/@taiki007/videos\";"
+                        },
+                        {
+                          "name": "プラグラ",
+                          "type": "button",
+                          "js": "javascript:window.location.href=\"https://www.youtube.com/@pragraa/videos\";"
+                        },
+                        {
+                          "name": "ウェブマニア",
+                          "type": "button",
+                          "js": "javascript:window.location.href=\"https://www.youtube.com/@ウェブマニア/videos\";"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "オーディオ",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ガジェログ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@kajikaji\";"
+                    },
+                    {
+                      "name": "セゴリータ三世",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@SGRT3rd/videos\";"
+                    },
+                    {
+                      "name": "eイヤホン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@e_earphone\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "カメラ",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "高橋けーすけ",
+                      "type": "button",
+                      "js": ""
+                    },
+                    {
+                      "name": "西田航",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://m.youtube.com/@WataruNishida/videos\";"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "ゲーム実況",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "ハヤトの野望",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@hayayabo/videos\";"
+                },
+                {
+                  "name": "のばまん",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@%E3%81%AE%E3%81%B0%E3%81%BE%E3%82%93%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%B9/videos\";"
+                },
+                {
+                  "name": "原神",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "Somen",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Somen-Channel/videos\";"
+                    },
+                    {
+                      "name": "シンフォニー",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@%E3%82%B7%E3%83%B3%E3%83%95%E3%82%A9%E3%83%8B%E3%83%BC/videos\";"
+                    },
+                    {
+                      "name": "ちりねこ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@%E3%81%A1%E3%82%8A%E3%81%AD%E3%81%93-j4v/videos\";"
+                    },
+                    {
+                      "name": "ともさん",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@tomo_tencho/videos\";"
+                    },
+                    {
+                      "name": "マグロヘッド",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@maguro-head/videos\";"
+                    },
+                    {
+                      "name": "ねるめろ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@nerumero/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "マイクラ",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ウォーターチャレンジ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Water_Challenge/videos\";"
+                    },
+                    {
+                      "name": "たいち",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@Taichi25/videos\";"
+                    },
+                    {
+                      "name": "おにや",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@o228/videos\";"
+                    },
+                    {
+                      "name": "コノ豆腐",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@%E3%82%B3%E3%83%8E%E8%B1%86%E8%85%90%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "ゲームレビュー",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "キャベツ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@cabbage_games/videos\";"
+                    },
+                    {
+                      "name": "任天堂レビューkento",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@kentworldg/videos\";"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "バラエティ",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "ショートコント",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ニッキューナナ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@297ch297ch/videos\";"
+                    },
+                    {
+                      "name": "ジャルジャル",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@jarujaruisland8111/videos\";"
+                    },
+                    {
+                      "name": "桃太郎オフィス",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/results?search_query=%E6%A1%83%E5%A4%AA%E9%83%8E%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9/videos\";"
+                    },
+                    {
+                      "name": "レジスタンス",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@resistance7777/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "芸人・企画",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "NOBROCK TV",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@NOBROCKTV/videos\";"
+                    },
+                    {
+                      "name": "ジェラードン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@gerrardon/videos\";"
+                    },
+                    {
+                      "name": "バキ童",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@bakibakiDT/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "知識・教養",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ホリエモン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@takaponjp/videos\";"
+                    },
+                    {
+                      "name": "Kevin's English Room",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@KevinsEnglishRoom/videos\";"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "時事",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "解説",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "アベプラ",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@prime_ABEMA/videos\";"
+                    },
+                    {
+                      "name": "リハック",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@rehacq/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "ネットの話題",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "佐倉あましん",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@sakuraamasin/videos\";"
+                    }
+                  ]
+                },
+                {
+                  "name": "都市伝説",
+                  "type": "folder",
+                  "children": [
+                    {
+                      "name": "ナオキマン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@naokimanshow8230/videos\";"
+                    },
+                    {
+                      "name": "キリン",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@%E3%82%AD%E3%83%AA%E3%83%B3%E8%80%83%E5%AF%9F%E7%B3%BByoutuber/videos\";"
+                    },
+                    {
+                      "name": "たっくーTV",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@takkutv/videos\";"
+                    },
+                    {
+                      "name": "真実の目",
+                      "type": "button",
+                      "js": "javascript:window.location.href=\"https://www.youtube.com/@eyessee88/videos\";"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "科学",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "VAIENCE",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@VAIENCE/videos\";"
+                },
+                {
+                  "name": "GENKI LABO",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@GENKILABO/videos\";"
+                },
+                {
+                  "name": "ラムダ技術部",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@lambdatech/videos\";"
+                }
+              ]
+            },
+            {
+              "name": "車レビュー・解説",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "EVネイティブ",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@EV_Native/videos\";"
+                },
+                {
+                  "name": "五味やすたか",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@eCarLife/videos\";"
+                },
+                {
+                  "name": "LOVECARS!TV!",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@lovecars/videos\";"
+                },
+                {
+                  "name": "carwow",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@carwow/videos\";"
+                }
+              ]
+            },
+            {
+              "name": "料理",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "リュウジ",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@ryuji825/videos\";"
+                },
+                {
+                  "name": "Genの炊事場",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@suijiba/videos\";"
+                },
+                {
+                  "name": "青海",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@oumi_cooking/videos\";"
+                }
+              ]
+            },
+            {
+              "name": "生物",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "ホモサピ",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@homosapi/videos\";"
+                },
+                {
+                  "name": "サブサピ",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@nd-zc4zm/videos\";"
+                },
+                {
+                  "name": "うごめ紀",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@UgomekiMushi/videos\";"
+                },
+                {
+                  "name": "ちーとん。",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@chieeton/videos\";"
+                },
+                {
+                  "name": "おーちゃんねる",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@Ohchan_ch/videos\";"
+                },
+                {
+                  "name": "野食ハンター茸本朗",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@hunter.takemoto/videos\";"
+                },
+                {
+                  "name": "平坂寛",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@HIRASAKA-H/videos\";"
+                }
+              ]
+            },
+            {
+              "name": "マンガ系",
+              "type": "folder",
+              "children": [
+                {
+                  "name": "マリマリマリー",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@marymarymary80s/videos\";"
+                },
+                {
+                  "name": "フラグちゃん",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@flag__chan/videos\";"
+                },
+                {
+                  "name": "カレコレ",
+                  "type": "button",
+                  "js": "javascript:window.location.href=\"https://www.youtube.com/@karekoreya/videos\";"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Youtubeホーム",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://m.youtube.com/\";"
+        },
+        {
+          "name": "登録チャンネル",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://m.youtube.com/feed/subscriptions\";"
+        },
+        {
+          "name": "後で見る",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://m.youtube.com/playlist?list=WL\";"
+        },
+        {
+          "name": "履歴",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://m.youtube.com/feed/history\";"
+        }
+      ]
+    },
+    {
+      "name": "X関連",
+      "type": "folder",
+      "children": [
+        {
+          "name": "👤プロフィール",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://x.com/niwakasumaho\";"
+        },
+        {
+          "name": "リスト付きX詳細検索",
+          "type": "button",
+          "js": "javascript:(function(){if(document.getElementById('x-search-panel-container')){document.getElementById('x-search-panel-container').remove();return}\nconst panelData={\"lists\":[{\"listName\":\"チェック\",\"accounts\":[{\"displayName\":\"いけこう\",\"username\":\"evjfeulgs1121\"},{\"displayName\":\"ふさふさ\",\"username\":\"Hage6741\"},{\"displayName\":\"ゆんゆん\",\"username\":\"ILove_Galaxy\"},{\"displayName\":\"ゆきっち\",\"username\":\"yukicchi_world\"},{\"displayName\":\"あおと\",\"username\":\"aoto_sumaho\"},{\"displayName\":\"ENJUMARU\",\"username\":\"En__usagi\"},{\"displayName\":\"Kdroidwin\",\"username\":\"Kdroidwin1\"},{\"displayName\":\"吉田製作所\",\"username\":\"netatank\"},{\"displayName\":\"次元を超えし者\",\"username\":\"dim_lurker\"}]},{\"listName\":\"Samsungアンチ\",\"accounts\":[{\"displayName\":\"Nullpo\",\"username\":\"Nullpo_x3100\"},{\"displayName\":\"ねみぃ\",\"username\":\"nemy_new\"},{\"displayName\":\"Sam\",\"username\":\"MBH_N49\"},{\"displayName\":\"カロン\",\"username\":\"karon_pad\"},{\"displayName\":\"あほぴた\",\"username\":\"_TadaHima_\"},{\"displayName\":\"RoketLake-Sおじさん\",\"username\":\"3950x\"},{\"displayName\":\"しばもん\",\"username\":\"monsivamon\"},{\"displayName\":\"Pixel Gamer 4k\",\"username\":\"4k_isn\"}]},{\"listName\":\"有識者\",\"accounts\":[{\"displayName\":\"IceUniverse\",\"username\":\"UniverseIce\"},{\"displayName\":\"ピュアセル\",\"username\":\"ML_Autofocus\"},{\"displayName\":\"nakajimegame\",\"username\":\"nakajimegame\"},{\"displayName\":\"すまほん\",\"username\":\"sm_hn\"},{\"displayName\":\"はやぽん\",\"username\":\"Hayaponlog\"},{\"displayName\":\"Tovi\",\"username\":\"ToviWorks\"},{\"displayName\":\"モバイルドットコム\",\"username\":\"chehonz201\"}]},{\"listName\":\"Apple信者\",\"accounts\":[{\"displayName\":\"Sassy\",\"username\":\"GoApFaAmMi\"},{\"displayName\":\"水麻呂\",\"username\":\"mizumaro_gadget\"},{\"displayName\":\"うすしお\",\"username\":\"utthi_sub\"},{\"displayName\":\"はむさんど\",\"username\":\"hamu_3nd\"},{\"displayName\":\"Nao\",\"username\":\"Nao_9615\"},{\"displayName\":\"なー\",\"username\":\"remonsawa_umai\"}]},{\"listName\":\"不穏分子\",\"accounts\":[{\"displayName\":\"kai\",\"username\":\"snapdragon_kai\"},{\"displayName\":\"KAI\",\"username\":\"KAI90985198\"}]}],\"shortcuts\":[{\"shortcutName\":\"Samsungアンチキラー\",\"searchMethod\":\"OR\",\"keyword1\":\"galaxy\",\"keyword2\":\"one ui\",\"keyword3\":\"samsung\"},{\"shortcutName\":\"Android iOS\",\"searchMethod\":\"AND\",\"keyword1\":\"android\",\"keyword2\":\"ios\"}]};\n// 青系カラースキームに統一\nconst panelCSS=`:root{\n --bg: #e6f0ff; /* 薄い青背景 */\n --text: #003366; /* 濃い青文字 */\n --border: #99c2ff; /* 明るい青枠線 */\n --input-bg: #f0f0f0; /* 入力欄背景(薄い灰色) */\n --input-text: #000000; /* 入力文字色(黒) */\n --btn-bg: #4da6ff; /* 青ボタン */\n --btn-text: #ffffff; /* ボタン文字色(白) */\n --accent-bg: #1a75ff; /* 濃い青アクセント */\n --accent-text: #ffffff; /* アクセント文字色 */\n --list-bg: #d4e4ff; /* リスト背景(薄青) */\n}\n@media (prefers-color-scheme:dark){\n :root{\n --bg: #1a3d66; /* 濃い青背景(ダークモード) */\n --text: #e6f0ff; /* 薄い青文字(ダークモード) */\n --border: #4d79b3; /* 青枠線(ダークモード) */\n --input-bg: #333; /* 入力欄背景(濃い灰色) */\n --input-text: #ffffff; /* 入力文字色(白) */\n --btn-bg: #1a75ff; /* 青ボタン(ダークモード) */\n --list-bg: #254d80; /* リスト背景(濃青) */\n }\n}\n#x-search-panel-container{\n color:var(--text); background-color:var(--bg);\n position:fixed; bottom:10px; right:10px; border:1px solid var(--border);\n border-radius:8px; padding:10px; z-index:9999; font-size:12px;\n width:90%; max-width:380px; box-shadow:0 4px 12px rgba(0,0,0,.25);\n box-sizing:border-box; font-family:sans-serif\n}\n.x-panel-screen{display:none}\n.x-panel-screen.active{display:block}\n.x-panel-header{\n display:flex; justify-content:space-between; align-items:center;\n margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:5px\n}\n.x-panel-header .x-panel-title-container { display: flex; align-items: center; gap: 8px; }\n#x-panel-settings-btn { color: var(--text); background: 0; border: 0; font-size: 20px; cursor: pointer; padding: 0; line-height: 1; }\n.x-panel-header h3{margin:0}\n.x-panel-lists-container{\n display:flex; overflow-x:auto; padding-bottom:8px; margin-bottom:8px; gap:12px\n}\n.x-panel-list{flex:0 0 31%; min-width:90px}\n.x-panel-list h4{margin:0 0 4px 0; font-size:13px}\n.x-panel-users, .x-panel-shortcuts{\n max-height:120px; overflow-y:auto; border:1px solid var(--border);\n background-color:var(--list-bg); padding:5px; border-radius:4px\n}\n.x-panel-user label, .x-panel-shortcut label{\n display:block; margin-bottom:4px; white-space:nowrap;\n overflow:hidden; text-overflow:ellipsis\n}\n.x-panel-footer{\n margin-top:10px; display:flex; flex-wrap:wrap; gap:8px\n}\n.x-panel-footer button{\n flex-grow:1; padding:6px; border:1px solid var(--border);\n background:var(--btn-bg); color:var(--btn-text); border-radius:4px;\n cursor:pointer; font-size:11px\n}\n.x-panel-close-btn, .x-panel-back-btn{\n color:var(--text); background:0; border:0; font-size:18px;\n cursor:pointer; padding:0 5px\n}\n.x-panel-fromto-group label{display:block; font-size:12px}\nhr{border-color:var(--border); border-style:solid; border-width:1px 0 0 0}\n.x-search-form-wrapper{\n max-height:300px; overflow-y:auto; padding-right:8px; margin-top:8px\n}\n.x-search-form div{margin-bottom:6px}\n.x-search-form label{\n font-weight:700; margin-bottom:2px; font-size:11px; display:block\n}\n/* 入力欄のスタイルを明示的に設定 - IDセレクタに変更 */\n#x-search-form input, #x-search-form select, #x-search-form textarea {\n color: var(--input-text) !important;\n background-color: var(--input-bg) !important;\n width: 95%;\n padding: 5px;\n border: 1px solid var(--border);\n border-radius: 4px;\n font-size: 12px;\n}\n/* チェックボックスグループのスタイル修正 */\n.checkbox-group {\n display: grid;\n grid-template-columns: repeat(2, 1fr);\n gap: 8px;\n margin-top: 10px;\n}\n.checkbox-group label {\n justify-content: flex-start;\n}\n.checkbox-group input[type=\"checkbox\"] {\n width: auto !important;\n}\n#x-search-form-final-btn{\n width:100%; padding:8px; background:var(--accent-bg); color:var(--accent-text);\n border:0; font-size:14px; font-weight:700; margin-top:5px\n}`;\nconst panelContainer=document.createElement('div');panelContainer.id='x-search-panel-container';\npanelContainer.innerHTML=`<style>${panelCSS}</style>\n<div id=\"list-screen\" class=\"x-panel-screen active\"><div class=\"x-panel-header\"><div class=\"x-panel-title-container\"><button id=\"x-panel-settings-btn\">⚙️</button><h3>リスト</h3></div><button class=\"x-panel-close-btn\">☒</button></div><div class=\"x-panel-lists-container\">${panelData.lists.map(list=>`<div class=\"x-panel-list\"><h4>${list.listName}</h4><div class=\"x-panel-users\">${list.accounts.map(acc=>`<div class=\"x-panel-user\"><label><input type=\"checkbox\" name=\"user-select\" value=\"${acc.username}\"> ${acc.displayName}</label></div>`).join('')}</div></div>`).join('')}</div><div class=\"x-panel-fromto-group\"><label><input type=\"radio\" name=\"from-to-mode\" value=\"from\" id=\"radio-from\"> from:</label><label><input type=\"radio\" name=\"from-to-mode\" value=\"to\" id=\"radio-to\"> to:</label><label><input type=\"radio\" name=\"from-to-mode\" value=\"from_to\" id=\"radio-from_to\"> from:↔to:</label><span id=\"from-to-display\"></span></div><hr style=\"margin:8px 0\"><h4>ショートカット</h4><div class=\"x-panel-shortcuts\">${panelData.shortcuts.map(sc=>`<div class=\"x-panel-shortcut\"><label><input type=\"radio\" name=\"shortcut-select\" value=\"${sc.shortcutName}\"> ${sc.shortcutName}</label></div>`).join('')}</div><div class=\"x-panel-footer\"><button type=\"button\" id=\"profile-btn\">プロフへ</button><button type=\"button\" id=\"copy-user-btn\">垢名コピー</button><button type=\"button\" id=\"copy-all-btn\">垢名抽出</button><button type=\"button\" id=\"show-advanced-search-btn\" style=\"background:var(--accent-bg);color:var(--accent-text);font-weight:700\">詳細検索へ</button></div></div>\n<div id=\"advanced-search-screen\" class=\"x-panel-screen\"><div class=\"x-panel-header\"><button class=\"x-panel-back-btn\" type=\"button\">←戻る</button><h3>詳細検索</h3></div><form id=\"x-search-form\" onsubmit=\"return false\"><div class=\"x-search-form-wrapper\"><div><label>ユーザー名:</label><input type=\"text\" id=\"final-user\"></div><div><label>from:</label><input type=\"text\" id=\"final-from\"></div><div><label>to:</label><input type=\"text\" id=\"final-to\"></div><div><label>検索方法:</label><select id=\"final-searchMethod\"><option value=\"\">選択しない</option><option value=\"AND\">AND</option><option value=\"OR\">OR</option></select></div><div><label>キーワード:</label><input type=\"text\" id=\"final-keyword1\"><input type=\"text\" id=\"final-keyword2\" style=\"margin-top:2px\"><input type=\"text\" id=\"final-keyword3\" style=\"margin-top:2px\"></div><div><label>完全に一致:</label><input type=\"text\" id=\"final-exactPhrase\"></div><div><label>除外ワード:</label><input type=\"text\" id=\"final-exclude1\"><input type=\"text\" id=\"final-exclude2\" style=\"margin-top:2px\"><input type=\"text\" id=\"final-exclude3\" style=\"margin-top:2px\"></div><div><label>いつから:</label><input type=\"date\" id=\"final-since\"></div><div><label>いつまで:</label><input type=\"date\" id=\"final-until\"></div><div><label>いいね数(以上):</label><input type=\"number\" id=\"final-minFaves\"></div><div><label>リプライ数(以上):</label><input type=\"number\" id=\"final-minReplies\"></div><div><label>リツイート数(以上):</label><input type=\"number\" id=\"final-minRetweets\"></div><div><label>言語:</label><select id=\"final-lang\"><option value=\"\">指定なし</option><option value=\"ja\">日本語</option><option value=\"en\">英語</option></select></div><div class=\"checkbox-group\"><label><input type=\"checkbox\" id=\"final-imagesOnly\">画像のみ</label><label><input type=\"checkbox\" id=\"final-videosOnly\">動画のみ</label><label><input type=\"checkbox\" id=\"final-followerOnly\">フォロワーのみ</label><label><input type=\"checkbox\" id=\"final-excludeLang\">指定言語を除外</label></div></div><button type=\"button\" id=\"x-search-form-final-btn\">検索</button></form></div>`;\ndocument.body.appendChild(panelContainer);\nconst q=s=>panelContainer.querySelector(s),qAll=s=>panelContainer.querySelectorAll(s);const switchScreen=id=>{qAll('.x-panel-screen').forEach(s=>s.classList.remove('active'));q(`#${id}`).classList.add('active')};q('.x-panel-close-btn').onclick=()=>panelContainer.remove();q('.x-panel-back-btn').onclick=()=>switchScreen('list-screen');q('#x-panel-settings-btn').onclick=()=>window.open('https://sites.google.com/view/x-advanced-panel-generator/%E3%83%9B%E3%83%BC%E3%83%A0','_blank');\nconst displaySpan=q('#from-to-display'),updateFromToDisplay=()=>{const mode=q('input[name=\"from-to-mode\"]:checked')?.value,selected=Array.from(qAll('input[name=\"user-select\"]:checked'));displaySpan.innerHTML='';displaySpan.dataset.from='';displaySpan.dataset.to='';if(!mode)return;if((mode==='from'||mode==='to')&&selected.length>1){alert('from:かto:はユーザー1人のみ選択可能です。');q('input[name=\"from-to-mode\"]:checked').checked=false;return}if(mode==='from_to'){if(selected.length!==2){alert('from: to: はユーザー2人の選択が必要です。');q('input[name=\"from-to-mode\"]:checked').checked=false;return}const users=selected.map(cb=>cb.value);displaySpan.dataset.from=users[0];displaySpan.dataset.to=users[1];displaySpan.innerHTML=` from:${users[0]} <button type=\"button\" id=\"swap-users-btn\" style=\"border:0;background:0;cursor:pointer;color:var(--text)\">↔</button> to:${users[1]}`}};\nqAll('input[name=\"user-select\"]').forEach(cb=>cb.onchange=()=>{if(Array.from(qAll('input[name=\"user-select\"]:checked')).length>2){alert('ユーザーは2人までです');cb.checked=false}updateFromToDisplay()});\nlet lastCheckedFromTo='radio-from';q('#radio-from').checked=true;qAll('input[name=\"from-to-mode\"]').forEach(radio=>radio.addEventListener('click',e=>{if(e.target.id===lastCheckedFromTo&&e.target.checked){e.target.checked=false;lastCheckedFromTo=null}else{lastCheckedFromTo=e.target.id}updateFromToDisplay()}));\ndisplaySpan.onclick=e=>{if(e.target.id==='swap-users-btn'){const from=displaySpan.dataset.from,to=displaySpan.dataset.to;displaySpan.dataset.from=to;displaySpan.dataset.to=from;displaySpan.innerHTML=` from:${to} <button type=\"button\" id=\"swap-users-btn\" style=\"border:0;background:0;cursor:pointer;color:var(--text)\">↔</button> to:${from}`}};\nq('#profile-btn').onclick=()=>{const s=Array.from(qAll('input[name=\"user-select\"]:checked'));if(s.length!==1)return alert('ユーザーを1人選択してください');location.href=`https://x.com/${s[0].value}`};\nq('#copy-user-btn').onclick=()=>{const s=Array.from(qAll('input[name=\"user-select\"]:checked'));if(s.length!==1)return alert('ユーザーを1人選択してください');navigator.clipboard.writeText(s[0].value).then(()=>alert('コピー: '+s[0].value))};\n// 修正: 垢名抽出機能（現在のページURLからユーザー名を抽出）\nq('#copy-all-btn').onclick=()=>{const currentUrl=window.location.href;const match=currentUrl.match(/https:\\/\\/x\\.com\\/([^\\/]+)/);if(!match||!match[1])return alert('このページからユーザー名を抽出できません');const username=match[1];navigator.clipboard.writeText(username).then(()=>alert('ユーザー名をコピーしました: '+username))};\nq('#show-advanced-search-btn').onclick=()=>{q('#x-search-form').reset();let p={};const scName=q('input[name=\"shortcut-select\"]:checked')?.value;if(scName)p={...(panelData.shortcuts.find(sc=>sc.shortcutName===scName)||{})};const ftMode=q('input[name=\"from-to-mode\"]:checked')?.value,selUsers=Array.from(qAll('input[name=\"user-select\"]:checked')).map(cb=>cb.value);if(ftMode){delete p.user;delete p.fromUser;delete p.toUser;if(ftMode==='from'&&selUsers.length===1)p.fromUser=selUsers[0];if(ftMode==='to'&&selUsers.length===1)p.toUser=selUsers[0];if(ftMode==='from_to'&&selUsers.length===2){p.fromUser=displaySpan.dataset.from;p.toUser=displaySpan.dataset.to}}else if(selUsers.length===1)p.user=selUsers[0];else if(selUsers.length>1)return alert('ユーザー2人選択時は from/to を指定してください');\nconst setVal=(id,val)=>{const e=q(`#final-${id}`);if(e)e.value=val||''};const setCheck=(id,val)=>{const e=q(`#final-${id}`);if(e)e.checked=!!val};\nsetVal('user',p.user);setVal('from',p.fromUser);setVal('to',p.toUser);setVal('searchMethod',p.searchMethod);setVal('keyword1',p.keyword1);setVal('keyword2',p.keyword2);setVal('keyword3',p.keyword3);setVal('exactPhrase',p.exactPhrase);setVal('exclude1',p.exclude1);setVal('exclude2',p.exclude2);setVal('exclude3',p.exclude3);setVal('since',p.since);setVal('until',p.until);setVal('minFaves',p.minFaves);setVal('minReplies',p.minReplies);setVal('minRetweets',p.minRetweets);setVal('lang',p.lang);\nsetCheck('imagesOnly',p.imagesOnly);setCheck('videosOnly',p.videosOnly);setCheck('followerOnly',p.followerOnly);setCheck('excludeLang',p.excludeLang);\nswitchScreen('advanced-search-screen')};\nq('#x-search-form-final-btn').onclick=()=>{const v=id=>q(`#final-${id}`).value,c=id=>q(`#final-${id}`).checked,parts=[];const user=v('user'),from=v('from'),to=v('to');if(user&&(from||to))return alert('ユーザー名とfrom/toは同時に使用できません');if(user)parts.push(encodeURIComponent(user));if(from)parts.push(`from:${from}`);if(to)parts.push(`to:${to}`);const kws=[v('keyword1'),v('keyword2'),v('keyword3')].filter(Boolean);if(kws.length>0)parts.push(`(${kws.map(k=>`\"${k}\"`).join(` ${v('searchMethod')||' '} `)})`);if(v('exactPhrase'))parts.push(`\"${v('exactPhrase')}\"`);[v('exclude1'),v('exclude2'),v('exclude3')].filter(Boolean).forEach(ex=>parts.push(`-${ex}`));if(v('since'))parts.push(`since:${v('since')}`);if(v('until'))parts.push(`until:${v('until')}`);if(v('minFaves'))parts.push(`min_faves:${v('minFaves')}`);if(v('minReplies'))parts.push(`min_replies:${v('minReplies')}`);if(v('minRetweets'))parts.push(`min_retweets:${v('minRetweets')}`);if(c('imagesOnly'))parts.push('filter:images');if(c('videosOnly'))parts.push('filter:videos');if(c('followerOnly'))parts.push('filter:follows');if(v('lang'))parts.push(`${c('excludeLang')?'-':''}lang:${v('lang')}`);location.href=`https://x.com/search?q=${encodeURIComponent(parts.join(' '))}&src=typed_query`};\n})()"
+        },
+        {
+          "name": "リスト",
+          "type": "folder",
+          "children": [
+            {
+              "name": "チェック",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://x.com/i/lists/1950636509260107924\";"
+            },
+            {
+              "name": "原神リーク",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://x.com/i/lists/1997083710349541724\";"
+            },
+            {
+              "name": "Samsungアンチ",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://x.com/i/lists/1950637349307871239\";"
+            }
+          ]
+        },
+        {
+          "name": "🏠ホーム",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://x.com/home\";"
+        },
+        {
+          "name": "🔖ブックマーク",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://x.com/i/bookmarks\";"
+        },
+        {
+          "name": "👥コミュニティ",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://x.com/i/communities/1641792843726622727\";"
+        },
+        {
+          "name": "✉️DM",
+          "type": "button",
+          "js": "javascript:window.location.href=\"https://x.com/i/chat\";"
+        }
+      ]
+    },
+    {
+      "name": "ASMR関連",
+      "type": "folder",
+      "children": [
+        {
+          "name": "再生速度",
+          "type": "button",
+          "js": "javascript:(function(){if(document.getElementById(\"video-controller-panel-v2\")){return}const v=document.querySelector(\"video\");if(!v){alert(\"このページに動画が見つかりません。\");return}const p=document.createElement(\"div\");p.id=\"video-controller-panel-v2\";p.style.cssText=\"position:fixed;bottom:0px;right:0px;background-color:#fff;border:1px solid #ccc;border-radius:8px;padding:15px;z-index:99999;font-family:sans-serif;font-size:13px;color:#333;box-shadow:0 4px 10px rgba(0,0,0,0.2);min-width:320px;\";const x=document.createElement(\"button\");x.textContent=\"☒\";x.style.cssText=\"position:absolute;top:5px;right:8px;border:none;background:0;font-size:18px;cursor:pointer;color:#888;\";x.onclick=()=>{p.remove()};p.appendChild(x);const s=(t)=>{const e=document.createElement(\"div\");e.style.cssText=\"margin-bottom:12px;\";const o=document.createElement(\"strong\");return o.textContent=t,o.style.display=\"block\",o.style.marginBottom=\"5px\",e.appendChild(o),e};const c=(e,t)=>{const o=document.createElement(\"button\");return o.textContent=e,o.style.cssText=\"margin:2px;padding:5px 8px;border:1px solid #ddd;border-radius:4px;background-color:#f7f7f7;cursor:pointer;\",o.onclick=t,o};const r=s(\"カスタム速度\");const n=document.createElement(\"input\");n.type=\"number\",n.placeholder=\"例: 1.5\",n.style.cssText=\"width:60px;padding:4px;border:1px solid #ccc;border-radius:4px;margin-right:5px;\";const a=c(\"適用\",()=>{const e=parseFloat(n.value);e&&!isNaN(e)&&(v.playbackRate=e)});r.appendChild(n),r.appendChild(a);const i=document.createElement(\"div\");i.style.marginTop=\"5px\";[0.25,0.5,1,2,3,4].forEach(e=>{const t=c(e,()=>{v.playbackRate=e});1===e&&(t.style.fontWeight=\"bold\",t.style.borderColor=\"#aaa\"),i.appendChild(t)});r.appendChild(i),p.appendChild(r);const d=s(\"再生時間\");const l=document.createElement(\"input\");l.type=\"number\",l.placeholder=\"時\",l.style.cssText=\"width:35px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center;\";const u=document.createElement(\"input\");u.type=\"number\",u.placeholder=\"分\",u.style.cssText=\"width:35px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center;\";const m=document.createElement(\"input\");m.type=\"number\",m.placeholder=\"秒\",m.style.cssText=\"width:35px;padding:4px;border:1px solid #ccc;border-radius:4px;text-align:center;\";const f=c(\"適用\",()=>{const e=parseInt(l.value)||0,t=parseInt(u.value)||0,o=parseInt(m.value)||0;v.currentTime=3600*e+60*t+o});d.appendChild(l),d.appendChild(document.createTextNode(\" : \")),d.appendChild(u),d.appendChild(document.createTextNode(\" : \")),d.appendChild(m),d.appendChild(f);const h=document.createElement(\"div\");h.style.marginTop=\"5px\";[-30,-10,-5,5,10,30].forEach(e=>{const t=c((0<e?\"+\":\"\")+e,()=>{v.currentTime+=e});h.appendChild(t)});d.appendChild(h),p.appendChild(d),document.body.appendChild(p)})();"
+        },
+        {
+          "name": "声優",
+          "type": "folder",
+          "children": [
+            {
+              "name": "伊ヶ崎綾香 (いがさき あやか)",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/cv/伊ヶ崎綾香/\";"
+            },
+            {
+              "name": "📋伊ヶ崎綾香 (いがさき あやか) コピー",
+              "type": "button",
+              "js": "javascript:(function(){const t=document.createElement('textarea');t.value='伊ヶ崎綾香';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})();"
+            },
+            {
+              "name": "陽向葵ゅか (ひなた ゆか)",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/cv/%e9%99%bd%e5%90%91%e8%91%b5%e3%82%85%e3%81%8b/\";"
+            },
+            {
+              "name": "📋陽向葵ゅか (ひなた ゆか) コピー",
+              "type": "button",
+              "js": "javascript:(function(){const t=document.createElement('textarea');t.value='陽向葵ゅか';document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);})();"
+            },
+            {
+              "name": "雪見だいふく",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/cv/雪見だいふく/\";"
+            },
+            {
+              "name": "ツナツナ",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/cv/ツナツナ/\";"
+            },
+            {
+              "name": "はらぺこちゃん",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/cv/はらぺこちゃん/\";"
+            }
+          ]
+        },
+        {
+          "name": "ジャンル",
+          "type": "folder",
+          "children": [
+            {
+              "name": "TS",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=TS\";"
+            },
+            {
+              "name": "ふたなり",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=ふたなり\";"
+            },
+            {
+              "name": "潮吹き",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=潮吹き\";"
+            },
+            {
+              "name": "催眠",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=催眠\";"
+            },
+            {
+              "name": "明晰",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=明晰\";"
+            },
+            {
+              "name": "霊",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=霊\";"
+            },
+            {
+              "name": "ホラー",
+              "type": "button",
+              "js": "javascript:window.location.href=\"https://asmr18.fans/?s=ホラー\";"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
