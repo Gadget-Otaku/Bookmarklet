@@ -112,7 +112,7 @@
         },
         {
           "name": "聖遺物スコア",
-          "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
+          "url": "https://v2.jabrek.net/genshin/",
           "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png",
           "id": "mksgahinr0zec",
           "tags": []
@@ -658,5 +658,5 @@
     ],
     "gestures": []
   },
-  "version": 2
+  "version": 3
 }
