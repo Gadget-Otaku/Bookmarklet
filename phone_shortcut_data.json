@@ -47,31 +47,36 @@
       "name": "YouTube",
       "url": "https://www.youtube.com",
       "icon": "https://images.icon-icons.com/1584/PNG/512/3721679-youtube_108064.png",
-      "id": "mksgahinu3ntm"
+      "id": "mksgahinu3ntm",
+      "tags": []
     },
     {
       "name": "X",
       "url": "https://x.com/home",
       "icon": "https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg",
-      "id": "mksgahin2kost"
+      "id": "mksgahin2kost",
+      "tags": []
     },
     {
       "name": "Pixiv",
       "url": "https://www.pixiv.net/bookmark_new_illust.php",
       "icon": "https://play-lh.googleusercontent.com/gxketM16-WgX0BpV6Ggn1c5pL4tOk7ncum-nrXLFzx_54TlggRoFQavCwEg-haS6bPg",
-      "id": "mksgahinbvegi"
+      "id": "mksgahinbvegi",
+      "tags": []
     },
     {
       "name": "ASMR",
       "url": "https://asmr18.fans",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=asmr18.fans",
-      "id": "mksgahinejtk5"
+      "id": "mksgahinejtk5",
+      "tags": []
     },
     {
       "id": "mmozkm4mk4byb",
       "name": "Aniwatch",
       "url": "https://aniwatchtv.to/recently-updated",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aniwatchtv.to"
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aniwatchtv.to",
+      "tags": []
     },
     {
       "name": "原神",
@@ -81,76 +86,89 @@
           "name": "メイン効果量",
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%B0%A1%E6%98%93%E6%97%A9%E8%A6%8B%E8%A1%A8-,%E7%A8%AE%E9%A1%9E,-%E2%98%855%0A%EF%BC%88Lv.20",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
-          "id": "mksgahinbqw28"
+          "id": "mksgahinbqw28",
+          "tags": []
         },
         {
           "name": "サブ効果量",
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%A0%94%E7%A9%B6%E3%82%92%E5%8F%82%E7%85%A7%E3%80%82-,%E3%82%B5%E3%83%96%E5%8A%B9%E6%9E%9C,-%E4%BD%8E",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
-          "id": "mksgahine5msy"
+          "id": "mksgahine5msy",
+          "tags": []
         },
         {
           "name": "lv20必要聖遺物",
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
-          "id": "mksgahinne9kj"
+          "id": "mksgahinne9kj",
+          "tags": []
         },
         {
           "name": "lv90必要経験値",
           "url": "https://kamigame.jp/genshin/page/132093570420104073.html#:~:text=%e3%81%8c%e5%b0%91%e3%81%aa%e3%81%8f%e3%81%aa%e3%82%8b%e3%80%82-,1%e3%80%9c90%e3%81%be%e3%81%a7%e3%81%ae%e5%bf%85%e8%a6%81%e7%b5%8c%e9%a8%93%e5%80%a4,-%e3%83%ac%e3%83%99%e3%83%ab",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=kamigame.jp",
-          "id": "mksgahin9fbwp"
+          "id": "mksgahin9fbwp",
+          "tags": []
         },
         {
           "name": "聖遺物スコア",
           "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
           "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png",
-          "id": "mksgahinr0zec"
+          "id": "mksgahinr0zec",
+          "tags": []
         },
         {
           "name": "育成計算機",
           "url": "https://act.hoyolab.com/ys/event/calculator-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=hoyolab&utm_medium=tools&lang=ja-jp&bbs_theme=dark&bbs_theme_device=1#/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=act.hoyolab.com",
-          "id": "mksgahin1ovu4"
+          "id": "mksgahin1ovu4",
+          "tags": []
         },
         {
           "name": "テイワットマップ",
           "url": "https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
           "icon": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp&size=64#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
-          "id": "mksgahinrpit8"
+          "id": "mksgahinrpit8",
+          "tags": []
         },
         {
           "name": "ガチャリーク",
           "url": "https://tori-game.com/gensingacha/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=tori-game.com",
-          "id": "mksgahinmmhuo"
+          "id": "mksgahinmmhuo",
+          "tags": []
         },
         {
           "name": "過去ガチャ",
           "url": "https://game8.jp/genshin/631517",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp",
-          "id": "mksgahinzij4d"
+          "id": "mksgahinzij4d",
+          "tags": []
         },
         {
           "name": "復刻待ちキャラ",
           "url": "https://game8.jp/genshin/712541",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp",
-          "id": "mksgahint78h6"
+          "id": "mksgahint78h6",
+          "tags": []
         },
         {
           "name": "チャージセンター",
           "url": "https://sdk.hoyoverse.com/payment/genshin/index.html#/m",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=sdk.hoyoverse.com",
-          "id": "mksgahincedq1"
+          "id": "mksgahincedq1",
+          "tags": []
         },
         {
           "name": "シリアルコード",
           "url": "https://gamewith.jp/genshin/article/show/231856",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp",
-          "id": "mksgahin3swje"
+          "id": "mksgahin3swje",
+          "tags": []
         }
       ],
-      "id": "mksgahinynmkh"
+      "id": "mksgahinynmkh",
+      "tags": []
     },
     {
       "name": "ガジェット",
@@ -160,13 +178,15 @@
           "name": "CPU性能比較",
           "url": "https://pcfreebook.com/article/458775622.html",
           "icon": "https://pcfreebook.com/wp-content/uploads/2020/02/cpu-speclist-desktop-top.png",
-          "id": "mksgahiny0414"
+          "id": "mksgahiny0414",
+          "tags": []
         },
         {
           "name": "GPU性能比較",
           "url": "https://pcfreebook.com/article/459993300.html",
           "icon": "https://pcfreebook.com/wp-content/uploads/2020/02/cpu-speclist-desktop-top.png",
-          "id": "mksgahiniawtn"
+          "id": "mksgahiniawtn",
+          "tags": []
         },
         {
           "id": "ml7il28yw6sn8",
@@ -177,63 +197,74 @@
               "name": "ノートPC",
               "url": "https://s.kakaku.com/pc/note-pc/itemlist.aspx#/popup=narrow",
               "icon": "https://play-lh.googleusercontent.com/aTlc3ts5q7sz-b8WaKi6xjcTVgcp4toOWKBuJwaNK7xRy99WGH6WtUKAzyz8sJNt3y8",
-              "id": "mksgahink1eqz"
+              "id": "mksgahink1eqz",
+              "tags": []
             },
             {
               "id": "ml7iifnhm1gol",
               "name": "デスクトップ",
               "url": "https://s.kakaku.com/pc/desktop-pc/itemlist.aspx?#/popup=narrow",
-              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=s.kakaku.com"
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=s.kakaku.com",
+              "tags": []
             },
             {
               "id": "ml7ijqh4ltd0v",
               "name": "PCモニター",
               "url": "https://s.kakaku.com/pc/lcd-monitor/itemlist.aspx?#/popup=narrow",
-              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=s.kakaku.com"
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=s.kakaku.com",
+              "tags": []
             }
           ],
           "icon": null,
-          "_isCollapsed": false
+          "_isCollapsed": false,
+          "tags": []
         },
         {
           "name": "カメラ",
           "url": "https://s.kakaku.com/camera/mirrorless-slr/itemlist.aspx#/popup=narrow",
           "icon": "https://play-lh.googleusercontent.com/aTlc3ts5q7sz-b8WaKi6xjcTVgcp4toOWKBuJwaNK7xRy99WGH6WtUKAzyz8sJNt3y8",
-          "id": "mksgahingnfjg"
+          "id": "mksgahingnfjg",
+          "tags": []
         },
         {
           "name": "レンズ",
           "url": "https://s.kakaku.com/camera/zoom_lens/itemlist.aspx#/popup=narrow",
           "icon": "https://play-lh.googleusercontent.com/aTlc3ts5q7sz-b8WaKi6xjcTVgcp4toOWKBuJwaNK7xRy99WGH6WtUKAzyz8sJNt3y8",
-          "id": "mksgahinjwrm0"
+          "id": "mksgahinjwrm0",
+          "tags": []
         },
         {
           "name": "gsmarena phonefinder",
           "url": "https://m.gsmarena.com/search.php3?",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVOOCuz-6hrhEDC_sy9eVqnq_Q_r843ul56w&s",
-          "id": "mksgahinbujxa"
+          "id": "mksgahinbujxa",
+          "tags": []
         },
         {
           "name": "スマホ イメージセンサー",
           "url": "https://spinformation.info/all/smartphone-image-sensor/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=spinformation.info",
-          "id": "mksgahin970ax"
+          "id": "mksgahin970ax",
+          "tags": []
         },
         {
           "name": "visaギフト",
           "url": "https://mygift.giftcardmall.com/",
           "icon": "https://upload.wikimedia.org/wikipedia/commons/4/40/Visa_Inc._logo_%281999%E2%80%932005%29.svg",
-          "id": "mksgahinxxjcg"
+          "id": "mksgahinxxjcg",
+          "tags": []
         },
         {
           "name": "腕時計 時刻合わせ",
           "url": "https://support.casio.jp/wat/adjustment/ta5161_ja/",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKM2zBns6CTS8niY7RI-YTpb7OwgbChkvhBw&s",
-          "id": "mksgahin4scqo"
+          "id": "mksgahin4scqo",
+          "tags": []
         }
       ],
       "id": "mksgahinjhuvh",
-      "_isCollapsed": false
+      "_isCollapsed": false,
+      "tags": []
     },
     {
       "name": "AI",
@@ -243,52 +274,61 @@
           "name": "ChatGPT",
           "url": "https://chatgpt.com/?model=auto",
           "icon": "https://i.pinimg.com/736x/a6/8e/fc/a68efcad5debfbe207f52e8c19b379e9.jpg",
-          "id": "mksgahinh4dp5"
+          "id": "mksgahinh4dp5",
+          "tags": []
         },
         {
           "name": "Gemini",
           "url": "https://gemini.google.com/app?hl=ja",
           "icon": "https://asset.watch.impress.co.jp/img/ktw/docs/1583/273/icon_l.jpg",
-          "id": "mksgahino7xaa"
+          "id": "mksgahino7xaa",
+          "tags": []
         },
         {
           "name": "Google AI Studio",
           "url": "https://aistudio.google.com",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aistudio.google.com",
-          "id": "mksgahin07cuq"
+          "id": "mksgahin07cuq",
+          "tags": []
         },
         {
           "name": "DeepSeek",
           "url": "https://chat.deepseek.com",
           "icon": "https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg",
-          "id": "mksgahindjek5"
+          "id": "mksgahindjek5",
+          "tags": []
         },
         {
           "name": "Venice AI",
           "url": "https://venice.ai/chat",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=venice.ai",
-          "id": "mksgahinrds20"
+          "id": "mksgahinrds20",
+          "tags": []
         },
         {
           "name": "Genspark",
           "url": "https://www.genspark.ai/agents?type=moa_chat",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai",
-          "id": "mksgahinua0im"
+          "id": "mksgahinua0im",
+          "tags": []
         }
       ],
-      "id": "mksgahinv6ro6"
+      "id": "mksgahinv6ro6",
+      "tags": []
     },
     {
       "name": "Astate",
       "url": "https://www.astate.edu",
       "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7wDYtSursM5vOqYubM1ECatnQMqHZrplWEzSEGEXu3S_N3fT6qMTw2VY&s=10",
-      "id": "mksgahinhlfar"
+      "id": "mksgahinhlfar",
+      "tags": []
     },
     {
       "name": "Dashboard",
       "url": "https://pack.astate.edu/public/dashboard",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=pack.astate.edu",
-      "id": "mksgahin1e26h"
+      "id": "mksgahin1e26h",
+      "tags": []
     },
     {
       "name": "大学関連",
@@ -298,88 +338,103 @@
           "name": "mybill",
           "url": "https://epay.astate.edu/C20019_tsa/web/login.jsp",
           "icon": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://epay.astate.edu/C20019_tsa/web/login.jsp&size=16",
-          "id": "mksgahinr2u1o"
+          "id": "mksgahinr2u1o",
+          "tags": []
         },
         {
           "name": "Housing",
           "url": "https://astate.starrezhousing.com/StarRezPortalX/FC6488C4/1/1/Home-Welcome_to_the_A_Sta?UrlToken=A0AC9875",
           "icon": "https://iconbox.fun/wp/wp-content/uploads/192_b_24.png",
-          "id": "mksgahindad06"
+          "id": "mksgahindad06",
+          "tags": []
         },
         {
           "name": "バス",
           "url": "https://www.astate.edu/a/global-initiatives/international/forms/student-advising",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsKEzw38TGeOe-kK91Wsvg05lgWbxyQj57DQ&s",
-          "id": "mksgahinwolwd"
+          "id": "mksgahinwolwd",
+          "tags": []
         },
         {
           "name": "ｽｹｼﾞｭ-ﾙ",
           "url": "https://catalog.astate.edu/preview_program.php?catoid=8&poid=2347&returnto=244",
           "icon": "https://img.icons8.com/color/512/google-logo.png",
-          "id": "mksgahinsgmqn"
+          "id": "mksgahinsgmqn",
+          "tags": []
         },
         {
           "name": "英語 教材",
           "url": "https://asuj.grlcontent.com/user/login?autologout_timeout=1",
           "icon": "https://play-lh.googleusercontent.com/Z567KavO3EE8mxGFtzgGrCkEtdljuySFNqxlaWACW5lcrksBUXC4CA0kHLJ0gYgoy5Y=w240-h480-rw",
-          "id": "mksgahing8r0p"
+          "id": "mksgahing8r0p",
+          "tags": []
         },
         {
           "name": "教材 bookstore",
           "url": "https://astatebookstore.com/textbooks",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsE604CUZK43liZCcbSISUiHL9CoMB8AJxJg&s",
-          "id": "mksgahin9kzwe"
+          "id": "mksgahin9kzwe",
+          "tags": []
         },
         {
           "name": "vitalsource",
           "url": "https://bookshelf.vitalsource.com/home/dashboard?context=login",
           "icon": "https://store-images.s-microsoft.com/image/apps.15180.14164704504445663.3fbcf2df-8bab-4f09-822a-094d3f6ef53e.b6ea252f-f946-4acc-96c0-e2dc7370daf8",
-          "id": "mksgahinktxsy"
+          "id": "mksgahinktxsy",
+          "tags": []
         },
         {
           "name": "食事 時間",
           "url": "https://astate.sodexomyway.com/en-us/locations/",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp0r7Ed3_kbqc9UumdzCIDUtuxts-qjAewBA&s",
-          "id": "mksgahinw2gjj"
+          "id": "mksgahinw2gjj",
+          "tags": []
         }
       ],
-      "id": "mksgahindy43k"
+      "id": "mksgahindy43k",
+      "tags": []
     },
     {
       "name": "Github",
       "url": "https://github.com/Gadget-Otaku/Bookmarklet",
       "icon": "https://cdn-icons-png.freepik.com/256/733/733609.png",
-      "id": "mksgahindgmqy"
+      "id": "mksgahindgmqy",
+      "tags": []
     },
     {
       "name": "GreasyFork",
       "url": "https://greasyfork.org/ja/users/1433480-%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%AA%E3%82%BF%E3%82%AF%E3%81%AB%E3%82%8F%E3%81%8B",
       "icon": "https://files.svgcdn.io/simple-icons/greasyfork.svg",
-      "id": "mksgahin97cb1"
+      "id": "mksgahin97cb1",
+      "tags": []
     },
     {
       "name": "メモ帳3.0",
       "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%83%A1%E3%83%A2%E5%B8%B33.0",
       "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsAZYI27WQaMCSK-W8M-1FoW4Tx-0BWk6dA&s",
-      "id": "mksgahinlpg3m"
+      "id": "mksgahinlpg3m",
+      "tags": []
     },
     {
       "name": "Notion",
       "url": "https://www.notion.so/2f61b782539d4036bef474f820fa42c2",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.notion.so",
-      "id": "mksgahinn0xx9"
+      "id": "mksgahinn0xx9",
+      "tags": []
     },
     {
       "name": "365",
       "url": "https://m365.cloud.microsoft/?acctsw=1&auth=1",
       "icon": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Icon_Copilot_64x64?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=32&hei=32&qlt=100&fit=constrain",
-      "id": "mksgahinsdshh"
+      "id": "mksgahinsdshh",
+      "tags": []
     },
     {
       "name": "翻訳",
       "url": "https://translate.google.co.jp/?hl=ja&tab=rT&sl=en&tl=ja&op=translate",
       "icon": "https://play-lh.googleusercontent.com/ZrNeuKthBirZN7rrXPN1JmUbaG8ICy3kZSHt-WgSnREsJzo2txzCzjIoChlevMIQEA=w240-h480-rw",
-      "id": "mksgahin47wct"
+      "id": "mksgahin47wct",
+      "tags": []
     },
     {
       "name": "制作",
@@ -389,46 +444,54 @@
           "name": "ツールパネル",
           "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0.html",
           "icon": "https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/HTML%E5%88%B6%E4%BD%9C/favicon/%E7%B5%B1%E5%90%88%E3%83%84%E3%83%BC%E3%83%AB%E3%83%91%E3%83%8D%E3%83%AB%E3%83%BB%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%203.0%E7%94%A8favicon.ico",
-          "id": "mksgahincsfpb"
+          "id": "mksgahincsfpb",
+          "tags": []
         },
         {
           "name": "ショートカットパネル",
           "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%91%E3%83%8D%E3%83%AB%E7%94%9F%E6%88%90%E3%83%BB%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%88.html",
           "icon": "https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/HTML%E5%88%B6%E4%BD%9C/favicon/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%91%E3%83%8D%E3%83%AB%E7%94%9F%E6%88%90%E3%83%BB%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%88%E7%94%A8favicon.ico",
-          "id": "mksgahinvmv62"
+          "id": "mksgahinvmv62",
+          "tags": []
         },
         {
           "name": "UserScript",
           "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/UserScript%20%E7%94%9F%E6%88%90%EF%BC%86%E7%B7%A8%E9%9B%86%E3%82%B5%E3%82%A4%E3%83%883.0.html",
           "icon": "https://img.icons8.com/color/512/google-sites--v2.png",
-          "id": "mksgahin1lhlu"
+          "id": "mksgahin1lhlu",
+          "tags": []
         },
         {
           "name": "X詳細検索",
           "url": "https://sites.google.com/view/x-advanced-panel-generator/%E3%83%9B%E3%83%BC%E3%83%A0",
           "icon": "https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/HTML%E5%88%B6%E4%BD%9C/favicon/X%20%E8%A9%B3%E7%B4%B0%E6%A4%9C%E7%B4%A2%E3%83%91%E3%83%8D%E3%83%AB%20%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC%20(%E5%A4%9A%E6%A9%9F%E8%83%BD%E7%B5%B1%E5%90%88%E7%89%88)%E7%94%A8favicon.ico",
-          "id": "mksgahin1b4dj"
+          "id": "mksgahin1b4dj",
+          "tags": []
         },
         {
           "name": "カスタム検索ブックマークレット生成・編集サイト2.0",
           "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E6%A4%9C%E7%B4%A2.html",
           "icon": "https://img.icons8.com/color/512/google-sites--v2.png",
-          "id": "mksgahinxbnp2"
+          "id": "mksgahinxbnp2",
+          "tags": []
         },
         {
           "name": "site:検索",
           "url": "https://sites.google.com/view/site-search-multi-function/%E3%83%9B%E3%83%BC%E3%83%A0",
           "icon": "https://img.icons8.com/color/512/google-sites--v2.png",
-          "id": "mksgahin9fsjn"
+          "id": "mksgahin9fsjn",
+          "tags": []
         },
         {
           "name": "Googleサイト",
           "url": "https://sites.google.com/new?hl=ja",
           "icon": "https://img.icons8.com/color/512/google-sites--v2.png",
-          "id": "mksgahinbflyf"
+          "id": "mksgahinbflyf",
+          "tags": []
         }
       ],
-      "id": "mksgahinuf4q3"
+      "id": "mksgahinuf4q3",
+      "tags": []
     },
     {
       "name": "アドオン",
@@ -438,22 +501,26 @@
           "name": "Chrome拡張機能",
           "url": "https://chromewebstore.google.com/category/extensions?hl=ja",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=chromewebstore.google.com",
-          "id": "mksgahinqrqax"
+          "id": "mksgahinqrqax",
+          "tags": []
         },
         {
           "name": "Firefoxアドオン",
           "url": "https://addons.mozilla.org/ja/firefox/",
           "icon": "https://play-lh.googleusercontent.com/zqsuwFUBwKRcGOSBinKQCL3JgfvOW49vJphq0ZF32aDgfqmuDyl-fEpx4Lxm4pRr7A=s256-rw",
-          "id": "mksgahin5fzet"
+          "id": "mksgahin5fzet",
+          "tags": []
         },
         {
           "name": "Edgeアドオン",
           "url": "https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=ja-jp",
           "icon": "https://images.icon-icons.com/2429/PNG/512/microsoft_logo_icon_147261.png",
-          "id": "mksgahinjvaxc"
+          "id": "mksgahinjvaxc",
+          "tags": []
         }
       ],
-      "id": "mksgahin721jf"
+      "id": "mksgahin721jf",
+      "tags": []
     },
     {
       "name": "IBT・TOEIC・就活",
@@ -463,10 +530,12 @@
           "name": "IBT",
           "url": "https://toeflibt.ets.org/home",
           "icon": "https://titc.or.id/wp-content/uploads/2025/04/TOEFL-IBT-Home-Edition.png",
-          "id": "mksgahind5b5r"
+          "id": "mksgahind5b5r",
+          "tags": []
         }
       ],
-      "id": "mksgahinkgmx8"
+      "id": "mksgahinkgmx8",
+      "tags": []
     },
     {
       "id": "mlz3798ij31j6",
@@ -477,70 +546,89 @@
           "id": "mlz21durjjtx7",
           "name": "WatchSeries",
           "url": "https://watchseries.bar/home",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=watchseries.bar"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=watchseries.bar",
+          "tags": []
         },
         {
           "id": "mlz374fgj1489",
           "name": "Anna’s Archive: LibGen (Library Genesis), Sci-Hub, Z-Library in one place - Anna’s Archive",
           "url": "https://annas-archive.li/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=annas-archive.li"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=annas-archive.li",
+          "tags": []
         },
         {
           "id": "mlz47t1hsf53z",
           "name": "The Pirate Bay",
           "url": "https://thepiratebay.org/index.html",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=thepiratebay.org"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=thepiratebay.org",
+          "tags": []
         },
         {
           "id": "mm237tzikej5m",
           "name": "RARBG Rarbg Index page - RARBG.to - RARBG Proxy",
           "url": "https://rargb.to/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=rargb.to"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=rargb.to",
+          "tags": []
         },
         {
           "id": "mm24l0s2ec8k5",
           "name": "YTS (映画)",
           "url": "https://en.torrentgalaxy-official.is/movies?search=&quality=&genre=&rating=&year=&sort=date_added",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=yts-official.org"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=yts-official.org",
+          "tags": []
         },
         {
           "name": "h!anime",
           "url": "https://hianime.to/recently-updated",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=hianime.to",
-          "id": "mksgahinz11u2"
+          "id": "mksgahinz11u2",
+          "tags": []
         },
         {
           "id": "mmp0uyhl0lqcv",
           "name": "YGG-LEAK",
           "url": "https://ygg.gratis/#/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=ygg.gratis"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=ygg.gratis",
+          "tags": []
         },
         {
           "id": "mmpg2pmwauzbx",
           "name": "EverythingMoe - Index of best Anime/Manga sites",
           "url": "https://everythingmoe.com/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=everythingmoe.com"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=everythingmoe.com",
+          "tags": []
         },
         {
           "id": "mmxc407hkg4lz",
           "name": "AnimeKai",
           "url": "https://anikai.to/recent",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=anikai.to"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=anikai.to",
+          "tags": []
         },
         {
           "id": "mnd0rdj0nnbw1",
           "name": "Nyaa",
           "url": "https://nyaa.si/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=nyaa.si"
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=nyaa.si",
+          "tags": []
+        },
+        {
+          "id": "mnn67rs2essre",
+          "name": "Currently airing Anime - Animesuge",
+          "url": "https://anisuge.se/status/currently-airing",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=anisuge.se",
+          "tags": []
         }
       ],
-      "icon": null
+      "icon": null,
+      "tags": []
     },
     {
       "id": "mm4ywd7q2yoxn",
       "name": "日本経済新聞 - ニュース・速報 最新情報",
       "url": "https://www.nikkei.com/",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.nikkei.com"
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.nikkei.com",
+      "tags": []
     }
   ],
   "rules": {
@@ -569,5 +657,6 @@
       }
     ],
     "gestures": []
-  }
+  },
+  "version": 2
 }
