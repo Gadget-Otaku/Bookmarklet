@@ -111,7 +111,8 @@
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.youtube.com",
       "tags": [
         "ゆーちゅーぶ",
-        "yu-tyu-bu"
+        "yu-tyu-bu",
+        "ようつべ"
       ]
     },
     {
@@ -119,7 +120,11 @@
       "url": "https://x.com/home",
       "icon": "https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg",
       "id": "mksetesexq7ab",
-      "tags": []
+      "tags": [
+        "えっくす",
+        "ekkusu",
+        "ｘ"
+      ]
     },
     {
       "name": "AI",
@@ -130,14 +135,22 @@
           "url": "https://chatgpt.com/?model=auto",
           "icon": "https://i.pinimg.com/736x/a6/8e/fc/a68efcad5debfbe207f52e8c19b379e9.jpg",
           "id": "mksetesehfex8",
-          "tags": []
+          "tags": [
+            "ちゃっと",
+            "tyatto",
+            "ちゃｔ"
+          ]
         },
         {
           "name": "Gemini",
           "url": "https://gemini.google.com/app?hl=ja",
           "icon": "https://asset.watch.impress.co.jp/img/ktw/docs/1583/273/icon_l.jpg",
           "id": "mksetese2v80l",
-          "tags": []
+          "tags": [
+            "じぇみに",
+            "zyemini",
+            "げみに"
+          ]
         },
         {
           "name": "Google AI Studio",
@@ -151,7 +164,11 @@
           "url": "https://chat.deepseek.com",
           "icon": "https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg",
           "id": "mksetesedqt9f",
-          "tags": []
+          "tags": [
+            "でぃーぷしーく",
+            "でえｐせえｋ",
+            "dhi-pusi-ku"
+          ]
         },
         {
           "name": "Venice AI",
@@ -165,21 +182,36 @@
           "url": "https://www.genspark.ai/agents?type=moa_chat",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai",
           "id": "mkseteseodp53",
-          "tags": []
+          "tags": [
+            "じぇんすぱーく",
+            "げんｓぱｒｋ",
+            "zyensupa-ku"
+          ]
         },
         {
           "id": "mn9qyzv43vkmb",
           "name": "Claude",
           "url": "https://claude.ai/new",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=claude.ai",
-          "tags": []
+          "tags": [
+            "くろうど",
+            "くろーど",
+            "ｃぁうで",
+            "ｃぁうど",
+            "kuro-do",
+            "kuroudo"
+          ]
         },
         {
           "id": "mniqt7omy2slm",
           "name": "Perplexity",
           "url": "https://www.perplexity.ai/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.perplexity.ai",
-          "tags": []
+          "tags": [
+            "ぱーぷれきしてぃ",
+            "ぺｒｐぇぃｔｙ",
+            "pa-purekisithi"
+          ]
         }
       ],
       "id": "mksetesev7uf9",
@@ -194,28 +226,40 @@
           "url": "https://pcfreebook.com/article/458775622.html",
           "icon": "https://pcfreebook.com/wp-content/uploads/2020/02/cpu-speclist-desktop-top.png",
           "id": "mksetese3t30o",
-          "tags": []
+          "tags": [
+            "ｃぷ"
+          ]
         },
         {
           "name": "GPU性能比較",
           "url": "https://pcfreebook.com/article/459993300.html",
           "icon": "https://pcfreebook.com/wp-content/uploads/2020/02/cpu-speclist-desktop-top.png",
           "id": "mkseteseu0wm8",
-          "tags": []
+          "tags": [
+            "ｇぷ"
+          ]
         },
         {
           "name": "価格 ノートパソコン",
           "url": "https://s.kakaku.com/pc/note-pc/itemlist.aspx#/popup=narrow",
           "icon": "https://play-lh.googleusercontent.com/aTlc3ts5q7sz-b8WaKi6xjcTVgcp4toOWKBuJwaNK7xRy99WGH6WtUKAzyz8sJNt3y8",
           "id": "mksetese8if1k",
-          "tags": []
+          "tags": [
+            "のーとPC",
+            "ぱそこん"
+          ]
         },
         {
           "name": "価格 ミラーレス",
           "url": "https://s.kakaku.com/camera/mirrorless-slr/itemlist.aspx#/popup=narrow",
           "icon": "https://play-lh.googleusercontent.com/aTlc3ts5q7sz-b8WaKi6xjcTVgcp4toOWKBuJwaNK7xRy99WGH6WtUKAzyz8sJNt3y8",
           "id": "mksetesensbqa",
-          "tags": []
+          "tags": [
+            "かめら",
+            "いちがん",
+            "一眼",
+            "みらーれす"
+          ]
         },
         {
           "name": "価格 ズームレンズ",
@@ -229,7 +273,9 @@
           "url": "https://m.gsmarena.com/search.php3?",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVOOCuz-6hrhEDC_sy9eVqnq_Q_r843ul56w&s",
           "id": "mksetese1h4hp",
-          "tags": []
+          "tags": [
+            "ｇｓまれな"
+          ]
         },
         {
           "name": "スマホ イメージセンサー",
@@ -261,7 +307,10 @@
       "url": "https://translate.google.co.jp/?hl=ja&tab=rT&sl=en&tl=ja&op=translate",
       "icon": "https://play-lh.googleusercontent.com/ZrNeuKthBirZN7rrXPN1JmUbaG8ICy3kZSHt-WgSnREsJzo2txzCzjIoChlevMIQEA=w240-h480-rw",
       "id": "mksetesea9a35",
-      "tags": []
+      "tags": [
+        "ほんやく",
+        "honnyaku"
+      ]
     },
     {
       "name": "Astate",
@@ -275,7 +324,12 @@
       "url": "https://pack.astate.edu/public/dashboard",
       "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=pack.astate.edu",
       "id": "mksetesehat11",
-      "tags": []
+      "tags": [
+        "ほーむ",
+        "ho-mu",
+        "だっしゅぼーど",
+        "dassyubo-do"
+      ]
     },
     {
       "name": "大学関連",
@@ -286,21 +340,32 @@
           "url": "https://epay.astate.edu/C20019_tsa/web/login.jsp",
           "icon": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://epay.astate.edu/C20019_tsa/web/login.jsp&size=16",
           "id": "mkseteseym46i",
-          "tags": []
+          "tags": [
+            "まいびる",
+            "ｍｙびっｌ",
+            "maibiru"
+          ]
         },
         {
           "name": "Housing",
           "url": "https://astate.starrezhousing.com/StarRezPortalX/FC6488C4/1/1/Home-Welcome_to_the_A_Sta?UrlToken=A0AC9875",
           "icon": "https://iconbox.fun/wp/wp-content/uploads/192_b_24.png",
           "id": "mksetese06cad",
-          "tags": []
+          "tags": [
+            "はうじんぐ",
+            "ほうしんｇ",
+            "hauzinngu",
+            "hauzingu"
+          ]
         },
         {
           "name": "バス",
           "url": "https://www.astate.edu/a/global-initiatives/international/forms/student-advising",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsKEzw38TGeOe-kK91Wsvg05lgWbxyQj57DQ&s",
           "id": "mksetesex8i41",
-          "tags": []
+          "tags": [
+            "basu"
+          ]
         },
         {
           "name": "ｽｹｼﾞｭ-ﾙ",
@@ -335,14 +400,24 @@
           "url": "https://astate.sodexomyway.com/en-us/locations/",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp0r7Ed3_kbqc9UumdzCIDUtuxts-qjAewBA&s",
           "id": "mkseteseexhez",
-          "tags": []
+          "tags": [
+            "しょくじ",
+            "syokuzi"
+          ]
         },
         {
           "id": "ml82d9v9ndk02",
           "name": "CS Requirement",
           "url": "https://catalog.astate.edu/preview_program.php?catoid=9&poid=2671",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=catalog.astate.edu",
-          "tags": []
+          "tags": [
+            "しーえす",
+            "りくあいあめんと",
+            "ぷれりく",
+            "si-esu",
+            "rikuaiamento",
+            "pureriku"
+          ]
         }
       ],
       "id": "mksetesewqgdc",
@@ -353,21 +428,36 @@
       "url": "https://outlook.office365.com/mail/",
       "icon": "https://cdn.iconscout.com/icon/free/png-256/free-microsoft-outlook-1868952-1583116.png",
       "id": "mksetese3zexa",
-      "tags": []
+      "tags": [
+        "あうとるっく",
+        "autorukku"
+      ]
     },
     {
       "name": "Gmail",
       "url": "https://mail.google.com/mail/u/1/#inbox",
       "icon": "https://img.icons8.com/color/512/gmail-new.png",
       "id": "mksetesez67te",
-      "tags": []
+      "tags": [
+        "じーめいる",
+        "じーめーる",
+        "じいめーる",
+        "じいめいる",
+        "zi-meiru",
+        "ziimeiru",
+        "zi-me-ru",
+        "ziime-ru"
+      ]
     },
     {
       "name": "Github",
       "url": "https://github.com/Gadget-Otaku/Bookmarklet",
       "icon": "https://cdn-icons-png.freepik.com/256/733/733609.png",
       "id": "mksetesej02a4",
-      "tags": []
+      "tags": [
+        "ぎっとはぶ",
+        "gittohabu"
+      ]
     },
     {
       "name": "GreasyFork",
@@ -435,38 +525,79 @@
           "icon": "https://img.icons8.com/color/512/google-sites--v2.png",
           "id": "mksetesem1fkl",
           "tags": []
+        },
+        {
+          "id": "mno04e4td122n",
+          "name": "気になるプロジェクト",
+          "url": "",
+          "icon": "",
+          "tags": [],
+          "isFolder": true,
+          "children": [
+            {
+              "id": "mno04ufqi9823",
+              "name": "動画ダウンロード",
+              "url": "https://github.com/matthieu-gll/M3U8-Network-Request-Analyzer",
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
+              "tags": []
+            },
+            {
+              "id": "mno09cmh0uk70",
+              "name": " zim_to_corpus",
+              "url": "https://github.com/DavidNemeskey/zim_to_corpus",
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
+              "tags": []
+            }
+          ],
+          "_isCollapsed": false
         }
       ],
       "id": "mksetese9dqkz",
-      "tags": []
+      "tags": [],
+      "_isCollapsed": false
     },
     {
       "name": "メモ帳3.0",
       "url": "https://gadget-otaku.github.io/Bookmarklet/HTML%E5%88%B6%E4%BD%9C/%E3%83%A1%E3%83%A2%E5%B8%B33.0",
       "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmsAZYI27WQaMCSK-W8M-1FoW4Tx-0BWk6dA&s",
       "id": "mkseteseepyz9",
-      "tags": []
+      "tags": [
+        "めもちょう",
+        "memotyou"
+      ]
     },
     {
       "name": "Notebook LM",
       "url": "https://notebooklm.google.com/?authuser=0&original_referer=https:%2F%2Fogs.google.com%23&pli=1",
       "icon": "https://play-lh.googleusercontent.com/qWDLmYCI4Lqzq8J-LhtvWvp1HIPkJb2lqkHjduXM7tnCo7N1tmKxnYdaX7CS2_5pkDuW",
       "id": "mkseteset53gz",
-      "tags": []
+      "tags": [
+        "のーとぶっくえるえむ",
+        "no-tobukkueruemu",
+        "のてぼおｋ"
+      ]
     },
     {
       "name": "Notion",
       "url": "https://www.notion.so/2f61b782539d4036bef474f820fa42c2",
       "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Notion-logo.svg/1024px-Notion-logo.svg.png",
       "id": "mkseteseyhb0k",
-      "tags": []
+      "tags": [
+        "のーしょん",
+        "のちおｎ",
+        "no-syonn"
+      ]
     },
     {
       "name": "365",
       "url": "https://m365.cloud.microsoft/?acctsw=1&auth=1",
       "icon": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Icon_Copilot_64x64?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=32&hei=32&qlt=100&fit=constrain",
       "id": "mksetesekp01y",
-      "tags": []
+      "tags": [
+        "さんろくご",
+        "sanrokugo",
+        "sannrokugo"
+      ]
     },
     {
       "name": "アドオン",
@@ -477,21 +608,40 @@
           "url": "https://chromewebstore.google.com/category/extensions?hl=ja",
           "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Google_Chrome_Web_Store_icon_2022.svg/2356px-Google_Chrome_Web_Store_icon_2022.svg.png",
           "id": "mksetesepfeir",
-          "tags": []
+          "tags": [
+            "くろーむかくちょうきのう",
+            "くろうむかくちょうきのう",
+            "あどおん",
+            "kuro-mukakutyoukinou",
+            "kuroumukakkutyoukinou",
+            "adoon"
+          ]
         },
         {
           "name": "Firefoxアドオン",
           "url": "https://addons.mozilla.org/ja/firefox/",
           "icon": "https://play-lh.googleusercontent.com/zqsuwFUBwKRcGOSBinKQCL3JgfvOW49vJphq0ZF32aDgfqmuDyl-fEpx4Lxm4pRr7A=s256-rw",
           "id": "mksetese9zr0f",
-          "tags": []
+          "tags": [
+            "ふぁいあーふぉっくすかくちょうきのう",
+            "ふぁいやーふぉっくすかくちょうきのう",
+            "かくちょうきのう",
+            "あどおん",
+            "ふぃれふぉｘかくちょうきのう",
+            "ふぃれふぉｘあどおん"
+          ]
         },
         {
           "name": "Edgeアドオン",
           "url": "https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home?hl=ja-jp",
           "icon": "https://images.icon-icons.com/2429/PNG/512/microsoft_logo_icon_147261.png",
           "id": "mksetese2qk3i",
-          "tags": []
+          "tags": [
+            "えっじあどおん",
+            "あどおん",
+            "かくちょうきのう",
+            "えｄげあどおん"
+          ]
         }
       ],
       "id": "mksetese3szig",
@@ -506,7 +656,13 @@
           "url": "https://toeflibt.ets.org/home",
           "icon": "https://titc.or.id/wp-content/uploads/2025/04/TOEFL-IBT-Home-Edition.png",
           "id": "mkseteseke6r5",
-          "tags": []
+          "tags": [
+            "あいびーでぃー",
+            "すこあ",
+            "いｂｔ",
+            "とふる",
+            "toefl"
+          ]
         },
         {
           "id": "mnlc25v1gsw7f",
@@ -520,7 +676,10 @@
           "url": "https://ankilot.com/",
           "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=ankilot.com",
           "id": "mksetesemlkac",
-          "tags": []
+          "tags": [
+            "あんきろっと",
+            "あんきぉｔ"
+          ]
         }
       ],
       "id": "mksetesettvtq",
@@ -535,42 +694,71 @@
           "url": "https://keep.google.com/u/0/",
           "icon": "https://www.g-workspace.jp/wp-content/uploads/Keep_Product_Icon_512dp.png",
           "id": "mkseteseoyexe",
-          "tags": []
+          "tags": [
+            "きいぷ",
+            "けえｐ",
+            "きーぷ",
+            "kiipu",
+            "ki-pu"
+          ]
         },
         {
           "name": "ドライブ",
           "url": "https://drive.google.com/drive/u/0/home",
           "icon": "https://cdn-icons-png.freepik.com/256/5968/5968523.png?semt=ais_white_label",
           "id": "mksetese9bfj3",
-          "tags": []
+          "tags": [
+            "どらいぶ",
+            "drive",
+            "ｄりゔぇ",
+            "doraibu"
+          ]
         },
         {
           "name": "ドキュメント",
           "url": "https://docs.google.com/document/u/0/",
           "icon": "https://cdn-icons-png.freepik.com/512/5968/5968517.png",
           "id": "mksetese7y02w",
-          "tags": []
+          "tags": [
+            "どきゅめんと",
+            "dokyumento",
+            "dokyumennto"
+          ]
         },
         {
           "name": "スプレッドシート",
           "url": "https://docs.google.com/spreadsheets/u/0/",
           "icon": "https://cdn-icons-png.freepik.com/256/5968/5968557.png?semt=ais_white_label",
           "id": "mkseteseulx38",
-          "tags": []
+          "tags": [
+            "すぷれっどしーと",
+            "すぷれっとしーと",
+            "supureddosi-to",
+            "supurettosi-to"
+          ]
         },
         {
           "name": "スライド",
           "url": "https://docs.google.com/presentation/u/0/",
           "icon": "https://cdn-icons-png.freepik.com/256/2504/2504779.png?semt=ais_white_label",
           "id": "mksetesewepqy",
-          "tags": []
+          "tags": [
+            "すらいど",
+            "suraido"
+          ]
         },
         {
           "name": "マップ",
           "url": "https://www.google.com/maps?authuser=0",
           "icon": "https://cdn-icons-png.freepik.com/256/2662/2662686.png?semt=ais_white_label",
           "id": "mkseteseoa1fn",
-          "tags": []
+          "tags": [
+            "まっぷ",
+            "mappu",
+            "map",
+            "ぐーぐるまっぷ",
+            "gu-gurumappu"
+          ]
         },
         {
           "name": "Earth",
@@ -609,21 +797,33 @@
       "url": "https://www.pixiv.net/bookmark_new_illust.php",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=pixiv.net",
       "id": "mksetesec4f7q",
-      "tags": []
+      "tags": [
+        "ぴくしぶ",
+        "pikusibu",
+        "ぴぃｖ"
+      ]
     },
     {
       "id": "mmozw9t1snn8n",
       "name": "Watch Anime Online, Free Anime Streaming Online on Aniwatch.to Anime Website",
       "url": "https://aniwatchtv.to/recently-updated",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aniwatchtv.to",
-      "tags": []
+      "tags": [
+        "あにめ",
+        "あにわっｃｈ",
+        "aniwatch"
+      ]
     },
     {
       "name": "hanime",
       "url": "https://hianime.to/recently-updated",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=hianime.to",
       "id": "mksetesefjmv8",
-      "tags": []
+      "tags": [
+        "あにめ",
+        "hanime",
+        "はにめ"
+      ]
     },
     {
       "name": "原神",
@@ -634,77 +834,120 @@
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%B0%A1%E6%98%93%E6%97%A9%E8%A6%8B%E8%A1%A8-,%E7%A8%AE%E9%A1%9E,-%E2%98%855%0A%EF%BC%88Lv.20",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
           "id": "mksetesel20fe",
-          "tags": []
+          "tags": [
+            "めいんこうかりょう",
+            "meinnkoukaryou"
+          ]
         },
         {
           "name": "サブ効果量",
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps:~:text=%E7%A0%94%E7%A9%B6%E3%82%92%E5%8F%82%E7%85%A7%E3%80%82-,%E3%82%B5%E3%83%96%E5%8A%B9%E6%9E%9C,-%E4%BD%8E",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
           "id": "mkseteseevduw",
-          "tags": []
+          "tags": [
+            "sabu",
+            "さぶ",
+            "さぶこうかりょう",
+            "sabukoukaryou"
+          ]
         },
         {
           "name": "lv20必要聖遺物",
           "url": "https://wikiwiki.jp/genshinwiki/%E8%81%96%E9%81%BA%E7%89%A9#ParamSubOps",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=wikiwiki.jp/genshinwiki",
           "id": "mkseteses0eo0",
-          "tags": []
+          "tags": [
+            "reberu20",
+            "れべる20",
+            "せいいぶつ",
+            "seiibutu",
+            "level"
+          ]
         },
         {
           "name": "lv90必要経験値",
           "url": "https://kamigame.jp/genshin/page/132093570420104073.html#:~:text=%e3%81%8c%e5%b0%91%e3%81%aa%e3%81%8f%e3%81%aa%e3%82%8b%e3%80%82-,1%e3%80%9c90%e3%81%be%e3%81%a7%e3%81%ae%e5%bf%85%e8%a6%81%e7%b5%8c%e9%a8%93%e5%80%a4,-%e3%83%ac%e3%83%99%e3%83%ab",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=kamigame.jp",
           "id": "mksetesezbuyv",
-          "tags": []
+          "tags": [
+            "reberu90",
+            "れべる90",
+            "keikennti",
+            "けいけんち",
+            "keikenchi"
+          ]
         },
         {
           "name": "聖遺物スコア",
           "url": "https://tools.jabrek.net/Genshin_score/?uid=1800441283&type=attack",
           "icon": "https://webstatic.hoyoverse.com/upload/uploadstatic/contentweb/20210104/2021010417060227516.png",
           "id": "mksetese3d1xe",
-          "tags": []
+          "tags": [
+            "すこあ",
+            "sukoa",
+            "せいいぶつすこあ",
+            "seiibutusukoa"
+          ]
         },
         {
           "name": "育成計算機",
           "url": "https://act.hoyolab.com/ys/event/calculator-sea/index.html?bbs_presentation_style=fullscreen&bbs_auth_required=true&utm_source=hoyolab&utm_medium=tools&lang=ja-jp&bbs_theme=dark&bbs_theme_device=1#/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=act.hoyolab.com",
           "id": "mksetesedvk91",
-          "tags": []
+          "tags": [
+            "いくせいけいさん",
+            "ikuseikeisan"
+          ]
         },
         {
           "name": "テイワットマップ",
           "url": "https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
           "icon": "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://act.hoyolab.com/ys/app/interactive-map/?lang=ja-jp&size=64#/map/2?shown_types=410,521¢er=-1665.40,-6947.56&zoom=-4.50",
           "id": "mksetesejyskb",
-          "tags": []
+          "tags": [
+            "ていわっとまっぷ",
+            "teiwattomappu"
+          ]
         },
         {
           "name": "ガチャリーク",
           "url": "https://tori-game.com/gensingacha/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=tori-game.com",
           "id": "mksetese12y3y",
-          "tags": []
+          "tags": [
+            "gatyari-ku",
+            "がちゃりーく"
+          ]
         },
         {
           "name": "過去ガチャ",
           "url": "https://game8.jp/genshin/631517",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp",
           "id": "mksetesechmuq",
-          "tags": []
+          "tags": [
+            "かこがちゃ",
+            "kakogatya"
+          ]
         },
         {
           "name": "チャージセンター",
           "url": "https://sdk.hoyoverse.com/payment/genshin/index.html#/m",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=sdk.hoyoverse.com",
           "id": "mksetese77tdk",
-          "tags": []
+          "tags": [
+            "ちゃーじせんたー",
+            "tya-zisennta-"
+          ]
         },
         {
           "name": "シリアルコード",
           "url": "https://gamewith.jp/genshin/article/show/231856",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp",
           "id": "mksetesebsg6i",
-          "tags": []
+          "tags": [
+            "しりあるこーど",
+            "siriaruko-do"
+          ]
         }
       ],
       "id": "mksetese2y1es",
@@ -718,46 +961,38 @@
       "tags": []
     },
     {
-      "id": "mlat7z4c6vkhy",
-      "name": "matthieu-gll/M3U8-Network-Request-Analyzer: Chrome extension that analyzes network requests in the background to identify m3u8 streaming video flows.",
-      "url": "https://github.com/matthieu-gll/M3U8-Network-Request-Analyzer",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
-      "tags": []
-    },
-    {
       "id": "mlhdo23yrzcki",
       "name": "日本経済新聞 - ニュース・速報 最新情報",
       "url": "https://www.nikkei.com/",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.nikkei.com",
-      "tags": []
+      "tags": [
+        "にっけい",
+        "nikkei"
+      ]
     },
     {
       "id": "mm4s8ov47q210",
       "name": "SBI証券｜株・FX・投資信託・確定拠出年金・NISA",
       "url": "https://site3.sbisec.co.jp/ETGate/WPLEThmR001Control/DefaultPID/DefaultAID/DSWPLEThmR001Control",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=site3.sbisec.co.jp",
-      "tags": []
+      "tags": [
+        "しょうけん",
+        "syoukenn"
+      ]
     },
     {
       "id": "mm4tvpksi8d2a",
       "name": "MUFGログイン",
       "url": "https://directg.s.bk.mufg.jp/APL/LGP_P_01/PU/LG_0001/LG_0001_PC01?link_id=direct_leftmenu_login_PC",
       "icon": "https://upload.wikimedia.org/wikipedia/commons/6/65/MUFG_Logo.gif",
-      "tags": []
-    },
-    {
-      "id": "mmq2m7whk8npl",
-      "name": "Chrome ウェブストア - 拡張機能",
-      "url": "https://chromewebstore.google.com/category/extensions?hl=ja",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=chromewebstore.google.com",
-      "tags": []
-    },
-    {
-      "id": "mmq2pl54maktt",
-      "name": "(9+) ホーム | Notion",
-      "url": "https://www.notion.so/2f61b782539d4036bef474f820fa42c2",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.notion.so",
-      "tags": []
+      "tags": [
+        "ginnkou",
+        "ぎんこう",
+        "銀行",
+        "kouza",
+        "こうざ",
+        "口座"
+      ]
     }
   ],
   "rules": {
@@ -825,5 +1060,5 @@
       }
     ]
   },
-  "version": 2
+  "version": 3
 }
