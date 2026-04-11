@@ -554,6 +554,13 @@
               "url": "https://github.com/DavidNemeskey/zim_to_corpus",
               "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
               "tags": []
+            },
+            {
+              "id": "mnufe5lmtcrn0",
+              "name": "kokseen1/Mashiro: A Chrome extension to sort by popularity for free on Pixiv.",
+              "url": "https://github.com/kokseen1/Mashiro",
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
+              "tags": []
             }
           ],
           "_isCollapsed": false
@@ -1067,5 +1074,5 @@
       }
     ]
   },
-  "version": 4
+  "version": 5
 }
