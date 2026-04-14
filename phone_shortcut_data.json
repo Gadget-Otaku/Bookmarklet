@@ -639,6 +639,10 @@
           {
             "url": "https://www.google.com/",
             "ruleType": "exact"
+          },
+          {
+            "url": "https://www.google.com/?zx=",
+            "ruleType": "prefix"
           }
         ],
         "isExcludeAll": false,
@@ -658,5 +662,5 @@
     ],
     "gestures": []
   },
-  "version": 3
+  "version": 4
 }
