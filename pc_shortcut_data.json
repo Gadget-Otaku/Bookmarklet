@@ -1017,6 +1017,10 @@
           {
             "url": "https://www.google.com/",
             "ruleType": "exact"
+          },
+          {
+            "url": "https://www.google.com/?zx=",
+            "ruleType": "prefix"
           }
         ],
         "isExcludeAll": false,
@@ -1074,5 +1078,5 @@
       }
     ]
   },
-  "version": 5
+  "version": 6
 }
