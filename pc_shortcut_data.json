@@ -8,9 +8,9 @@
     "folderGridRows": 4,
     "position": {
       "yProp": "top",
-      "yVal": 200,
+      "yVal": 20,
       "xProp": "left",
-      "xVal": 200
+      "xVal": 20
     },
     "baseTextColor": "black",
     "colorRules": [
@@ -89,7 +89,7 @@
       "keyboard": true,
       "gesture": true
     },
-    "zIndex": 1,
+    "zIndex": 2147483646,
     "favorites": [],
     "quickTools": [
       {
@@ -1078,5 +1078,5 @@
       }
     ]
   },
-  "version": 7
+  "version": 8
 }
