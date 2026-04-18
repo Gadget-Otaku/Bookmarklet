@@ -571,6 +571,13 @@
             }
           ],
           "_isCollapsed": false
+        },
+        {
+          "id": "mo4a1eanczfzz",
+          "name": "Deep OCR: Completely Free OCR Tool, Online, No login, Unlimited Usage",
+          "url": "https://deepocr.cc/",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=deepocr.cc",
+          "tags": []
         }
       ],
       "id": "mksetese9dqkz",
@@ -1085,5 +1092,5 @@
       }
     ]
   },
-  "version": 9
+  "version": 10
 }
