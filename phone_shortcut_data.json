@@ -618,6 +618,13 @@
           "url": "https://anisuge.se/status/currently-airing",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=anisuge.se",
           "tags": []
+        },
+        {
+          "id": "mo47s7v1h3b57",
+          "name": "Knaben Database",
+          "url": "https://knaben.org/",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=knaben.org",
+          "tags": []
         }
       ],
       "icon": null,
@@ -662,5 +669,5 @@
     ],
     "gestures": []
   },
-  "version": 6
+  "version": 7
 }
