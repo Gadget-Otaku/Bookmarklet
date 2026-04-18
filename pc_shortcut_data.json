@@ -561,6 +561,13 @@
               "url": "https://github.com/kokseen1/Mashiro",
               "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=github.com",
               "tags": []
+            },
+            {
+              "id": "mo49y647kjnhx",
+              "name": "DeepSeek-OCR によるPDF・画像OCR（ソースコードと説明と利用ガイド）",
+              "url": "https://www.kkaneko.jp/ai/labo/deepseek-ocr-freeocr.html",
+              "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.kkaneko.jp",
+              "tags": []
             }
           ],
           "_isCollapsed": false
@@ -1078,5 +1085,5 @@
       }
     ]
   },
-  "version": 8
+  "version": 9
 }
