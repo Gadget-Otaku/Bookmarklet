@@ -311,6 +311,13 @@
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai",
           "id": "mksgahinua0im",
           "tags": []
+        },
+        {
+          "id": "moa2m2q4bj2km",
+          "name": "Torry AI",
+          "url": "https://www.torry.io/ai/aichat?m=yes",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.torry.io",
+          "tags": []
         }
       ],
       "id": "mksgahinv6ro6",
@@ -669,5 +676,5 @@
     ],
     "gestures": []
   },
-  "version": 7
+  "version": 8
 }
