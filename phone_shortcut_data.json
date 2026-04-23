@@ -632,6 +632,13 @@
           "url": "https://knaben.org/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=knaben.org",
           "tags": []
+        },
+        {
+          "id": "mobmpbrglpr50",
+          "name": "Anime Extensions | Yūzōnō",
+          "url": "https://yuzono.github.io/extensions-aniyomi/",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=yuzono.github.io",
+          "tags": []
         }
       ],
       "icon": null,
@@ -676,5 +683,5 @@
     ],
     "gestures": []
   },
-  "version": 8
+  "version": 9
 }
