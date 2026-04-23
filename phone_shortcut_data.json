@@ -635,9 +635,9 @@
         },
         {
           "id": "mobmpbrglpr50",
-          "name": "Anime Extensions | Yūzōnō",
+          "name": "Yūzōnō (Aniyomi)",
           "url": "https://yuzono.github.io/extensions-aniyomi/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=yuzono.github.io",
+          "icon": "https://avatars.githubusercontent.com/u/209217388?s=280&v=4",
           "tags": []
         }
       ],
@@ -683,5 +683,5 @@
     ],
     "gestures": []
   },
-  "version": 9
+  "version": 11
 }
