@@ -77,6 +77,10 @@
       {
         "url": "https://www.perplexity.ai",
         "color": "white"
+      },
+      {
+        "url": "https://outlook.cloud.microsoft",
+        "color": "white"
       }
     ],
     "animation": {
@@ -1092,5 +1096,5 @@
       }
     ]
   },
-  "version": 10
+  "version": 11
 }
