@@ -639,6 +639,13 @@
           "url": "https://yuzono.github.io/extensions-aniyomi/",
           "icon": "https://avatars.githubusercontent.com/u/209217388?s=280&v=4",
           "tags": []
+        },
+        {
+          "id": "moqboxc4jd9s6",
+          "name": "Twitter動画保存ランキング（24時間） | TWIVIDEO",
+          "url": "https://twivideo.net/?ranking",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=twivideo.net",
+          "tags": []
         }
       ],
       "icon": null,
@@ -683,5 +690,5 @@
     ],
     "gestures": []
   },
-  "version": 12
+  "version": 13
 }
