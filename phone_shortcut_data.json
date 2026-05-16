@@ -564,6 +564,13 @@
           "tags": []
         },
         {
+          "id": "mp7u9adzbx4a7",
+          "name": "リスト",
+          "url": "https://annasarchive.info/#:~:text=Anna%E2%80%99s%20Archive%20can%20be%20accessed%20at%20the%20following%20urls",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=annas-archive.gl",
+          "tags": []
+        },
+        {
           "id": "mlz47t1hsf53z",
           "name": "The Pirate Bay",
           "url": "https://thepiratebay.org/index.html",
@@ -646,13 +653,6 @@
           "url": "https://twivideo.net/?ranking",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=twivideo.net",
           "tags": []
-        },
-        {
-          "id": "mp7u9adzbx4a7",
-          "name": "リスト",
-          "url": "https://annasarchive.info/#:~:text=Anna%E2%80%99s%20Archive%20can%20be%20accessed%20at%20the%20following%20urls",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=annas-archive.gl",
-          "tags": []
         }
       ],
       "icon": null,
@@ -697,5 +697,5 @@
     ],
     "gestures": []
   },
-  "version": 23
+  "version": 24
 }
