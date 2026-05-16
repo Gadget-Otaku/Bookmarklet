@@ -559,7 +559,7 @@
         {
           "id": "mlz374fgj1489",
           "name": "Anna’s Archive: LibGen (Library Genesis), Sci-Hub, Z-Library in one place - Anna’s Archive",
-          "url": "https://annas-archive.li/",
+          "url": "https://annas-archive.gl/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=annas-archive.li",
           "tags": []
         },
@@ -690,5 +690,5 @@
     ],
     "gestures": []
   },
-  "version": 16
+  "version": 17
 }
