@@ -363,13 +363,11 @@
           ]
         },
         {
-          "name": "バス",
-          "url": "https://www.astate.edu/a/global-initiatives/international/forms/student-advising",
+          "id": "mplbkhn1743ai",
+          "name": "Weekday Jonesboro Shopping Shuttle",
+          "url": "https://admissions.astate.edu/register/?id=4714e47c-7fea-406f-9619-f3732f450355",
           "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsKEzw38TGeOe-kK91Wsvg05lgWbxyQj57DQ&s",
-          "id": "mksetesex8i41",
-          "tags": [
-            "basu"
-          ]
+          "tags": []
         },
         {
           "name": "ｽｹｼﾞｭ-ﾙ",
@@ -428,13 +426,6 @@
           "name": "Greyhound: Affordable Bus Tickets Across US, Canada & Mexico",
           "url": "https://www.greyhound.com/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.greyhound.com",
-          "tags": []
-        },
-        {
-          "id": "mplbkhn1743ai",
-          "name": "Weekday Jonesboro Shopping Shuttle",
-          "url": "https://admissions.astate.edu/register/?id=4714e47c-7fea-406f-9619-f3732f450355",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=admissions.astate.edu",
           "tags": []
         }
       ],
@@ -1103,5 +1094,5 @@
       }
     ]
   },
-  "version": 12
+  "version": 15
 }
