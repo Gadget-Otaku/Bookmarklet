@@ -1025,10 +1025,10 @@
       ]
     },
     {
-      "id": "mpr4daxhf8h9j",
-      "name": "Google",
-      "url": "https://www.google.com/",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.google.com",
+      "id": "mpr4ebbwd23za",
+      "name": "Notion GAS 手動同期ボタン - Google スプレッドシート",
+      "url": "https://docs.google.com/spreadsheets/d/1_RyaY18CfcLMCp8sP-3EQllg1Ud7ZAlJ7YRkKbRWOco/edit?pli=1&gid=1988562619#gid=1988562619",
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=docs.google.com",
       "tags": []
     }
   ],
@@ -1101,5 +1101,5 @@
       }
     ]
   },
-  "version": 16
+  "version": 18
 }
