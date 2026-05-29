@@ -664,6 +664,13 @@
       "url": "https://www.nikkei.com/",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.nikkei.com",
       "tags": []
+    },
+    {
+      "id": "mpr4k149sk4m4",
+      "name": "Google",
+      "url": "https://www.google.com/",
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.google.com",
+      "tags": []
     }
   ],
   "rules": {
@@ -697,5 +704,5 @@
     ],
     "gestures": []
   },
-  "version": 24
+  "version": 25
 }
