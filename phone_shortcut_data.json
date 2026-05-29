@@ -430,6 +430,13 @@
       "tags": []
     },
     {
+      "id": "mpr4k149sk4m4",
+      "name": "Google",
+      "url": "https://docs.google.com/spreadsheets/d/1_RyaY18CfcLMCp8sP-3EQllg1Ud7ZAlJ7YRkKbRWOco/edit?pli=1&gid=1988562619#gid=1988562619",
+      "icon": "https://www.g-workspace.jp/wp-content/uploads/Sheets_Product_Icon_512dp.png",
+      "tags": []
+    },
+    {
       "name": "365",
       "url": "https://m365.cloud.microsoft/?acctsw=1&auth=1",
       "icon": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Icon_Copilot_64x64?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=32&hei=32&qlt=100&fit=constrain",
@@ -664,13 +671,6 @@
       "url": "https://www.nikkei.com/",
       "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.nikkei.com",
       "tags": []
-    },
-    {
-      "id": "mpr4k149sk4m4",
-      "name": "Google",
-      "url": "https://www.google.com/",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.google.com",
-      "tags": []
     }
   ],
   "rules": {
@@ -704,5 +704,5 @@
     ],
     "gestures": []
   },
-  "version": 25
+  "version": 27
 }
