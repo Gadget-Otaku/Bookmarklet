@@ -622,7 +622,7 @@
       "id": "mpr4ebbwd23za",
       "name": "Notion GAS 手動同期ボタン - Google スプレッドシート",
       "url": "https://docs.google.com/spreadsheets/d/1_RyaY18CfcLMCp8sP-3EQllg1Ud7ZAlJ7YRkKbRWOco/edit?pli=1&gid=1988562619#gid=1988562619",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=docs.google.com",
+      "icon": "https://www.g-workspace.jp/wp-content/uploads/Sheets_Product_Icon_512dp.png",
       "tags": []
     },
     {
@@ -1101,5 +1101,5 @@
       }
     ]
   },
-  "version": 19
+  "version": 20
 }
