@@ -1023,6 +1023,13 @@
         "こうざ",
         "口座"
       ]
+    },
+    {
+      "id": "mpr4daxhf8h9j",
+      "name": "Google",
+      "url": "https://www.google.com/",
+      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.google.com",
+      "tags": []
     }
   ],
   "rules": {
@@ -1094,5 +1101,5 @@
       }
     ]
   },
-  "version": 15
+  "version": 16
 }
