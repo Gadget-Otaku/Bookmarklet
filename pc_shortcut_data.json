@@ -427,6 +427,13 @@
           "url": "https://www.greyhound.com/",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.greyhound.com",
           "tags": []
+        },
+        {
+          "id": "mq0yoaovmu9qt",
+          "name": "Personal or Commercial Banking, Loans & Wealth Mgmt. - Centennial Bank",
+          "url": "https://www.my100bank.com/",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.my100bank.com",
+          "tags": []
         }
       ],
       "id": "mksetesewqgdc",
@@ -1101,5 +1108,5 @@
       }
     ]
   },
-  "version": 20
+  "version": 21
 }
