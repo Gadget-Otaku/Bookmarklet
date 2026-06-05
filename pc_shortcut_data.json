@@ -430,9 +430,9 @@
         },
         {
           "id": "mq0yoaovmu9qt",
-          "name": "Personal or Commercial Banking, Loans & Wealth Mgmt. - Centennial Bank",
+          "name": "Centennial Bank",
           "url": "https://www.my100bank.com/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.my100bank.com",
+          "icon": "https://my100bank.com/app/themes/centennial/assets/svgs/logo.svg",
           "tags": []
         }
       ],
@@ -1108,5 +1108,5 @@
       }
     ]
   },
-  "version": 21
+  "version": 22
 }
