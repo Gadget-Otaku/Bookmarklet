@@ -1,0 +1,10 @@
+Choose the correct answer below.
+・The statement is false. Correlation can only be used to imply causation as a result of an observational study.
+・The statement is true. Correlation always implies causation.
+・The statement is false. Correlation can only be used to imply causation as a result of a properly designed experiment.
+・The statement is false. Correlation never implies causation.
+答え
+The statement is false. Correlation can only be used to imply causation as a result of a properly designed experiment.
+疑わしいがクイズでは間違い
+The statement is false. Correlation never implies causation.
+
