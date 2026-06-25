@@ -1040,9 +1040,9 @@
     },
     {
       "id": "mqtuy6ybtjapg",
-      "name": "Google Keep",
+      "name": "Keep",
       "url": "https://keep.google.com/u/0/",
-      "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=keep.google.com",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Keep_icon_%282015-2020%29.svg/960px-Google_Keep_icon_%282015-2020%29.svg.png",
       "tags": []
     }
   ],
@@ -1115,5 +1115,5 @@
       }
     ]
   },
-  "version": 23
+  "version": 24
 }
