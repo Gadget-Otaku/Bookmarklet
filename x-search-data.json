@@ -1,39 +1,26 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 65,
-  "updatedAt": "2026-06-25T20:45:07.365Z",
+  "syncVersion": 66,
+  "updatedAt": "2026-06-25T20:47:00.373Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 65,
+    "syncVersion": 66,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
     "accountSwitching": {
       "accounts": [
         {
-          "id": "account-f3aa5337-a4c5-482f-93e5-1bb47d5bc17d",
+          "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
           "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
           "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
           "iconBase64": "data:image/webp;base64,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",
           "sessionMeta": {
-            "lastCapturedAt": "2026-06-25T20:44:15.126Z",
-            "lastRefreshedAt": "2026-06-25T20:44:15.126Z",
-            "expiresAt": "2027-07-30T20:23:18.436Z"
-          }
-        },
-        {
-          "id": "account-636c49c8-dc65-404d-a186-39274d954eac",
-          "username": "sumafogeek",
-          "displayName": "ハゲワシ",
-          "profileUrl": "https://x.com/sumafogeek",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1941490366232035328/Y2sYCvC9_x96.jpg",
-          "iconBase64": "data:image/webp;base64,UklGRoYEAABXRUJQVlA4IHoEAAAwFACdASpAAEAAPmEslUckIiIhKBQIqIAMCWIAnTLHA3SQLP2QotcMncBsyf3qYl+Z0GU4f7II2uTjw3T+nVS3vvVtDNDaPqj0MBJdFfiNT9Yj8I3WEmircsTAKzzB16ebL/VLtpPhG6h0JjmXrnnGiED5/e+gqnrc1BVagXHc3/7AVd1I8nEWOGKWkp0JRz6InuKIEsnx1LzA+ZtpDGZ3Kxmn4trTjTXAAAD+/rxfUtveYXPXVpQB+XjhEcTljejnQNGXvHfIhdLelprw2c7oA/72wCG4YzJVqbyGDsNhK61cKr0xC7cohymgxcgtnTXcWGvd+VKHIrtOwJFu7X/lCCMTJBBMSLRPPeNDSuruDmTp+atgmwxlnRyeHNGDhDOThF3QrH3BBdazxEWnQCEHpMD+CkkMj0jfVVDJcMlTdaVVBdK6Fue14/D466ad8TrNfENXDTafUKlhzwXLqINlCD1or0mCm5fi2HnQCoz8rIXRGPu3gr2/j4rCouRZ82CXWrMOJ7cHhL2fzUdRY5UBwev48CSITiFGYsrq2b9dGFq1vDL6KFd3Triz1JIwcZIJE3ce99z9ofIAikT4yGSgjZcO6hMauiRLYsHAvtQnNz7SO54mdWEuuz7AIm4Y6ncx7yTeTs/tbUDcoZ6cvWoHfqRMQ5ehXqN/leO4g++xPKiDEo9kG4RnRTobi6rrN2GJ7UflsbMAWnTecPsGxOWHpVDSvs+/wuxLD0rhX8a+PX3qplyE1Sqylrbk3imnBAWo8pkUoLoTMXI3NCCm8N/XtqE98qRPJtRE9fo87goF38hSTmG+W7Migln/zMm1y6wv++SYoGiBuOLRBV4fP0YD4u/VxN+mmWeF9tKG5DeP37sTxSRTbRGpFFCm5Y0WSdO2BQ40Ta2iJxi7E/FiGZOhP9TrCbfBuPO1PuR1uZ6oyGsh6Aa5lP0F1ANboTgWNoDYkKNkCLmDKT9HXujq+vnO3vBN9jv328s+VjXMdYTskxo/3Oun1y3nQHeksc9xmsWGvd0fEOhB7aluu6XaQpZtIa88cSBsI0vg9y4jUocukiiC80CIezKH1/nCnN9iD07ce40AjgZKWcGAHp5bB2HW5VNecQnVLS+MFpx4k1XyNdaBToNEveRFr1cua67KYNqyibSsx0Gb4Whm6Io3qoFbapZ8COOb8a75NA8f4VgOula/EcEyXguA21e7z5JqndBrgheF6d5EQ3/PhXXEmg45dBWMSCZvL6jq1Qn/gC0M2jGns2Mnrhb/pp6OXU2pLn0AWr+E57XNt2juJIwuwLR5ZsxV0NItb5aUFWZTf5ad8g6QFB06NWrR/7Ri6ZvrKlilX4y2uybvW5wFFeU5eK3++J6iHVheNcx/f+AcLYkpCA0K/GfWe5R6Eq3Diy/1vttzMEvsjPfudJgABdimsyYDjW+h2XnJ02dLuLjQWv3yZMbGWE/hSvOusw36Pa/zLCtgxmjqmFwQ2r64jlf495oZMNCy/FaPKsLRRrTveUdy9hA4t+mNOVHaQAA=",
-          "sessionMeta": {
-            "lastCapturedAt": "2026-06-25T20:44:29.158Z",
-            "lastRefreshedAt": "2026-06-25T20:44:29.158Z",
-            "expiresAt": "2027-07-30T20:36:57.601Z"
+            "lastCapturedAt": "2026-06-25T20:46:58.594Z",
+            "lastRefreshedAt": "2026-06-25T20:46:58.594Z",
+            "expiresAt": "2027-07-29T17:06:59.991Z"
           }
         }
       ]
@@ -338,9 +325,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T20:44:17.713Z",
-      "lastAction": "error",
-      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 663b71b17981cacca323fd194d0f360c8a043cf9"
+      "lastSyncedAt": "2026-06-25T20:46:43.166Z",
+      "lastAction": "download",
+      "lastError": ""
     },
     "ui": {
       "panelSide": "right",
