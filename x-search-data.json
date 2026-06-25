@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 47,
-  "updatedAt": "2026-06-25T05:46:35.104Z",
+  "syncVersion": 48,
+  "updatedAt": "2026-06-25T05:47:14.854Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 47,
+    "syncVersion": 48,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -353,8 +353,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T05:46:28.710Z",
-      "lastAction": "checked",
+      "lastSyncedAt": "2026-06-25T05:46:54.714Z",
+      "lastAction": "download",
       "lastError": ""
     },
     "ui": {
