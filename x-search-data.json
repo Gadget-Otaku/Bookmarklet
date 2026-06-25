@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 70,
-  "updatedAt": "2026-06-25T21:40:10.880Z",
+  "syncVersion": 71,
+  "updatedAt": "2026-06-25T21:40:22.017Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 70,
+    "syncVersion": 71,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -24,15 +24,15 @@
           }
         },
         {
-          "id": "account-d6e0aa5f-36db-424c-ad7e-d7b616802c1d",
+          "id": "account-648739b3-00c2-4d49-bb7c-74525134dfa8",
           "username": "sumafogeek",
           "displayName": "ハゲワシ",
           "profileUrl": "https://x.com/sumafogeek",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1941490366232035328/Y2sYCvC9_x96.jpg",
-          "iconBase64": "data:image/webp;base64,UklGRoYEAABXRUJQVlA4IHoEAAAwFACdASpAAEAAPmEslUckIiIhKBQIqIAMCWIAnTLHA3SQLP2QotcMncBsyf3qYl+Z0GU4f7II2uTjw3T+nVS3vvVtDNDaPqj0MBJdFfiNT9Yj8I3WEmircsTAKzzB16ebL/VLtpPhG6h0JjmXrnnGiED5/e+gqnrc1BVagXHc3/7AVd1I8nEWOGKWkp0JRz6InuKIEsnx1LzA+ZtpDGZ3Kxmn4trTjTXAAAD+/rxfUtveYXPXVpQB+XjhEcTljejnQNGXvHfIhdLelprw2c7oA/72wCG4YzJVqbyGDsNhK61cKr0xC7cohymgxcgtnTXcWGvd+VKHIrtOwJFu7X/lCCMTJBBMSLRPPeNDSuruDmTp+atgmwxlnRyeHNGDhDOThF3QrH3BBdazxEWnQCEHpMD+CkkMj0jfVVDJcMlTdaVVBdK6Fue14/D466ad8TrNfENXDTafUKlhzwXLqINlCD1or0mCm5fi2HnQCoz8rIXRGPu3gr2/j4rCouRZ82CXWrMOJ7cHhL2fzUdRY5UBwev48CSITiFGYsrq2b9dGFq1vDL6KFd3Triz1JIwcZIJE3ce99z9ofIAikT4yGSgjZcO6hMauiRLYsHAvtQnNz7SO54mdWEuuz7AIm4Y6ncx7yTeTs/tbUDcoZ6cvWoHfqRMQ5ehXqN/leO4g++xPKiDEo9kG4RnRTobi6rrN2GJ7UflsbMAWnTecPsGxOWHpVDSvs+/wuxLD0rhX8a+PX3qplyE1Sqylrbk3imnBAWo8pkUoLoTMXI3NCCm8N/XtqE98qRPJtRE9fo87goF38hSTmG+W7Migln/zMm1y6wv++SYoGiBuOLRBV4fP0YD4u/VxN+mmWeF9tKG5DeP37sTxSRTbRGpFFCm5Y0WSdO2BQ40Ta2iJxi7E/FiGZOhP9TrCbfBuPO1PuR1uZ6oyGsh6Aa5lP0F1ANboTgWNoDYkKNkCLmDKT9HXujq+vnO3vBN9jv328s+VjXMdYTskxo/3Oun1y3nQHeksc9xmsWGvd0fEOhB7aluu6XaQpZtIa88cSBsI0vg9y4jUocukiiC80CIezKH1/nCnN9iD07ce40AjgZKWcGAHp5bB2HW5VNecQnVLS+MFpx4k1XyNdaBToNEveRFr1cua67KYNqyibSsx0Gb4Whm6Io3qoFbapZ8COOb8a75NA8f4VgOula/EcEyXguA21e7z5JqndBrgheF6d5EQ3/PhXXEmg45dBWMSCZvL6jq1Qn/gC0M2jGns2Mnrhb/pp6OXU2pLn0AWr+E57XNt2juJIwuwLR5ZsxV0NItb5aUFWZTf5ad8g6QFB06NWrR/7Ri6ZvrKlilX4y2uybvW5wFFeU5eK3++J6iHVheNcx/f+AcLYkpCA0K/GfWe5R6Eq3Diy/1vttzMEvsjPfudJgABdimsyYDjW+h2XnJ02dLuLjQWv3yZMbGWE/hSvOusw36Pa/zLCtgxmjqmFwQ2r64jlf495oZMNCy/FaPKsLRRrTveUdy9hA4t+mNOVHaQAA=",
+          "iconUrl": "https://pbs.twimg.com/profile_images/1941490366232035328/Y2sYCvC9.jpg",
+          "iconBase64": "data:image/webp;base64,UklGRrgFAABXRUJQVlA4IKwFAAAQFwCdASpAAEAAPmEskEYkIqGhKhzJcIAMCWIAnTLHBvST7J19gt0Lrb7+ZjcwOqG3o2zT9zf3XwJ8Zvs2MwcN9jcbjJZ4bpzDoxYNNV8emoR0mPQ5/W5YxkXvpLn+CrXH4FP9YLMSZFRlggyRysmCMR2+VDc9NE8+8QNAk8JpVWqhODDj2cNoVD+OClpkRGwEFSP68/6qx61C0SFFbPQodKrTUnFgcbH/639pl5VJZCKntulBk1NJlCYXlDkeGLAAAP7/HlX0m7sexVdmuGUGgkc17tfg7TqFN5NkgATk+dj5VkbzopdzilyOkovKtfQYor7aEyyfL4c5zvzVA036WdZj24VunD26BihXSxrmQuNU25uImILTNA6GL44lHrl02HRS/UwpbjzA3RQIX6l9u4IcJSOXnQkVHiyRjpwsjdZw911VDACg4PVuVRuOw0LGdbwakLVBCXAKk+UKDaf3lUZkhdpBH4bJXqzlQ+vQ75aOnjh/u7B4ecRqtwwDGpYTrBIdDoGNef+b7jxlHKZ/ekItI56k4gf3e2YvYhIM8j/m9RFLuRzqV6tlaVXBkdbPpZF8Q3zgvQY4Eq+UxiLIX5NVg6HTDO3fjgqMHwZ3BUQfSuqlUJHUlz33XfevtQ8VnsdE0/VAdp+Xqkm/VSycvl9mrI97Nco/8eCuySyGMD9yQDnEisHrlhUpy7vBbvH/2shHJODT6aXwclRq4MUbVhtBj87/n1LMu3aWUxlK1wr5N99PQy9EQ6C3X8UCbSTPv2l3wYFIJE1yOwOj00roVqc0bvuO0LXeOwYWH5VgbP5uYq9103YUDdrr7aKyIiJraEqe4s575MWawcjuEIDjXITfnel+d3oFq3TiE5acJxomvSuxeE4IS1H0Ua6uiFp/q//6tss21eSSn38cL28JRmb5seDgQ/p9Z6gaup4ue79hI6OOGSHQHzTzjyToZWRuxav/BQ8pfZxZcnC5eauL/NLBIAQ9l4pqaCq4uThlNubQDTlFCGruq7Ha+KKh2celzl1IW+fdR0j2lkULiTYoqTND1V/ADkIOH4W5buMahs721+bu7xhRewip2a2Xiyn78HWRawrjH3Z5vElI4wuA5aE7vUpCtM02vulODvSicZUp9I04MKK+iOvcCEugzPv6R7wvnjNRv60NLfZlHh/p78Wu9nmUOeojrbnGj9ZiHX/6du/XDe68c/L+5uDYkry0wdxzqb55niVF4C21JV3gtKGi4wOTatD5UWTTLmT6IopqLjmjsR5QtI05OHizjeJjrPPYwlzE/HqrMYovnR9jJTWSEvapirhSxYRG+87Gg5gB7mdfPmPECTnWoyW8ij/TSexVxmb4tJKJkrQ18y1djgSBvwu8hwNxNTWiq/eW1MF9JY7DKwLjbsp4acMQK7Nj9dQSxrQqc3COEzK5kN8NonxcKN/M8pI6EwTH7zZDpwav+GcxibrN8IHccGoPy19G1uRVtfkksLjgQEQp/UuXtKaSJq8/Oe6uG459x+NnVz83smKnAI2uu4GZlghqDqiIOgEB7MvKQEskZRhvHiJlO4iqTSfcKkNZWZqXrpEdnYv7F9Oh0+RCeK8Dgs1OSIgXc5kmLEFStBVmb1TQLhOew1TmEtkANgJolK/RE16BEaVBB9yjyJ0JPHobQFBch/2Om8Dhv7d2IGvxiUzAmgLNGUiuJ4x/d0IVc9dJ6SHaDYDAMnKtzUGA8kRAk/gAo5HQAN6Jb6qXH4uXKrrdg3ov22sb9bIj5lEaJzP4euXjMnvzbrzJCWcENwEcFbsr7iLC2ZJC4npDgEj0zUZXoQ9rjvQrBjqPm9AG/EhuGOj9LY3NF9zApasTD8Or0LZA7wm3oe5aS7p+zkUGksTKKCiZIowKhARA7r/ndM5GuW+rR3Uf613C0j9j/8L43pqxZMI0XUc8+tNGIrDwQAA=",
           "sessionMeta": {
-            "lastCapturedAt": "2026-06-25T21:40:09.606Z",
-            "lastRefreshedAt": "2026-06-25T21:40:09.606Z",
+            "lastCapturedAt": "2026-06-25T21:40:20.159Z",
+            "lastRefreshedAt": "2026-06-25T21:40:20.159Z",
             "expiresAt": "2027-07-30T21:40:04.453Z"
           }
         }
@@ -338,8 +338,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T21:40:06.379Z",
-      "lastAction": "checked",
+      "lastSyncedAt": "2026-06-25T21:40:12.546Z",
+      "lastAction": "upload",
       "lastError": ""
     },
     "ui": {
