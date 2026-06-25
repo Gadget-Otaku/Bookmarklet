@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 59,
-  "updatedAt": "2026-06-25T20:23:31.960Z",
+  "syncVersion": 61,
+  "updatedAt": "2026-06-25T20:24:05.297Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 59,
+    "syncVersion": 61,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -21,6 +21,19 @@
             "lastCapturedAt": "2026-06-25T20:23:28.409Z",
             "lastRefreshedAt": "2026-06-25T20:23:28.409Z",
             "expiresAt": "2027-07-30T20:23:18.436Z"
+          }
+        },
+        {
+          "id": "account-a547675f-b23b-41ab-819c-5b2a3a1a4c85",
+          "username": "sumafogeek",
+          "displayName": "ハゲワシ",
+          "profileUrl": "https://x.com/sumafogeek",
+          "iconUrl": "",
+          "iconBase64": "",
+          "sessionMeta": {
+            "lastCapturedAt": "2026-06-25T20:23:50.773Z",
+            "lastRefreshedAt": "2026-06-25T20:23:50.773Z",
+            "expiresAt": "2027-07-30T20:23:34.796Z"
           }
         }
       ]
@@ -325,9 +338,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T20:23:20.353Z",
-      "lastAction": "checked",
-      "lastError": ""
+      "lastSyncedAt": "2026-06-25T20:23:33.682Z",
+      "lastAction": "error",
+      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 9f79ee2724936a6984166ff205b9867499833c03"
     },
     "ui": {
       "panelSide": "right",
