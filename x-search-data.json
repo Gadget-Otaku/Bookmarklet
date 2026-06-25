@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 45,
-  "updatedAt": "2026-06-25T05:20:19.671Z",
+  "syncVersion": 46,
+  "updatedAt": "2026-06-25T05:30:18.655Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 45,
+    "syncVersion": 46,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -18,22 +18,9 @@
           "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
           "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-06-25T05:20:19.633Z",
-            "lastRefreshedAt": "2026-06-25T05:20:19.633Z",
+            "lastCapturedAt": "2026-06-25T05:03:08.921Z",
+            "lastRefreshedAt": "2026-06-25T05:03:08.921Z",
             "expiresAt": "2027-07-29T17:06:59.991Z"
-          }
-        },
-        {
-          "id": "account-4fd1e610-7e73-4954-9181-505d5f9d410d",
-          "username": "sumafogeek",
-          "displayName": "ハゲワシ",
-          "profileUrl": "https://x.com/sumafogeek",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1941490366232035328/Y2sYCvC9_x96.jpg",
-          "iconBase64": "",
-          "sessionMeta": {
-            "lastCapturedAt": "2026-06-24T17:34:43.647Z",
-            "lastRefreshedAt": "2026-06-24T17:34:43.647Z",
-            "expiresAt": "2027-07-29T17:34:39.550Z"
           }
         }
       ]
@@ -353,9 +340,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T05:20:16.429Z",
-      "lastAction": "download",
-      "lastError": ""
+      "lastSyncedAt": "2026-06-25T05:05:46.151Z",
+      "lastAction": "error",
+      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 0bf4baef9f0f440cfa3cec7f7f0d7ac134faee60"
     },
     "ui": {
       "panelSide": "right",
