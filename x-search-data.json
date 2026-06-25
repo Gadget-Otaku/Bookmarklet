@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 50,
-  "updatedAt": "2026-06-25T05:50:06.571Z",
+  "syncVersion": 51,
+  "updatedAt": "2026-06-25T06:10:16.872Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 50,
+    "syncVersion": 51,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -18,8 +18,8 @@
           "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
           "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-06-25T05:50:06.482Z",
-            "lastRefreshedAt": "2026-06-25T05:50:06.482Z",
+            "lastCapturedAt": "2026-06-25T06:10:16.858Z",
+            "lastRefreshedAt": "2026-06-25T06:10:16.858Z",
             "expiresAt": "2027-07-29T17:06:59.991Z"
           }
         },
@@ -335,25 +335,10 @@
       }
     ],
     "panelShortcut": "i",
-    "design": {
-      "theme": "ios-liquid-glass",
-      "colorMode": "auto-x-theme",
-      "glassBlurPx": 2,
-      "glassOpacityPercent": 2,
-      "borderRadiusPx": 26,
-      "popoverRadiusPx": 22,
-      "cardRadiusPx": 18,
-      "controlRadiusPx": 16,
-      "panelAnimationDurationMs": 200,
-      "panelAnimationEasing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
-      "liquidAnimationEnabled": true,
-      "liquidAnimationStrength": "subtle",
-      "accentColor": "#1d9bf0"
-    },
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-06-25T05:50:03.261Z",
+      "lastSyncedAt": "2026-06-25T06:10:13.664Z",
       "lastAction": "checked",
       "lastError": ""
     },
