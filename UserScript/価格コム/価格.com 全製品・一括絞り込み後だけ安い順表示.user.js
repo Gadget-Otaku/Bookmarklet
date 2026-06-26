@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         価格.com 全製品・一括絞り込み後だけ安い順表示
 // @namespace    https://github.com/Gadget-Otaku/Bookmarklet
-// @version      1.0.4
-// @description  価格.comの全ての商品で、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。スマホ版ドメインと絞り込みhashにも対応します。
+// @version      1.0.5
+// @description  価格.comの全カテゴリで、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。スマホ版ドメインと絞り込みhashにも対応します。
 // @author       Gadget-Otaku
 // @match        https://kakaku.com/*
 // @match        https://s.kakaku.com/*
@@ -15,19 +15,31 @@
 (function () {
   'use strict';
 
-  const ITEMLIST_PATH = '/pc/note-pc/itemlist.aspx';
-  const CHEAP_SORT_URL = ITEMLIST_PATH + '?pdf_so=p1';
-  const POPULAR_BYPASS_KEY = 'kakaku-note-pc-popular-sort-bypass-once';
+  const ITEMLIST_FILENAME = '/itemlist.aspx';
+  const POPULAR_BYPASS_KEY_PREFIX = 'kakaku-itemlist-popular-sort-bypass-once:';
   const BYPASS_TTL_MS = 30 * 1000;
   const DEFAULT_ITEMLIST_HASHES = new Set(['', '#/popup=narrow']);
 
+  const isItemListPath = () => {
+    return location.pathname.endsWith(ITEMLIST_FILENAME);
+  };
+
   const isDefaultItemList = () => {
-    return location.pathname === ITEMLIST_PATH && location.search === '' && DEFAULT_ITEMLIST_HASHES.has(location.hash);
+    return isItemListPath() && location.search === '' && DEFAULT_ITEMLIST_HASHES.has(location.hash);
+  };
+
+  const cheapSortUrl = () => {
+    return location.pathname + '?pdf_so=p1';
+  };
+
+  const popularBypassKey = () => {
+    return POPULAR_BYPASS_KEY_PREFIX + location.pathname;
   };
 
   const readPopularBypass = () => {
-    const raw = sessionStorage.getItem(POPULAR_BYPASS_KEY);
-    sessionStorage.removeItem(POPULAR_BYPASS_KEY);
+    const key = popularBypassKey();
+    const raw = sessionStorage.getItem(key);
+    sessionStorage.removeItem(key);
 
     const createdAt = Number(raw);
     return Number.isFinite(createdAt) && Date.now() - createdAt < BYPASS_TTL_MS;
@@ -35,9 +47,9 @@
 
   const redirectBareItemListToCheapSort = () => {
     if (isDefaultItemList() && !readPopularBypass()) {
-      location.replace(CHEAP_SORT_URL);
+      location.replace(cheapSortUrl());
     } else if (!isDefaultItemList()) {
-      sessionStorage.removeItem(POPULAR_BYPASS_KEY);
+      sessionStorage.removeItem(popularBypassKey());
     }
   };
 
@@ -87,7 +99,7 @@
 
   const allowNextBareItemListForPopularSort = (event) => {
     if (findPopularSortControl(event.target)) {
-      sessionStorage.setItem(POPULAR_BYPASS_KEY, String(Date.now()));
+      sessionStorage.setItem(popularBypassKey(), String(Date.now()));
     }
   };
 
