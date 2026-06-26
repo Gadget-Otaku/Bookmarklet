@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         価格.com 全製品・一括絞り込み後だけ安い順表示
 // @namespace    https://github.com/Gadget-Otaku/Bookmarklet
-// @version      1.0.1
-// @description  価格.comのノートPCで、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。
+// @version      1.0.2
+// @description  価格.comのノートPCで、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。スマホ版の絞り込みhashにも対応します。
 // @author       Gadget-Otaku
 // @match        https://kakaku.com/pc/note-pc/
 // @match        https://kakaku.com/pc/note-pc/itemlist.aspx*
@@ -19,9 +19,10 @@
   const CHEAP_SORT_URL = ITEMLIST_PATH + '?pdf_so=p1';
   const POPULAR_BYPASS_KEY = 'kakaku-note-pc-popular-sort-bypass-once';
   const BYPASS_TTL_MS = 30 * 1000;
+  const DEFAULT_ITEMLIST_HASHES = new Set(['', '#/popup=narrow']);
 
-  const isBareItemList = () => {
-    return location.pathname === ITEMLIST_PATH && location.search === '' && location.hash === '';
+  const isDefaultItemList = () => {
+    return location.pathname === ITEMLIST_PATH && location.search === '' && DEFAULT_ITEMLIST_HASHES.has(location.hash);
   };
 
   const readPopularBypass = () => {
@@ -33,9 +34,9 @@
   };
 
   const redirectBareItemListToCheapSort = () => {
-    if (isBareItemList() && !readPopularBypass()) {
+    if (isDefaultItemList() && !readPopularBypass()) {
       location.replace(CHEAP_SORT_URL);
-    } else if (!isBareItemList()) {
+    } else if (!isDefaultItemList()) {
       sessionStorage.removeItem(POPULAR_BYPASS_KEY);
     }
   };
