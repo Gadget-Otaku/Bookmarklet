@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         価格.com 全製品・一括絞り込み後だけ安い順表示
 // @namespace    https://github.com/Gadget-Otaku/Bookmarklet
-// @version      1.0.0
-// @description  価格.comのノートPCで、全製品リンクと一括絞り込みの検索結果だけを初期表示で価格の安い順にします。
+// @version      1.0.1
+// @description  価格.comのノートPCで、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。
 // @author       Gadget-Otaku
 // @match        https://kakaku.com/pc/note-pc/
 // @match        https://kakaku.com/pc/note-pc/itemlist.aspx*
@@ -16,147 +16,80 @@
   'use strict';
 
   const ITEMLIST_PATH = '/pc/note-pc/itemlist.aspx';
-  const CHEAP_SORT = 'p1';
-  const DEFAULT_SORTS = new Set(['', 's1']);
-  const touchedSortSelects = new WeakSet();
-  const autoChangingSortSelects = new WeakSet();
+  const CHEAP_SORT_URL = ITEMLIST_PATH + '?pdf_so=p1';
+  const POPULAR_BYPASS_KEY = 'kakaku-note-pc-popular-sort-bypass-once';
+  const BYPASS_TTL_MS = 30 * 1000;
 
-  const toUrl = (value) => {
-    try {
-      return new URL(value, location.href);
-    } catch (_) {
-      return null;
+  const isBareItemList = () => {
+    return location.pathname === ITEMLIST_PATH && location.search === '' && location.hash === '';
+  };
+
+  const readPopularBypass = () => {
+    const raw = sessionStorage.getItem(POPULAR_BYPASS_KEY);
+    sessionStorage.removeItem(POPULAR_BYPASS_KEY);
+
+    const createdAt = Number(raw);
+    return Number.isFinite(createdAt) && Date.now() - createdAt < BYPASS_TTL_MS;
+  };
+
+  const redirectBareItemListToCheapSort = () => {
+    if (isBareItemList() && !readPopularBypass()) {
+      location.replace(CHEAP_SORT_URL);
+    } else if (!isBareItemList()) {
+      sessionStorage.removeItem(POPULAR_BYPASS_KEY);
     }
   };
 
-  const isNotePcItemList = (url) => {
-    return url && url.origin === location.origin && url.pathname === ITEMLIST_PATH;
-  };
-
-  const withCheapSort = (value) => {
-    const url = toUrl(value);
-    if (!isNotePcItemList(url)) {
-      return value;
-    }
-
-    url.searchParams.set('pdf_so', CHEAP_SORT);
-    return url.pathname + url.search + url.hash;
-  };
-
-  const elementText = (element) => {
+  const elementLabel = (element) => {
     return [
       element.textContent,
-      element.getAttribute('aria-label'),
       element.getAttribute('title'),
+      element.getAttribute('aria-label'),
       element.querySelector('img[alt]')?.getAttribute('alt')
     ].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
   };
 
-  const isAllProductsLink = (anchor) => {
-    if (!anchor || location.pathname !== '/pc/note-pc/') {
+  const callsDefaultSort = (element) => {
+    const handler = (element.getAttribute('onclick') || '').replace(/\s+/g, '');
+    return /changeLocation\((['"])\1\)/.test(handler);
+  };
+
+  const isPopularSortControl = (element) => {
+    if (!element) {
       return false;
     }
 
-    const url = toUrl(anchor.getAttribute('href'));
-    if (!isNotePcItemList(url)) {
-      return false;
-    }
-
-    return !url.search && /全製品/.test(elementText(anchor));
+    const label = elementLabel(element);
+    return callsDefaultSort(element) && /売れ筋|人気売れ筋ランキング/.test(label);
   };
 
-  const patchAllProductsLinks = (root = document) => {
-    if (location.pathname !== '/pc/note-pc/' || !root.querySelectorAll) {
-      return;
+  const findPopularSortControl = (target) => {
+    if (!(target instanceof Element)) {
+      return null;
     }
 
-    const anchors = root.matches?.('a[href]')
-      ? [root, ...root.querySelectorAll('a[href]')]
-      : [...root.querySelectorAll('a[href]')];
+    const closestTypeClick = target.closest('.typeClk');
+    if (isPopularSortControl(closestTypeClick)) {
+      return closestTypeClick;
+    }
 
-    for (const anchor of anchors) {
-      if (isAllProductsLink(anchor)) {
-        anchor.href = withCheapSort(anchor.getAttribute('href'));
+    const closestPopularCell = target.closest('.swrank2');
+    if (closestPopularCell) {
+      const control = closestPopularCell.querySelector('.typeClk');
+      if (isPopularSortControl(control)) {
+        return control;
       }
     }
+
+    return null;
   };
 
-  const markTouchedSortSelect = (event) => {
-    const select = event.target;
-    if (select instanceof HTMLSelectElement && select.matches('#searchBySpecBox select[name="so"], #specBoxForm select[name="so"]')) {
-      if (!autoChangingSortSelects.has(select) && event.isTrusted) {
-        touchedSortSelects.add(select);
-      }
+  const allowNextBareItemListForPopularSort = (event) => {
+    if (findPopularSortControl(event.target)) {
+      sessionStorage.setItem(POPULAR_BYPASS_KEY, String(Date.now()));
     }
   };
 
-  const shouldDefaultToCheapSort = (select) => {
-    if (!select || touchedSortSelects.has(select)) {
-      return false;
-    }
-
-    const currentSort = new URLSearchParams(location.search).get('pdf_so') || '';
-    return DEFAULT_SORTS.has(select.value || '') || DEFAULT_SORTS.has(currentSort);
-  };
-
-  const setModalSortToCheap = () => {
-    const select = document.querySelector('#searchBySpecBox select[name="so"], #specBoxForm select[name="so"]');
-    if (shouldDefaultToCheapSort(select)) {
-      autoChangingSortSelects.add(select);
-      select.value = CHEAP_SORT;
-      select.dispatchEvent(new Event('input', { bubbles: true }));
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-      autoChangingSortSelects.delete(select);
-    }
-  };
-
-  const isSeeResultClick = (event) => {
-    return event.target instanceof Element && !!event.target.closest('#searchBySpecBox a.seeResult, #specBoxForm a.seeResult');
-  };
-
-  const handleClickCapture = (event) => {
-    const anchor = event.target instanceof Element ? event.target.closest('a[href]') : null;
-    if (isAllProductsLink(anchor)) {
-      anchor.href = withCheapSort(anchor.getAttribute('href'));
-      return;
-    }
-
-    if (isSeeResultClick(event)) {
-      setModalSortToCheap();
-    }
-  };
-
-  const observeDom = () => {
-    patchAllProductsLinks();
-
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === 'attributes' && mutation.target instanceof Element) {
-          patchAllProductsLinks(mutation.target.parentElement || document);
-        }
-
-        for (const node of mutation.addedNodes) {
-          if (node instanceof Element) {
-            patchAllProductsLinks(node);
-          }
-        }
-      }
-    });
-
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['href']
-    });
-  };
-
-  document.addEventListener('click', handleClickCapture, true);
-  document.addEventListener('change', markTouchedSortSelect, true);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', observeDom, { once: true });
-  } else {
-    observeDom();
-  }
+  redirectBareItemListToCheapSort();
+  document.addEventListener('click', allowNextBareItemListForPopularSort, true);
 })();
