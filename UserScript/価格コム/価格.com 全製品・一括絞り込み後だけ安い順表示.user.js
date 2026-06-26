@@ -1,13 +1,11 @@
 // ==UserScript==
 // @name         価格.com 全製品・一括絞り込み後だけ安い順表示
 // @namespace    https://github.com/Gadget-Otaku/Bookmarklet
-// @version      1.0.3
-// @description  価格.comのノートPCで、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。スマホ版ドメインと絞り込みhashにも対応します。
+// @version      1.0.4
+// @description  価格.comの全ての商品で、裸のitemlist.aspxだけを価格の安い順へ送り、売れ筋ボタンだけは通常順を許可します。スマホ版ドメインと絞り込みhashにも対応します。
 // @author       Gadget-Otaku
-// @match        https://kakaku.com/pc/note-pc/
-// @match        https://kakaku.com/pc/note-pc/itemlist.aspx*
-// @match        https://s.kakaku.com/pc/note-pc/
-// @match        https://s.kakaku.com/pc/note-pc/itemlist.aspx*
+// @match        https://kakaku.com/*
+// @match        https://s.kakaku.com/*
 // @downloadURL  https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/UserScript/%E4%BE%A1%E6%A0%BC%E3%82%B3%E3%83%A0/%E4%BE%A1%E6%A0%BC.com%20%E5%85%A8%E8%A3%BD%E5%93%81%E3%83%BB%E4%B8%80%E6%8B%AC%E7%B5%9E%E3%82%8A%E8%BE%BC%E3%81%BF%E5%BE%8C%E3%81%A0%E3%81%91%E5%AE%89%E3%81%84%E9%A0%86%E8%A1%A8%E7%A4%BA.user.js
 // @updateURL    https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/refs/heads/main/UserScript/%E4%BE%A1%E6%A0%BC%E3%82%B3%E3%83%A0/%E4%BE%A1%E6%A0%BC.com%20%E5%85%A8%E8%A3%BD%E5%93%81%E3%83%BB%E4%B8%80%E6%8B%AC%E7%B5%9E%E3%82%8A%E8%BE%BC%E3%81%BF%E5%BE%8C%E3%81%A0%E3%81%91%E5%AE%89%E3%81%84%E9%A0%86%E8%A1%A8%E7%A4%BA.user.js
 // @run-at       document-start
