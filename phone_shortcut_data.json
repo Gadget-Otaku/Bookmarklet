@@ -168,8 +168,8 @@
         },
         {
           "id": "mqwm6phwc2089",
-          "name": "【原神】素材(突破/育成)の一覧と必要数｜ゲームエイト",
-          "url": "https://game8.jp/genshin/594537",
+          "name": "育成素材の必要数",
+          "url": "https://game8.jp/genshin/594537#:~:text=%E4%B8%8A%E7%B4%9A%EF%BC%9A36%E5%80%8B-,%E3%83%9C%E3%82%B9%E7%B4%A0%E6%9D%90",
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp",
           "tags": []
         }
@@ -711,5 +711,5 @@
     ],
     "gestures": []
   },
-  "version": 28
+  "version": 29
 }
