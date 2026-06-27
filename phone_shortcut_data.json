@@ -165,6 +165,13 @@
           "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=gamewith.jp",
           "id": "mksgahin3swje",
           "tags": []
+        },
+        {
+          "id": "mqwm6phwc2089",
+          "name": "【原神】素材(突破/育成)の一覧と必要数｜ゲームエイト",
+          "url": "https://game8.jp/genshin/594537",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=game8.jp",
+          "tags": []
         }
       ],
       "id": "mksgahinynmkh",
@@ -704,5 +711,5 @@
     ],
     "gestures": []
   },
-  "version": 27
+  "version": 28
 }
