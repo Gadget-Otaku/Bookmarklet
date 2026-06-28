@@ -8,3 +8,73 @@ The statement is false. Correlation can only be used to imply causation as a res
 疑わしいがクイズでは間違い
 The statement is false. Correlation never implies causation.
 
+---
+
+問題番号: 1.3.9
+分野: Simple random sample / Random number table / Pearson MyLab
+
+問題の概要:
+A community college employs 85 full-time faculty members.
+Faculty are numbered from 1 to 85.
+A simple random sample of 9 faculty members is needed.
+Using the provided random number table, start at the digit in row 3, column 6 and proceed downward.
+
+乱数表:
+Row,01-05,06-10,11-15,16-20
+01,28795,18552,54468,91120
+02,34966,64774,67322,68548
+03,61745,87647,54807,65078
+04,57937,49249,33859,01689
+05,82243,69948,65945,17031
+06,01993,91423,37040,13563
+
+確定正解:
+49, 69, 55, 77, 64, 24, 42, 25, 46
+
+重要:
+この問題では「row 3, column 6 の digit は 8 だから、8 から1桁ずつ縦に読んで後から2桁に区切る」と考えると不正解になる。
+誤答例:
+84, 69, 79, 57, 62, 44, 42, 24, 83
+
+Pearson / MyLab 系での正しい考え方:
+1. 母集団は 85 人なので、番号は 01〜85 の2桁として扱う。
+2. row 3, column 6 は開始地点の digit を示すだけであり、読み取り単位は母集団に合わせて2桁にする。
+3. したがって、row 3 column 6 と row 3 column 7 を合わせて、最初の2桁候補は 87 になる。
+4. “proceeding downward” は、1桁だけの列を下へ読むという意味ではなく、必要な桁数ぶんの幅、今回は2桁幅のレーンを下へ読むという意味で扱う。
+5. 最下行まで読んだら、次の未使用の列ペアの一番上に移る。
+6. 01〜85 の範囲に入る番号だけを採用する。
+7. 86以上、00、重複番号はスキップする。
+8. 有効な番号が9個そろうまで続ける。
+
+計算手順:
+
+列 6-7 の2桁レーンから開始する。
+row 3: 87 → 85を超えるのでスキップ
+row 4: 49 → 採用 1
+row 5: 69 → 採用 2
+row 6: 91 → 85を超えるのでスキップ
+
+次に、最下行まで到達したので、次の未使用の列ペアである列 8-9 の一番上へ移る。
+row 1: 55 → 採用 3
+row 2: 77 → 採用 4
+row 3: 64 → 採用 5
+row 4: 24 → 採用 6
+row 5: 94 → 85を超えるのでスキップ
+row 6: 42 → 採用 7
+
+次に、列 10-11 の2桁レーンへ移る。
+5桁ブロックの境界は見やすさのための区切りなので、column 10 と column 11 をまたいで読んでよい。
+row 1: column 10 = 5, column 11 = 4 → 25 ではなく、注意: この表の連続列で column 10 の数字は 2、column 11 の数字は 5 なので 25 → 採用 8
+row 2: column 10 = 4, column 11 = 6 → 46 → 採用 9
+
+最終的な採用番号:
+49, 69, 55, 77, 64, 24, 42, 25, 46
+
+AI向け注意:
+この問題では wording の “points to the digit” を「1桁ずつ読む」と解釈しすぎないこと。
+Pearson / MyLab の乱数表問題では、母集団の最大番号に必要な桁数を先に決める。
+今回は 85 人なので2桁。
+開始 digit は2桁レーンの左端、つまり十の位の開始位置として使う。
+そのため row 3 column 6 から始まる最初の候補は 84 ではなく 87。
+“proceeding downward” は、その2桁レーンを下へ進むという意味。
+類題で母集団が 1〜99 なら2桁、1〜999 なら3桁のレーンを作って、指定方向に読む。
