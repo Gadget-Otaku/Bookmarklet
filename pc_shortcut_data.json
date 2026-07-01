@@ -434,6 +434,13 @@
           "url": "https://www.my100bank.com/",
           "icon": "https://my100bank.com/app/themes/centennial/assets/svgs/logo.svg",
           "tags": []
+        },
+        {
+          "id": "mr2dr3gritqv6",
+          "name": "Macmillan Learning Achieve Courses List",
+          "url": "https://achieve.macmillanlearning.com/courses",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=achieve.macmillanlearning.com",
+          "tags": []
         }
       ],
       "id": "mksetesewqgdc",
@@ -1115,5 +1122,5 @@
       }
     ]
   },
-  "version": 25
+  "version": 26
 }
