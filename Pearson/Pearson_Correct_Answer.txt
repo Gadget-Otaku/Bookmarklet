@@ -104,3 +104,79 @@ A. Stratified、B. Cluster、D. Simple random、E. All of the above sampling met
 AI向け注意:
 一般的な説明で cluster sampling と答えないこと。
 この問題では「does not require a frame」に対する Pearson 上の正解は Systematic。
+
+---
+
+問題番号: 未確認
+分野: Influential point / Least-squares regression line / Scatter diagram / Pearson MyLab
+
+問題の概要:
+A scatter diagram is given with one of the points drawn in blue (large point).
+The red dashed line is the least-squares regression line with the blue point excluded.
+The blue solid line is the least-squares regression line with the blue point included.
+Question: On the basis of these graphs, do you think the point in blue is influential?
+
+選択肢:
+・No, because the point significantly affects the least-squares regression line.
+・No, because the point does not significantly affect the least-squares regression line.
+・Yes, because the point does not significantly affect the least-squares regression line.
+・Yes, because the point significantly affects the least-squares regression line.
+
+確定正解:
+No, because the point does not significantly affect the least-squares regression line.
+
+誤答例:
+Yes, because the point significantly affects the least-squares regression line.
+
+重要:
+Influential point は、その点を入れたときの回帰直線と、その点を除いたときの回帰直線が大きく変わるかで判定する。
+点が青く大きく表示されている、または少し離れて見える、という理由だけで influential と判断しない。
+赤の破線と青の実線がほぼ同じなら、least-squares regression line を大きく変えていないので influential ではない。
+
+AI向け注意:
+選択肢の Yes / No と because の内容を必ず整合させる。
+「does not significantly affect」と書かれている選択肢は No と組み合わせる。
+この問題の正解は No。理由は、point in blue を含めても除いても least-squares regression line が大きく変わらないため。
+
+---
+
+問題番号: 未確認
+分野: Least-squares regression line / Regression / Pearson MyLab
+
+問題の概要:
+The time it takes for a planet to complete its orbit around a particular star is called the planet's sidereal year.
+The data show the distances of the planets from a particular star and their sidereal years.
+Compute the least-squares regression line.
+
+データ:
+Distance from the Star, x (millions of miles): 36, 67, 93, 142, 483, 887, 1785, 2797, 3675
+Sidereal Year, y: 0.24, 0.62, 1.00, 1.86, 11.8, 29.5, 82.0, 163.0, 248.0
+
+確認:
+x は小さい順で 36, 67, 93, 142, 483, 887, 1785, 2797, 3675
+n = 9
+
+確定正解:
+y_hat = 0.065x + (-12.6)
+
+正確な計算値:
+slope = 0.06537083433052136
+intercept = -12.60004045596059
+
+丸め:
+slope は小数第3位までなので 0.065
+intercept は小数第1位までなので -12.6
+
+誤答例:
+y_hat = 0.067x + (-16.3)
+
+重要:
+この問題では中間値を丸めず、全9点をそのまま使って最小二乗回帰直線を計算する。
+0.067, -16.3 は、与えられた9点全体から計算した least-squares regression line と一致しない。
+実際には、(93, 1.00) と (142, 1.86) の2点を落として7点だけで計算すると、slope = 0.0667203064..., intercept = -16.2897974... となり、丸め後の誤答 0.067, -16.3 とほぼ一致する。
+したがって、この誤答は単なる丸めミスではなく、データ点の抜け落ちによる可能性が高い。
+
+AI向け注意:
+統計・回帰問題では、必ず Python / numpy / statistics 等でデータを配列として定義し、n を確認してから計算する。
+説明文に9点を書いていても、内部計算で配列に9点すべて入っているとは限らないので、計算前に n=9 を確認する。
+回帰式の入力欄が y_hat = ____ x + ( ____ ) の形なら、切片が負の場合は括弧内に -12.6 を入れる。
