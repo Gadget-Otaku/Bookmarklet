@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 180,
-  "updatedAt": "2026-07-11T08:17:37.462Z",
+  "syncVersion": 181,
+  "updatedAt": "2026-07-11T15:37:22.916Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 180,
+    "syncVersion": 181,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -327,6 +327,13 @@
             "displayName": "もりラボ",
             "iconUrl": "https://pbs.twimg.com/profile_images/2038999664616452096/3o4rE0-i.jpg",
             "iconBase64": "data:image/webp;base64,UklGRrYBAABXRUJQVlA4IKoBAACwEACdASpAAEAAPmEskUYkIqGhKAqogAwJZADG8ZP+u6tj0em8+QLEj/bv4B0Bm4A/gH+S3wD//+hR/utVT/yf9j/cD2YM0A/iP4k0f/pO/gH4c/lJVgP5B7fxOd/Jc3+nNBv1Gm6YYXAI/bRXUxrKK/0TzWVYaP40LFfLjMQkrpr1MVArpiba5mTB/zaQAP6tA2nRFwgZcMLayZOCv69gABui2RVLMgNuwDJOBfnpwT8eWbhHAvqTT070eoRE1furUK89xS7Vp7XUdUn9Ab/B7rWZwNwRwL5e0fhDHCIxfxK+afMf1yGcv0eU3adGO1jYZzDknHj3vwcnIMZWkdJ5bezLfVqPfZO73zNrJQK+ZDO9jfIxPjHwN6ysVGj3OjNOKOPkyLUttGE9ITFHdowxh/7s4HNI9vttRa70qGtM6nJwvtQ7TvAHIcT5W/Rf6ruwnvpOXqXip6mcfKyL+531awZD6jaENnMZGxQluPUWFN5s0DXdA97+GM7UceNf8L2MV3SPH6nAuOAKYAgBsc0kdlPOgXm/2odvMyo4F4UnibmdJF5CF+OqAAA="
+          },
+          {
+            "id": "user-5f94a1a3-3903-4e93-b63f-e40e6234245d",
+            "username": "Gencoin8",
+            "displayName": "Codex研究ラボ",
+            "iconUrl": "https://pbs.twimg.com/profile_images/2051958410049191936/2xPvU4Du_x96.jpg",
+            "iconBase64": "data:image/webp;base64,UklGRhgEAABXRUJQVlA4IAwEAACwEgCdASpAAEAAPmEoj0WkIqEWDAZkQAYEtgBfPcAh1ki1J/EYxvAKlkveav2xm4m2ZHRHpRqHjo1Culoy22JlDggD+XLO3mcIaOj9G0aBJLoTda4CKoZWqMFV0IU5m6OHUwg6tU8BMpP4RgRrf0nLbvc6hzE8Nf8LQ61uXtfKd9+w/edih3ykMJN7ZCGI4mQ9S/pIIYG3jTHvnrFFAAD+/9U5cK5sfD3Sn792tT0si0hiyUdz1d1vf7/2E8Tw4C3YZL6pe8WwjLnQxyYbaXcIoUkpXug0wDiFkTeqeQutNiOAxf3rbJ1BDYu4Z8md5YI6+1GU8zLc+RX/AU/dduzNdIWEbwEZZV5h0f4Ev1USqOYPHPmL57xknpV5CBEb2OA+jBogAKP4rHm6POEZu0nnfKnbf//7d7MhxGdtJeJmnf808yBFOG8kCEEEA13Nph/gr8zCbhZp+ex/hxDwLPRMCMVTqnG+RkWQtAJBOM8Ont/jpTY32B8RciiP3TSqs6Tx992AENs7nXXRr43rC3AmdPUQeOaqqjK0QmbCqlSp7LhAAQWJksu8iCnQ+RxXn11jYJvW+hpPoFyeIX1++04hCz1ouI2QhULxzH/RgdBdKuJkmDtMuTs5T7k4DMh+w/f9UD4Y7qFEcac9Vf/+2WGCzeUSQn0XFs2lef9gTLxr07SYAYZnifG3XKqvyezxQIXoC72e9fcQWfE2+jNTH80E/Iv95eAhY3V97SLO1MyhkZ+jQcw223aXh+fap0YhVSPyyEVlgn5LqSs1HKd4sgF95kVesVrqkfvjxTsrfVn9Haa3P88d/+ZCB+niHE6PqmZTpqS6OBd9Gm3lR0TLAjPvgVFtm9VgcVsNw/uNtLUq/vNF9dnNehIBK3xT50iYVUD+1g4kXIxqg9L9uz51rivvmZhkVICbWjJunksGnPNy+tOzCqeCF//S9j6jMfNpRywuDCxV61MIX/0Yx2kYfcUfUGdzsjDAWK3zJbtlpmiu352kamnoWAv3BCye3LAH89EXj1iePJcOJTiQP7/9+yqz8uGD4Nx2YcpBXHT7LVQ4dAPQ4lEuw/Wh4NP8itQU50s+NJNSUsD0zF3rT9DXtBjS0CYLGCiZkEP9ZqVeDsZMPfTPICg0Vgh45TCh99rO3nupZqXFLZFoCPle4gboPGQNxbSIEjAzvd/RriH6cMD3pVkS0peIOwLAPVJqRx1WE/94Rj/HTM1wDO+XHWOfAgKJVr5K404XY3cubsJR+7e1dUxPdHud0prj5sn6oIq0orLeuULBT6W24ddw6BNAOGZ62rNBejlb+BaheIkIwQGJmJYHljw5igwl/bxva860k3p5OAJVnZnrvvdpeb5SJ9ogUJmE+qKK7pQkAAAA"
           }
         ]
       },
@@ -364,7 +371,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-07-11T08:16:11.377Z",
+      "lastSyncedAt": "2026-07-11T15:36:47.627Z",
       "lastAction": "checked",
       "lastError": ""
     },
