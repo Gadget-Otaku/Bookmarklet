@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 178,
-  "updatedAt": "2026-07-11T04:48:06.477Z",
+  "syncVersion": 179,
+  "updatedAt": "2026-07-11T04:57:23.728Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 178,
+    "syncVersion": 179,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -316,6 +316,19 @@
             "iconBase64": "data:image/webp;base64,UklGRqwCAABXRUJQVlA4IKACAADwDQCdASpAAEAAPlUijUUjoiEc/EwAOAVEs5m/zj6MR9gl0WogAcxf4OxeX/R8u/0b/0vcA/VHqx+gb+oiXXOzU3OF9YkC+ID0Vo/D0kJXcXD6F/m6ZBowRi+YA/BajEKYYYQu/i6c/mIe2ySTmJ5qlkyxalhO28AA/tPUSI7LWMcYTSTn2TvRTvzsh3yq1IBqU1u/1n8mObIYSyt4/pM99aYaMP/eX3M21fPvZuHW8Na5CZVMCab5NXFW+cbevK8INAczzQBCDbueswhzBs2w5o2IxulLEmTstbfBoutNPHuvzKzm1aq2yC5PCemFaAWXoQ19/x49ty31Nv/TlBI/8/T3afPvZvA+pqsGU3SxG9C6Y9b7405xDoS2JtkTk/Pa4eG6RSbHdm4IcFEavgFEjw6psy6MQcaH8gbVhzu+GVTw4gMCgkAtAD5cXE+olso4T2iFP6MYmFftanhX66U11W8W9kfAisxj+EHn84MY3o3bYaS/+oKzn0wpTsrqe8qPbFlZA6T/eXTybv61zPvxeZs+lbsGXm7FrPsfrNUWluZbxtvcJLtJ9sFDJuGjS5md8OmAwf5oTK0BvBFKpgRZW0Pm7zC0AVzKyRB7c8aEDbBRlbYiHPzNc4PTfKnU2UIyru4rf+s3kelkyHaG+BvaglsFHNtnF8cWICNSBLxFccB5HR2XIh8QfWpksFaxqf2FZ1uaH3/ap0Y+oZMAevQHBuUTw7lsnk1bk3uhQU+syNieM1/k+fyfgocVtGUElnYLbmM33mQi3KA9KzTEgLg/uznytueQvq4fcN5zRGmKVlOUBmvFisyMKOu9qWTOxQSYAmQVV1DrZUU+t/qek0VMW3+m5pPza+hkHBVtMXE5ODpXQL0rwDAwZVC0a8PgAAA="
           }
         ]
+      },
+      {
+        "id": "group-92882a1c-e6cd-4eda-9865-12c738edcc31",
+        "displayName": "AI",
+        "users": [
+          {
+            "id": "user-b4fad3ea-642e-4e44-a706-ae2b4e6a7f67",
+            "username": "mori__lab",
+            "displayName": "もりラボ",
+            "iconUrl": "https://pbs.twimg.com/profile_images/2038999664616452096/3o4rE0-i.jpg",
+            "iconBase64": "data:image/webp;base64,UklGRrYBAABXRUJQVlA4IKoBAACwEACdASpAAEAAPmEskUYkIqGhKAqogAwJZADG8ZP+u6tj0em8+QLEj/bv4B0Bm4A/gH+S3wD//+hR/utVT/yf9j/cD2YM0A/iP4k0f/pO/gH4c/lJVgP5B7fxOd/Jc3+nNBv1Gm6YYXAI/bRXUxrKK/0TzWVYaP40LFfLjMQkrpr1MVArpiba5mTB/zaQAP6tA2nRFwgZcMLayZOCv69gABui2RVLMgNuwDJOBfnpwT8eWbhHAvqTT070eoRE1furUK89xS7Vp7XUdUn9Ab/B7rWZwNwRwL5e0fhDHCIxfxK+afMf1yGcv0eU3adGO1jYZzDknHj3vwcnIMZWkdJ5bezLfVqPfZO73zNrJQK+ZDO9jfIxPjHwN6ysVGj3OjNOKOPkyLUttGE9ITFHdowxh/7s4HNI9vttRa70qGtM6nJwvtQ7TvAHIcT5W/Rf6ruwnvpOXqXip6mcfKyL+531awZD6jaENnMZGxQluPUWFN5s0DXdA97+GM7UceNf8L2MV3SPH6nAuOAKYAgBsc0kdlPOgXm/2odvMyo4F4UnibmdJF5CF+OqAAA="
+          }
+        ]
       }
     ],
     "searchShortcuts": [
@@ -338,7 +351,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-07-11T04:47:13.866Z",
+      "lastSyncedAt": "2026-07-11T04:53:40.636Z",
       "lastAction": "checked",
       "lastError": ""
     },
