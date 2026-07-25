@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 258,
-  "updatedAt": "2026-07-25T06:13:23.933Z",
+  "syncVersion": 259,
+  "updatedAt": "2026-07-25T06:14:57.054Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 258,
+    "syncVersion": 259,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -334,6 +334,13 @@
             "displayName": "Codex研究ラボ",
             "iconUrl": "https://pbs.twimg.com/profile_images/2051958410049191936/2xPvU4Du_x96.jpg",
             "iconBase64": "data:image/webp;base64,UklGRhgEAABXRUJQVlA4IAwEAACwEgCdASpAAEAAPmEoj0WkIqEWDAZkQAYEtgBfPcAh1ki1J/EYxvAKlkveav2xm4m2ZHRHpRqHjo1Culoy22JlDggD+XLO3mcIaOj9G0aBJLoTda4CKoZWqMFV0IU5m6OHUwg6tU8BMpP4RgRrf0nLbvc6hzE8Nf8LQ61uXtfKd9+w/edih3ykMJN7ZCGI4mQ9S/pIIYG3jTHvnrFFAAD+/9U5cK5sfD3Sn792tT0si0hiyUdz1d1vf7/2E8Tw4C3YZL6pe8WwjLnQxyYbaXcIoUkpXug0wDiFkTeqeQutNiOAxf3rbJ1BDYu4Z8md5YI6+1GU8zLc+RX/AU/dduzNdIWEbwEZZV5h0f4Ev1USqOYPHPmL57xknpV5CBEb2OA+jBogAKP4rHm6POEZu0nnfKnbf//7d7MhxGdtJeJmnf808yBFOG8kCEEEA13Nph/gr8zCbhZp+ex/hxDwLPRMCMVTqnG+RkWQtAJBOM8Ont/jpTY32B8RciiP3TSqs6Tx992AENs7nXXRr43rC3AmdPUQeOaqqjK0QmbCqlSp7LhAAQWJksu8iCnQ+RxXn11jYJvW+hpPoFyeIX1++04hCz1ouI2QhULxzH/RgdBdKuJkmDtMuTs5T7k4DMh+w/f9UD4Y7qFEcac9Vf/+2WGCzeUSQn0XFs2lef9gTLxr07SYAYZnifG3XKqvyezxQIXoC72e9fcQWfE2+jNTH80E/Iv95eAhY3V97SLO1MyhkZ+jQcw223aXh+fap0YhVSPyyEVlgn5LqSs1HKd4sgF95kVesVrqkfvjxTsrfVn9Haa3P88d/+ZCB+niHE6PqmZTpqS6OBd9Gm3lR0TLAjPvgVFtm9VgcVsNw/uNtLUq/vNF9dnNehIBK3xT50iYVUD+1g4kXIxqg9L9uz51rivvmZhkVICbWjJunksGnPNy+tOzCqeCF//S9j6jMfNpRywuDCxV61MIX/0Yx2kYfcUfUGdzsjDAWK3zJbtlpmiu352kamnoWAv3BCye3LAH89EXj1iePJcOJTiQP7/9+yqz8uGD4Nx2YcpBXHT7LVQ4dAPQ4lEuw/Wh4NP8itQU50s+NJNSUsD0zF3rT9DXtBjS0CYLGCiZkEP9ZqVeDsZMPfTPICg0Vgh45TCh99rO3nupZqXFLZFoCPle4gboPGQNxbSIEjAzvd/RriH6cMD3pVkS0peIOwLAPVJqRx1WE/94Rj/HTM1wDO+XHWOfAgKJVr5K404XY3cubsJR+7e1dUxPdHud0prj5sn6oIq0orLeuULBT6W24ddw6BNAOGZ62rNBejlb+BaheIkIwQGJmJYHljw5igwl/bxva860k3p5OAJVnZnrvvdpeb5SJ9ogUJmE+qKK7pQkAAAA"
+          },
+          {
+            "id": "user-051a9311-c7ac-4d02-95d9-638e5d7ebf3d",
+            "username": "thsottiaux",
+            "displayName": "Tibo",
+            "iconUrl": "https://pbs.twimg.com/profile_images/2075819673263001600/pj1vyX6I.jpg",
+            "iconBase64": "data:image/webp;base64,UklGRs4DAABXRUJQVlA4IMIDAABwEQCdASpAAEAAPmEokEYkIiGhKBQN+IAMCUAX7XChoRXnutvfdwD6Xi4P5x3E6Be9vMf5yvoH2Bf1d6qXoLftGgLNIzAqqAjkua1ZvXWR3uZCTHV43MqsElt3X8NRJnzGHRhMSEa1PuOW5l73s9ST5otCOk6C+xC4Eiz0R0xsyM/hSxqOqMKr+Xzo7z/TeQvQjooAAPF2Qq7gRyhBfO/3jvfsdAxT/iuLj/UyBtjjVn9n9++qOiZcTWryR+Vz+mzFqce/THefrP0x6Br83SIPRCImVT9grpcpAOfwt3dn48+KUDjkdkwnvUGemI7Tfm+fohV1oqLDUQxWne+OHrGcWNHthemqdcYv+IM5I0OE26TFvddu1y9qQ7HY27A9RJkVq85IXup/DbwsS2KEeePBnDsySZk5YoR7U3lOF5Joyekg1w7rnkH7InJzzMJBbU4bbjyimj/yrtl0ByFphZGEYXucGNorDh+U9JivGFm4v6/N/XoVfvFczx+3zMWW4JeTZhGaUCsD2Km+oEPqmBn4OgLSG+7WR/lzs/fyNaeAYd3NP8s53mtCS83uo8nZ52L1mydXo6VJcB7LKIRHEu1zDgMKqpGvHkaA5OPIJIQAqdq3RObgitFihtT/3R+sCAZOELD85aRxfVWrT6IvZ95mFyz86kLOy91PhMueWLfm/UMYiU1rczn5D6qAeXebS7xOAk40I6yNpMFjaYg1AEDB5Qq/LkZaTMFL/VvluDSfflOMFDxnUCrwi/L//AEGfiXBs8XSZcKv/81Kdodf9nfdZTD/7AekhaXrJLOuNlaJRbUyVKg5unztFbIKBIZUDCyGbMCPDTgBnPr+wjizDfQRaYO6bcjc+nkqRgdYUwclX9OELapoF4R4l/u6houBMxG1N7tRa95e714H4qPeShViPZHXvXn/gWCKvaLtNc5VihuLgcEYAEbd9fEmlFGVl6mmMQG7tblH/l9Z+ok0tQ1D0sI9iBMlypM9Fo/snKgNMKflDk/6NMP+qIc1UzKbK2kvLq+FRzmg6dpueFoBlC8abSzgykCA8JHJe9yCm47Qz2D7d2v9qJJgQfy82fu/lOu4TKNhojPbfX1T5bVfrjIvkHKl14Qs49XHJ+b+rgWgR1giE+fSGhPHkuZka3xXeXRdH9Jb9Zfjof62ujOR96anzN1L0fDQTxLsrPASfk22zfOZe4KPycxJX7Utzp1nTbK6OY/GSNej0e72eUg2xZcuuCQELkQYLTZ5Vr6Mlkf6b2UlNPr677haCXJ+my/opIAAAA=="
           }
         ]
       },
@@ -378,9 +385,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-07-25T06:11:35.977Z",
-      "lastAction": "error",
-      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 30166893d6224e61f066c86b2f838a38d04e4520"
+      "lastSyncedAt": "2026-07-25T06:14:39.250Z",
+      "lastAction": "checked",
+      "lastError": ""
     },
     "ui": {
       "panelSide": "right",
