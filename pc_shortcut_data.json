@@ -131,97 +131,6 @@
       ]
     },
     {
-      "name": "AI",
-      "isFolder": true,
-      "children": [
-        {
-          "name": "ChatGPT",
-          "url": "https://chatgpt.com/?model=auto",
-          "icon": "https://i.pinimg.com/736x/a6/8e/fc/a68efcad5debfbe207f52e8c19b379e9.jpg",
-          "id": "mksetesehfex8",
-          "tags": [
-            "ちゃっと",
-            "tyatto",
-            "ちゃｔ"
-          ]
-        },
-        {
-          "name": "Gemini",
-          "url": "https://gemini.google.com/app?hl=ja",
-          "icon": "https://asset.watch.impress.co.jp/img/ktw/docs/1583/273/icon_l.jpg",
-          "id": "mksetese2v80l",
-          "tags": [
-            "じぇみに",
-            "zyemini",
-            "げみに"
-          ]
-        },
-        {
-          "name": "Google AI Studio",
-          "url": "https://aistudio.google.com",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aistudio.google.com",
-          "id": "mksetesewwf3z",
-          "tags": []
-        },
-        {
-          "name": "DeepSeek",
-          "url": "https://chat.deepseek.com",
-          "icon": "https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg",
-          "id": "mksetesedqt9f",
-          "tags": [
-            "でぃーぷしーく",
-            "でえｐせえｋ",
-            "dhi-pusi-ku"
-          ]
-        },
-        {
-          "name": "Venice AI",
-          "url": "https://venice.ai/chat",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=venice.ai",
-          "id": "mkseteseu4e2u",
-          "tags": []
-        },
-        {
-          "name": "Genspark",
-          "url": "https://www.genspark.ai/agents?type=moa_chat",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai",
-          "id": "mkseteseodp53",
-          "tags": [
-            "じぇんすぱーく",
-            "げんｓぱｒｋ",
-            "zyensupa-ku"
-          ]
-        },
-        {
-          "id": "mn9qyzv43vkmb",
-          "name": "Claude",
-          "url": "https://claude.ai/new",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=claude.ai",
-          "tags": [
-            "くろうど",
-            "くろーど",
-            "ｃぁうで",
-            "ｃぁうど",
-            "kuro-do",
-            "kuroudo"
-          ]
-        },
-        {
-          "id": "mniqt7omy2slm",
-          "name": "Perplexity",
-          "url": "https://www.perplexity.ai/",
-          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.perplexity.ai",
-          "tags": [
-            "ぱーぷれきしてぃ",
-            "ぺｒｐぇぃｔｙ",
-            "pa-purekisithi"
-          ]
-        }
-      ],
-      "id": "mksetesev7uf9",
-      "tags": []
-    },
-    {
       "name": "ガジェット",
       "isFolder": true,
       "children": [
@@ -334,6 +243,97 @@
         "だっしゅぼーど",
         "dassyubo-do"
       ]
+    },
+    {
+      "name": "AI",
+      "isFolder": true,
+      "children": [
+        {
+          "name": "ChatGPT",
+          "url": "https://chatgpt.com/?model=auto",
+          "icon": "https://i.pinimg.com/736x/a6/8e/fc/a68efcad5debfbe207f52e8c19b379e9.jpg",
+          "id": "mksetesehfex8",
+          "tags": [
+            "ちゃっと",
+            "tyatto",
+            "ちゃｔ"
+          ]
+        },
+        {
+          "name": "Gemini",
+          "url": "https://gemini.google.com/app?hl=ja",
+          "icon": "https://asset.watch.impress.co.jp/img/ktw/docs/1583/273/icon_l.jpg",
+          "id": "mksetese2v80l",
+          "tags": [
+            "じぇみに",
+            "zyemini",
+            "げみに"
+          ]
+        },
+        {
+          "name": "Google AI Studio",
+          "url": "https://aistudio.google.com",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=aistudio.google.com",
+          "id": "mksetesewwf3z",
+          "tags": []
+        },
+        {
+          "name": "DeepSeek",
+          "url": "https://chat.deepseek.com",
+          "icon": "https://play-lh.googleusercontent.com/d2zqBFBEymSZKaVg_dRo1gh3hBFn7_Kl9rO74xkDmnJeLgDW0MoJD3cUx0QzZN6jdsg",
+          "id": "mksetesedqt9f",
+          "tags": [
+            "でぃーぷしーく",
+            "でえｐせえｋ",
+            "dhi-pusi-ku"
+          ]
+        },
+        {
+          "name": "Venice AI",
+          "url": "https://venice.ai/chat",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=venice.ai",
+          "id": "mkseteseu4e2u",
+          "tags": []
+        },
+        {
+          "name": "Genspark",
+          "url": "https://www.genspark.ai/agents?type=moa_chat",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.genspark.ai",
+          "id": "mkseteseodp53",
+          "tags": [
+            "じぇんすぱーく",
+            "げんｓぱｒｋ",
+            "zyensupa-ku"
+          ]
+        },
+        {
+          "id": "mn9qyzv43vkmb",
+          "name": "Claude",
+          "url": "https://claude.ai/new",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=claude.ai",
+          "tags": [
+            "くろうど",
+            "くろーど",
+            "ｃぁうで",
+            "ｃぁうど",
+            "kuro-do",
+            "kuroudo"
+          ]
+        },
+        {
+          "id": "mniqt7omy2slm",
+          "name": "Perplexity",
+          "url": "https://www.perplexity.ai/",
+          "icon": "https://www.google.com/s2/favicons?sz=64&domain_url=www.perplexity.ai",
+          "tags": [
+            "ぱーぷれきしてぃ",
+            "ぺｒｐぇぃｔｙ",
+            "pa-purekisithi"
+          ]
+        }
+      ],
+      "id": "mksetesev7uf9",
+      "tags": []
     },
     {
       "name": "大学関連",
@@ -1114,5 +1114,5 @@
     ],
     "gestures": []
   },
-  "version": 31
+  "version": 32
 }
