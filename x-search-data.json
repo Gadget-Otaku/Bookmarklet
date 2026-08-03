@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 301,
-  "updatedAt": "2026-08-03T12:36:04.578Z",
+  "syncVersion": 302,
+  "updatedAt": "2026-08-03T19:30:40.393Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 301,
+    "syncVersion": 302,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,14 +13,14 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "新しいポストを表示",
+          "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/media/GkIPtGVXMAAz8Rh?format=png&name=900x900",
-          "iconBase64": "data:image/webp;base64,UklGRk4BAABXRUJQVlA4IEIBAACQBwCdASpAABUAPmEmkEUkIiGWDVZkQAYEs4BouOABX920UgeezSz4DMLHZoeB2gR4xKLlrJAoaQIpv4YGhHeSvGS8MvgA/vd8smsScy4z52AZiaYAy0pHovBcnlEtgoa9NZnzMSpFR+3lAc6QBsfv/8zR9JvGzqc//yDHNPsa1qSKs2BJwiXhepIaoE1wadITC40RevRf/pX7K0BKBo/HsAa1H+W8azcNWvTm1phuM+LPWiRX8TTZ2zwkA1+QZE0BM1yTkd9BvdaH8w7PHAaF3H+P985X0fx+oo4KsRXlnj1Ch4vUyIRbfW4n7n/Y75RwcSs0+Oa4owLFfdj8sB9Uo2KhJAjWPJmHAHbgeUV686AA+UAJ9sVzawbjAOyKcBpT8J2DVryPqBtMvLoa4j9IjY92tenYA3+h7uv/0AAAAAAA",
+          "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
+          "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-08-03T12:36:04.209Z",
-            "lastRefreshedAt": "2026-08-03T12:36:04.209Z",
-            "expiresAt": "2027-08-31T10:11:25.050Z"
+            "lastCapturedAt": "2026-08-03T19:30:40.380Z",
+            "lastRefreshedAt": "2026-08-03T19:30:40.380Z",
+            "expiresAt": "2027-08-29T06:13:46.371Z"
           }
         },
         {
@@ -392,7 +392,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-08-03T12:36:00.585Z",
+      "lastSyncedAt": "2026-08-03T19:30:37.349Z",
       "lastAction": "checked",
       "lastError": ""
     },
