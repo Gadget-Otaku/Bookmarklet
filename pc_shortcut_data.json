@@ -226,13 +226,6 @@
       ]
     },
     {
-      "name": "Astate",
-      "url": "https://www.astate.edu",
-      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7wDYtSursM5vOqYubM1ECatnQMqHZrplWEzSEGEXu3S_N3fT6qMTw2VY&s=10",
-      "id": "mksetesej239o",
-      "tags": []
-    },
-    {
       "name": "Dashboard",
       "url": "https://pack.astate.edu/public/dashboard",
       "icon": "https://www.google.com/s2/favicons?sz=256&domain_url=pack.astate.edu",
@@ -455,6 +448,13 @@
         "あうとるっく",
         "autorukku"
       ]
+    },
+    {
+      "name": "Astate",
+      "url": "https://www.astate.edu",
+      "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7wDYtSursM5vOqYubM1ECatnQMqHZrplWEzSEGEXu3S_N3fT6qMTw2VY&s=10",
+      "id": "mksetesej239o",
+      "tags": []
     },
     {
       "name": "Gmail",
@@ -1114,5 +1114,5 @@
     ],
     "gestures": []
   },
-  "version": 33
+  "version": 34
 }
