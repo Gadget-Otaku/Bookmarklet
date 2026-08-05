@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 305,
-  "updatedAt": "2026-08-04T05:42:01.504Z",
+  "syncVersion": 306,
+  "updatedAt": "2026-08-05T19:52:16.850Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 305,
+    "syncVersion": 306,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -332,8 +332,8 @@
             "id": "user-5f94a1a3-3903-4e93-b63f-e40e6234245d",
             "username": "Gencoin8",
             "displayName": "Codex研究ラボ",
-            "iconUrl": "https://pbs.twimg.com/profile_images/2051958410049191936/2xPvU4Du_x96.jpg",
-            "iconBase64": "data:image/webp;base64,UklGRhgEAABXRUJQVlA4IAwEAACwEgCdASpAAEAAPmEoj0WkIqEWDAZkQAYEtgBfPcAh1ki1J/EYxvAKlkveav2xm4m2ZHRHpRqHjo1Culoy22JlDggD+XLO3mcIaOj9G0aBJLoTda4CKoZWqMFV0IU5m6OHUwg6tU8BMpP4RgRrf0nLbvc6hzE8Nf8LQ61uXtfKd9+w/edih3ykMJN7ZCGI4mQ9S/pIIYG3jTHvnrFFAAD+/9U5cK5sfD3Sn792tT0si0hiyUdz1d1vf7/2E8Tw4C3YZL6pe8WwjLnQxyYbaXcIoUkpXug0wDiFkTeqeQutNiOAxf3rbJ1BDYu4Z8md5YI6+1GU8zLc+RX/AU/dduzNdIWEbwEZZV5h0f4Ev1USqOYPHPmL57xknpV5CBEb2OA+jBogAKP4rHm6POEZu0nnfKnbf//7d7MhxGdtJeJmnf808yBFOG8kCEEEA13Nph/gr8zCbhZp+ex/hxDwLPRMCMVTqnG+RkWQtAJBOM8Ont/jpTY32B8RciiP3TSqs6Tx992AENs7nXXRr43rC3AmdPUQeOaqqjK0QmbCqlSp7LhAAQWJksu8iCnQ+RxXn11jYJvW+hpPoFyeIX1++04hCz1ouI2QhULxzH/RgdBdKuJkmDtMuTs5T7k4DMh+w/f9UD4Y7qFEcac9Vf/+2WGCzeUSQn0XFs2lef9gTLxr07SYAYZnifG3XKqvyezxQIXoC72e9fcQWfE2+jNTH80E/Iv95eAhY3V97SLO1MyhkZ+jQcw223aXh+fap0YhVSPyyEVlgn5LqSs1HKd4sgF95kVesVrqkfvjxTsrfVn9Haa3P88d/+ZCB+niHE6PqmZTpqS6OBd9Gm3lR0TLAjPvgVFtm9VgcVsNw/uNtLUq/vNF9dnNehIBK3xT50iYVUD+1g4kXIxqg9L9uz51rivvmZhkVICbWjJunksGnPNy+tOzCqeCF//S9j6jMfNpRywuDCxV61MIX/0Yx2kYfcUfUGdzsjDAWK3zJbtlpmiu352kamnoWAv3BCye3LAH89EXj1iePJcOJTiQP7/9+yqz8uGD4Nx2YcpBXHT7LVQ4dAPQ4lEuw/Wh4NP8itQU50s+NJNSUsD0zF3rT9DXtBjS0CYLGCiZkEP9ZqVeDsZMPfTPICg0Vgh45TCh99rO3nupZqXFLZFoCPle4gboPGQNxbSIEjAzvd/RriH6cMD3pVkS0peIOwLAPVJqRx1WE/94Rj/HTM1wDO+XHWOfAgKJVr5K404XY3cubsJR+7e1dUxPdHud0prj5sn6oIq0orLeuULBT6W24ddw6BNAOGZ62rNBejlb+BaheIkIwQGJmJYHljw5igwl/bxva860k3p5OAJVnZnrvvdpeb5SJ9ogUJmE+qKK7pQkAAAA"
+            "iconUrl": "https://pbs.twimg.com/profile_images/2051958410049191936/2xPvU4Du.jpg",
+            "iconBase64": "data:image/webp;base64,UklGRtYEAABXRUJQVlA4IMoEAACwFwCdASpAAEAAPmEmj0UkIiEXC28YQAYEtgBeUQCsPyczN8AvnOMI+AGU272hJdRtvI3+A80l5Qv0fEjtR40vij0mvxTz3+f7/s+Uf6I9gL+af1/0qvYj+zvsgfs850Qhf3JCmNqs7+Q2cbMyI2xeLG9Kj89+QDVH7bv9eww2XL3D4qvCkETYnfMsVVedhRx3qNOlqxv5/2gvYTdXY6t+U5EVwPIiTJVzRfpMbfesgYrYTNhc/YTb7KzN2aa1HUs/HbS6gAAA/v/z5e96uV8rQv30/4KpRqjdU5V/KsY15kacOhi8SDLXNTcGny6QOYbacXfJMOs1BdBikV60au8ysKbTBWNa6bgvTEzZs46Z85E0jx4gFKWI7YUQtnbB1h/gFTcTNHPrlJLmCGAFc1U8IditfZJH/7BBpuypJNQKGDVf9a3f0cIlW/jsMVPg6Ron2J+H0r42KlhzYMxFImEt6yFsFJSji4YFjNbZ93fx0hnLWGiSqdg/2vxD+PKEbb91JilTGhIoECguDOfxAQIpYeKGfuP9qa8w+yHgeHrKpHNbNweBstes+cC+ic5iWrYv7NrdOEeqTVSzy7jifhe7tOc99Roi3Kjlr4BhTXsF3rwf9sstgt+Pk5d9cnB+ZiGb1XywqP/piD32C2XY1KuleQLER25GwWX7FADWi5cq9POL5h5amlWMmBmN985g2vzCXD9FSpHsANzyQvInATkbl1BXwZxJh5Aq+DUEWF9wgNjsmZxw/E8GGLDPMiU9WRKr/alvLPFjCXtxhw7rYAPcm1AXbNwkheD2SeQJkVlae4DKQcHfxt1o2rbamzZB//I8AHkhr4OF97yUBaVSMU1eFVCmsVruVOt1bUncmu/kViJGfAZ/ug19h59TWkbqIkuXlMG1Kkx9gr4A42E/v6+gfipp0fLD3Kya2qfKu2+n4bHk10KZceY+YQVLmzTqpbaT15YP1tL1u0PcRnbYf8CmjX/uB5OqyJSrFrH9a2g9A12v5lzj9i1UiFHvv+h2iQOKFMg6e3Neyjs5dA7ZOsAIxgXoMTwUu8HQTIPsBjI5pqFfS5G6FJ/o+PMg4ohs5N8lteV82PE6oCddkKGHn0DN9hXSNv0JVCVMv4uD+8/ZOIPjwwrmPR7l9wQNUTOR1y7qNyNU2Yuq3j+ifwQeG/zy5fjNX0BkUJA9Ae4LpWyVT3BFgJlBmGaUjAh/0hsSgra9c65mb8SdYRf4A9aomJwz+AQelVAAZASGXxB6yHRUED5nu6G1NTf3r6lT/ptWXndZfLrfcOTMQvCQllN1c4GyuXHZ1+cEopydtyDcVdm/jIHuJ00k15FHmUJI8OvXCC8GfYenzpC2LkTCl++JL9iC6CkwSkHdDEI8e9HkfWN/tVVoqUIliOVZwrilklWbqnvWCccMOG9a09X+CenmGvF1jTLthitZqsXycr7mz4E1qS4CurEknlYicIGftqViw0LAwtD/OeFDsV+LjTx8UFTnBHLnDULwajujSQVVuQA1SovTK0sleQcQxmK2fve2zcT4YHj+5tFMZ7knrocaDA38oBTZhPUyZ8VL13bV5xQovdn81bWau93/A+R6QbfhzF8eFX44W6y+fDBLZA7WBX6kPopFgXcotgAAAA=="
           },
           {
             "id": "user-051a9311-c7ac-4d02-95d9-638e5d7ebf3d",
@@ -392,8 +392,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-08-04T05:15:06.930Z",
-      "lastAction": "upload",
+      "lastSyncedAt": "2026-08-05T19:52:13.331Z",
+      "lastAction": "checked",
       "lastError": ""
     },
     "ui": {
