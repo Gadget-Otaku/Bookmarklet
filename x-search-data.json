@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 400,
-  "updatedAt": "2026-08-25T16:22:37.127Z",
+  "syncVersion": 401,
+  "updatedAt": "2026-08-25T17:39:41.070Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 400,
+    "syncVersion": 401,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,13 +13,13 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "niwakasumaho",
+          "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "",
-          "iconBase64": "",
+          "iconUrl": "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+          "iconBase64": "data:image/webp;base64,UklGRkwBAABXRUJQVlA4IEABAAAwCQCdASpAAEAAPl0ojkUjoqEa+6QAOAXEtIBn75YPADSBTN/Fk939AD9SUKnt0aC2tM/o2dbJET+pPNnubIqntIr4MrQc4Pj/jOnTgbNJxDIQAP74p3Qm7DvoPiv2gyH5sJhkVoT6yOoHWPZ59K1QZFrRORkgAgFMH1bFg+YRRU/1layqqPw3xkmQrU983NYgMFoqZrXAKXyWTngyf1JIaTytyHQWRsOcnOcB4KPSEDSJzs6liUMAYOHIOQQ+xzpzeaWNeRGH2fgNuv+bIoGCYGM3+nsCkPNhLt/cyanq41/DlgKfkQq7Omng0frmOYNt3gcT4ej9Z+IVqS6m7OsehJAemJPleVyTXV+OBsMoUHZX4uMr/FV5Ew8n+BbtgaTH0QgaISmgU9mLUjUO6/MEm92QsfSACdlOC0+7g+gAAA==",
           "sessionMeta": {
-            "lastCapturedAt": "2026-08-25T16:22:36.008Z",
-            "lastRefreshedAt": "2026-08-25T16:22:36.008Z",
+            "lastCapturedAt": "2026-08-25T17:39:39.443Z",
+            "lastRefreshedAt": "2026-08-25T17:39:39.443Z",
             "expiresAt": "2027-08-31T10:11:25.050Z"
           }
         },
@@ -399,7 +399,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-08-25T16:13:17.628Z",
+      "lastSyncedAt": "2026-08-25T17:27:28.306Z",
       "lastAction": "checked",
       "lastError": ""
     },
