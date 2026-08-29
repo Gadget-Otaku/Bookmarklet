@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 420,
-  "updatedAt": "2026-08-29T15:48:37.975Z",
+  "syncVersion": 421,
+  "updatedAt": "2026-08-29T15:58:49.603Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 420,
+    "syncVersion": 421,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,13 +13,13 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "未送信ポスト",
+          "displayName": "niwakasumaho",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/media/G_s9f0cWsAAO2fU?format=jpg&name=360x360",
-          "iconBase64": "data:image/webp;base64,UklGRpYCAABXRUJQVlA4IIoCAADwDwCdASpAACMAPmEmkEUkIiGZWkzMQAYEtIAJ6M+313O+DtI/2XGne8C1Aumb0Jt9n5vP8B90f0gfun+t/tHmg/JP6v/uv7x8AH8p/of+x9VX1Z/sr7I36qlqP/4jIYhJlptrx8YIc/5OjnDrL2P0Nb7YGsWcoVFV3AGX0TPpJCcUpQRZKVgAAP75vfPoL65V34Fr/gGpDysSWZ4H5h4WGygfVj8PdBH/GNxR919vx/t78HoliAk+6Ueg09txsJ2St4z2ZLMAt9+Pce6TGcXVIblAU3Ks32Wfv6OsqiwG/k9U+XsdvJj2UrBaf/1t/DQx7bmdlyyS6eqjH/LBAb70yli9BhJRxagqCh4eU9WlJrY6j72htyzGlQqinGrzMyFsJEhcTFecQo/g2RxBjq3vPf6/eZudeZh6Fcn6iwifBExDPo1/XoXQiweEyQlzg6s5kcaNnLPrr4E5XaUfyPJ+Lv6ahtVNuIuAImTFVaq/Ms62qOgF2a482I4XYCLHQt5guwRzGie3KpOPqAV2S83ZNZlqJXI2MVr4wZnU8VBNDLlVc67goLwo2iVB3lZV2bBPsjRBPhlewvv/1mfi+547QgWhIXC+vIHJ386E708GU3Zwn/wiA51bIsQ3jShDHlZiUHcx8KfP/M7Yaf1uqyBLYSCPVRaBf2qY+SmblYLyJrtpoBz8gz4p6+qqilurON/0C+3QFPpZh0OMXm2b0WCC7fjVG26CP0x/w8D60Gw3JXqUZVqKz8M+OTrxaWc2fqPG3xrjaT0FIndOwOOqiJ6QyBJdNzlvMkIGpaDCGxzSomrhGLoiLo9DqID+LiX0SSiy/p1TWNb18hy5D/kZddb+gzBVEv70sPAAAA==",
+          "iconUrl": "",
+          "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-08-29T15:48:36.992Z",
-            "lastRefreshedAt": "2026-08-29T15:48:36.992Z",
+            "lastCapturedAt": "2026-08-29T15:58:48.980Z",
+            "lastRefreshedAt": "2026-08-29T15:58:48.980Z",
             "expiresAt": "2027-08-31T10:11:25.050Z"
           }
         },
@@ -399,7 +399,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-08-29T15:38:09.726Z",
+      "lastSyncedAt": "2026-08-29T15:48:38.916Z",
       "lastAction": "upload",
       "lastError": ""
     },
