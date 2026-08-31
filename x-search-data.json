@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 455,
-  "updatedAt": "2026-08-31T05:36:50.383Z",
+  "syncVersion": 456,
+  "updatedAt": "2026-08-31T05:48:20.364Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 455,
+    "syncVersion": 456,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -18,8 +18,8 @@
           "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
           "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-08-31T05:36:49.954Z",
-            "lastRefreshedAt": "2026-08-31T05:36:49.954Z",
+            "lastCapturedAt": "2026-08-31T05:48:19.792Z",
+            "lastRefreshedAt": "2026-08-31T05:48:19.792Z",
             "expiresAt": "2027-08-29T06:13:46.371Z"
           }
         },
@@ -399,9 +399,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-08-31T05:16:53.556Z",
-      "lastAction": "upload",
-      "lastError": ""
+      "lastSyncedAt": "2026-08-31T05:36:51.229Z",
+      "lastAction": "error",
+      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 9b725551315554d0fe16efeec326b0a51839d713"
     },
     "ui": {
       "panelSide": "right",
