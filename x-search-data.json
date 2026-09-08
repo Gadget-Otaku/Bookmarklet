@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 535,
-  "updatedAt": "2026-09-08T06:53:04.232Z",
+  "syncVersion": 536,
+  "updatedAt": "2026-09-08T06:57:55.197Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 535,
+    "syncVersion": 536,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -45,14 +45,19 @@
         "url": "https://x.com/i/lists/1950636509260107924"
       },
       {
-        "id": "xlist-49d5f8e0-430d-43ba-b21c-90d44ae8605e",
-        "displayName": "原神リーク",
-        "url": "https://x.com/i/lists/1997083710349541724"
+        "id": "xlist-c2a852d6-a082-4ee7-82df-7604446b6e83",
+        "displayName": "AI界隈",
+        "url": "https://x.com/i/lists/2097216727465537969"
       },
       {
         "id": "xlist-5f284481-8589-40ca-a3b6-84ff4a13fc23",
         "displayName": "Samusngアンチ",
         "url": "https://x.com/i/lists/1950637349307871239"
+      },
+      {
+        "id": "xlist-49d5f8e0-430d-43ba-b21c-90d44ae8605e",
+        "displayName": "原神リーク",
+        "url": "https://x.com/i/lists/1997083710349541724"
       }
     ],
     "communities": [
@@ -413,9 +418,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-09-08T06:51:47.698Z",
-      "lastAction": "error",
-      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 2297af5aef651173dcc5acfdee72e8496d190e84"
+      "lastSyncedAt": "2026-09-08T06:55:09.458Z",
+      "lastAction": "checked",
+      "lastError": ""
     },
     "ui": {
       "panelSide": "right",
