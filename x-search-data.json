@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 534,
-  "updatedAt": "2026-09-08T06:51:45.808Z",
+  "syncVersion": 535,
+  "updatedAt": "2026-09-08T06:53:04.232Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 534,
+    "syncVersion": 535,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,13 +13,13 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "niwakasumaho",
+          "displayName": "原神リーク",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "",
-          "iconBase64": "",
+          "iconUrl": "https://pbs.twimg.com/media/GkIPUqRX0AAGDxg?format=png&name=360x360",
+          "iconBase64": "data:image/webp;base64,UklGRlYBAABXRUJQVlA4IEoBAABwCACdASpAABUAPmEmkEWkIiGWCq5kQAYEsZOACIuK2GANdSPjLA0x7QG7V/YAHHvZay1t9nnLIBOt5+mBlRffwrQmyXlVGznYz6iAAP76GJgvIfo3zOuYjhQ/O12ZyBhgCTu6nAyP+SXfPu79TmXFkQ//kGP6ZW/BXnk7QbMfPFj8h0YXvcZ8fs/HECFD2cJzzr4YKJ1M/zsHN9Eogsa6MWpEqLl66CZTzNhdQy0NHa2aT8PjoOZbeyb8RHqPgT4B7PIFfAFyPY/qTP6xbxBa6r3FgLs6UAzTByGxCD/q4mk8NX1SeIlkNPW9bHh4Nxalv3jNWJSy+rDNnERWHMRZEeBFcnTiA7/y9mDD/XcP3Vu/5tVIs4WqtbycuVSDT9io5W5GA/Zz44qDaILIlQKyAqygH0ZqTpCpQZL+JAlYuvYs3MUfwNUAAAA=",
           "sessionMeta": {
-            "lastCapturedAt": "2026-09-08T06:19:29.591Z",
-            "lastRefreshedAt": "2026-09-08T06:19:29.591Z",
+            "lastCapturedAt": "2026-09-08T06:53:02.798Z",
+            "lastRefreshedAt": "2026-09-08T06:53:02.798Z",
             "expiresAt": "2027-10-11T03:52:23.580Z"
           }
         },
@@ -413,9 +413,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-09-08T06:51:32.248Z",
-      "lastAction": "checked",
-      "lastError": ""
+      "lastSyncedAt": "2026-09-08T06:51:47.698Z",
+      "lastAction": "error",
+      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 2297af5aef651173dcc5acfdee72e8496d190e84"
     },
     "ui": {
       "panelSide": "right",
