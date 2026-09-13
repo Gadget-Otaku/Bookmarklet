@@ -65,3 +65,5 @@ Chromeの新規会話では、Pro指定ありで同じ1候補FAILを再現し、
 Private repoの認証接続を追加する代わりに、ユーザーの明示指示で追跡済みwriting-style projectをPublic `Gadget-Otaku/Bookmarklet/main/writing-style/`へ移行する。公開対象はprofile、runtime、集計、sanitized synthetic cases、scripts、評価summary。raw corpus、holdout原文、neutralized brief、model output/event、credential、local manifestは`.local/`に残し、archiveにも含めない。
 
 GPTs controller 1.1.0は`https://raw.githubusercontent.com/Gadget-Otaku/Bookmarklet/main/writing-style/x/STYLE.md`を直接取得する。GitHub HTML pageや検索snippetをSTYLEとして扱わず、HTTP本文のplatform、account、style_versionを確認する。repository push、匿名raw read-back、GPTsのWeb取得、3候補生成は別々の検証境界とする。
+
+Public `main`反映後、認証Cookieを使わないraw取得でSTYLE/runtimeのlocal hash一致と5-case smoke PASSを確認。GPTへmarker本文を保存し、Chromeの新規会話でアクセス専用診断を実施した。応答にraw URLのsource link、account、style_version、generated_atが表示されたためGPTs Web取得をPASSとした。platform値だけは原文の小文字`x`が表示上`X`へ正規化された。診断ではX投稿を生成していない。

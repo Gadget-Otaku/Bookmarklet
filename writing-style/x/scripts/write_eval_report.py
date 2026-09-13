@@ -119,18 +119,19 @@ def main():
       '', '## Live GPTs deployment check', '',
       '2026-09-12にGPT `X投稿用` のInstructionsへruntime 1.0.3を保存し、Chromeで再読込した値がmarker間本文とbyte一致することを確認。Floorpでは競合が生じたため、その後の配備確認はChromeの新規タブだけで行った。',
       '', '同じ入力「最新版を再読込して、次のメモを短いX投稿にしてください」で、Pro指定ありは1候補だけを返してFAIL。Pro指定を外した別の新規会話は①②③を各1回含む3候補を返してPASS。model表示のない既定経路とPro経路を同一結果として扱わない。',
-      '', 'Private `Gadget-Otaku/dev`は通常Web取得で404となったため、ユーザーの明示指示で公開可能なtracked projectだけをPublic `Gadget-Otaku/Bookmarklet`へ移行。raw corpus、holdout原文、model output/event、credential、local manifestは移行していない。Public raw URLの取得と3候補形式はGPTsの新規会話で別々に確認する。',
+      '', 'Private `Gadget-Otaku/dev`は通常Web取得で404となったため、ユーザーの明示指示で公開可能なtracked projectだけをPublic `Gadget-Otaku/Bookmarklet`へ移行。raw corpus、holdout原文、model output/event、credential、local manifestは移行していない。',
+      '', 'runtime 1.1.0のmarker本文をGPTへ保存。Chromeの別の新規会話でX投稿を生成しないアクセス専用診断を実行し、応答にraw URLのsource link、account、style_version、generated_atが表示されたためGPTs Web取得をPASSとした。platformは元ファイルの小文字xから表示上Xへ正規化された。',
       '', '## Publication and remote smoke', '']
     if remote:
         report += [f'{remote_visibility} {remote["repository"]["nameWithOwner"]} / default branch {remote["branch"]}。gh read-back SHA `{remote["remote_sha"]}` とpublication worktree HEADが一致。STYLE/GPTSは公開raw URLから取得し、local hash一致を確認。取得copyを明示して独立Codex generatorへ与え、技術・丁寧・推測・URL・瞬間反応のsmoke {remote["mechanical_pass"]}/{remote["cases"]} PASS。judgeは未実行のためsmoke品質scoreは付けない。', '',table(['File','Remote/local SHA-256'],list(remote['content_hashes'].items())), '', '評価後のreportだけを追記する場合も、STYLE/runtime hashは不変。最後の文書commitはGit履歴と完了時read-backで確認する。']
-        report += ['', '公開treeのsecret/large-file/nested-Git等のauditは3,624 files / 0 findings。現行workspaceに基づく隔離review treeも5,064 files / 0 findings。共有workspaceそのもののauditに残る別案件の未追跡Android source 2件を、今回のstageへ取り込んで解消した扱いにはしていない。project adapter/Handoff、必須file/link/privacy/hash、18 unit testsはPASS。READMEのcherry-pick競合はwriting-styleの案内だけを既定branchへ加える形で解決した。']
+        report += ['', '移行対象46 filesはraw corpus、holdout、model logs、credential、machine-local pathを含まず、必須file/link/privacy/hashと19 unit testsがPASS。移行時のPublic repository全体のtracked auditには既存memo_data.jsonのlegacy absolute path 1件が残るが、今回追加したwriting-style/root規則のfindingではない。']
         if evidence['global_rule_publication']:
             g=evidence['global_rule_publication']
             report += ['',f'一般化したCLI隔離規則は正本からallowlist mirrorを生成し、28 files / drift 0とrule validationを確認。既存設定管理branch `{g["branch"]}` のcommit `{g["commit"]}` へ反映し、Private visibilityと変更3fileのremote SHA-256一致をread-backした。default branchに未統合の他案件履歴を混ぜないため、文体projectの公開と分離している。']
     else:report += ['NOT TESTED: 初回push後にghで取得したcopyを使って5ケースを実行し、この節を実測で更新する。']
-    report += ['', '## Notion and remaining limits', '',
+    report += ['', '## Public boundary and remaining limits', '',
       '既存の開発Wishlist更新では原文やprivate corpusを外部serviceへ送信していない。Public repositoryへの移行でもraw corpus、holdout、model logsはlocal-onlyを維持する。',
-      '', 'KnowledgeへのSTYLE upload、Iceravenへの組込み、実際のX投稿・UI counter、live fact-check経路、人間の第三者評価: NOT TESTED。CLIのSTYLE+runtime模擬、公開raw read-back、GPTsの実取得を同じ成功証拠として扱わない。',
+      '', 'Public raw URLのGPTs実取得: PASS。KnowledgeへのSTYLE upload、Iceravenへの組込み、実際のX投稿・UI counter、live fact-check経路、人間の第三者評価: NOT TESTED。CLIのSTYLE+runtime模擬、公開raw read-back、GPTsの実取得を別の成功証拠として記録した。',
       '', '次versionの優先課題は、意味の省略/確信度の変化、短い曖昧入力の3案、本人の自己修正・改行・口癖の機能、丁寧な不同意と技術以外のhumor。finalは使用済みであり、追加の独立コーパスと人間によるblind評価で確認する。今回finalの失敗を見てSTYLEを再調整しない。', '']
     (BASE/'EVAL_REPORT.md').write_text('\n'.join(report))
     print(json.dumps({'report':'x/EVAL_REPORT.md','rounds':list(summaries),'remote_verified':remote is not None}))

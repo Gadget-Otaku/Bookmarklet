@@ -7,6 +7,8 @@
 - Private repo用の認証済みConnector/API前提を削除し、raw取得失敗時だけKnowledge/fallbackへ移る構成へ変更。
 - remote smokeをPublic repository gateと匿名raw取得の検査へ変更。
 - raw corpus、holdout、モデル出力、session dataは`.local/`のまま移行対象外。
+- Public `main`のraw URLを匿名取得し、STYLE/runtime hash一致とremote smoke 5/5 PASSを確認。
+- GPT `X投稿用`へruntime 1.1.0を保存し、Chromeのアクセス専用診断でraw source linkとSTYLE metadataを確認。X投稿は生成していない。
 
 ## 1.0.3 — 2026-09-12
 
