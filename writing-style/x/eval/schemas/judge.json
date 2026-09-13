@@ -1,0 +1,127 @@
+{
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "candidate_scores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "style_similarity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "thought_flow": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "vocabulary": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "rhythm": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "mode": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "emotion": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "sarcasm": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "x_naturalness": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "ai_pattern_avoidance": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "conciseness": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "intent": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "fact_discipline": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                },
+                "over_imitation_avoidance": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                }
+              },
+              "required": [
+                "style_similarity",
+                "thought_flow",
+                "vocabulary",
+                "rhythm",
+                "mode",
+                "emotion",
+                "sarcasm",
+                "x_naturalness",
+                "ai_pattern_avoidance",
+                "conciseness",
+                "intent",
+                "fact_discipline",
+                "over_imitation_avoidance"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "failures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "candidate_scores",
+          "failures",
+          "notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "results"
+  ],
+  "additionalProperties": false
+}

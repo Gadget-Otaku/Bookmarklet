@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string"
+              },
+              "facts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "stance": {
+                "type": "string"
+              },
+              "emotion": {
+                "type": "string"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "required_context": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "topic",
+              "facts",
+              "stance",
+              "emotion",
+              "intent",
+              "required_context"
+            ],
+            "additionalProperties": false
+          },
+          "expected_mode": {
+            "type": "string"
+          },
+          "sufficient": {
+            "type": "boolean"
+          },
+          "limitation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "brief",
+          "expected_mode",
+          "sufficient",
+          "limitation"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "results"
+  ],
+  "additionalProperties": false
+}

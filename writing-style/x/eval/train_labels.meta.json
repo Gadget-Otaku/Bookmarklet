@@ -1,0 +1,7 @@
+{
+  "source_sha256": "0f57b33bb6a12a9a608087dbf4750b82fa32c4fdd9ab6b6597b813fb4fcdd919",
+  "train_jsonl_sha256": "57e3fe29181e5afde299d1548a62aff6f4119b3fd1e24174edd2d1f2aacd180d",
+  "labels_sha256": "b4d1239ae7b60b8e847bb84f02cafa561a241d1d20a09a05406d4881b8ed2008",
+  "label_count": 1486,
+  "analysis_version": "1.0.0"
+}

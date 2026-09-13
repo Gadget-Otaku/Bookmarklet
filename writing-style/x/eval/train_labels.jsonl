@@ -1,0 +1,1486 @@
+{"index": 1, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 2, "category": "natural_original", "modes": ["仮説", "比較・レビュー"]}
+{"index": 3, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 4, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 5, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 6, "category": "natural_original", "modes": ["自虐", "技術考察", "未来予測"]}
+{"index": 8, "category": "natural_original", "modes": ["未来予測", "仮説"]}
+{"index": 10, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "ネタ"]}
+{"index": 11, "category": "natural_original", "modes": ["比較・レビュー", "未来予測"]}
+{"index": 12, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 15, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 16, "category": "natural_original", "modes": ["皮肉", "軽い不満"]}
+{"index": 17, "category": "contextual_original", "modes": ["強い称賛", "未来予測", "ツール紹介"]}
+{"index": 20, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 22, "category": "natural_original", "modes": ["強い苛立ち", "ネタ"]}
+{"index": 23, "category": "contextual_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 26, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "未来予測"]}
+{"index": 27, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 28, "category": "natural_original", "modes": ["嘲笑"]}
+{"index": 29, "category": "natural_original", "modes": ["成功・興奮", "未来予測", "技術考察"]}
+{"index": 30, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 31, "category": "natural_original", "modes": ["未来予測", "自虐", "ネタ"]}
+{"index": 32, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "強い苛立ち"]}
+{"index": 33, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 35, "category": "natural_original", "modes": ["瞬間リアクション", "迷い"]}
+{"index": 36, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 37, "category": "natural_original", "modes": ["迷い", "軽い不満"]}
+{"index": 38, "category": "natural_original", "modes": ["迷い"]}
+{"index": 39, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 40, "category": "natural_original", "modes": ["未来予測", "技術考察"]}
+{"index": 41, "category": "natural_original", "modes": ["比較・レビュー", "未来予測"]}
+{"index": 42, "category": "natural_original", "modes": ["ネタ", "嘲笑"]}
+{"index": 43, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 44, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 45, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 46, "category": "natural_original", "modes": ["ツール紹介", "比較・レビュー"]}
+{"index": 47, "category": "natural_original", "modes": ["瞬間リアクション", "ネタ"]}
+{"index": 48, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 49, "category": "natural_original", "modes": ["迷い", "比較・レビュー"]}
+{"index": 50, "category": "natural_original", "modes": ["成功・興奮", "技術考察", "未来予測"]}
+{"index": 51, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 52, "category": "natural_original", "modes": ["解説・共有", "技術考察", "ツール紹介"]}
+{"index": 55, "category": "contextual_original", "modes": ["比較・レビュー", "仮説"]}
+{"index": 56, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "ツール紹介"]}
+{"index": 57, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 58, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 59, "category": "natural_original", "modes": ["激怒"]}
+{"index": 60, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 62, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 63, "category": "natural_original", "modes": ["自己修正", "比較・レビュー", "強い称賛"]}
+{"index": 66, "category": "natural_original", "modes": ["比較・レビュー", "激怒"]}
+{"index": 67, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 71, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 72, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "仮説"]}
+{"index": 75, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 76, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 77, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 78, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "仮説"]}
+{"index": 81, "category": "natural_original", "modes": ["比較・レビュー", "仮説"]}
+{"index": 85, "category": "natural_original", "modes": ["嘲笑", "強い苛立ち"]}
+{"index": 86, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー"]}
+{"index": 87, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 88, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 89, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 91, "category": "natural_original", "modes": ["軽い不満", "瞬間リアクション"]}
+{"index": 92, "category": "natural_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 93, "category": "natural_original", "modes": ["軽い不満", "仮説"]}
+{"index": 94, "category": "natural_original", "modes": ["激怒"]}
+{"index": 95, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 96, "category": "natural_original", "modes": ["瞬間リアクション", "ネタ"]}
+{"index": 97, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 98, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 99, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 100, "category": "natural_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 101, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 102, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮", "強い称賛"]}
+{"index": 103, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 104, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 105, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 107, "category": "contextual_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 108, "category": "natural_original", "modes": ["比較・レビュー", "激怒"]}
+{"index": 109, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 110, "category": "natural_original", "modes": ["ネタ", "皮肉", "未来予測"]}
+{"index": 111, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 112, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 113, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 114, "category": "natural_original", "modes": ["皮肉", "比較・レビュー"]}
+{"index": 116, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "技術考察"]}
+{"index": 117, "category": "natural_original", "modes": ["強い苛立ち", "技術考察", "未来予測"]}
+{"index": 118, "category": "natural_original", "modes": ["強い苛立ち", "嘲笑"]}
+{"index": 119, "category": "natural_original", "modes": ["軽い不満", "未来予測"]}
+{"index": 120, "category": "natural_original", "modes": ["技術考察", "未来予測", "解説・共有"]}
+{"index": 121, "category": "natural_original", "modes": ["技術考察", "未来予測", "軽い不満"]}
+{"index": 122, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 124, "category": "natural_original", "modes": ["激怒"]}
+{"index": 125, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 126, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 127, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 128, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 129, "category": "natural_original", "modes": ["技術考察", "軽い不満", "自己修正"]}
+{"index": 130, "category": "natural_original", "modes": ["未来予測", "技術考察", "迷い"]}
+{"index": 131, "category": "natural_original", "modes": ["激怒"]}
+{"index": 132, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 133, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 134, "category": "natural_original", "modes": ["成功・興奮", "未来予測", "技術考察"]}
+{"index": 135, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 136, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 137, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 138, "category": "natural_original", "modes": ["瞬間リアクション", "軽い不満"]}
+{"index": 139, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 140, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 141, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 143, "category": "natural_original", "modes": ["皮肉", "強い苛立ち"]}
+{"index": 144, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い苛立ち"]}
+{"index": 145, "category": "natural_original", "modes": ["強い苛立ち", "仮説"]}
+{"index": 146, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 147, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 149, "category": "natural_original", "modes": ["激怒"]}
+{"index": 150, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 154, "category": "natural_original", "modes": ["ツール紹介", "強い称賛"]}
+{"index": 155, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 156, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 158, "category": "natural_original", "modes": ["仮説", "比較・レビュー", "技術考察"]}
+{"index": 159, "category": "natural_original", "modes": ["未来予測", "比較・レビュー", "強い称賛"]}
+{"index": 160, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮", "強い称賛"]}
+{"index": 161, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 162, "category": "natural_original", "modes": ["未来予測", "仮説"]}
+{"index": 166, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 167, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 169, "category": "natural_original", "modes": ["嘲笑"]}
+{"index": 171, "category": "natural_original", "modes": ["仮説", "比較・レビュー", "軽い不満"]}
+{"index": 173, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 174, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 175, "category": "natural_original", "modes": ["比較・レビュー", "迷い"]}
+{"index": 176, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー"]}
+{"index": 177, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 178, "category": "natural_original", "modes": ["未来予測", "技術考察"]}
+{"index": 179, "category": "natural_original", "modes": ["技術考察", "自虐", "仮説"]}
+{"index": 180, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 181, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 182, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 183, "category": "natural_original", "modes": ["未来予測", "軽い不満"]}
+{"index": 185, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 186, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 187, "category": "natural_original", "modes": ["迷い", "瞬間リアクション"]}
+{"index": 188, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "嘲笑"]}
+{"index": 189, "category": "natural_original", "modes": ["比較・レビュー", "皮肉"]}
+{"index": 190, "category": "natural_original", "modes": ["強い称賛", "解説・共有"]}
+{"index": 191, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 192, "category": "natural_original", "modes": ["解説・共有", "未来予測"]}
+{"index": 193, "category": "contextual_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 195, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 196, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 197, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 198, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 199, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 200, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 201, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 202, "category": "natural_original", "modes": ["技術考察", "軽い不満", "未来予測"]}
+{"index": 203, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 204, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 205, "category": "natural_original", "modes": ["成功・興奮", "ネタ"]}
+{"index": 207, "category": "natural_original", "modes": ["強い苛立ち", "皮肉"]}
+{"index": 208, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 209, "category": "natural_original", "modes": ["瞬間リアクション", "ネタ", "仮説"]}
+{"index": 210, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 211, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 212, "category": "natural_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 213, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 214, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 215, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 218, "category": "natural_original", "modes": ["成功・興奮", "比較・レビュー", "軽い不満"]}
+{"index": 219, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 220, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 221, "category": "natural_original", "modes": ["仮説", "ネタ"]}
+{"index": 223, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い称賛"]}
+{"index": 225, "category": "natural_original", "modes": ["未来予測", "軽い不満"]}
+{"index": 226, "category": "natural_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 227, "category": "natural_original", "modes": []}
+{"index": 228, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 229, "category": "natural_original", "modes": ["迷い", "嘲笑"]}
+{"index": 230, "category": "natural_original", "modes": ["仮説", "技術考察", "迷い"]}
+{"index": 231, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 233, "category": "natural_original", "modes": ["強い苛立ち", "解説・共有"]}
+{"index": 234, "category": "natural_original", "modes": ["成功・興奮", "強い苛立ち", "技術考察"]}
+{"index": 235, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 236, "category": "natural_original", "modes": ["仮説", "比較・レビュー", "技術考察"]}
+{"index": 237, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 238, "category": "natural_original", "modes": ["未来予測", "軽い不満"]}
+{"index": 239, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "解説・共有"]}
+{"index": 240, "category": "natural_original", "modes": ["強い苛立ち", "嘲笑", "比較・レビュー"]}
+{"index": 241, "category": "natural_original", "modes": ["強い称賛", "成功・興奮", "ネタ"]}
+{"index": 243, "category": "natural_original", "modes": ["自己修正", "技術考察"]}
+{"index": 244, "category": "contextual_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 245, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 246, "category": "natural_original", "modes": ["強い称賛", "成功・興奮"]}
+{"index": 247, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 248, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有", "技術考察"]}
+{"index": 249, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 250, "category": "natural_original", "modes": ["嘲笑", "皮肉"]}
+{"index": 251, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 252, "category": "natural_original", "modes": ["自己修正", "軽い不満"]}
+{"index": 253, "category": "natural_original", "modes": ["比較・レビュー", "嘲笑"]}
+{"index": 254, "category": "template_or_campaign", "modes": ["丁寧な対外文"]}
+{"index": 255, "category": "natural_original", "modes": ["ツール紹介", "強い称賛", "成功・興奮"]}
+{"index": 256, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "強い称賛"]}
+{"index": 257, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "未来予測"]}
+{"index": 258, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "迷い"]}
+{"index": 259, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 260, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 262, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 263, "category": "contextual_original", "modes": ["軽い不満", "瞬間リアクション"]}
+{"index": 264, "category": "template_or_campaign", "modes": ["丁寧な対外文"]}
+{"index": 265, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 266, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 267, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 269, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 270, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 272, "category": "natural_original", "modes": ["仮説", "未来予測", "技術考察"]}
+{"index": 273, "category": "natural_original", "modes": []}
+{"index": 274, "category": "natural_original", "modes": ["自己修正", "解説・共有"]}
+{"index": 275, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 277, "category": "natural_original", "modes": ["仮説", "技術考察", "迷い"]}
+{"index": 278, "category": "natural_original", "modes": ["自己修正", "技術考察", "軽い不満"]}
+{"index": 279, "category": "natural_original", "modes": ["強い称賛", "ネタ"]}
+{"index": 280, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "技術考察"]}
+{"index": 281, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 282, "category": "natural_original", "modes": ["技術考察", "迷い", "解説・共有"]}
+{"index": 283, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 284, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 285, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 287, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 289, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 290, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 291, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 292, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "軽い不満"]}
+{"index": 293, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 294, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 295, "category": "natural_original", "modes": ["技術考察", "仮説", "ツール紹介"]}
+{"index": 296, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 297, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "嘲笑"]}
+{"index": 298, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 301, "category": "natural_original", "modes": ["未来予測", "強い苛立ち"]}
+{"index": 302, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 303, "category": "natural_original", "modes": ["皮肉", "嘲笑", "ネタ"]}
+{"index": 304, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 306, "category": "natural_original", "modes": ["仮説"]}
+{"index": 307, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 308, "category": "natural_original", "modes": ["迷い"]}
+{"index": 309, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 311, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 312, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "技術考察"]}
+{"index": 313, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "迷い"]}
+{"index": 314, "category": "natural_original", "modes": ["瞬間リアクション", "強い苛立ち"]}
+{"index": 315, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 316, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 317, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 319, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 320, "category": "natural_original", "modes": []}
+{"index": 321, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮", "嘲笑"]}
+{"index": 322, "category": "contextual_original", "modes": ["比較・レビュー", "成功・興奮", "強い称賛"]}
+{"index": 323, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 324, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 326, "category": "natural_original", "modes": ["技術考察", "仮説", "ネタ"]}
+{"index": 327, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 328, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "未来予測"]}
+{"index": 329, "category": "natural_original", "modes": []}
+{"index": 330, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 331, "category": "natural_original", "modes": ["強い称賛", "解説・共有", "ネタ"]}
+{"index": 332, "category": "natural_original", "modes": ["仮説"]}
+{"index": 333, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 334, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 335, "category": "natural_original", "modes": []}
+{"index": 336, "category": "natural_original", "modes": ["瞬間リアクション", "迷い"]}
+{"index": 337, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 338, "category": "natural_original", "modes": ["技術考察", "未来予測", "迷い"]}
+{"index": 339, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 340, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 342, "category": "natural_original", "modes": ["瞬間リアクション", "仮説"]}
+{"index": 343, "category": "contextual_original", "modes": ["技術考察", "自己修正", "軽い不満"]}
+{"index": 344, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 345, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 346, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 347, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 348, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 349, "category": "natural_original", "modes": ["強い苛立ち", "瞬間リアクション"]}
+{"index": 350, "category": "contextual_original", "modes": ["ツール紹介", "成功・興奮", "解説・共有"]}
+{"index": 351, "category": "natural_original", "modes": ["仮説", "未来予測", "迷い"]}
+{"index": 353, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 354, "category": "natural_original", "modes": ["技術考察", "軽い不満", "仮説"]}
+{"index": 355, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 356, "category": "natural_original", "modes": ["比較・レビュー", "迷い"]}
+{"index": 357, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 358, "category": "natural_original", "modes": ["技術考察", "強い苛立ち", "ネタ"]}
+{"index": 362, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 364, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 365, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 366, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 367, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 368, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 369, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 370, "category": "natural_original", "modes": []}
+{"index": 371, "category": "natural_original", "modes": ["技術考察", "自己修正", "強い称賛"]}
+{"index": 372, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 373, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 374, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 375, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 376, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 377, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 378, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 379, "category": "natural_original", "modes": ["軽い不満", "瞬間リアクション"]}
+{"index": 380, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 381, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "強い称賛"]}
+{"index": 382, "category": "natural_original", "modes": ["成功・興奮", "比較・レビュー"]}
+{"index": 383, "category": "natural_original", "modes": ["未来予測", "強い苛立ち"]}
+{"index": 384, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 388, "category": "natural_original", "modes": ["迷い", "軽い不満"]}
+{"index": 390, "category": "natural_original", "modes": ["迷い", "未来予測"]}
+{"index": 391, "category": "template_or_campaign", "modes": ["仮説", "未来予測", "丁寧な対外文"]}
+{"index": 392, "category": "template_or_campaign", "modes": ["軽い不満", "丁寧な対外文"]}
+{"index": 393, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介"]}
+{"index": 394, "category": "natural_original", "modes": ["自己修正", "技術考察"]}
+{"index": 395, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 396, "category": "natural_original", "modes": ["技術考察", "仮説", "強い称賛"]}
+{"index": 397, "category": "natural_original", "modes": []}
+{"index": 398, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 399, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 400, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 401, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "解説・共有"]}
+{"index": 402, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 403, "category": "contextual_original", "modes": ["比較・レビュー", "自己修正", "強い称賛"]}
+{"index": 404, "category": "natural_original", "modes": ["瞬間リアクション", "ネタ"]}
+{"index": 405, "category": "contextual_original", "modes": ["成功・興奮", "技術考察", "解説・共有"]}
+{"index": 406, "category": "natural_original", "modes": ["強い苛立ち", "解説・共有"]}
+{"index": 407, "category": "natural_original", "modes": []}
+{"index": 408, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 409, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 410, "category": "natural_original", "modes": []}
+{"index": 411, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 416, "category": "template_or_campaign", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 417, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介", "丁寧な対外文"]}
+{"index": 418, "category": "contextual_original", "modes": ["強い苛立ち"]}
+{"index": 419, "category": "natural_original", "modes": ["解説・共有", "ツール紹介"]}
+{"index": 420, "category": "natural_original", "modes": ["技術考察", "軽い不満", "迷い"]}
+{"index": 422, "category": "natural_original", "modes": ["軽い不満", "迷い"]}
+{"index": 423, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 424, "category": "natural_original", "modes": ["迷い"]}
+{"index": 425, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 427, "category": "natural_original", "modes": ["迷い", "未来予測"]}
+{"index": 428, "category": "system_or_log", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 429, "category": "natural_original", "modes": []}
+{"index": 430, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 432, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "仮説"]}
+{"index": 433, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 434, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 436, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 437, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 438, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 439, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 441, "category": "natural_original", "modes": []}
+{"index": 442, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 443, "category": "natural_original", "modes": ["軽い不満", "迷い"]}
+{"index": 444, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "自虐"]}
+{"index": 445, "category": "natural_original", "modes": ["自虐", "軽い不満", "技術考察"]}
+{"index": 446, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 447, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 448, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 449, "category": "natural_original", "modes": ["比較・レビュー", "迷い"]}
+{"index": 450, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 453, "category": "natural_original", "modes": ["ツール紹介", "軽い不満"]}
+{"index": 454, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 456, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 457, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 458, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 459, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 460, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 461, "category": "natural_original", "modes": ["技術考察", "迷い", "未来予測"]}
+{"index": 462, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 463, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 464, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 465, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 467, "category": "natural_original", "modes": ["ツール紹介", "強い称賛"]}
+{"index": 470, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "自己修正"]}
+{"index": 471, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 472, "category": "natural_original", "modes": ["成功・興奮", "技術考察", "ネタ"]}
+{"index": 473, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 475, "category": "natural_original", "modes": ["ツール紹介", "成功・興奮", "技術考察"]}
+{"index": 477, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 478, "category": "natural_original", "modes": ["強い称賛", "成功・興奮"]}
+{"index": 479, "category": "natural_original", "modes": ["自己修正", "迷い", "技術考察"]}
+{"index": 480, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 481, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 482, "category": "natural_original", "modes": ["未来予測", "軽い不満"]}
+{"index": 483, "category": "natural_original", "modes": ["仮説", "未来予測", "迷い"]}
+{"index": 484, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 485, "category": "natural_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 486, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 487, "category": "natural_original", "modes": ["成功・興奮", "未来予測"]}
+{"index": 488, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 491, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 492, "category": "natural_original", "modes": ["丁寧な対外文", "軽い不満"]}
+{"index": 493, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 494, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 495, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 496, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 498, "category": "natural_original", "modes": ["自己修正", "自虐", "技術考察"]}
+{"index": 499, "category": "natural_original", "modes": ["自虐", "解説・共有"]}
+{"index": 500, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 501, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 502, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 503, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 504, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "技術考察"]}
+{"index": 505, "category": "natural_original", "modes": ["未来予測", "迷い", "強い苛立ち"]}
+{"index": 506, "category": "natural_original", "modes": ["未来予測", "迷い", "技術考察"]}
+{"index": 507, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 508, "category": "natural_original", "modes": ["未来予測", "皮肉"]}
+{"index": 509, "category": "contextual_original", "modes": ["嘲笑", "皮肉", "仮説"]}
+{"index": 510, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 511, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 512, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 513, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 514, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 515, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 516, "category": "natural_original", "modes": ["仮説", "軽い不満"]}
+{"index": 518, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 519, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 520, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 521, "category": "natural_original", "modes": ["仮説"]}
+{"index": 522, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 523, "category": "natural_original", "modes": ["皮肉"]}
+{"index": 524, "category": "natural_original", "modes": ["成功・興奮", "強い苛立ち", "技術考察"]}
+{"index": 525, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 527, "category": "natural_original", "modes": ["軽い不満", "仮説"]}
+{"index": 529, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 530, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 531, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 532, "category": "natural_original", "modes": ["仮説"]}
+{"index": 533, "category": "natural_original", "modes": ["自己修正", "迷い", "技術考察"]}
+{"index": 535, "category": "natural_original", "modes": ["瞬間リアクション", "ネタ"]}
+{"index": 537, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 538, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 539, "category": "natural_original", "modes": ["瞬間リアクション", "未来予測"]}
+{"index": 540, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 542, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 543, "category": "natural_original", "modes": ["瞬間リアクション", "強い苛立ち", "迷い"]}
+{"index": 544, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー"]}
+{"index": 545, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 546, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 547, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 548, "category": "natural_original", "modes": ["成功・興奮", "軽い不満", "技術考察"]}
+{"index": 550, "category": "natural_original", "modes": ["ツール紹介", "技術考察", "解説・共有"]}
+{"index": 551, "category": "natural_original", "modes": ["成功・興奮", "未来予測", "ツール紹介"]}
+{"index": 552, "category": "natural_original", "modes": ["解説・共有", "軽い不満"]}
+{"index": 553, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 554, "category": "natural_original", "modes": ["嘲笑", "軽い不満"]}
+{"index": 555, "category": "natural_original", "modes": ["皮肉"]}
+{"index": 556, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 557, "category": "natural_original", "modes": ["技術考察", "強い苛立ち", "自己修正"]}
+{"index": 558, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 560, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 561, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 562, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 563, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 564, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "未来予測"]}
+{"index": 566, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 567, "category": "natural_original", "modes": ["迷い", "軽い不満"]}
+{"index": 568, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 569, "category": "natural_original", "modes": ["迷い"]}
+{"index": 570, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 571, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 572, "category": "natural_original", "modes": ["技術考察", "嘲笑"]}
+{"index": 574, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 575, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 579, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 580, "category": "natural_original", "modes": ["仮説", "比較・レビュー"]}
+{"index": 581, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 582, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 583, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 584, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 585, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 586, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 587, "category": "natural_original", "modes": ["迷い"]}
+{"index": 588, "category": "natural_original", "modes": ["激怒", "瞬間リアクション"]}
+{"index": 589, "category": "natural_original", "modes": ["迷い", "仮説"]}
+{"index": 590, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 591, "category": "natural_original", "modes": ["軽い不満", "迷い"]}
+{"index": 592, "category": "natural_original", "modes": ["激怒"]}
+{"index": 593, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 594, "category": "natural_original", "modes": ["強い苛立ち", "皮肉"]}
+{"index": 596, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "未来予測"]}
+{"index": 597, "category": "natural_original", "modes": ["自己修正", "解説・共有", "ツール紹介"]}
+{"index": 599, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 600, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 601, "category": "media_only", "modes": []}
+{"index": 602, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 603, "category": "contextual_original", "modes": ["仮説", "未来予測"]}
+{"index": 604, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 606, "category": "natural_original", "modes": ["迷い", "未来予測", "技術考察"]}
+{"index": 607, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 608, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 609, "category": "natural_original", "modes": ["比較・レビュー", "仮説"]}
+{"index": 610, "category": "contextual_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 611, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 612, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 613, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 614, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 616, "category": "natural_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 617, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 618, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 619, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 620, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 622, "category": "natural_original", "modes": ["比較・レビュー", "ネタ"]}
+{"index": 623, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 625, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 626, "category": "natural_original", "modes": ["技術考察", "解説・共有", "比較・レビュー"]}
+{"index": 627, "category": "natural_original", "modes": ["技術考察", "仮説", "自己修正"]}
+{"index": 628, "category": "natural_original", "modes": ["丁寧な対外文", "技術考察", "軽い不満"]}
+{"index": 629, "category": "natural_original", "modes": ["仮説", "ネタ", "比較・レビュー"]}
+{"index": 630, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 631, "category": "natural_original", "modes": ["自己修正", "技術考察", "軽い不満"]}
+{"index": 633, "category": "natural_original", "modes": ["瞬間リアクション", "強い称賛"]}
+{"index": 634, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 635, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 637, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 638, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 639, "category": "contextual_original", "modes": ["強い苛立ち"]}
+{"index": 640, "category": "natural_original", "modes": ["迷い"]}
+{"index": 641, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 642, "category": "natural_original", "modes": ["未来予測", "強い苛立ち"]}
+{"index": 643, "category": "natural_original", "modes": ["仮説", "皮肉"]}
+{"index": 644, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 645, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 646, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 647, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "未来予測"]}
+{"index": 648, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 649, "category": "natural_original", "modes": ["ツール紹介", "強い称賛", "ネタ"]}
+{"index": 650, "category": "contextual_original", "modes": ["皮肉", "ネタ"]}
+{"index": 651, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 652, "category": "contextual_original", "modes": ["嘲笑", "強い苛立ち"]}
+{"index": 653, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 654, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 655, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 656, "category": "natural_original", "modes": ["自己修正", "解説・共有"]}
+{"index": 657, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 658, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 659, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 660, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 661, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 662, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 663, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 665, "category": "natural_original", "modes": ["仮説"]}
+{"index": 666, "category": "natural_original", "modes": ["自虐", "軽い不満"]}
+{"index": 668, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 669, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 670, "category": "natural_original", "modes": ["技術考察", "未来予測", "軽い不満"]}
+{"index": 671, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 672, "category": "natural_original", "modes": ["迷い"]}
+{"index": 674, "category": "natural_original", "modes": ["迷い"]}
+{"index": 675, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 676, "category": "natural_original", "modes": ["瞬間リアクション", "成功・興奮"]}
+{"index": 677, "category": "contextual_original", "modes": ["軽い不満", "皮肉"]}
+{"index": 678, "category": "natural_original", "modes": ["ツール紹介", "未来予測"]}
+{"index": 679, "category": "natural_original", "modes": ["自己修正", "技術考察", "強い苛立ち"]}
+{"index": 681, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 682, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 683, "category": "natural_original", "modes": ["未来予測", "ツール紹介"]}
+{"index": 685, "category": "contextual_original", "modes": ["仮説"]}
+{"index": 687, "category": "contextual_original", "modes": ["嘲笑"]}
+{"index": 688, "category": "natural_original", "modes": ["ツール紹介", "比較・レビュー", "軽い不満"]}
+{"index": 690, "category": "natural_original", "modes": ["仮説", "比較・レビュー"]}
+{"index": 691, "category": "natural_original", "modes": ["迷い"]}
+{"index": 692, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 693, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 694, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 695, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 696, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 697, "category": "natural_original", "modes": ["自虐", "ネタ"]}
+{"index": 699, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 700, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 701, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 702, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 703, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 704, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 705, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 706, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 707, "category": "natural_original", "modes": ["迷い"]}
+{"index": 708, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 710, "category": "natural_original", "modes": ["ツール紹介", "比較・レビュー"]}
+{"index": 711, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 712, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 713, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 718, "category": "natural_original", "modes": ["強い称賛", "成功・興奮"]}
+{"index": 719, "category": "natural_original", "modes": ["自虐"]}
+{"index": 720, "category": "natural_original", "modes": ["解説・共有", "自己修正", "ネタ"]}
+{"index": 721, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 723, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 724, "category": "natural_original", "modes": ["自虐"]}
+{"index": 725, "category": "natural_original", "modes": ["強い苛立ち", "迷い"]}
+{"index": 726, "category": "natural_original", "modes": ["強い苛立ち", "未来予測"]}
+{"index": 727, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 728, "category": "natural_original", "modes": ["仮説", "未来予測", "軽い不満"]}
+{"index": 729, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 730, "category": "contextual_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 731, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 733, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 734, "category": "natural_original", "modes": ["丁寧な対外文", "強い称賛"]}
+{"index": 736, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "強い称賛"]}
+{"index": 738, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 740, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 741, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 742, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 743, "category": "natural_original", "modes": ["迷い", "軽い不満"]}
+{"index": 746, "category": "contextual_original", "modes": ["ネタ", "軽い不満"]}
+{"index": 747, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 748, "category": "contextual_original", "modes": ["軽い不満", "皮肉"]}
+{"index": 750, "category": "contextual_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 751, "category": "contextual_original", "modes": ["技術考察", "自己修正"]}
+{"index": 752, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 753, "category": "contextual_original", "modes": ["迷い"]}
+{"index": 754, "category": "contextual_original", "modes": ["技術考察", "自己修正"]}
+{"index": 755, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 756, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 757, "category": "natural_original", "modes": ["仮説", "未来予測", "丁寧な対外文"]}
+{"index": 758, "category": "natural_original", "modes": ["仮説", "迷い", "技術考察"]}
+{"index": 759, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 760, "category": "natural_original", "modes": ["ネタ", "軽い不満"]}
+{"index": 763, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 765, "category": "contextual_original", "modes": ["自己修正", "技術考察"]}
+{"index": 767, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 768, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 770, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 771, "category": "contextual_original", "modes": ["技術考察", "成功・興奮"]}
+{"index": 772, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 773, "category": "contextual_original", "modes": ["強い称賛"]}
+{"index": 774, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 775, "category": "natural_original", "modes": ["迷い", "仮説", "未来予測"]}
+{"index": 776, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 777, "category": "contextual_original", "modes": ["技術考察", "成功・興奮"]}
+{"index": 778, "category": "contextual_original", "modes": ["瞬間リアクション", "迷い"]}
+{"index": 779, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 781, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 782, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 783, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 786, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 788, "category": "contextual_original", "modes": ["強い称賛", "未来予測"]}
+{"index": 790, "category": "natural_original", "modes": ["未来予測", "強い称賛"]}
+{"index": 791, "category": "contextual_original", "modes": ["迷い", "仮説"]}
+{"index": 792, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 793, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 794, "category": "natural_original", "modes": ["迷い", "未来予測", "軽い不満"]}
+{"index": 795, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 796, "category": "natural_original", "modes": ["未来予測", "仮説", "軽い不満"]}
+{"index": 797, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い苛立ち"]}
+{"index": 798, "category": "contextual_original", "modes": ["ツール紹介", "成功・興奮", "解説・共有"]}
+{"index": 799, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 800, "category": "contextual_original", "modes": ["仮説"]}
+{"index": 801, "category": "contextual_original", "modes": ["迷い"]}
+{"index": 803, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 804, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 805, "category": "natural_original", "modes": ["自己修正", "比較・レビュー", "未来予測"]}
+{"index": 806, "category": "natural_original", "modes": ["比較・レビュー", "自己修正", "解説・共有"]}
+{"index": 809, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 811, "category": "natural_original", "modes": ["皮肉"]}
+{"index": 814, "category": "natural_original", "modes": ["技術考察", "強い苛立ち", "嘲笑"]}
+{"index": 815, "category": "natural_original", "modes": ["嘲笑", "皮肉"]}
+{"index": 816, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 819, "category": "contextual_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 820, "category": "contextual_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 821, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 822, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 823, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 824, "category": "natural_original", "modes": ["強い称賛", "ネタ"]}
+{"index": 825, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い苛立ち"]}
+{"index": 827, "category": "contextual_original", "modes": ["強い称賛"]}
+{"index": 828, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い称賛"]}
+{"index": 830, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 831, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 832, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 833, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 834, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 835, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 836, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 838, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 839, "category": "contextual_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 840, "category": "contextual_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 841, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 842, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "成功・興奮"]}
+{"index": 844, "category": "contextual_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 845, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 846, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 847, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 848, "category": "template_or_campaign", "modes": ["ツール紹介", "丁寧な対外文"]}
+{"index": 849, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有", "成功・興奮"]}
+{"index": 850, "category": "natural_original", "modes": ["自己修正", "強い称賛", "成功・興奮"]}
+{"index": 851, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 852, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "軽い不満"]}
+{"index": 855, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 856, "category": "contextual_original", "modes": ["軽い不満", "瞬間リアクション"]}
+{"index": 857, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 858, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 859, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 860, "category": "natural_original", "modes": ["技術考察", "迷い", "仮説"]}
+{"index": 861, "category": "natural_original", "modes": ["技術考察", "未来予測", "軽い不満"]}
+{"index": 863, "category": "contextual_original", "modes": ["ツール紹介"]}
+{"index": 864, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "解説・共有"]}
+{"index": 865, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 866, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 869, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 871, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 872, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 873, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "強い称賛"]}
+{"index": 875, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 876, "category": "contextual_original", "modes": ["激怒", "瞬間リアクション"]}
+{"index": 877, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 878, "category": "natural_original", "modes": ["迷い", "未来予測", "仮説"]}
+{"index": 879, "category": "natural_original", "modes": ["迷い", "未来予測", "技術考察"]}
+{"index": 880, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 881, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 883, "category": "template_or_campaign", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 884, "category": "contextual_original", "modes": ["ツール紹介", "成功・興奮"]}
+{"index": 885, "category": "contextual_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 886, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "迷い"]}
+{"index": 887, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 888, "category": "contextual_original", "modes": ["成功・興奮", "未来予測"]}
+{"index": 889, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 891, "category": "contextual_original", "modes": ["嘲笑", "瞬間リアクション"]}
+{"index": 892, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 893, "category": "contextual_original", "modes": ["嘲笑", "瞬間リアクション"]}
+{"index": 894, "category": "quoted_external", "modes": []}
+{"index": 895, "category": "natural_original", "modes": ["技術考察", "仮説", "成功・興奮"]}
+{"index": 897, "category": "contextual_original", "modes": ["ツール紹介", "成功・興奮", "軽い不満"]}
+{"index": 898, "category": "contextual_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 899, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 900, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 901, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 902, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 905, "category": "natural_original", "modes": ["未来予測", "成功・興奮"]}
+{"index": 906, "category": "contextual_original", "modes": ["解説・共有"]}
+{"index": 907, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 908, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 909, "category": "natural_original", "modes": ["成功・興奮", "技術考察", "強い称賛"]}
+{"index": 910, "category": "media_only", "modes": ["平常・独り言"]}
+{"index": 913, "category": "media_only", "modes": ["平常・独り言"]}
+{"index": 914, "category": "media_only", "modes": ["平常・独り言"]}
+{"index": 915, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 916, "category": "uncertain", "modes": ["平常・独り言"]}
+{"index": 918, "category": "natural_original", "modes": ["軽い不満", "丁寧な対外文"]}
+{"index": 919, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 922, "category": "template_or_campaign", "modes": ["解説・共有", "ツール紹介"]}
+{"index": 923, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介"]}
+{"index": 926, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "ツール紹介"]}
+{"index": 928, "category": "natural_original", "modes": ["迷い"]}
+{"index": 929, "category": "natural_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 930, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "ツール紹介"]}
+{"index": 931, "category": "natural_original", "modes": ["瞬間リアクション", "成功・興奮"]}
+{"index": 932, "category": "natural_original", "modes": ["技術考察", "未来予測", "解説・共有"]}
+{"index": 933, "category": "natural_original", "modes": ["仮説"]}
+{"index": 934, "category": "natural_original", "modes": ["技術考察", "迷い", "強い苛立ち"]}
+{"index": 935, "category": "natural_original", "modes": ["仮説", "迷い", "自己修正"]}
+{"index": 936, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 937, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 938, "category": "natural_original", "modes": ["比較・レビュー", "嘲笑"]}
+{"index": 939, "category": "natural_original", "modes": ["激怒"]}
+{"index": 940, "category": "contextual_original", "modes": ["解説・共有"]}
+{"index": 941, "category": "natural_original", "modes": ["仮説", "ネタ"]}
+{"index": 942, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 943, "category": "natural_original", "modes": ["技術考察", "自己修正", "ネタ"]}
+{"index": 944, "category": "uncertain", "modes": ["平常・独り言"]}
+{"index": 945, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 947, "category": "natural_original", "modes": ["技術考察", "仮説", "解説・共有"]}
+{"index": 948, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 949, "category": "natural_original", "modes": ["ネタ", "未来予測"]}
+{"index": 950, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "技術考察"]}
+{"index": 951, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 952, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "ツール紹介"]}
+{"index": 954, "category": "natural_original", "modes": ["仮説", "迷い", "未来予測"]}
+{"index": 955, "category": "natural_original", "modes": ["未来予測", "技術考察"]}
+{"index": 956, "category": "natural_original", "modes": ["激怒"]}
+{"index": 957, "category": "natural_original", "modes": ["激怒"]}
+{"index": 958, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 959, "category": "natural_original", "modes": ["強い称賛", "平常・独り言"]}
+{"index": 960, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 961, "category": "natural_original", "modes": ["軽い不満", "平常・独り言"]}
+{"index": 962, "category": "natural_original", "modes": ["強い苛立ち", "自己修正"]}
+{"index": 964, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 965, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "未来予測"]}
+{"index": 966, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 967, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 968, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 969, "category": "natural_original", "modes": ["瞬間リアクション", "成功・興奮"]}
+{"index": 971, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 972, "category": "natural_original", "modes": ["皮肉", "ネタ"]}
+{"index": 973, "category": "natural_original", "modes": ["平常・独り言", "軽い不満"]}
+{"index": 974, "category": "contextual_original", "modes": ["解説・共有", "軽い不満"]}
+{"index": 975, "category": "natural_original", "modes": ["比較・レビュー", "ツール紹介"]}
+{"index": 976, "category": "natural_original", "modes": ["仮説", "迷い"]}
+{"index": 977, "category": "natural_original", "modes": ["瞬間リアクション", "迷い"]}
+{"index": 979, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 980, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 982, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 983, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 984, "category": "natural_original", "modes": ["仮説", "未来予測", "技術考察"]}
+{"index": 985, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 987, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "解説・共有"]}
+{"index": 988, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 990, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介"]}
+{"index": 991, "category": "natural_original", "modes": ["技術考察", "軽い不満", "解説・共有"]}
+{"index": 992, "category": "natural_original", "modes": ["自己修正", "軽い不満"]}
+{"index": 993, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 994, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介"]}
+{"index": 996, "category": "contextual_original", "modes": ["技術考察", "解説・共有", "ツール紹介"]}
+{"index": 997, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 998, "category": "natural_original", "modes": ["迷い", "成功・興奮"]}
+{"index": 999, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1001, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1002, "category": "natural_original", "modes": ["激怒", "自己修正"]}
+{"index": 1004, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 1005, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1006, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 1007, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 1009, "category": "template_or_campaign", "modes": ["成功・興奮", "ツール紹介"]}
+{"index": 1011, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "ツール紹介"]}
+{"index": 1012, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "強い称賛"]}
+{"index": 1013, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "迷い"]}
+{"index": 1014, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1015, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1016, "category": "natural_original", "modes": ["技術考察", "仮説", "迷い"]}
+{"index": 1018, "category": "natural_original", "modes": ["技術考察", "迷い", "自己修正"]}
+{"index": 1021, "category": "contextual_original", "modes": ["技術考察", "解説・共有", "ツール紹介"]}
+{"index": 1022, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1023, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1024, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1025, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1027, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1029, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1032, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1033, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1035, "category": "natural_original", "modes": ["仮説", "強い苛立ち"]}
+{"index": 1036, "category": "contextual_original", "modes": ["平常・独り言"]}
+{"index": 1038, "category": "natural_original", "modes": ["ネタ", "成功・興奮"]}
+{"index": 1039, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1040, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1041, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1043, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1044, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1045, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1046, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 1047, "category": "natural_original", "modes": ["解説・共有", "ツール紹介"]}
+{"index": 1048, "category": "contextual_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1049, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1050, "category": "natural_original", "modes": ["解説・共有", "強い苛立ち"]}
+{"index": 1051, "category": "natural_original", "modes": ["比較・レビュー", "激怒"]}
+{"index": 1052, "category": "natural_original", "modes": ["技術考察", "強い苛立ち", "皮肉"]}
+{"index": 1054, "category": "natural_original", "modes": ["軽い不満", "瞬間リアクション"]}
+{"index": 1055, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1056, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 1057, "category": "uncertain", "modes": ["平常・独り言"]}
+{"index": 1058, "category": "natural_original", "modes": ["瞬間リアクション", "迷い"]}
+{"index": 1059, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1060, "category": "natural_original", "modes": ["解説・共有", "皮肉"]}
+{"index": 1061, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "解説・共有"]}
+{"index": 1062, "category": "natural_original", "modes": ["成功・興奮", "比較・レビュー", "強い称賛"]}
+{"index": 1063, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1065, "category": "natural_original", "modes": ["ネタ", "平常・独り言"]}
+{"index": 1067, "category": "natural_original", "modes": ["仮説"]}
+{"index": 1068, "category": "natural_original", "modes": ["強い苛立ち", "未来予測"]}
+{"index": 1070, "category": "natural_original", "modes": ["仮説"]}
+{"index": 1071, "category": "natural_original", "modes": ["ネタ", "瞬間リアクション"]}
+{"index": 1072, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1073, "category": "natural_original", "modes": ["ネタ", "平常・独り言"]}
+{"index": 1074, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1075, "category": "natural_original", "modes": ["成功・興奮", "比較・レビュー"]}
+{"index": 1076, "category": "natural_original", "modes": ["技術考察", "皮肉"]}
+{"index": 1077, "category": "contextual_original", "modes": ["強い称賛", "ツール紹介", "技術考察"]}
+{"index": 1078, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 1079, "category": "natural_original", "modes": ["技術考察", "自己修正", "解説・共有"]}
+{"index": 1081, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1082, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "強い称賛"]}
+{"index": 1083, "category": "natural_original", "modes": ["技術考察", "仮説", "強い苛立ち"]}
+{"index": 1084, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 1085, "category": "natural_original", "modes": ["解説・共有", "ツール紹介", "丁寧な対外文"]}
+{"index": 1086, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1087, "category": "natural_original", "modes": ["ツール紹介", "解説・共有", "丁寧な対外文"]}
+{"index": 1088, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 1089, "category": "contextual_original", "modes": ["解説・共有", "丁寧な対外文"]}
+{"index": 1090, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1091, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー", "軽い不満"]}
+{"index": 1092, "category": "natural_original", "modes": ["強い称賛", "成功・興奮"]}
+{"index": 1093, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 1094, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "軽い不満"]}
+{"index": 1095, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1096, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1097, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1099, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1100, "category": "natural_original", "modes": ["技術考察", "嘲笑"]}
+{"index": 1101, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1102, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1103, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1104, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1106, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1108, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー", "技術考察"]}
+{"index": 1109, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1110, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1112, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1113, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1114, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1115, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1116, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1117, "category": "contextual_original", "modes": ["比較・レビュー", "解説・共有", "丁寧な対外文"]}
+{"index": 1120, "category": "natural_original", "modes": ["迷い", "ツール紹介"]}
+{"index": 1121, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1122, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "嘲笑"]}
+{"index": 1123, "category": "natural_original", "modes": ["解説・共有", "丁寧な対外文"]}
+{"index": 1124, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1126, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1127, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1128, "category": "natural_original", "modes": ["比較・レビュー", "ネタ", "強い称賛"]}
+{"index": 1129, "category": "natural_original", "modes": ["軽い不満", "嘲笑"]}
+{"index": 1130, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1131, "category": "contextual_original", "modes": ["強い称賛", "ツール紹介"]}
+{"index": 1132, "category": "natural_original", "modes": ["仮説", "ネタ"]}
+{"index": 1133, "category": "natural_original", "modes": ["未来予測", "平常・独り言"]}
+{"index": 1134, "category": "natural_original", "modes": ["軽い不満", "仮説"]}
+{"index": 1135, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 1136, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1137, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1138, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1139, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1140, "category": "natural_original", "modes": ["仮説"]}
+{"index": 1141, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1145, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1146, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "技術考察"]}
+{"index": 1149, "category": "natural_original", "modes": ["自己修正"]}
+{"index": 1150, "category": "natural_original", "modes": ["強い称賛", "軽い不満", "ネタ"]}
+{"index": 1151, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1152, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1153, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1154, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1155, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1156, "category": "natural_original", "modes": ["技術考察", "自己修正", "仮説"]}
+{"index": 1157, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1159, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 1160, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1162, "category": "natural_original", "modes": ["解説・共有", "軽い不満"]}
+{"index": 1163, "category": "natural_original", "modes": ["技術考察", "迷い", "自己修正"]}
+{"index": 1164, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1165, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1166, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1169, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 1170, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1173, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1174, "category": "natural_original", "modes": ["ネタ", "瞬間リアクション"]}
+{"index": 1175, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1176, "category": "natural_original", "modes": ["技術考察", "自己修正", "迷い"]}
+{"index": 1178, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1179, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 1180, "category": "natural_original", "modes": ["解説・共有", "丁寧な対外文"]}
+{"index": 1181, "category": "natural_original", "modes": ["ツール紹介", "成功・興奮"]}
+{"index": 1182, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1184, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1185, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1186, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1187, "category": "natural_original", "modes": ["成功・興奮", "軽い不満"]}
+{"index": 1190, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1191, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 1192, "category": "natural_original", "modes": ["技術考察", "皮肉", "軽い不満"]}
+{"index": 1193, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "ネタ"]}
+{"index": 1194, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1196, "category": "natural_original", "modes": ["激怒"]}
+{"index": 1197, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1198, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1200, "category": "natural_original", "modes": ["瞬間リアクション", "比較・レビュー"]}
+{"index": 1201, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 1202, "category": "natural_original", "modes": ["強い苛立ち", "皮肉"]}
+{"index": 1203, "category": "natural_original", "modes": ["成功・興奮", "技術考察"]}
+{"index": 1204, "category": "natural_original", "modes": ["ツール紹介", "成功・興奮"]}
+{"index": 1206, "category": "natural_original", "modes": ["解説・共有", "ツール紹介", "丁寧な対外文"]}
+{"index": 1207, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1208, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1209, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1210, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1211, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1212, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1213, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "自己修正"]}
+{"index": 1214, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1215, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1217, "category": "contextual_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1218, "category": "contextual_original", "modes": ["技術考察", "瞬間リアクション"]}
+{"index": 1219, "category": "contextual_original", "modes": ["比較・レビュー", "仮説"]}
+{"index": 1221, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1222, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1223, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い称賛"]}
+{"index": 1224, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1226, "category": "contextual_original", "modes": ["ツール紹介", "強い称賛", "丁寧な対外文"]}
+{"index": 1228, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー"]}
+{"index": 1229, "category": "natural_original", "modes": ["比較・レビュー", "丁寧な対外文"]}
+{"index": 1230, "category": "natural_original", "modes": ["解説・共有", "比較・レビュー"]}
+{"index": 1231, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有", "丁寧な対外文"]}
+{"index": 1232, "category": "natural_original", "modes": ["迷い", "比較・レビュー"]}
+{"index": 1233, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1234, "category": "natural_original", "modes": ["瞬間リアクション", "成功・興奮"]}
+{"index": 1235, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1236, "category": "natural_original", "modes": ["丁寧な対外文"]}
+{"index": 1237, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 1238, "category": "natural_original", "modes": ["未来予測", "仮説", "技術考察"]}
+{"index": 1239, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1240, "category": "natural_original", "modes": ["ツール紹介", "技術考察", "強い称賛"]}
+{"index": 1241, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 1242, "category": "contextual_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1243, "category": "natural_original", "modes": ["解説・共有", "技術考察"]}
+{"index": 1245, "category": "quoted_external", "modes": ["ネタ"]}
+{"index": 1246, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1247, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1248, "category": "natural_original", "modes": ["仮説", "未来予測", "技術考察"]}
+{"index": 1250, "category": "natural_original", "modes": ["未来予測", "技術考察"]}
+{"index": 1251, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "軽い不満"]}
+{"index": 1252, "category": "natural_original", "modes": ["自己修正", "ネタ"]}
+{"index": 1254, "category": "natural_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 1255, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 1256, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1257, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1258, "category": "natural_original", "modes": ["嘲笑", "瞬間リアクション"]}
+{"index": 1259, "category": "natural_original", "modes": ["強い苛立ち", "瞬間リアクション"]}
+{"index": 1260, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1261, "category": "uncertain", "modes": ["迷い", "瞬間リアクション"]}
+{"index": 1264, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1265, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー", "自虐"]}
+{"index": 1266, "category": "natural_original", "modes": ["成功・興奮", "比較・レビュー", "技術考察"]}
+{"index": 1267, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1269, "category": "natural_original", "modes": ["強い苛立ち", "皮肉", "技術考察"]}
+{"index": 1270, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 1271, "category": "natural_original", "modes": ["仮説", "ネタ", "自己修正"]}
+{"index": 1272, "category": "natural_original", "modes": ["自己修正", "比較・レビュー"]}
+{"index": 1273, "category": "natural_original", "modes": ["未来予測", "ネタ", "軽い不満"]}
+{"index": 1274, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 1275, "category": "uncertain", "modes": ["瞬間リアクション"]}
+{"index": 1276, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1277, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1278, "category": "natural_original", "modes": ["強い称賛", "解説・共有"]}
+{"index": 1279, "category": "uncertain", "modes": ["ネタ", "丁寧な対外文"]}
+{"index": 1281, "category": "natural_original", "modes": ["技術考察", "軽い不満", "迷い"]}
+{"index": 1282, "category": "natural_original", "modes": ["未来予測", "ツール紹介"]}
+{"index": 1283, "category": "contextual_original", "modes": ["技術考察", "ツール紹介", "成功・興奮"]}
+{"index": 1284, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い苛立ち"]}
+{"index": 1285, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1286, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1287, "category": "natural_original", "modes": ["強い苛立ち", "瞬間リアクション"]}
+{"index": 1288, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "瞬間リアクション"]}
+{"index": 1289, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1290, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "未来予測"]}
+{"index": 1291, "category": "media_only", "modes": []}
+{"index": 1292, "category": "natural_original", "modes": ["仮説", "未来予測", "解説・共有"]}
+{"index": 1293, "category": "contextual_original", "modes": ["瞬間リアクション"]}
+{"index": 1294, "category": "natural_original", "modes": ["迷い", "未来予測"]}
+{"index": 1295, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 1298, "category": "natural_original", "modes": ["ツール紹介", "解説・共有", "丁寧な対外文"]}
+{"index": 1299, "category": "uncertain", "modes": ["迷い"]}
+{"index": 1300, "category": "template_or_campaign", "modes": ["ネタ", "皮肉"]}
+{"index": 1301, "category": "natural_original", "modes": ["比較・レビュー", "迷い"]}
+{"index": 1302, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1303, "category": "natural_original", "modes": ["比較・レビュー", "丁寧な対外文"]}
+{"index": 1304, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1305, "category": "natural_original", "modes": ["仮説", "自己修正"]}
+{"index": 1307, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1308, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1309, "category": "natural_original", "modes": []}
+{"index": 1310, "category": "natural_original", "modes": ["ツール紹介", "解説・共有", "技術考察"]}
+{"index": 1312, "category": "natural_original", "modes": ["ツール紹介", "成功・興奮"]}
+{"index": 1313, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1314, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 1315, "category": "natural_original", "modes": []}
+{"index": 1316, "category": "natural_original", "modes": ["軽い不満", "解説・共有"]}
+{"index": 1317, "category": "natural_original", "modes": ["瞬間リアクション", "自己修正"]}
+{"index": 1318, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 1319, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1320, "category": "contextual_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 1321, "category": "natural_original", "modes": ["解説・共有", "比較・レビュー"]}
+{"index": 1322, "category": "natural_original", "modes": ["比較・レビュー", "迷い", "技術考察"]}
+{"index": 1323, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1324, "category": "natural_original", "modes": ["瞬間リアクション", "強い苛立ち"]}
+{"index": 1325, "category": "natural_original", "modes": ["強い苛立ち", "技術考察", "比較・レビュー"]}
+{"index": 1326, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1327, "category": "natural_original", "modes": ["解説・共有", "技術考察"]}
+{"index": 1328, "category": "natural_original", "modes": ["ツール紹介", "丁寧な対外文", "比較・レビュー"]}
+{"index": 1329, "category": "natural_original", "modes": ["強い称賛", "技術考察", "ツール紹介"]}
+{"index": 1330, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1331, "category": "contextual_original", "modes": ["成功・興奮", "技術考察", "ツール紹介"]}
+{"index": 1332, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1333, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "未来予測"]}
+{"index": 1334, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1336, "category": "natural_original", "modes": ["成功・興奮", "解説・共有"]}
+{"index": 1337, "category": "natural_original", "modes": ["迷い", "未来予測"]}
+{"index": 1338, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1339, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い苛立ち"]}
+{"index": 1342, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1343, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 1344, "category": "media_only", "modes": []}
+{"index": 1345, "category": "natural_original", "modes": ["強い称賛", "比較・レビュー"]}
+{"index": 1346, "category": "natural_original", "modes": ["強い苛立ち", "瞬間リアクション"]}
+{"index": 1347, "category": "natural_original", "modes": ["瞬間リアクション", "軽い不満", "解説・共有"]}
+{"index": 1348, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "ネタ"]}
+{"index": 1349, "category": "uncertain", "modes": []}
+{"index": 1350, "category": "natural_original", "modes": ["比較・レビュー", "自己修正", "丁寧な対外文"]}
+{"index": 1351, "category": "natural_original", "modes": ["軽い不満", "仮説"]}
+{"index": 1352, "category": "natural_original", "modes": ["仮説", "解説・共有"]}
+{"index": 1353, "category": "contextual_original", "modes": ["ネタ", "皮肉"]}
+{"index": 1354, "category": "natural_original", "modes": ["解説・共有", "丁寧な対外文"]}
+{"index": 1355, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有", "強い称賛"]}
+{"index": 1356, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有", "丁寧な対外文"]}
+{"index": 1357, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "仮説"]}
+{"index": 1358, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 1359, "category": "contextual_original", "modes": ["解説・共有"]}
+{"index": 1360, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1362, "category": "natural_original", "modes": ["軽い不満", "ネタ"]}
+{"index": 1363, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1364, "category": "natural_original", "modes": ["技術考察", "未来予測", "迷い"]}
+{"index": 1366, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1367, "category": "natural_original", "modes": ["技術考察", "自己修正"]}
+{"index": 1368, "category": "natural_original", "modes": ["解説・共有", "ツール紹介", "丁寧な対外文"]}
+{"index": 1370, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 1372, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "丁寧な対外文"]}
+{"index": 1373, "category": "natural_original", "modes": ["解説・共有", "丁寧な対外文"]}
+{"index": 1374, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1375, "category": "quoted_external", "modes": []}
+{"index": 1377, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1378, "category": "natural_original", "modes": ["未来予測", "技術考察", "仮説"]}
+{"index": 1379, "category": "contextual_original", "modes": ["成功・興奮"]}
+{"index": 1380, "category": "natural_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 1381, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1382, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1383, "category": "natural_original", "modes": ["軽い不満", "迷い"]}
+{"index": 1386, "category": "natural_original", "modes": ["迷い", "比較・レビュー"]}
+{"index": 1387, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1388, "category": "natural_original", "modes": ["技術考察", "成功・興奮", "自己修正"]}
+{"index": 1390, "category": "natural_original", "modes": ["技術考察", "迷い", "仮説"]}
+{"index": 1391, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1395, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1396, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1397, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1398, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "自己修正"]}
+{"index": 1399, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1400, "category": "natural_original", "modes": ["比較・レビュー", "ネタ"]}
+{"index": 1401, "category": "natural_original", "modes": ["比較・レビュー", "ツール紹介", "強い称賛"]}
+{"index": 1405, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有", "軽い不満"]}
+{"index": 1406, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1408, "category": "natural_original", "modes": ["成功・興奮", "ネタ"]}
+{"index": 1409, "category": "natural_original", "modes": ["自己修正", "軽い不満"]}
+{"index": 1410, "category": "natural_original", "modes": ["激怒"]}
+{"index": 1411, "category": "natural_original", "modes": ["技術考察", "仮説", "強い苛立ち"]}
+{"index": 1412, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1413, "category": "natural_original", "modes": ["技術考察", "嘲笑", "ネタ"]}
+{"index": 1414, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1416, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 1419, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1420, "category": "media_only", "modes": []}
+{"index": 1421, "category": "uncertain", "modes": ["解説・共有"]}
+{"index": 1422, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1423, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1424, "category": "natural_original", "modes": ["成功・興奮", "自己修正", "ツール紹介"]}
+{"index": 1425, "category": "contextual_original", "modes": ["解説・共有"]}
+{"index": 1426, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1427, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1428, "category": "contextual_original", "modes": ["瞬間リアクション", "技術考察"]}
+{"index": 1429, "category": "natural_original", "modes": ["比較・レビュー", "迷い"]}
+{"index": 1430, "category": "natural_original", "modes": ["比較・レビュー", "嘲笑"]}
+{"index": 1431, "category": "natural_original", "modes": ["強い称賛", "技術考察"]}
+{"index": 1434, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 1435, "category": "natural_original", "modes": ["ツール紹介", "解説・共有", "強い称賛"]}
+{"index": 1436, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1437, "category": "natural_original", "modes": ["迷い", "軽い不満", "技術考察"]}
+{"index": 1440, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1443, "category": "natural_original", "modes": ["比較・レビュー", "ツール紹介", "強い称賛"]}
+{"index": 1444, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1445, "category": "natural_original", "modes": ["皮肉", "強い苛立ち"]}
+{"index": 1446, "category": "natural_original", "modes": ["皮肉", "技術考察"]}
+{"index": 1447, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 1449, "category": "natural_original", "modes": ["皮肉", "ネタ"]}
+{"index": 1450, "category": "natural_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 1452, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "強い称賛"]}
+{"index": 1453, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1454, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1455, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1456, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1457, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "仮説"]}
+{"index": 1459, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1460, "category": "natural_original", "modes": ["嘲笑"]}
+{"index": 1461, "category": "contextual_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 1462, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1463, "category": "natural_original", "modes": ["成功・興奮", "ネタ"]}
+{"index": 1464, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 1465, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1466, "category": "natural_original", "modes": ["瞬間リアクション", "比較・レビュー"]}
+{"index": 1467, "category": "natural_original", "modes": ["解説・共有", "技術考察"]}
+{"index": 1468, "category": "contextual_original", "modes": ["比較・レビュー"]}
+{"index": 1470, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1471, "category": "natural_original", "modes": ["技術考察", "自己修正", "解説・共有"]}
+{"index": 1473, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 1474, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 1475, "category": "natural_original", "modes": ["技術考察", "解説・共有", "軽い不満"]}
+{"index": 1476, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1477, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1478, "category": "system_or_log", "modes": ["ツール紹介"]}
+{"index": 1479, "category": "natural_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1480, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有", "成功・興奮"]}
+{"index": 1481, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1482, "category": "natural_original", "modes": ["ツール紹介"]}
+{"index": 1484, "category": "natural_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 1485, "category": "natural_original", "modes": ["ツール紹介"]}
+{"index": 1487, "category": "natural_original", "modes": ["仮説", "比較・レビュー"]}
+{"index": 1489, "category": "natural_original", "modes": ["皮肉", "ネタ"]}
+{"index": 1490, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1491, "category": "natural_original", "modes": ["ツール紹介", "成功・興奮", "強い称賛"]}
+{"index": 1492, "category": "natural_original", "modes": ["迷い", "技術考察"]}
+{"index": 1493, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1495, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1496, "category": "natural_original", "modes": ["比較・レビュー", "ツール紹介", "強い称賛"]}
+{"index": 1497, "category": "natural_original", "modes": ["ツール紹介", "強い称賛", "解説・共有"]}
+{"index": 1498, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1499, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1501, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1502, "category": "uncertain", "modes": ["解説・共有"]}
+{"index": 1503, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "嘲笑"]}
+{"index": 1505, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1506, "category": "natural_original", "modes": ["解説・共有", "瞬間リアクション"]}
+{"index": 1507, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1508, "category": "natural_original", "modes": ["仮説", "自虐", "ネタ"]}
+{"index": 1510, "category": "natural_original", "modes": ["自虐", "ネタ"]}
+{"index": 1511, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1512, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1513, "category": "natural_original", "modes": ["皮肉", "嘲笑"]}
+{"index": 1514, "category": "natural_original", "modes": ["比較・レビュー", "成功・興奮"]}
+{"index": 1515, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1516, "category": "natural_original", "modes": ["未来予測", "皮肉"]}
+{"index": 1517, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1519, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "仮説"]}
+{"index": 1522, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1523, "category": "natural_original", "modes": ["自己修正", "比較・レビュー", "ツール紹介"]}
+{"index": 1524, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "ツール紹介"]}
+{"index": 1526, "category": "natural_original", "modes": ["迷い", "比較・レビュー"]}
+{"index": 1527, "category": "natural_original", "modes": ["自己修正", "仮説", "比較・レビュー"]}
+{"index": 1528, "category": "natural_original", "modes": ["仮説", "技術考察", "成功・興奮"]}
+{"index": 1529, "category": "natural_original", "modes": ["仮説"]}
+{"index": 1530, "category": "natural_original", "modes": ["瞬間リアクション", "迷い", "技術考察"]}
+{"index": 1531, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1532, "category": "natural_original", "modes": ["皮肉", "ネタ"]}
+{"index": 1533, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1534, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1535, "category": "quoted_external", "modes": ["ネタ"]}
+{"index": 1536, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "軽い不満"]}
+{"index": 1537, "category": "natural_original", "modes": ["自虐", "ネタ", "強い称賛"]}
+{"index": 1542, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1543, "category": "natural_original", "modes": ["成功・興奮", "未来予測"]}
+{"index": 1544, "category": "natural_original", "modes": ["技術考察", "未来予測", "解説・共有"]}
+{"index": 1545, "category": "natural_original", "modes": ["比較・レビュー", "解説・共有", "軽い不満"]}
+{"index": 1546, "category": "natural_original", "modes": ["強い称賛", "軽い不満"]}
+{"index": 1547, "category": "natural_original", "modes": ["比較・レビュー", "迷い", "強い苛立ち"]}
+{"index": 1548, "category": "natural_original", "modes": ["仮説", "技術考察", "ネタ"]}
+{"index": 1549, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1550, "category": "natural_original", "modes": ["仮説", "技術考察", "ネタ"]}
+{"index": 1551, "category": "natural_original", "modes": ["嘲笑", "強い苛立ち"]}
+{"index": 1552, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 1554, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1555, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1556, "category": "natural_original", "modes": ["成功・興奮", "迷い", "比較・レビュー"]}
+{"index": 1557, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1558, "category": "natural_original", "modes": ["激怒"]}
+{"index": 1559, "category": "natural_original", "modes": ["迷い", "軽い不満"]}
+{"index": 1562, "category": "natural_original", "modes": ["未来予測", "軽い不満"]}
+{"index": 1563, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1564, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1565, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1566, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1567, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1568, "category": "natural_original", "modes": ["ネタ", "嘲笑"]}
+{"index": 1569, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1571, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1572, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1574, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1575, "category": "natural_original", "modes": ["ネタ", "瞬間リアクション"]}
+{"index": 1577, "category": "natural_original", "modes": ["瞬間リアクション", "軽い不満"]}
+{"index": 1578, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1580, "category": "contextual_original", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1581, "category": "natural_original", "modes": ["瞬間リアクション", "未来予測"]}
+{"index": 1582, "category": "natural_original", "modes": ["ツール紹介", "解説・共有", "強い称賛"]}
+{"index": 1583, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "軽い不満"]}
+{"index": 1584, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1585, "category": "natural_original", "modes": ["未来予測", "比較・レビュー", "軽い不満"]}
+{"index": 1586, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1587, "category": "natural_original", "modes": ["強い苛立ち", "皮肉", "比較・レビュー"]}
+{"index": 1588, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1589, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1590, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1591, "category": "natural_original", "modes": ["仮説", "皮肉"]}
+{"index": 1592, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1593, "category": "natural_original", "modes": ["技術考察", "自己修正", "迷い"]}
+{"index": 1595, "category": "natural_original", "modes": ["解説・共有", "自己修正"]}
+{"index": 1596, "category": "natural_original", "modes": ["技術考察", "軽い不満", "未来予測"]}
+{"index": 1597, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1598, "category": "natural_original", "modes": ["比較・レビュー", "未来予測", "迷い"]}
+{"index": 1600, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "軽い不満"]}
+{"index": 1601, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1602, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 1603, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1604, "category": "natural_original", "modes": ["自己修正", "強い称賛"]}
+{"index": 1605, "category": "natural_original", "modes": ["強い苛立ち", "皮肉"]}
+{"index": 1606, "category": "natural_original", "modes": ["軽い不満", "皮肉", "自己修正"]}
+{"index": 1608, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1609, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1610, "category": "natural_original", "modes": ["仮説", "未来予測", "技術考察"]}
+{"index": 1611, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1612, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1613, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1614, "category": "contextual_original", "modes": ["解説・共有", "ツール紹介", "軽い不満"]}
+{"index": 1615, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1617, "category": "natural_original", "modes": ["解説・共有", "ツール紹介"]}
+{"index": 1618, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1620, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1621, "category": "natural_original", "modes": ["解説・共有", "瞬間リアクション"]}
+{"index": 1622, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1623, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1624, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1625, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "ネタ"]}
+{"index": 1626, "category": "natural_original", "modes": ["未来予測", "技術考察"]}
+{"index": 1627, "category": "natural_original", "modes": ["未来予測"]}
+{"index": 1628, "category": "natural_original", "modes": ["皮肉", "軽い不満"]}
+{"index": 1629, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1630, "category": "natural_original", "modes": ["迷い"]}
+{"index": 1632, "category": "natural_original", "modes": ["比較・レビュー", "迷い", "自己修正"]}
+{"index": 1633, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1634, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1637, "category": "natural_original", "modes": ["比較・レビュー", "仮説", "成功・興奮"]}
+{"index": 1638, "category": "natural_original", "modes": ["仮説", "技術考察", "迷い"]}
+{"index": 1639, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 1640, "category": "natural_original", "modes": ["成功・興奮", "強い称賛", "軽い不満"]}
+{"index": 1641, "category": "natural_original", "modes": ["嘲笑", "軽い不満"]}
+{"index": 1642, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1643, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1644, "category": "natural_original", "modes": ["仮説", "技術考察", "迷い"]}
+{"index": 1645, "category": "contextual_original", "modes": ["解説・共有"]}
+{"index": 1646, "category": "natural_original", "modes": ["軽い不満", "技術考察"]}
+{"index": 1647, "category": "natural_original", "modes": ["強い苛立ち", "皮肉"]}
+{"index": 1648, "category": "natural_original", "modes": ["強い苛立ち", "技術考察"]}
+{"index": 1652, "category": "contextual_original", "modes": ["成功・興奮", "ツール紹介", "解説・共有"]}
+{"index": 1654, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1655, "category": "natural_original", "modes": ["迷い", "ツール紹介"]}
+{"index": 1656, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1657, "category": "natural_original", "modes": ["成功・興奮", "強い称賛"]}
+{"index": 1659, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1660, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 1661, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1662, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1663, "category": "natural_original", "modes": ["未来予測", "仮説"]}
+{"index": 1664, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1665, "category": "natural_original", "modes": ["解説・共有", "ツール紹介", "比較・レビュー"]}
+{"index": 1666, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1667, "category": "natural_original", "modes": ["仮説", "未来予測", "成功・興奮"]}
+{"index": 1668, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1670, "category": "natural_original", "modes": ["強い称賛", "解説・共有"]}
+{"index": 1671, "category": "natural_original", "modes": ["比較・レビュー"]}
+{"index": 1672, "category": "contextual_original", "modes": ["技術考察", "比較・レビュー", "軽い不満"]}
+{"index": 1673, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1674, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1676, "category": "natural_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 1678, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1679, "category": "contextual_original", "modes": ["比較・レビュー", "迷い", "技術考察"]}
+{"index": 1680, "category": "natural_original", "modes": ["瞬間リアクション", "強い称賛"]}
+{"index": 1681, "category": "natural_original", "modes": ["軽い不満", "比較・レビュー"]}
+{"index": 1682, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1684, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1685, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 1686, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1687, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1689, "category": "natural_original", "modes": ["解説・共有"]}
+{"index": 1691, "category": "natural_original", "modes": ["比較・レビュー", "技術考察", "軽い不満"]}
+{"index": 1692, "category": "natural_original", "modes": ["成功・興奮"]}
+{"index": 1693, "category": "natural_original", "modes": ["瞬間リアクション", "強い苛立ち"]}
+{"index": 1694, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1697, "category": "contextual_original", "modes": ["比較・レビュー", "技術考察", "解説・共有"]}
+{"index": 1698, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1699, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1700, "category": "natural_original", "modes": ["技術考察", "軽い不満"]}
+{"index": 1701, "category": "natural_original", "modes": ["解説・共有", "強い称賛", "ネタ"]}
+{"index": 1702, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 1705, "category": "natural_original", "modes": ["ツール紹介", "強い称賛"]}
+{"index": 1707, "category": "natural_original", "modes": ["瞬間リアクション", "軽い不満"]}
+{"index": 1708, "category": "natural_original", "modes": ["皮肉", "強い苛立ち"]}
+{"index": 1709, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 1710, "category": "natural_original", "modes": ["未来予測", "ネタ"]}
+{"index": 1711, "category": "natural_original", "modes": ["成功・興奮", "平常・独り言"]}
+{"index": 1712, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1713, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 1714, "category": "natural_original", "modes": ["仮説", "未来予測", "技術考察"]}
+{"index": 1715, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1716, "category": "natural_original", "modes": ["皮肉", "比較・レビュー"]}
+{"index": 1717, "category": "natural_original", "modes": ["比較・レビュー", "嘲笑", "強い苛立ち"]}
+{"index": 1718, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち"]}
+{"index": 1719, "category": "natural_original", "modes": ["比較・レビュー", "自己修正"]}
+{"index": 1720, "category": "natural_original", "modes": ["比較・レビュー", "仮説"]}
+{"index": 1721, "category": "natural_original", "modes": ["瞬間リアクション"]}
+{"index": 1722, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1724, "category": "natural_original", "modes": ["未来予測", "迷い"]}
+{"index": 1726, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満"]}
+{"index": 1727, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1728, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1730, "category": "natural_original", "modes": ["瞬間リアクション", "成功・興奮"]}
+{"index": 1731, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1732, "category": "natural_original", "modes": ["仮説", "技術考察", "軽い不満"]}
+{"index": 1733, "category": "natural_original", "modes": ["仮説", "比較・レビュー", "技術考察"]}
+{"index": 1734, "category": "contextual_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1735, "category": "natural_original", "modes": ["技術考察", "仮説"]}
+{"index": 1736, "category": "natural_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1737, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1738, "category": "natural_original", "modes": ["軽い不満", "平常・独り言"]}
+{"index": 1740, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1741, "category": "natural_original", "modes": ["仮説", "成功・興奮", "ネタ"]}
+{"index": 1742, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1743, "category": "natural_original", "modes": ["激怒"]}
+{"index": 1744, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "解説・共有"]}
+{"index": 1745, "category": "natural_original", "modes": ["技術考察", "ネタ"]}
+{"index": 1746, "category": "natural_original", "modes": ["技術考察", "比較・レビュー"]}
+{"index": 1747, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1748, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 1750, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1751, "category": "natural_original", "modes": ["技術考察", "未来予測"]}
+{"index": 1752, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1753, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1754, "category": "natural_original", "modes": ["迷い", "未来予測"]}
+{"index": 1755, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1756, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1757, "category": "natural_original", "modes": ["解説・共有", "技術考察"]}
+{"index": 1759, "category": "natural_original", "modes": ["平常・独り言", "未来予測"]}
+{"index": 1760, "category": "natural_original", "modes": ["技術考察"]}
+{"index": 1761, "category": "natural_original", "modes": ["技術考察", "迷い"]}
+{"index": 1762, "category": "natural_original", "modes": ["皮肉", "強い苛立ち", "仮説"]}
+{"index": 1763, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 1765, "category": "natural_original", "modes": ["激怒", "比較・レビュー"]}
+{"index": 1766, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1767, "category": "natural_original", "modes": ["強い苛立ち", "比較・レビュー"]}
+{"index": 1768, "category": "natural_original", "modes": ["軽い不満"]}
+{"index": 1769, "category": "contextual_original", "modes": ["比較・レビュー", "解説・共有"]}
+{"index": 1770, "category": "natural_original", "modes": ["軽い不満", "平常・独り言"]}
+{"index": 1772, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "強い苛立ち"]}
+{"index": 1773, "category": "natural_original", "modes": ["比較・レビュー", "皮肉", "強い苛立ち"]}
+{"index": 1774, "category": "natural_original", "modes": ["比較・レビュー", "軽い不満", "強い称賛"]}
+{"index": 1775, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 1776, "category": "natural_original", "modes": ["技術考察", "強い苛立ち"]}
+{"index": 1777, "category": "natural_original", "modes": ["成功・興奮", "瞬間リアクション"]}
+{"index": 1778, "category": "contextual_original", "modes": ["平常・独り言"]}
+{"index": 1779, "category": "contextual_original", "modes": ["比較・レビュー", "技術考察"]}
+{"index": 1782, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "迷い"]}
+{"index": 1783, "category": "natural_original", "modes": ["迷い", "比較・レビュー"]}
+{"index": 1784, "category": "natural_original", "modes": ["仮説", "未来予測"]}
+{"index": 1785, "category": "contextual_original", "modes": ["比較・レビュー", "仮説", "技術考察"]}
+{"index": 1786, "category": "natural_original", "modes": ["技術考察", "ツール紹介", "強い称賛"]}
+{"index": 1787, "category": "template_or_campaign", "modes": ["ツール紹介", "解説・共有"]}
+{"index": 1788, "category": "template_or_campaign", "modes": ["ツール紹介", "解説・共有", "丁寧な対外文"]}
+{"index": 1789, "category": "contextual_original", "modes": ["成功・興奮", "未来予測"]}
+{"index": 1790, "category": "natural_original", "modes": ["仮説", "技術考察"]}
+{"index": 1792, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1794, "category": "natural_original", "modes": ["技術考察", "ツール紹介", "未来予測"]}
+{"index": 1795, "category": "natural_original", "modes": ["成功・興奮", "平常・独り言"]}
+{"index": 1796, "category": "contextual_original", "modes": ["解説・共有", "ツール紹介", "未来予測"]}
+{"index": 1797, "category": "template_or_campaign", "modes": ["ツール紹介", "成功・興奮", "丁寧な対外文"]}
+{"index": 1798, "category": "contextual_original", "modes": ["強い称賛", "瞬間リアクション"]}
+{"index": 1799, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1801, "category": "natural_original", "modes": ["技術考察", "解説・共有"]}
+{"index": 1802, "category": "natural_original", "modes": ["技術考察", "平常・独り言"]}
+{"index": 1803, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛", "技術考察"]}
+{"index": 1804, "category": "natural_original", "modes": ["瞬間リアクション", "強い称賛"]}
+{"index": 1805, "category": "natural_original", "modes": ["強い苛立ち"]}
+{"index": 1806, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1807, "category": "natural_original", "modes": ["平常・独り言"]}
+{"index": 1808, "category": "natural_original", "modes": ["仮説", "ネタ", "成功・興奮"]}
+{"index": 1809, "category": "natural_original", "modes": ["ネタ"]}
+{"index": 1810, "category": "natural_original", "modes": ["技術考察", "強い称賛"]}
+{"index": 1811, "category": "natural_original", "modes": ["未来予測", "平常・独り言"]}
+{"index": 1812, "category": "natural_original", "modes": ["丁寧な対外文", "解説・共有"]}
+{"index": 1814, "category": "natural_original", "modes": ["比較・レビュー", "強い苛立ち", "未来予測"]}
+{"index": 1816, "category": "natural_original", "modes": ["技術考察", "未来予測", "軽い不満"]}
+{"index": 1817, "category": "natural_original", "modes": ["技術考察", "仮説", "未来予測"]}
+{"index": 1818, "category": "system_or_log", "modes": ["解説・共有"]}
+{"index": 1819, "category": "natural_original", "modes": ["比較・レビュー", "強い称賛"]}
+{"index": 1820, "category": "natural_original", "modes": ["強い称賛"]}
+{"index": 1821, "category": "natural_original", "modes": ["技術考察", "迷い", "平常・独り言"]}
+{"index": 1822, "category": "natural_original", "modes": ["技術考察", "比較・レビュー", "軽い不満"]}
+{"index": 1824, "category": "natural_original", "modes": ["強い称賛", "成功・興奮"]}

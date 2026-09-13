@@ -1,0 +1,473 @@
+{
+  "n": 1444,
+  "raw_chars": {
+    "n": 1444,
+    "mean": 77.715,
+    "median": 70.0,
+    "sd_population": 49.105,
+    "min": 2,
+    "max": 251,
+    "p10": 16.3,
+    "p25": 35.0,
+    "p50": 70.0,
+    "p75": 120.0,
+    "p90": 149.0,
+    "p95": 159.0,
+    "p99": 175.0
+  },
+  "weighted_chars": {
+    "n": 1444,
+    "mean": 140.704,
+    "median": 129.0,
+    "sd_population": 87.487,
+    "min": 4,
+    "max": 286,
+    "p10": 30.0,
+    "p25": 64.0,
+    "p50": 129.0,
+    "p75": 218.0,
+    "p90": 276.7,
+    "p95": 279.0,
+    "p99": 280.0
+  },
+  "sentence_count": {
+    "n": 1444,
+    "mean": 2.427,
+    "median": 2.0,
+    "sd_population": 1.568,
+    "min": 1,
+    "max": 15,
+    "p10": 1.0,
+    "p25": 1.0,
+    "p50": 2.0,
+    "p75": 3.0,
+    "p90": 4.0,
+    "p95": 5.0,
+    "p99": 9.0
+  },
+  "sentence_chars": {
+    "n": 3505,
+    "mean": 31.098,
+    "median": 24,
+    "sd_population": 23.26,
+    "min": 1,
+    "max": 168,
+    "p10": 8.0,
+    "p25": 14.0,
+    "p50": 24.0,
+    "p75": 42.0,
+    "p90": 62.0,
+    "p95": 76.0,
+    "p99": 113.0
+  },
+  "newlines": {
+    "n": 1444,
+    "mean": 0.583,
+    "median": 0.0,
+    "sd_population": 1.768,
+    "min": 0,
+    "max": 15,
+    "p10": 0.0,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 0.0,
+    "p90": 2.0,
+    "p95": 4.0,
+    "p99": 9.0
+  },
+  "paragraphs": {
+    "n": 1444,
+    "mean": 1.123,
+    "median": 1.0,
+    "sd_population": 0.528,
+    "min": 1,
+    "max": 6,
+    "p10": 1.0,
+    "p25": 1.0,
+    "p50": 1.0,
+    "p75": 1.0,
+    "p90": 1.0,
+    "p95": 2.0,
+    "p99": 4.0
+  },
+  "single_sentence_rate": 0.29017,
+  "short_le40_weighted_rate": 0.14751,
+  "long_gt200_weighted_rate": 0.2964,
+  "over280_rate": 0.00069,
+  "question_rate": 0.14058,
+  "uncertainty_rate": 0.259,
+  "self_correction_rate": 0.24515,
+  "profanity_rate": 0.07341,
+  "laughter_w_rate": 0.03186,
+  "bullet_rate": 0.02978,
+  "technical_token_density": 0.16445,
+  "newline_rate": 0.19529,
+  "markers": {
+    "まあ": {
+      "post_count": 156,
+      "occurrences": 166,
+      "start": 164,
+      "middle": 2,
+      "end": 0
+    },
+    "てか": {
+      "post_count": 86,
+      "occurrences": 87,
+      "start": 63,
+      "middle": 23,
+      "end": 1
+    },
+    "でも": {
+      "post_count": 197,
+      "occurrences": 222,
+      "start": 85,
+      "middle": 136,
+      "end": 1
+    },
+    "やっぱ": {
+      "post_count": 53,
+      "occurrences": 55,
+      "start": 32,
+      "middle": 23,
+      "end": 0
+    },
+    "やっぱり": {
+      "post_count": 20,
+      "occurrences": 21,
+      "start": 13,
+      "middle": 8,
+      "end": 0
+    },
+    "なんか": {
+      "post_count": 25,
+      "occurrences": 27,
+      "start": 16,
+      "middle": 5,
+      "end": 6
+    },
+    "そもそも": {
+      "post_count": 12,
+      "occurrences": 12,
+      "start": 8,
+      "middle": 4,
+      "end": 0
+    },
+    "結局": {
+      "post_count": 17,
+      "occurrences": 17,
+      "start": 9,
+      "middle": 8,
+      "end": 0
+    },
+    "個人的に": {
+      "post_count": 37,
+      "occurrences": 39,
+      "start": 17,
+      "middle": 22,
+      "end": 0
+    },
+    "マジ": {
+      "post_count": 107,
+      "occurrences": 109,
+      "start": 44,
+      "middle": 64,
+      "end": 1
+    },
+    "マジで": {
+      "post_count": 95,
+      "occurrences": 96,
+      "start": 36,
+      "middle": 57,
+      "end": 3
+    },
+    "ガチ": {
+      "post_count": 27,
+      "occurrences": 28,
+      "start": 1,
+      "middle": 27,
+      "end": 0
+    },
+    "ガチで": {
+      "post_count": 6,
+      "occurrences": 6,
+      "start": 0,
+      "middle": 6,
+      "end": 0
+    },
+    "めっちゃ": {
+      "post_count": 54,
+      "occurrences": 55,
+      "start": 6,
+      "middle": 49,
+      "end": 0
+    },
+    "全然": {
+      "post_count": 54,
+      "occurrences": 56,
+      "start": 1,
+      "middle": 55,
+      "end": 0
+    },
+    "流石": {
+      "post_count": 17,
+      "occurrences": 17,
+      "start": 4,
+      "middle": 13,
+      "end": 0
+    },
+    "取り敢えず": {
+      "post_count": 8,
+      "occurrences": 8,
+      "start": 5,
+      "middle": 3,
+      "end": 0
+    },
+    "因みに": {
+      "post_count": 13,
+      "occurrences": 14,
+      "start": 14,
+      "middle": 0,
+      "end": 0
+    },
+    "ただ": {
+      "post_count": 35,
+      "occurrences": 35,
+      "start": 28,
+      "middle": 7,
+      "end": 0
+    },
+    "いや": {
+      "post_count": 25,
+      "occurrences": 26,
+      "start": 10,
+      "middle": 15,
+      "end": 1
+    },
+    "とはいえ": {
+      "post_count": 2,
+      "occurrences": 2,
+      "start": 2,
+      "middle": 0,
+      "end": 0
+    },
+    "たぶん": {
+      "post_count": 1,
+      "occurrences": 1,
+      "start": 1,
+      "middle": 0,
+      "end": 0
+    },
+    "多分": {
+      "post_count": 2,
+      "occurrences": 2,
+      "start": 0,
+      "middle": 2,
+      "end": 0
+    },
+    "仮に": {
+      "post_count": 18,
+      "occurrences": 18,
+      "start": 8,
+      "middle": 10,
+      "end": 0
+    },
+    "正直": {
+      "post_count": 12,
+      "occurrences": 12,
+      "start": 6,
+      "middle": 6,
+      "end": 0
+    },
+    "むしろ": {
+      "post_count": 0,
+      "occurrences": 0,
+      "start": 0,
+      "middle": 0,
+      "end": 0
+    },
+    "一応": {
+      "post_count": 1,
+      "occurrences": 1,
+      "start": 1,
+      "middle": 0,
+      "end": 0
+    },
+    "もはや": {
+      "post_count": 1,
+      "occurrences": 1,
+      "start": 0,
+      "middle": 1,
+      "end": 0
+    },
+    "とりあえず": {
+      "post_count": 1,
+      "occurrences": 1,
+      "start": 0,
+      "middle": 1,
+      "end": 0
+    },
+    "あとは": {
+      "post_count": 25,
+      "occurrences": 25,
+      "start": 21,
+      "middle": 4,
+      "end": 0
+    },
+    "せめて": {
+      "post_count": 2,
+      "occurrences": 2,
+      "start": 1,
+      "middle": 1,
+      "end": 0
+    },
+    "結構": {
+      "post_count": 1,
+      "occurrences": 1,
+      "start": 0,
+      "middle": 1,
+      "end": 0
+    },
+    "けっこう": {
+      "post_count": 8,
+      "occurrences": 8,
+      "start": 0,
+      "middle": 8,
+      "end": 0
+    },
+    "便利": {
+      "post_count": 28,
+      "occurrences": 31,
+      "start": 1,
+      "middle": 22,
+      "end": 8
+    },
+    "神": {
+      "post_count": 48,
+      "occurrences": 52,
+      "start": 4,
+      "middle": 45,
+      "end": 3
+    },
+    "すぎ": {
+      "post_count": 116,
+      "occurrences": 130,
+      "start": 0,
+      "middle": 109,
+      "end": 21
+    }
+  },
+  "endings": {
+    "other": 1032,
+    "かな": 56,
+    "よね": 22,
+    "よな": 38,
+    "かなあ": 9,
+    "よなあ": 37,
+    "ほしい": 34,
+    "欲しい": 14,
+    "なのかな": 9,
+    "みたい": 2,
+    "気がする": 6,
+    "だな": 54,
+    "だね": 17,
+    "なあ": 51,
+    "だろ": 13,
+    "だろう": 5,
+    "じゃん": 7,
+    "だわ": 4,
+    "だなあ": 11,
+    "んよね": 6,
+    "なのか": 7,
+    "らしい": 4,
+    "って感じ": 1,
+    "なんだよな": 5
+  },
+  "symbols": {
+    "。": {
+      "posts": 1010,
+      "occurrences": 2116
+    },
+    "、": {
+      "posts": 964,
+      "occurrences": 2290
+    },
+    "？": {
+      "posts": 130,
+      "occurrences": 148
+    },
+    "！": {
+      "posts": 64,
+      "occurrences": 94
+    },
+    "?": {
+      "posts": 6,
+      "occurrences": 8
+    },
+    "!": {
+      "posts": 4,
+      "occurrences": 6
+    },
+    "w": {
+      "posts": 141,
+      "occurrences": 201
+    },
+    "ww": {
+      "posts": 9,
+      "occurrences": 10
+    },
+    "草": {
+      "posts": 8,
+      "occurrences": 9
+    },
+    "(": {
+      "posts": 96,
+      "occurrences": 108
+    },
+    ")": {
+      "posts": 97,
+      "occurrences": 109
+    },
+    "（": {
+      "posts": 1,
+      "occurrences": 1
+    },
+    "）": {
+      "posts": 1,
+      "occurrences": 1
+    },
+    "→": {
+      "posts": 25,
+      "occurrences": 50
+    },
+    "↓": {
+      "posts": 10,
+      "occurrences": 15
+    },
+    "・": {
+      "posts": 116,
+      "occurrences": 254
+    },
+    "\n": {
+      "posts": 282,
+      "occurrences": 842
+    },
+    ":": {
+      "posts": 13,
+      "occurrences": 24
+    },
+    "：": {
+      "posts": 1,
+      "occurrences": 1
+    },
+    "/": {
+      "posts": 30,
+      "occurrences": 48
+    }
+  },
+  "cooccurrence": {
+    "まあ+でも": 42,
+    "まあ+けど": 90,
+    "てか+question": 43,
+    "マジで+評価": 26
+  }
+}

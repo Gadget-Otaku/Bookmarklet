@@ -1,0 +1,19 @@
+--- a/STYLE.md
++++ b/STYLE.md
+@@ -4 +4 @@
+-style_version: 1.0.0-rc1
++style_version: 1.0.0
+--- a/GPTS_INSTRUCTIONS.md
++++ b/GPTS_INSTRUCTIONS.md
+@@ -3 +3 @@
+-- runtime_version: 1.0.0-rc1
++- runtime_version: 1.0.0
+@@ -36,0 +37,8 @@
++
++## Runtime size at release
++
++- Raw Unicode chars: 1509
++- UTF-8 bytes: 3675
++- Lines: 20
++- Current official GPTs Instructions limit: not established by checked official documentation.
++- Usage percentage / remaining margin: unknown; no unrelated Custom Instructions limit substituted.
