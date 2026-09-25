@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 692,
-  "updatedAt": "2026-09-25T16:36:28.138Z",
+  "syncVersion": 694,
+  "updatedAt": "2026-09-25T16:37:25.237Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 692,
+    "syncVersion": 694,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -418,9 +418,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-09-25T16:36:25.114Z",
-      "lastAction": "checked",
-      "lastError": ""
+      "lastSyncedAt": "2026-09-25T16:36:29.468Z",
+      "lastAction": "error",
+      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match e382e23f7ad878cd4f8db9ed5c99887a9b753303"
     },
     "ui": {
       "panelSide": "right",
