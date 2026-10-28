@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 947,
-  "updatedAt": "2026-10-28T19:53:35.573Z",
+  "syncVersion": 948,
+  "updatedAt": "2026-10-28T19:54:48.826Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 947,
+    "syncVersion": 948,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -58,6 +58,11 @@
         "id": "xlist-49d5f8e0-430d-43ba-b21c-90d44ae8605e",
         "displayName": "原神リーク",
         "url": "https://x.com/i/lists/1997083710349541724"
+      },
+      {
+        "id": "xlist-063ffaa4-824b-4a73-a0b3-b9a429447dca",
+        "displayName": "無敵の人",
+        "url": "https://x.com/i/lists/2115529993359089834"
       }
     ],
     "communities": [
@@ -425,7 +430,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-10-28T19:43:31.495Z",
+      "lastSyncedAt": "2026-10-28T19:53:37.950Z",
       "lastAction": "upload",
       "lastError": ""
     },
