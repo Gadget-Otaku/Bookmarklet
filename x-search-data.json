@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 946,
-  "updatedAt": "2026-10-28T19:43:29.230Z",
+  "syncVersion": 947,
+  "updatedAt": "2026-10-28T19:53:35.573Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 946,
+    "syncVersion": 947,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,13 +13,13 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "Apple信者",
+          "displayName": "AI界隈",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/media/GkIQZXyWsAAs-uP?format=png&name=360x360",
-          "iconBase64": "data:image/webp;base64,UklGRhgBAABXRUJQVlA4IAwBAACQBwCdASpAABUAPmEskUakIqGhJAyQgAwJZQDOp3ZCwvHad9AEsAAFIaAuw5oYqIgGI/OmSQfiktfmrXPfUEaHLSZDJAAA/q6vwo3kuL2O5/44tocX9tqrzD+pViLgcX//ffD/94Q7//eETuiD/9Khvj6rwb8WoYoHSfFJOeF3fILzRcYwJPk8BT4xChKVvF5NmzNk1RHjDbJQlTZZhHdoSonBqH9d2E7M32xEWddhjGh4gRu4yFmvxhgiJq8tOAaP8flgM9MED2Pus+Olx3GSGvnog0592s9/8UPqHKojFuw9jNSWKb2uWUbe2rgvNcbctHIAW3t4jqxdfZ2CSqEQJmglqOQqrcU/wVwA",
+          "iconUrl": "https://pbs.twimg.com/media/GkIQ8I1XgAAKHEf?format=png&name=360x360",
+          "iconBase64": "data:image/webp;base64,UklGRmQBAABXRUJQVlA4IFgBAACwCACdASpAABUAPmEqkUWkIqGSBthABgSgCpJrQKzaA21HPO6YB+wHA3I1ucUqrG8h6ADj3q6L7+DGriGykGDRW3fWJj7XFyKYQDyo02AA/vqsOC8a5M3YMODGs6dUc98ZyHFDWAzH/tuDf/zsH/xGz8xa3u19/i/T/525dp9zMBtutV9Zy749yHRiiD2+OIxO1bBWtixF3qO70Mj36+9gWgrcgs4xerKjaJvb8yRU5IV3RtXwb5b920ejyqfXjqnApU92jxdbe0auN2xhEj5hKxn9Yt4qtdV7ijnCl+R0o63px0JO20PzAoEF+lVxMBSfB2Bpbn7sM58N0uI2+3JJl/z/krWASQuAfk/XyzsH46pljlhH1Zv48gfbkQLhC1H1XrMHwNgEF3eqXwiwQiDkck43iPs2pRFh6wkNiMIIJQ7XVAewjd1Y5c2CXaUAonuTTwdvHHyoAA==",
           "sessionMeta": {
-            "lastCapturedAt": "2026-10-28T19:43:26.958Z",
-            "lastRefreshedAt": "2026-10-28T19:43:26.958Z",
+            "lastCapturedAt": "2026-10-28T19:53:32.059Z",
+            "lastRefreshedAt": "2026-10-28T19:53:32.059Z",
             "expiresAt": "2027-11-10T06:57:33.470Z"
           }
         },
@@ -425,8 +425,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-10-28T19:38:03.052Z",
-      "lastAction": "checked",
+      "lastSyncedAt": "2026-10-28T19:43:31.495Z",
+      "lastAction": "upload",
       "lastError": ""
     },
     "ui": {
