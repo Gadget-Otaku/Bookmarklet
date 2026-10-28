@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 948,
-  "updatedAt": "2026-10-28T19:54:48.826Z",
+  "syncVersion": 949,
+  "updatedAt": "2026-10-28T20:21:48.672Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 948,
+    "syncVersion": 949,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,14 +13,14 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "AI界隈",
+          "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/media/GkIQ8I1XgAAKHEf?format=png&name=360x360",
-          "iconBase64": "data:image/webp;base64,UklGRmQBAABXRUJQVlA4IFgBAACwCACdASpAABUAPmEqkUWkIqGSBthABgSgCpJrQKzaA21HPO6YB+wHA3I1ucUqrG8h6ADj3q6L7+DGriGykGDRW3fWJj7XFyKYQDyo02AA/vqsOC8a5M3YMODGs6dUc98ZyHFDWAzH/tuDf/zsH/xGz8xa3u19/i/T/525dp9zMBtutV9Zy749yHRiiD2+OIxO1bBWtixF3qO70Mj36+9gWgrcgs4xerKjaJvb8yRU5IV3RtXwb5b920ejyqfXjqnApU92jxdbe0auN2xhEj5hKxn9Yt4qtdV7ijnCl+R0o63px0JO20PzAoEF+lVxMBSfB2Bpbn7sM58N0uI2+3JJl/z/krWASQuAfk/XyzsH46pljlhH1Zv48gfbkQLhC1H1XrMHwNgEF3eqXwiwQiDkck43iPs2pRFh6wkNiMIIJQ7XVAewjd1Y5c2CXaUAonuTTwdvHHyoAA==",
+          "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
+          "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-10-28T19:53:32.059Z",
-            "lastRefreshedAt": "2026-10-28T19:53:32.059Z",
-            "expiresAt": "2027-11-10T06:57:33.470Z"
+            "lastCapturedAt": "2026-10-28T20:21:48.483Z",
+            "lastRefreshedAt": "2026-10-28T20:21:48.483Z",
+            "expiresAt": "2027-10-30T16:53:42.830Z"
           }
         },
         {
@@ -430,8 +430,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-10-28T19:53:37.950Z",
-      "lastAction": "upload",
+      "lastSyncedAt": "2026-10-28T20:21:46.699Z",
+      "lastAction": "download",
       "lastError": ""
     },
     "ui": {
