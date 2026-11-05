@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 1012,
-  "updatedAt": "2026-11-05T19:13:20.144Z",
+  "syncVersion": 1013,
+  "updatedAt": "2026-11-05T19:40:51.762Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 1012,
+    "syncVersion": 1013,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,14 +13,14 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "ガジェオタ",
+          "displayName": "新しいポストを表示",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
-          "iconBase64": "",
+          "iconUrl": "https://pbs.twimg.com/profile_images/2092561145131663360/MJw4Zn14_x96.jpg",
+          "iconBase64": "data:image/webp;base64,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",
           "sessionMeta": {
-            "lastCapturedAt": "2026-11-05T19:13:20.119Z",
-            "lastRefreshedAt": "2026-11-05T19:13:20.119Z",
-            "expiresAt": "2027-12-07T17:17:47.563Z"
+            "lastCapturedAt": "2026-11-05T19:40:49.833Z",
+            "lastRefreshedAt": "2026-11-05T19:40:49.833Z",
+            "expiresAt": "2027-12-08T14:57:59.020Z"
           }
         },
         {
@@ -430,8 +430,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-11-05T19:13:12.973Z",
-      "lastAction": "download",
+      "lastSyncedAt": "2026-11-05T19:39:43.705Z",
+      "lastAction": "checked",
       "lastError": ""
     },
     "ui": {
