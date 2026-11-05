@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 1014,
-  "updatedAt": "2026-11-05T20:15:23.981Z",
+  "syncVersion": 1015,
+  "updatedAt": "2026-11-05T23:45:33.543Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 1014,
+    "syncVersion": 1015,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -13,13 +13,13 @@
         {
           "id": "account-352d47ed-9df5-4f1c-bb7a-767674ad68a0",
           "username": "niwakasumaho",
-          "displayName": "新しいポストを表示",
+          "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1712427629511598080/oapq03U9_x96.jpg",
-          "iconBase64": "data:image/webp;base64,UklGRoIFAABXRUJQVlA4IHYFAACwGgCdASpAAEAAPmEskEWkIqGWDVWYQAYEoAybuS0d66Q1v+8AjbU87lpsnoAdMVXgP3Twp8Q/sf9F4iTzv3I/Z8O/vm/p/Ix/ifyq4QcAH5J/Lf91/Rvxk9AHUvut+M3oAfkn/Zf1n3Vv5r/w/4nzcfSX/h9wb+af1X/k/3jtSft57Kf7TsdazfS8ZTih+LCHNFeoozjnQcQAqnvltpReTasFZ7PSwq+mmSIIEnCyPIJOEbObzF4oIx1ee9LFF4874PuSdgQ/2tyolH4Lr6+9BOTjgaO2jeQDb32lXAAA/v/b6q7hpwkTuOviu4oc5yB5/POmfSj92iLEb1kaJt4Jmmd+Pqk9vuI2ob9wP7l4gf+P3w5YRRNqgPUVyL+OvPSX9FQ2q57nKqZkbS5dFSgL8WUMfmG4ov/lJ9GKkITJ+2zdRj/wsi7HTDPukOejN1tqV2BnuOGIdgKjiwP8jHs5DoNzv/tSjc4KT3d0L42VTjLWX0aFQc8niRTOl/FPJ4HNPv51w2IIZG+AKJqxNxNhT10iNZtVkn/r2AAAikGUz8tERJOsDuVoPwHaGhhuyRYy4X0NfvRqdPTlQ+YUR1x39h5b7UpxHmQ1RkNn26JmoQxjfJvpxz+hpyWBX6bk3s8ZwMhFQSD4d50+hCHc+L8qkxLMZ0XD3p7cf6S7/geyf44ioOgfDtlMIXgVLjMOX1L4TBSlAauTy2/axeNch3BtTKfE/KZdqqxwTMpiaypLeT6itHLmfYoC3A05cdzjGvCB2Q0kfkJoHECvXRY2LhW5VCKptpQrgVoiaXUQKA2tSbLe9rLiu4JosBhqsQ24bHe3NGhGo3XbNYk1atV54PVPr4Dt5BbRi47EsUfkL78l403F9qFLxIxQzYXd1PZMl+SmSxtbDFizQeWD/7J6RC3qn7R99ctKhsdvjz4ye+mEJEWWgNQSg2pMMnciXqRSpmY/xzsxU0xcf9BEn5d/g0OAMhPphSFXkpDIebOnab1K3E2gk6cWpaAB2Z5Vh2LYX0H9i+HuEkNY7wsDVENJdXg2p2t3l0ngiHGjwULZAEXw6DJQdJxiUX47fkSatovu22Lfv98GxE0Gg8++HnIZ3ua930SdS6IlsCHBTZO/Stij10l8HGKIwM7bD6IghZ9Y5uv6YwaIMzlecFfktPW9cK/qx5tTwwhnsQb2keGbUHk4xmLOqinVzHp1p1y/9Dmz8uGxYviY3lTKunEdpJovjlTjOG0QUB1dBRsRNUBrcrmH84wHUPYjAjs0YCpJI8MqddwvvGXODuwvM2sN68ERumOseMtYdd7Glb19Nn2bZcRD68ImskTN6hIDixRIQXdPQsjw2L++BGXqlv450JXx6+6QdCOBgFtDUVi+5FbJabect7VQk4Gc/qK+kcD/C2BjwNF1vjHaopfuO9FH03UZnvm0I0VQU48MY2v3u1IqCxxzONKP5QwinG5H9+ULoFDtbuBfz7+SXJO/1nBvW1dv/oV7B/1zIddJoECrWJK4xAB7I0s4IxvlHz1uAp236gW0efMW9N+6AIaS/HGEdbiBbFeKY5UMSbsIIOHpymAbEUprcnij1Pz1D9WvNfwXTi6ZZVcNULK2n1JtJRmYXF32reqmDrwOHNiSB0dJWwHorhdVNLs16d/s4EOixXcO2xH2edf1/79myqvbH4K7FNcDHw2OQvRtXgcX1ezvj67PKzpL1VryhN7x7PXFkdcmcFuvGTYJw+zo8hxQEPv2Bf8paFmpme/6hZEIMHAH7f8VJnXARfebltGmgTDM2mFcR1POOaGOa+fdPxDzMNzGo8btRHgWc/M0HrH2HzD2vqmKXzeREAHTt5X8/6q+RQ7HQN/S6eYIx6gAAAA=",
+          "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd.jpg",
+          "iconBase64": "data:image/webp;base64,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",
           "sessionMeta": {
-            "lastCapturedAt": "2026-11-05T20:15:21.848Z",
-            "lastRefreshedAt": "2026-11-05T20:15:21.848Z",
+            "lastCapturedAt": "2026-11-05T23:45:32.196Z",
+            "lastRefreshedAt": "2026-11-05T23:45:32.196Z",
             "expiresAt": "2027-12-08T14:57:59.020Z"
           }
         },
@@ -430,7 +430,7 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-11-05T19:40:54.168Z",
+      "lastSyncedAt": "2026-11-05T23:45:13.456Z",
       "lastAction": "checked",
       "lastError": ""
     },
