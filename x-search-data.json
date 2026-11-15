@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 1096,
-  "updatedAt": "2026-11-15T06:43:30.591Z",
+  "syncVersion": 1097,
+  "updatedAt": "2026-11-15T07:25:32.953Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 1096,
+    "syncVersion": 1097,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -15,12 +15,12 @@
           "username": "niwakasumaho",
           "displayName": "ガジェオタ",
           "profileUrl": "https://x.com/niwakasumaho",
-          "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
+          "iconUrl": "",
           "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-11-15T06:42:32.080Z",
-            "lastRefreshedAt": "2026-11-15T06:42:32.080Z",
-            "expiresAt": "2027-12-20T06:42:27.950Z"
+            "lastCapturedAt": "2026-11-15T07:25:32.747Z",
+            "lastRefreshedAt": "2026-11-15T07:25:32.747Z",
+            "expiresAt": "2027-12-10T23:46:39.740Z"
           }
         },
         {
@@ -430,9 +430,9 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-11-15T06:42:33.326Z",
-      "lastAction": "error",
-      "lastError": "GitHub書込 HTTP 409: x-search-data.json does not match 820d2ea66e457287e41f38e9d2b15e1f188a8eaf"
+      "lastSyncedAt": "2026-11-15T07:25:29.641Z",
+      "lastAction": "checked",
+      "lastError": ""
     },
     "ui": {
       "panelSide": "right",
