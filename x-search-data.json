@@ -1,10 +1,10 @@
 {
   "format": "x-search-panel-sync",
-  "syncVersion": 1185,
-  "updatedAt": "2026-11-26T22:36:39.342Z",
+  "syncVersion": 1186,
+  "updatedAt": "2026-11-26T22:49:12.722Z",
   "data": {
     "schemaVersion": 1,
-    "syncVersion": 1185,
+    "syncVersion": 1186,
     "profile": {
       "url": "https://x.com/niwakasumaho"
     },
@@ -18,8 +18,8 @@
           "iconUrl": "https://pbs.twimg.com/profile_images/1845386001998372877/1QxUhocd_x96.jpg",
           "iconBase64": "",
           "sessionMeta": {
-            "lastCapturedAt": "2026-11-26T22:36:39.329Z",
-            "lastRefreshedAt": "2026-11-26T22:36:39.329Z",
+            "lastCapturedAt": "2026-11-26T22:49:12.192Z",
+            "lastRefreshedAt": "2026-11-26T22:49:12.192Z",
             "expiresAt": "2027-12-24T04:02:34.667Z"
           }
         },
@@ -458,8 +458,8 @@
     "githubSync": {
       "enabled": true,
       "url": "https://github.com/Gadget-Otaku/Bookmarklet/blob/main/x-search-data.json",
-      "lastSyncedAt": "2026-11-26T22:36:36.228Z",
-      "lastAction": "checked",
+      "lastSyncedAt": "2026-11-26T22:36:40.537Z",
+      "lastAction": "upload",
       "lastError": ""
     },
     "ui": {
